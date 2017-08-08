@@ -1,0 +1,13 @@
+<h2>Bar</h2>
+<div *ngIf="bar">
+  <h3>"{{ bar.name }}"</h3>
+  <div>
+    <label>Id: </label>{{ bar.id }}</div>
+  <div>
+    <label>Name: </label>
+    <input [(ngModel)]="bar.name" placeholder="name"/>
+  </div>
+  <p>
+    <button (click)="gotoBars()">Back</button>
+  </p>
+</div>

@@ -1,0 +1,10 @@
+<h1>{{title}}</h1>
+<h2>My Beer</h2>
+<ul class="bars">
+  <li *ngFor="let beer of beers"
+      [class.selected]="beer === selectedBeer"
+      (click)="onSelect(beer)">
+    <span class="badge">{{beer.id}}</span> {{beer.name}}
+  </li>
+</ul>
+<beer-detail [beer]="selectedBeer"></beer-detail>

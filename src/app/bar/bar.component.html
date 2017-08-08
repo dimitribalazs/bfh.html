@@ -1,0 +1,9 @@
+
+<h2>My Bar</h2>
+<ul class="bars">
+  <li *ngFor="let bar of bars | async"
+      [class.selected]="isSelected(bar)"
+      (click)="onSelect(bar)">
+    <span class="badge">{{ bar.id }}</span> {{ bar.name }}
+  </li>
+</ul>

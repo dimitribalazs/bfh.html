@@ -1,0 +1,13 @@
+<h2>Beer Info</h2>
+<div *ngIf="beer">
+  <h3>"{{ beer.name }}"</h3>
+  <div>
+    <label>Id: </label>{{ beer.id }}</div>
+  <div>
+    <label>Name: </label>
+    <input [(ngModel)]="beer.name" placeholder="name"/>
+  </div>
+  <p>
+    <button (click)="gotoBeers()">Back</button>
+  </p>
+</div>

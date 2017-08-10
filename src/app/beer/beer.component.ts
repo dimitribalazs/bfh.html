@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {Beer} from "./Beer";
-import {BeerService} from "./beer.service";
+import {Beer} from './Beer';
+import {BeerService} from './beer.service';
+import {Observable} from 'rxjs/Observable';
+import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 
 @Component({
   selector: 'app-beer',
@@ -11,20 +13,28 @@ import {BeerService} from "./beer.service";
 export class BeerComponent implements OnInit {
 
   title = 'Tour of Beer';
-  beers: Beer[];
-  selectedBeer: Beer;
+  beers: Observable<Beer[]>;
 
-  constructor(private beerService: BeerService) { }
+  private selectedId: number;
 
-  getBeers(): void {
-    this.beerService.getBeers().then(beers => this.beers = beers);
+  constructor(private beerService: BeerService,
+              private route: ActivatedRoute,
+              private router: Router) { }
+
+
+
+  ngOnInit() {
+    this.beers = this.route.paramMap
+      .switchMap((params: ParamMap) => {
+        // (+) before `params.get()` turns the string into a number
+        this.selectedId = +params.get('id');
+        return this.beerService.getBeers();
+      });
   }
 
-  ngOnInit(): void {
-    this.getBeers();
-  }
+  isSelected(beer: Beer) { return beer.id === this.selectedId; }
 
-  onSelect(beer: Beer): void {
-    this.selectedBeer = beer;
+  onSelect(hero: Beer) {
+    this.router.navigate(['/bar', hero.id]);
   }
 }

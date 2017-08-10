@@ -1,28 +1,28 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule }   from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 
 import {Router} from '@angular/router';
 
-import {BeerComponent} from "./beer/beer.component";
-import {AppRoutingModule} from "./app-routing.module";
-import { BeerDetailComponent } from './beer/beer-detail/beer-detail.component';
-import {BarsModule} from "./bar/bars.module";
+import {AppRoutingModule} from './app-routing.module';
+import {BarsModule} from './bar/bars.module';
+import {HomeModule} from './home/home.module';
+import {BeerModule} from './beer/beer.module';
 
 
 
 @NgModule({
   declarations: [
-    AppComponent,
-    BeerComponent,
-    BeerDetailComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
-    FormsModule,
+    FormsModule, ReactiveFormsModule,
     BarsModule,
+    BeerModule,
+    HomeModule,
     AppRoutingModule
   ],
   providers: [],

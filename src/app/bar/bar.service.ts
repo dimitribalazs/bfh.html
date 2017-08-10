@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {BAR} from "./mock-Bar";
+import {BAR} from '../home/mock';
 
 
 

@@ -1,5 +1,22 @@
 <h1>{{title}}</h1>
 <h2>Around you</h2>
+<ul>
+  <li>Dingens 1</li>
+  <li>Dingens 2</li>
+  <li>Dingens 3</li>
+  <li>Dingens 4</li>
+  <li>Dingens 5</li>
+</ul>
+
+<h2>Your top beers</h2>
+<div class="horizontal-scroller-outer">
+  <div class="horizontal-scroller-inner">
+    <img src="../../assets/images/beer_small.jpg" width="100"/>Heineken
+    <img src="../../assets/images/beer_small.jpg" width="100"/>Feldschlösschen
+    <img src="../../assets/images/beer_small.jpg" width="100"/>Eve
+    <img src="../../assets/images/beer_small.jpg" width="100"/>Prix Garantie
+  </div>
+</div>
 <ul class="list">
   <li *ngFor="let beer of arroundYou"
       [class.selected]="isSelected(beer)"

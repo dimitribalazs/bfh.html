@@ -63,7 +63,7 @@
 
 .horizontal-scroller-outer {
   overflow: scroll;
-  width: 500px;
+  width: 100vw;
   height: 5em;
 }
 

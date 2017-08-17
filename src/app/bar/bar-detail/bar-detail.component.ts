@@ -1,7 +1,7 @@
 import { Component, OnInit, HostBinding  } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import {BarService} from "../bar.service";
-import {Bar} from "../Bar";
+// import {BarDatabaseService} from '../../database.service';
+import {Bar} from '../../dto/bar';
 
 @Component({
   selector: 'app-bar-detail',
@@ -18,21 +18,18 @@ export class BarDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private service: BarService
+    // private service: BarDatabaseService<Bar>
   ) {}
 
   ngOnInit() {
-    this.route.paramMap
-      .switchMap((params: ParamMap) =>
-        this.service.getHero(params.get('id')))
-      .subscribe((bar: Bar) => this.bar = bar);
+    // this.route.paramMap
+    //   .switchMap((params: ParamMap) =>
+    //     this.service.getAll(params.get('id')))
+    //   .subscribe((bar: Bar) => this.bar = bar);
   }
 
   gotoBars() {
     let barId = this.bar ? this.bar.id : null;
-    // Pass along the hero id if available
-    // so that the HeroList component can select that hero.
-    // Include a junk 'foo' property for fun.
     this.router.navigate(['/bars', { id: barId, foo: 'foo' }]);
   }
 

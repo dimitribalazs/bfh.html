@@ -1,8 +1,7 @@
 import { Component, OnInit, HostBinding  } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import {HomeService} from '../../home/home.service';
-import {Beer} from '../Beer';
-import {BeerService} from '../beer.service';
+import {Beer} from '../../dto/beer';
+import {BeerDatabaseService} from '../../database.service';
 
 @Component({
   selector: 'app-beer-detail',
@@ -18,21 +17,18 @@ export class BeerDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private service: BeerService
+    private service: BeerDatabaseService<Beer>
   ) {}
 
   ngOnInit() {
-    this.route.paramMap
-      .switchMap((params: ParamMap) =>
-        this.service.getBeer(params.get('id')))
-      .subscribe((beer: Beer) => this.beer = beer);
+    // this.route.paramMap
+    //   .switchMap((params: ParamMap) =>
+    //     this.service.getBeer(params.get('id')))
+    //   .subscribe((beer: Beer) => this.beer = beer);
   }
 
   gotoBeers() {
     const beerId = this.beer ? this.beer.id : null;
-    // Pass along the hero id if available
-    // so that the HeroList component can select that hero.
-    // Include a junk 'foo' property for fun.
     this.router.navigate(['/home']);
   }
 }

@@ -6,7 +6,7 @@ import { HomeComponent } from './home.component';
 
 import { HomeRoutingModule } from './home-routing.module';
 
-import { HomeService } from './home.service';
+// import { HomeService } from './home.service';
 
 @NgModule({
   imports: [
@@ -17,7 +17,7 @@ import { HomeService } from './home.service';
   declarations: [
     HomeComponent,
   ],
-
-  providers: [ HomeService ]
+  providers: [  ]
+  // providers: [ HomeService ]
 })
 export class HomeModule { }

@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { HomeService } from './home.service';
-import { Bar } from '../bar/Bar';
+import { Bar } from '../dto/Bar';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/switchMap';
-import { Beer} from '../beer/Beer';
+import { Beer} from '../dto/Beer';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import {BeerDatabaseService,} from '../database.service';
+import {BeerDatabaseService} from '../database.service';
 import * as NewBeer from '../dto/Beer';
 
 @Component({
@@ -16,11 +15,13 @@ import * as NewBeer from '../dto/Beer';
 })
 export class HomeComponent implements OnInit {
   title = 'Duffd';
-  beers: Observable<Beer[]>;
+   beers: Observable<Beer[]>;
+  // beers: Beer[];
 
-  private selectedId: number;
 
-  constructor(private beerService: HomeService,
+  private selectedId: string;
+
+  constructor(
     private route: ActivatedRoute,
     private router: Router,
     private databaseService: BeerDatabaseService<NewBeer.Beer>
@@ -30,11 +31,15 @@ export class HomeComponent implements OnInit {
     this.beers = this.route.paramMap
       .switchMap((params: ParamMap) => {
         // (+) before `params.get()` turns the string into a number
-        this.selectedId = +params.get('id');
-        return this.beerService.getBeers();
+        this.selectedId = params.get('id');
+        return this.databaseService.getAll();
       });
 
+
+
       this.databaseService.listen();
+
+    // this.beers = this.databaseService.getAll();
   }
 
   isSelected(beer: Beer) { return beer.id === this.selectedId; }
@@ -45,7 +50,6 @@ export class HomeComponent implements OnInit {
 
   changeDb(event): void {
     console.log(event);
-    this.databaseService.saveTest();
   }
 
   createBeer(event): void {

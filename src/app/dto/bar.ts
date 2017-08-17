@@ -2,6 +2,7 @@ import {GeoData} from './geoData';
 import {Beer} from './beer'
 
 export class Bar {
+    id: string;
     name: string;
     address: string;
     city: string;

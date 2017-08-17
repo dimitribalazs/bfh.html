@@ -1,8 +1,7 @@
 import { Injectable, OnInit } from '@angular/core';
+import { Observable } from 'rxjs/Rx';
 import * as firebase from 'firebase';
 import * as beer from './dto/beer';
-
-
 
 export abstract class DatabaseService<T> implements OnInit {
     private config = {
@@ -13,6 +12,8 @@ export abstract class DatabaseService<T> implements OnInit {
         storageBucket: "duffd-83c72.appspot.com",
         messagingSenderId: "758400835541"
     };
+
+   
 
     private app: firebase.app.App;
     database: firebase.database.Database;
@@ -85,7 +86,50 @@ export class BeerDatabaseService<Beer> extends DatabaseService<beer.Beer>{
         });
     }
 
+    getAll(fnc: Function){
+        //Observable<[Beer]>
+        var data = Observable.fromEvent(this.beersPath, "value", (snapshot) => {
+            var result = snapshot.val();
+          
+            return snapshot.val(); 
+        });
+  
+        data.subscribe((foo) => {
+            console.log("sub");
+            console.log(Object.keys(foo));
+            const b: Beer[] = [];
+            Object.keys(foo).map((key) => {
+                let beer = foo[key] as Beer
+                b.push(beer);
+            })
+            console.log(b);
+            fnc(b);
+            //return b;
+        });
 
+        
+        //.map(data => data as Beer[]);
+        /*
+        return Observable.create(() => {
+                snapshot.val().map(data => data as Beer)
+        }); 
+        this.beersPath.on('value', (snapshot) =>  {
+                      
+        });*/
+    }
+
+    getAllObs(): Observable<Beer[]> {
+        return Observable.fromEvent(this.beersPath, "value", (snapshot) => {
+            var result = snapshot.val();
+            const beers: Beer[] = [];
+            Object.keys(result).map((value:string) => {
+                beers.push(result[value] as Beer);
+            });
+
+            return beers;
+            
+        });
+    }
 }
 
 

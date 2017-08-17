@@ -2,6 +2,7 @@ import {Brewery} from './brewery';
 import {Bar} from './bar';
 
 export class Beer {
+    id: string;
     name: string;
     description: string;
     volume: number;

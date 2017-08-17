@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 
@@ -13,7 +14,6 @@ import {BeerModule} from './beer/beer.module';
 import {BeerDatabaseService} from './shared/services/beer.service';
 
 
-
 @NgModule({
   declarations: [
     AppComponent
@@ -24,7 +24,8 @@ import {BeerDatabaseService} from './shared/services/beer.service';
     BarsModule,
     BeerModule,
     HomeModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgbModule.forRoot()
   ],
    // providers: [{provide: 'BeerService' , useFactory: () => (new BeerDatabaseService<Beer>())}],
   providers: [BeerDatabaseService],

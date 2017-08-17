@@ -1,3 +1,6 @@
+import {GeoData} from './geoData';
+import {Beer} from './beer'
+
 export class Bar {
     name: string;
     address: string;
@@ -8,12 +11,14 @@ export class Bar {
     isSmokingAllowed: boolean;
     openingHours: string; //todo change
     snacks: string; //todo change
-    geoDaten: GeoDaten;
+    geoDaten: GeoData;
 
     //beer
 }
 
-export class GeoDaten {
-    longitude: number;
-    latitude: number;
+export class BreweryBeer {
+    beer: Beer;
+    bar: Bar;
+    price: number;
+    tapOrBottled: boolean;
 }

@@ -28,18 +28,30 @@ export abstract class DatabaseService<T> implements OnInit {
     }
     saveTest(): void {
         console.log("saved");
-        this.database.ref("users/4").set({
+        this.database.ref("beers/3").set({
             name: "Prix Garantie " + (new Date).getUTCSeconds(),
             geschmack: "gruusig"
         });
     }
 
     listen(): void {
-        const dataPath: firebase.database.Reference = this.database.ref("users");
+        console.log("listen");
+        const dataPath: firebase.database.Reference = this.database.ref("beers");
         dataPath.on("child_added", function(data) {
             console.log("yuhe")
-            console.log("keykey: " +data.key);
+            console.log("keykey: " + data.val());
         });
+
+        dataPath.on("value", (data: firebase.database.DataSnapshot) => {
+            console.log("beer: ");
+            console.log(data.val());
+            data.val() as beer.Beer[];
+            
+        });
+    }
+
+    getListOfNearbyStuff(): void {
+        //via firebase functions
     }
 
     abstract create(entity: T): void;
@@ -47,25 +59,33 @@ export abstract class DatabaseService<T> implements OnInit {
 }
 
 @Injectable()
-export class BeerDatabaseService<Beer> extends DatabaseService<Beer>{
-    private usersPath: firebase.database.Reference;
+export class BeerDatabaseService<Beer> extends DatabaseService<beer.Beer>{
+    private beersPath: firebase.database.Reference;
     constructor() {
         super();
-        this.usersPath = this.database.ref("users");
+        this.beersPath = this.database.ref("beers");
     }
 
 
-    create(entity: Beer): void {
-         const newKey: string = this.usersPath.push().key;
+    create(entity: beer.Beer): void {
+         const newKey: string = this.beersPath.push().key;
          //validate stuff
          console.log(newKey)
-         this.usersPath.child(newKey).set(entity);
+         this.beersPath.child(newKey).set(entity);
     }
 
-    update(id: number, entity: Beer): void {
+    update(id: number, entity: beer.Beer): void {
         //https://firebase.google.com/docs/database/web/lists-of-data
-        
+        var resultFromApi = new beer.Beer();
+        Object.keys(entity).map((value, index) => {
+            //update
+            if(value) {
+                resultFromApi[index] = value;
+            }
+        });
     }
+
+
 }
 
 

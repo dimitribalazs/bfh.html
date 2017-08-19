@@ -1,7 +1,7 @@
 import { Component, OnInit, HostBinding  } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 // import {BarDatabaseService} from '../../database.service';
-import {Bar} from '../../dto/bar';
+import {Bar} from '../../shared/dto/bar';
 
 @Component({
   selector: 'app-bar-detail',

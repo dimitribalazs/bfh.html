@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Bar } from '../dto/Bar';
+import { Bar } from '../shared/dto/Bar';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/switchMap';
-import { Beer} from '../dto/Beer';
+import { Beer} from '../shared/dto/Beer';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import {BeerDatabaseService} from '../database.service';
-import * as NewBeer from '../dto/Beer';
+import {BeerDatabaseService} from '../shared/services/beer.service';
+import * as NewBeer from '../shared/dto/Beer';
 
 @Component({
   selector: 'app-main',
@@ -45,7 +45,7 @@ export class HomeComponent implements OnInit {
   isSelected(beer: Beer) { return beer.id === this.selectedId; }
 
   onSelect(beer: Beer) {
-    this.router.navigate(['/beer', beer.id]);
+    this.router.navigate(['/beer/:id/detail', beer.id]);
   }
 
   changeDb(event): void {

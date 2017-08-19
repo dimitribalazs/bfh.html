@@ -10,6 +10,7 @@ import { BeerRoutingModule} from './beer-routing.module';
 
 // import {BeerService} from './beer.service';
 import { BeerEditComponent } from './beer-edit/beer-edit.component';
+import {BeerDatabaseService} from '../shared/services/beer.service';
 
 @NgModule({
   imports: [
@@ -23,6 +24,8 @@ import { BeerEditComponent } from './beer-edit/beer-edit.component';
     BeerEditComponent
   ],
   // providers: [ BeerService ]
-  providers: [  ]
+  providers: [ 
+    BeerDatabaseService
+   ]
 })
 export class BeerModule { }

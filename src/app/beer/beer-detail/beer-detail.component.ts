@@ -1,7 +1,7 @@
 import { Component, OnInit, HostBinding  } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import {Beer} from '../../dto/beer';
-import {BeerDatabaseService} from '../../database.service';
+import {Beer} from '../../shared/dto/beer';
+import {BeerDatabaseService} from '../../shared/services/beer.service';
 
 @Component({
   selector: 'app-beer-detail',

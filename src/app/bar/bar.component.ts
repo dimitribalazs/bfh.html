@@ -1,7 +1,7 @@
 import 'rxjs/add/operator/switchMap';
 import { Component, OnInit } from '@angular/core';
-import {Bar} from '../dto/Bar';
-import {BeerDatabaseService} from '../database.service';
+import {Bar} from '../shared/dto/Bar';
+import {BeerDatabaseService} from '../shared/services/beer.service';
 import {Observable} from "rxjs/Observable";
 import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 

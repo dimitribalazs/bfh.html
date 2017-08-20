@@ -12,12 +12,12 @@ import { HomeRoutingModule } from './home-routing.module';
   imports: [
     CommonModule,
     FormsModule,
-    HomeRoutingModule
+    HomeRoutingModule,
   ],
   declarations: [
     HomeComponent,
   ],
   providers: [  ]
-  // providers: [ HomeService ]
+   // providers: [ HomeService ]
 })
 export class HomeModule { }

@@ -9,7 +9,7 @@ import {ActivatedRoute, ParamMap, Router} from "@angular/router";
   selector: 'app-bar',
   templateUrl: './bar.component.html',
   styleUrls: ['./bar.component.css'],
-  providers: [BeerDatabaseService]
+  // providers: [BeerDatabaseService]
 })
 export class BarComponent implements OnInit {
   bars: Observable<Bar[]>;

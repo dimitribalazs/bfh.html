@@ -17,7 +17,7 @@ export class Beer {
 export enum BrewType {
     Obergärig,
     Untergärig,
-    IPA, 
+    IPA,
     Bock,
     Stout,
     Ale

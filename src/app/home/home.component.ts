@@ -11,7 +11,7 @@ import * as NewBeer from '../dto/Beer';
   selector: 'app-main',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
-  providers: [BeerDatabaseService],
+  // providers: [BeerDatabaseService],
 })
 export class HomeComponent implements OnInit {
   title = 'Duffd';
@@ -24,7 +24,7 @@ export class HomeComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private databaseService: BeerDatabaseService<NewBeer.Beer>
+    private databaseService: BeerDatabaseService<Beer>
   ) { }
 
   ngOnInit() {
@@ -54,11 +54,11 @@ export class HomeComponent implements OnInit {
 
   createBeer(event): void {
     console.log(event);
-    const beer = new NewBeer.Beer();
-    beer.name = "Bier vo ergendwo";
-    beer.volume = 20;
-    beer.description = "super fein";
-    beer.taste = NewBeer.Taste.Fruchtig;
-    this.databaseService.create(beer);
+    // const beer = new NewBeer.Beer();
+    // beer.name = "Bier vo ergendwo";
+    // beer.volume = 20;
+    // beer.description = "super fein";
+    // beer.taste = NewBeer.Taste.Fruchtig;
+    // this.databaseService.create(beer);
   }
 }

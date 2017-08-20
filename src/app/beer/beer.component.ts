@@ -8,7 +8,7 @@ import {ActivatedRoute, ParamMap, Router} from '@angular/router';
   selector: 'app-beer',
   templateUrl: './beer.component.html',
   styleUrls: ['./beer.component.css'],
-  providers: [BeerDatabaseService]
+  // providers: [BeerDatabaseService]
 })
 export class BeerComponent implements OnInit {
 

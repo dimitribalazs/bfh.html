@@ -7,7 +7,8 @@ import {BeerDatabaseService} from '../../database.service';
 
 @Component({
   selector: 'app-beer-edit',
-  templateUrl: './beer-edit.component.html'
+  templateUrl: './beer-edit.component.html',
+  // providers: [BeerDatabaseService]
 })
 export class BeerEditComponent implements OnInit {
 
@@ -39,11 +40,11 @@ export class BeerEditComponent implements OnInit {
   ngOnInit() {
     // this.route.paramMap
     //   .switchMap((params: ParamMap) =>
-    //     this.service.getBee(params.get('id')))
+    //     this.service.getbeer(params.get('id')))
     //   .subscribe((beer: Beer) => this.beer = beer);
 
-
-    this.beerForm = this.initForm(this.beer);
+    ;
+    this.beerForm = this.initForm(this.service.getbeer('2'));
   }
 
   initForm(data: Beer ): FormGroup {

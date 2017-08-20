@@ -10,8 +10,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {BarsModule} from './bar/bars.module';
 import {HomeModule} from './home/home.module';
 import {BeerModule} from './beer/beer.module';
-import {BeerDatabaseService} from './database.service';
-import {Beer} from './dto/beer';
+import {BeerDatabaseService} from './shared/services/beer.service';
 
 
 

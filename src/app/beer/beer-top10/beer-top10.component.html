@@ -1,0 +1,9 @@
+<h2>{{title}}</h2>
+<div class="horizontal-scroller-outer">
+  <div class="horizontal-scroller-inner">
+    <span *ngFor="let beer of beers | async">
+      <!--<img src="{{'../../assets/logos/logo-0' + beer.randomNumber + '.jpg'}}" width="100px"/>-->
+      AA{{beer.randomNumber}}BB
+    </span>
+  </div>
+</div>

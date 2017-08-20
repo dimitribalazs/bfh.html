@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {Beer} from '../../shared/dto/beer';
 import {Observable} from 'rxjs/Observable';
 import {logger} from 'codelyzer/util/logger';
@@ -8,19 +8,16 @@ import {logger} from 'codelyzer/util/logger';
   templateUrl: './beer-top10.component.html',
   styleUrls: ['./beer-top10.component.css']
 })
-export class BeerTop10Component implements OnInit {
+export class BeerTop10Component {
 
   @Input() title: String;
   @Input() beers: Observable<Beer>;
 
+
   constructor() {
   }
 
-  ngOnInit() {
+  getImageUrl(): Number {
+    return Math.floor(Math.random() * 14 + 1)
   }
-
-  getImageUrl(): String {
-    return '../../assets/logos/logo-' + Math.floor(Math.random() * 14 + 1).toString() + '.jpg';
-  }
-
 }

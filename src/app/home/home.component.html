@@ -8,22 +8,9 @@
   <li>Dingens 5</li>
 </ul>
 
-<h2>Your top beers</h2>
-<div class="horizontal-scroller-outer">
-  <div class="horizontal-scroller-inner">
-    <img src="../../assets/logos/logo-01.jpg" width="100px"/>
-    <img src="../../assets/logos/logo-02.jpg" width="100px"/>
-    <img src="../../assets/logos/logo-03.jpg" width="100px"/>
-    <img src="../../assets/logos/logo-04.jpg" width="100px"/>
-    <img src="../../assets/logos/logo-05.jpg" width="100px"/>
-    <img src="../../assets/logos/logo-01.jpg" width="100px"/>
-    <img src="../../assets/logos/logo-02.jpg" width="100px"/>
-    <img src="../../assets/logos/logo-03.jpg" width="100px"/>
-    <img src="../../assets/logos/logo-04.jpg" width="100px"/>
-  </div>
-</div>
-
-<app-beer-top10 [title]="'Your friends top 10 beers'" [beers]="beers"></app-beer-top10>
+<app-beer-top10 [title]="'Your top 10 beers'" [beers]="beers"></app-beer-top10>
+<app-beer-top10 [title]="'Your friends most drunk beers'" [beers]="beers"></app-beer-top10>
+<app-beer-top10 [title]="'Your friends top rated beers'" [beers]="beers"></app-beer-top10>
 
 
 <ul class="list">

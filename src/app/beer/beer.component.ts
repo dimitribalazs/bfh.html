@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {Beer} from '../dto/beer';
-import {BeerDatabaseService} from '../database.service';
+import {Beer} from '../shared/dto/beer';
+import {BeerDatabaseService} from '../shared/services/beer.service';
 import {Observable} from 'rxjs/Observable';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 

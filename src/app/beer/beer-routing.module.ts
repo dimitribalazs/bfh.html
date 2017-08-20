@@ -3,10 +3,12 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { BeerComponent } from './beer.component';
 import { BeerEditComponent } from './beer-edit/beer-edit.component';
+import { BeerDetailComponent } from './beer-detail/beer-detail.component';
 
 const beerRoutes: Routes = [
   { path: 'beers',  component: BeerComponent },
-  { path: 'beer/:id', component: BeerEditComponent }
+  { path: 'beer/edit/:id', component: BeerEditComponent },
+  { path: 'beer/detail/:id', component: BeerDetailComponent }
 ];
 
 @NgModule({
@@ -17,4 +19,4 @@ const beerRoutes: Routes = [
     RouterModule
   ]
 })
-export class BeerRoutingModule { }
+export class BeerRoutingModule { } 

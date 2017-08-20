@@ -12,6 +12,7 @@ export class Beer {
     bars: Bar[];
     image: string;
     taste: Taste;
+    randomNumber: number;
 }
 
 export enum BrewType {

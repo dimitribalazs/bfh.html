@@ -20,9 +20,12 @@
     <img src="../../assets/logos/logo-02.jpg" width="100px"/>
     <img src="../../assets/logos/logo-03.jpg" width="100px"/>
     <img src="../../assets/logos/logo-04.jpg" width="100px"/>
-    <img src="../../assets/logos/logo-05.jpg" width="100px"/>
   </div>
 </div>
+
+<app-beer-top10 [title]="'Your friends top 10 beers'" [beers]="beers"></app-beer-top10>
+
+
 <ul class="list">
   <li *ngFor="let beer of arroundYou"
       [class.selected]="isSelected(beer)"

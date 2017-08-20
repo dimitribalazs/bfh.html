@@ -14,7 +14,7 @@ import { Observable } from 'rxjs/Rx';
 export class BeerEditComponent implements OnInit {
 
 
-  beerForm: Observable<FormGroup>;
+  beerForm: FormGroup;
   nameCtrl: FormControl;
   alcoholCtrl: FormControl;
   breweryCtrl: FormControl;
@@ -22,6 +22,8 @@ export class BeerEditComponent implements OnInit {
   descriptionCtrl: FormControl;
 
   beer: Beer;
+  model = new Beer();
+
 
   taste = ['Fruchtig', 'Herb',
     'Bitter'];
@@ -39,20 +41,25 @@ export class BeerEditComponent implements OnInit {
 
 
   ngOnInit() {
-    // this.route.paramMap
-    //   .switchMap((params: ParamMap) =>
-    //     this.service.getBee(params.get('id')))
-    //   .subscribe((beer: Beer) => this.beer = beer);
 
-    //this.route.params['id']
-    this.beerService.get("9").subscribe((beer) => {
-      console.log("foo");
-      this.beerForm = Observable.create(() =>this.initForm(beer));
-    })
+    // this.route.params.subscribe(params => {
+    //   this.beerService.get(params['id']).subscribe((beer: Beer) => {
+    //     console.log("foo");
+    //     this.model = beer
+    //     this.beerForm.setValue({name: beer.name});
+    //   })
+    // });
+
+
+    this.beerService.get('9').subscribe((beer: Beer) => {
+          console.log("foo");
+          this.model = beer
+          this.beerForm.setValue({name: beer.name});
+        })
+     this.beerForm = this.initForm(this.model);
   }
 
-  initForm(data: Beer): FormGroup {
-
+   initForm(data: Beer): FormGroup {
     this.nameCtrl = this.formBuilder.control(data.name, [Validators.required]);
     // this.alcoholCtrl = this.formBuilder.control(data.volume, [Validators.required]);
     // this.breweryCtrl = this.formBuilder.control(data.brewery, [Validators.required]);

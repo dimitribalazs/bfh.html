@@ -4,10 +4,15 @@
       <div class="margin-20">
         <h4>Beer edit</h4>
       </div>
-      <form [formGroup]="beerForm | async" novalidate (ngSubmit)="save()">
+      <form [(formGroup)]="beerForm" novalidate (ngSubmit)="save()">
         <div class="form-group">
           <label>Name</label>
           <input type="text" class="form-control" formControlName="name">
+          <div *ngIf="nameCtrl.invalid">
+            <small *ngIf="nameCtrl.hasError('required')" class="text-danger">
+              Name is required
+            </small>
+          </div>
         </div>
         <div class="margin-20">
           <button type="submit" class="btn btn-primary pull-right">Submit</button>

@@ -1,5 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Beer} from '../../shared/dto/beer';
+import {Observable} from 'rxjs/Observable';
+import {logger} from 'codelyzer/util/logger';
 
 @Component({
   selector: 'app-beer-top10',
@@ -9,19 +11,16 @@ import {Beer} from '../../shared/dto/beer';
 export class BeerTop10Component implements OnInit {
 
   @Input() title: String;
-  @Input() beers: Beer[];
+  @Input() beers: Observable<Beer>;
 
   constructor() {
   }
 
   ngOnInit() {
-  //   // this can be remove once we have image.
-  //   // it is used to select a random image from within our static assets
-  //   this.beers.forEach(beer => {
-  //     const randomNumber = Math.floor(Math.random() * 4 + 1);
-  //     console.log(randomNumber);
-  //     beer.randomNumber = randomNumber
-  //   });
+  }
+
+  getImageUrl(): String {
+    return '../../assets/logos/logo-' + Math.floor(Math.random() * 14 + 1).toString() + '.jpg';
   }
 
 }

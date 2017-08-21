@@ -4,27 +4,121 @@
       <div class="margin-20">
         <h4>Beer edit</h4>
       </div>
-      <form [(formGroup)]="beerForm" novalidate (ngSubmit)="save()">
+      <form [formGroup]="beerForm" novalidate (ngSubmit)="save(beerForm)">
         <div class="form-group">
-          <label>Name</label>
-          <input type="text" class="form-control" formControlName="name">
-          <div *ngIf="nameCtrl.invalid">
-            <small *ngIf="nameCtrl.hasError('required')" class="text-danger">
-              Name is required
-            </small>
+          <div>
+            <label>Name</label>
           </div>
+          <input *ngIf="!beerForm.controls.name.valid" type="text-danger" class="form-control" formControlName="name" placeholder="Name is required!">
+          <input *ngIf="beerForm.controls.name.valid" type="text" class="form-control" formControlName="name">
         </div>
+
+        <div class="form-group">
+          <div>
+            <label>Alcohol in %</label>
+          </div>
+          <input *ngIf="!beerForm.controls.volume.valid" type="text-danger" class="form-control" formControlName="volume" placeholder="Alcohol in % is required.">
+          <input *ngIf="beerForm.controls.volume.valid" type="text" class="form-control" formControlName="volume">
+        </div>
+
+        <div class="form-group">
+          <label>Taste</label>
+          <input *ngIf="!beerForm.controls.taste.valid" type="text-danger" class="form-control" formControlName="taste" placeholder="Taste is required.">
+          <input *ngIf="beerForm.controls.taste.valid" type="text" class="form-control" formControlName="taste">
+        </div>
+
+        <div class="form-group">
+          <label>Brew type</label>
+          <input *ngIf="!beerForm.controls.brewType.valid" type="text-danger" class="form-control" formControlName="brewType" placeholder="Brew type is required.">
+          <input *ngIf="beerForm.controls.brewType.valid" type="text" class="form-control" formControlName="brewType">
+        </div>
+
+        <div class="form-group">
+          <label>Description</label>
+          <input *ngIf="!beerForm.controls.description.valid" type="text-danger" class="form-control" formControlName="description" placeholder="Description is required (minimum 5 characters).">
+          <input *ngIf="beerForm.controls.description.valid" type="text" class="form-control" formControlName="description">
+        </div>
+
+
+
         <div class="margin-20">
-          <button type="submit" class="btn btn-primary pull-right">Submit</button>
+          <button type="submit" class="btn btn-primary pull-right" [disabled]="!beerForm.valid">Submit</button>
         </div>
         <div class="clearfix"></div>
 
-        <!--<div class="margin-20">-->
-          <!--<div>myForm details:-</div>-->
-          <!--<pre>Is myForm valid?: <br>{{beerForm.valid | json}}</pre>-->
-          <!--<pre>form value: <br>{{beerForm.value | json}}</pre>-->
-        <!--</div>-->
+        <div class="margin-20">
+          <div>myForm details:-</div>
+          <pre>Is myForm valid?: <br>{{beerForm.valid | json}}</pre>
+          <pre>form value: <br>{{beerForm.value | json}}</pre>
+        </div>
       </form>
     </div>
   </div>
 </div>
+
+
+<!--
+<form [formGroup]="beerForm" novalidate (ngSubmit)="save(beerForm)">
+  <div class="form-group">
+    <div>
+      <label>Name</label>
+    </div>
+    <input *ngIf="!beerForm.controls.name.valid" type="text-danger" class="form-control" formControlName="name" placeholder="Name is required!">
+    <input *ngIf="beerForm.controls.name.valid" type="text" class="form-control" formControlName="name" placeholder="Name?">
+    <div>
+      <small *ngIf="!beerForm.controls.name.valid" class="text-danger">
+        Name is required.
+      </small>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div>
+      <label>Alcohol in %</label>
+    </div>
+    <input type="text" class="form-control" formControlName="volume" placeholder="Alcohol in %?">
+    <div>
+      <small *ngIf="!beerForm.controls.volume.valid" class="text-danger">
+        Alcohol in % is required.
+      </small>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>Taste</label>
+    <input type="text" class="form-control" formControlName="taste" placeholder="Taste?">
+    <small *ngIf="!beerForm.controls.taste.valid" class="text-danger">
+      Taste is required.
+    </small>
+  </div>
+
+  <div class="form-group">
+    <label>Brew type</label>
+    <input type="text" class="form-control" formControlName="brewType" placeholder="Brew type?">
+    <small *ngIf="!beerForm.controls.brewType.valid" class="text-danger">
+      Brew type is required.
+    </small>
+  </div>
+
+  <div class="form-group">
+    <label>Description</label>
+    <input type="text" class="form-control" formControlName="description" placeholder="Description?">
+    <small *ngIf="!beerForm.controls.description.valid" class="text-danger">
+      Description is required (minimum 5 characters).
+    </small>
+  </div>
+
+
+
+  <div class="margin-20">
+    <button type="submit" class="btn btn-primary pull-right" [disabled]="!beerForm.valid">Submit</button>
+  </div>
+  <div class="clearfix"></div>
+
+  <div class="margin-20">
+    <div>myForm details:-</div>
+    <pre>Is myForm valid?: <br>{{beerForm.valid | json}}</pre>
+    <pre>form value: <br>{{beerForm.value | json}}</pre>
+  </div>
+</form>
+-->

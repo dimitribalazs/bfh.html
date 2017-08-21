@@ -1,10 +1,11 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import {Beer} from '../../shared/dto/beer';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, FormArray, Validators} from '@angular/forms';
 // import {BeerService} from '../beer.service';
 import {BeerDatabaseService} from '../../shared/services/beer.service';
 import { Observable } from 'rxjs/Rx';
+import {isUndefined} from 'util';
 
 
 @Component({
@@ -13,26 +14,15 @@ import { Observable } from 'rxjs/Rx';
 })
 export class BeerEditComponent implements OnInit {
 
-
-  beerForm: FormGroup;
-  nameCtrl: FormControl;
-  alcoholCtrl: FormControl;
-  breweryCtrl: FormControl;
-  tasteCtrl: FormControl;
-  descriptionCtrl: FormControl;
-
   beer: Beer;
   model = new Beer();
-
-
-  taste = ['Fruchtig', 'Herb',
-    'Bitter'];
-
+  beerForm: FormGroup;
 
   @Output() onAddBeer = new EventEmitter<Beer>();
 
   constructor(
     private formBuilder: FormBuilder,
+    private _fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private beerService: BeerDatabaseService<Beer>) {
@@ -42,43 +32,44 @@ export class BeerEditComponent implements OnInit {
 
   ngOnInit() {
 
-    // this.route.params.subscribe(params => {
-    //   this.beerService.get(params['id']).subscribe((beer: Beer) => {
-    //     console.log("foo");
-    //     this.model = beer
-    //     this.beerForm.setValue({name: beer.name});
-    //   })
-    // });
+    this.beerForm = this._fb.group({
+      name: [this.model.name, [Validators.required]],
+      volume: [this.model.volume, [Validators.required]],
+      brewType: [this.model.brewType, [Validators.required]],
+      // rating: [this.model.rating, [Validators.required]],
+      // brewery: [this.model.brewery],
+      // bars: [this.model.bars],
+      // image: [this.model.image, [Validators.required]],
+      taste: [this.model.taste, [Validators.required]],
+      description: ['', [Validators.required, Validators.minLength(5)]]
+    });
 
+    this.route.params.subscribe(params => {
+      this.beerService.get(params['id']).subscribe((beer: Beer) => {
+        this.model = beer
 
-    this.beerService.get('9').subscribe((beer: Beer) => {
-          console.log("foo");
-          this.model = beer
-          this.beerForm.setValue({name: beer.name});
-        })
-     this.beerForm = this.initForm(this.model);
-  }
+        // if (isUndefined(beer.description)) {
+        //   beer.description = '';
+        // }
+        // this.beerForm.setValue({name: beer.name, description: beer.description})
+        // (first > second) ? "That is true : 5>3" : "That is false : 5<3"
 
-   initForm(data: Beer): FormGroup {
-    this.nameCtrl = this.formBuilder.control(data.name, [Validators.required]);
-    // this.alcoholCtrl = this.formBuilder.control(data.volume, [Validators.required]);
-    // this.breweryCtrl = this.formBuilder.control(data.brewery, [Validators.required]);
-    // this.tasteCtrl = this.formBuilder.control(data.taste, [Validators.required]);
-    // this.descriptionCtrl = this.formBuilder.control(data.description, [Validators.required]);
-
-    return this.formBuilder.group({
-      name: this.nameCtrl,
-      // alcohol: this.alcoholCtrl,
-      // brewery: this.breweryCtrl,
-      // taste: this.tasteCtrl,
-      // description: this.descriptionCtrl
+        this.beerForm.setValue({
+          name: beer.name,
+          volume: (isUndefined(beer.volume)) ? '' : beer.volume,
+          taste: (isUndefined(beer.taste)) ? '' : beer.taste,
+          brewType: (isUndefined(beer.brewType)) ? '' : beer.brewType,
+          description: (isUndefined(beer.description)) ? '' : beer.description});
+      })
     });
   }
 
-  save() {
-    // this.service.save(this.beerForm.value);
-    // this.onAddBeer.emit(beer);
-  }
+
+  // save(model: Customer) {
+  //   // call API to save
+  //   // ...
+  //   console.log(model);
+  // }
 
 }
 

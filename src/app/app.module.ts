@@ -11,6 +11,7 @@ import {BarsModule} from './bar/bars.module';
 import {HomeModule} from './home/home.module';
 import {BeerModule} from './beer/beer.module';
 import {BeerDatabaseService} from './shared/services/beer.service';
+import {UserDatabaseService} from './shared/services/user.service';
 
 
 
@@ -28,6 +29,7 @@ import {BeerDatabaseService} from './shared/services/beer.service';
   ],
    // providers: [{provide: 'BeerService' , useFactory: () => (new BeerDatabaseService<Beer>())}],
   providers: [BeerDatabaseService],
+  // providers: [BeerDatabaseService, UserDatabaseService],
   bootstrap: [AppComponent],
 
 

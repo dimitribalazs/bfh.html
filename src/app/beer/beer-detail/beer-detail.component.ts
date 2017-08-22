@@ -29,9 +29,9 @@ export class BeerDetailComponent implements OnInit {
   }
 
 
-  save(model: Beer) {
-    console.log(model.name);
-    this.beerService.saveBeer(model);
+
+  onSubmit() {
+    this.beerService.submit();
   }
 
 }

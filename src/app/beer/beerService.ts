@@ -9,25 +9,26 @@ import {BeerDatabaseService} from '../shared/services/beer.service';
 @Injectable()
 export class BierService {
   beer: Observable<Beer>
-  ViewModel: Beer = new Beer();
+  viewModel: Beer = new Beer();
   constructor(private beerService: BeerDatabaseService<Beer>) {
 
   }
 
   loadBeer(id: string): Observable<Beer>  {
       this.beer = this.beerService.get(id)
-      this.beer.subscribe((beer: Beer) => this.ViewModel = beer);
+      this.beer.subscribe((beer: Beer) => this.viewModel = beer);
       return this.beer;
   }
 
   getBeer(): Observable<Beer>  {
     return this.beer;
   }
-  saveBeer(beer: Beer) {
-    this.beerService.update(beer.id, beer);
+
+  submit() {
+    this.beerService.update(this.viewModel.id, this.viewModel);
   }
 
   public getViewModel() {
-    return this.ViewModel
+    return this.viewModel
   }
 }

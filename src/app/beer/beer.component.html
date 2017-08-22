@@ -1,10 +1,13 @@
-<h1>{{title}}</h1>
-<h2>My Beer</h2>
-<ul class="bars">
-  <li *ngFor="let beer of beers"
-      [class.selected]="beer === selectedBeer"
-      (click)="onSelect(beer)">
-    <span class="badge">{{beer.id}}</span> {{beer.name}}
-  </li>
-</ul>
-<!--<app-beer-detail [beer]="selectedBeer"></app-beer-detail>-->
+<div>
+  <div>
+    <h1>Bier: {{this.model.name}}</h1>
+  </div>
+  <nav>
+    <button (click)="onClick('details')">Detail</button>
+    <button (click)="onClick('brewery')">Brewery</button>
+    <button (click)="onClick('bars')">Bars</button>
+  </nav>
+  <div>
+    <router-outlet></router-outlet>
+  </div>
+</div>

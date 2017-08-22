@@ -2,13 +2,23 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { BeerComponent } from './beer.component';
-import { BeerEditComponent } from './beer-edit/beer-edit.component';
 import { BeerDetailComponent } from './beer-detail/beer-detail.component';
+import {BarDetailComponent} from '../bar/bar-detail/bar-detail.component';
 
 const beerRoutes: Routes = [
-  { path: 'beers',  component: BeerComponent },
-  { path: 'beer/edit/:id', component: BeerEditComponent },
-  { path: 'beer/detail/:id', component: BeerDetailComponent }
+  { path: 'beer/:id',
+    component: BeerComponent,
+    children: [
+      {
+        path: '',
+        children: [
+          { path: 'brewery', component: BarDetailComponent },
+          { path: 'bars', component: BarDetailComponent },
+          { path: 'details', component: BeerDetailComponent },
+          { path: '', component: BeerDetailComponent }
+        ]
+      }
+    ]},
 ];
 
 @NgModule({
@@ -19,4 +29,4 @@ const beerRoutes: Routes = [
     RouterModule
   ]
 })
-export class BeerRoutingModule { } 
+export class BeerRoutingModule { }

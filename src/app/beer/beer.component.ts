@@ -3,40 +3,37 @@ import {Beer} from '../shared/dto/beer';
 import {BeerDatabaseService} from '../shared/services/beer.service';
 import {Observable} from 'rxjs/Observable';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
+import {BierService} from './beerService'
 
 @Component({
   selector: 'app-beer',
   templateUrl: './beer.component.html',
   styleUrls: ['./beer.component.css'],
-  // providers: [BeerDatabaseService]
 })
 export class BeerComponent implements OnInit {
 
-  title = 'Tour of Beer';
-  beers: Observable<Beer[]>;
+  id: string;
+  model: Beer = new Beer;
 
-  private selectedId: number;
-
-  constructor(private beerService: BeerDatabaseService<Beer>,
+  constructor(private beerService: BierService,
               private route: ActivatedRoute,
               private router: Router) { }
 
 
 
   ngOnInit() {
-    // this.beers = this.route.paramMap
-    //   .switchMap((params: ParamMap) => {
-    //     // (+) before `params.get()` turns the string into a number
-    //     this.selectedId = +params.get('id');
-    //     return this.beerService.getBeers();
-    //   });
+    this.route.params.subscribe(params => {
+      console.log('Load beer:' + params['id']);
+      this.id = params['id'];
+      this.beerService.loadBeer(params['id']);
+    });
 
-    // return this.beerService.getAll();
-  }
+    this.beerService.getBeer().subscribe((beer) => {
+      this.model = this.beerService.getViewModel();
+      console.log('Routing Mode', beer.name)})
+    }
 
-  // isSelected(beer: Beer) { return beer.id === this.selectedId; }
-
-  onSelect(hero: Beer) {
-    this.router.navigate(['/bar', hero.id]);
+  onClick(childView: string) {
+    this.router.navigate(['beer', this.id, childView]);
   }
 }

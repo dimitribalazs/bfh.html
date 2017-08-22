@@ -40,7 +40,7 @@ export class HomeComponent implements OnInit {
         const a: AroundYou = new AroundYou();
         a.id = beer.id;
         a.name = beer.name;
-        a.routerNavigate = '/beer/edit/'
+        a.routerNavigate = '/beer/'
         if (this.arroundYou.length < 5) {
           this.arroundYou.push(a)
         }

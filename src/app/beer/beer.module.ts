@@ -7,25 +7,21 @@ import { BeerComponent } from './beer.component';
 import { BeerDetailComponent } from './beer-detail/beer-detail.component';
 
 import { BeerRoutingModule} from './beer-routing.module';
+import {BierService} from './beerService'
 
-// import {BeerService} from './beer.service';
-import { BeerEditComponent } from './beer-edit/beer-edit.component';
-import {BeerDatabaseService} from '../shared/services/beer.service';
+import {BarDetailComponent} from '../bar/bar-detail/bar-detail.component';
 
 @NgModule({
   imports: [
     CommonModule,
     BrowserModule, FormsModule, ReactiveFormsModule,
-    BeerRoutingModule
+     BeerRoutingModule
   ],
   declarations: [
     BeerComponent,
     BeerDetailComponent,
-    BeerEditComponent
+    BarDetailComponent
   ],
-  // providers: [ BeerService ]
-  providers: [ 
-    BeerDatabaseService
-   ]
+  providers: [BierService]
 })
 export class BeerModule { }

@@ -27,9 +27,8 @@ import {UserDatabaseService} from './shared/services/user.service';
     HomeModule,
     AppRoutingModule
   ],
-   // providers: [{provide: 'BeerService' , useFactory: () => (new BeerDatabaseService<Beer>())}],
-  providers: [BeerDatabaseService],
-  // providers: [BeerDatabaseService, UserDatabaseService],
+  // providers: [BeerDatabaseService],
+  providers: [BeerDatabaseService, UserDatabaseService],
   bootstrap: [AppComponent],
 
 

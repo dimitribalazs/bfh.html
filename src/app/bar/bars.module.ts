@@ -17,7 +17,7 @@ import { BarsRoutingModule } from './bars-routing.module';
   ],
   declarations: [
     BarComponent,
-    BarDetailComponent
+    // BarDetailComponent
   ],
   providers: [  ]
   // providers: [ BarService ]

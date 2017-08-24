@@ -9,7 +9,7 @@ export class UserDatabaseService<User> extends DatabaseService<User>{
     private usersPath: firebase.database.Reference;
     constructor() {
         super();
-        this.usersPath = this.database.ref("users");
+        this.usersPath = this.getDatabase().ref("users");
     }
 
     create(entity: User): void {

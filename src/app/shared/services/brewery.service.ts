@@ -9,7 +9,7 @@ export class BreweryDatabaseService<Brewery> extends DatabaseService<Brewery>{
     private breweriesPath: firebase.database.Reference;
     constructor() {
         super();
-        this.breweriesPath = this.database.ref("breweries");
+        this.breweriesPath = this.getDatabase().ref("breweries");
     }
 
     create(entity: Brewery): void {

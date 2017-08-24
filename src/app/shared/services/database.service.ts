@@ -20,13 +20,18 @@ export abstract class DatabaseService<T> implements OnInit {
         messagingSenderId: "758400835541"
     };
 
-    private app: firebase.app.App;
-    database: firebase.database.Database;
+
+    private database: firebase.database.Database;
+
+    getDatabase(): firebase.database.Database {
+        if(this.database == undefined) {
+            this.database = firebase.initializeApp(this.config).database();
+        }
+        return this.database;
+    }
 
     constructor() {
         console.log("init DatabaseService")
-        this.app = firebase.initializeApp(this.config);
-        this.database = this.app.database();
     }
 
     ngOnInit(): void {

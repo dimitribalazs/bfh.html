@@ -9,7 +9,7 @@ export class BarDatabaseService<Bar> extends DatabaseService<Bar>{
     private barsPath: firebase.database.Reference;
     constructor() {
         super();
-        this.barsPath = this.database.ref("bars");
+        this.barsPath = getDatabase().ref("bars");
     }
 
     create(entity: Bar): void {

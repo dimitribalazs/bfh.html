@@ -2,6 +2,7 @@ import { Injectable, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import * as firebase from 'firebase';
 import {DatabaseService} from './database.service';
+import {getDatabase} from './firebase';
 import {Beer} from '../dto/beer';
 
 @Injectable()
@@ -9,7 +10,7 @@ export class BeerDatabaseService<Beer> extends DatabaseService<Beer>{
     private beersPath: firebase.database.Reference;
     constructor() {
         super();
-        this.beersPath = this.getDatabase().ref("beers");
+        this.beersPath = getDatabase().ref("beers");
     }
 
 

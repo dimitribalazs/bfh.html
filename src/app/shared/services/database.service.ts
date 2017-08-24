@@ -11,24 +11,7 @@ enum FirebaseEvent  {
 }
 
 export abstract class DatabaseService<T> implements OnInit {
-    private config = {
-        apiKey: "AIzaSyCG2d_4Vxd7uHHdDLl0A-Rkj4t6Fjhgcu8",
-        authDomain: "duffd-83c72.firebaseapp.com",
-        databaseURL: "https://duffd-83c72.firebaseio.com",
-        projectId: "duffd-83c72",
-        storageBucket: "duffd-83c72.appspot.com",
-        messagingSenderId: "758400835541"
-    };
 
-
-    private database: firebase.database.Database;
-
-    getDatabase(): firebase.database.Database {
-        if(this.database == undefined) {
-            this.database = firebase.initializeApp(this.config).database();
-        }
-        return this.database;
-    }
 
     constructor() {
         console.log("init DatabaseService")
@@ -36,13 +19,6 @@ export abstract class DatabaseService<T> implements OnInit {
 
     ngOnInit(): void {
         console.log("init DatabaseService via onInit")
-    }
-    saveTest(): void {
-        console.log("saved");
-        this.database.ref("beers/3").set({
-            name: "Prix Garantie " + (new Date).getUTCSeconds(),
-            geschmack: "gruusig"
-        });
     }
 
     listen(): void {

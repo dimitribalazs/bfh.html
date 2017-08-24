@@ -3,13 +3,14 @@ import { Observable } from 'rxjs/Rx';
 import * as firebase from 'firebase';
 import {DatabaseService} from './database.service';
 import {User} from '../dto/user';
+import {getDatabase} from './firebase';
 
 @Injectable()
 export class UserDatabaseService<User> extends DatabaseService<User>{
     private usersPath: firebase.database.Reference;
     constructor() {
         super();
-        this.usersPath = this.getDatabase().ref("users");
+        this.usersPath = getDatabase().ref("users");
     }
 
     create(entity: User): void {
@@ -28,8 +29,8 @@ export class UserDatabaseService<User> extends DatabaseService<User>{
                 resultFromApi[index] = value;
             }
         });
-    } 
-    
+    }
+
     getAll(): Observable<User[]> {
         return Observable.fromEvent(this.usersPath, "value", (snapshot) => {
             var result = snapshot.val();

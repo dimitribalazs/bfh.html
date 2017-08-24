@@ -2,6 +2,7 @@ import { Injectable, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import * as firebase from 'firebase';
 import {DatabaseService} from './database.service';
+import {getDatabase} from './firebase';
 import {Bar} from '../dto/bar';
 
 @Injectable()
@@ -29,7 +30,7 @@ export class BarDatabaseService<Bar> extends DatabaseService<Bar>{
             }
         });
     }
-    
+
     getAll(): Observable<Bar[]> {
         return Observable.fromEvent(this.barsPath, "value", (snapshot) => {
             var result = snapshot.val();

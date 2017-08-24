@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private serviceBeer: BeerDatabaseService<Beer>,
-    // private serviceUser: UserDatabaseService<User>,
+    private serviceUser: UserDatabaseService<User>,
   ) { }
 
   ngOnInit() {

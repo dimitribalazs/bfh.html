@@ -23,12 +23,20 @@ export class BeerDatabaseService<Beer> extends DatabaseService<Beer>{
 
     update(id: string, entity: Beer): void {
         //https://firebase.google.com/docs/database/web/lists-of-data
-        var resultFromApi = new Beer();
-        Object.keys(entity).map((value, index) => {
-            //update
-            if(value) {
-                resultFromApi[index] = value;
-            }
+        const resultFromApi = this.beersPath.child(id);
+        resultFromApi.once("value")
+        .then((snapshot: firebase.database.DataSnapshot) => {
+            let dbBeer = snapshot.val() as Beer;
+            Object.keys(entity).map((value, index) => {
+                //update
+                if(entity.hasOwnProperty(value)) {
+                    dbBeer[value] = entity[value];
+                }
+            });
+            resultFromApi.set(dbBeer).catch((error) => console.log("Error while updating beer", error));
+        })
+        .catch((error) => {
+            console.log("Error while getting beer", error)
         });
     }
 

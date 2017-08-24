@@ -7,7 +7,7 @@ import { BarDetailComponent } from './bar-detail/bar-detail.component';
 
 import { BarsRoutingModule } from './bars-routing.module';
 
-import { BarService } from './bar.service';
+// import { BarService } from './bar.service';
 
 @NgModule({
   imports: [
@@ -17,8 +17,9 @@ import { BarService } from './bar.service';
   ],
   declarations: [
     BarComponent,
-    BarDetailComponent
+    // BarDetailComponent
   ],
-  providers: [ BarService ]
+  providers: [  ]
+  // providers: [ BarService ]
 })
 export class BarsModule { }

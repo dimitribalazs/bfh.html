@@ -1,38 +1,37 @@
-import { Component, OnInit, HostBinding  } from '@angular/core';
+import {Component, OnInit, Output, EventEmitter, Input} from '@angular/core';
+import {Beer} from '../../shared/dto/beer';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import {HomeService} from '../../home/home.service';
-import {Beer} from '../Beer';
-import {BeerService} from '../beer.service';
+import {FormBuilder, FormControl, FormGroup, FormArray, Validators} from '@angular/forms';
+import {BeerDatabaseService} from '../../shared/services/beer.service';
+import { Observable } from 'rxjs/Rx';
+import {BierService} from '../beerService'
 
 @Component({
   selector: 'app-beer-detail',
-  templateUrl: './beer-detail.component.html'
+  templateUrl: './beer-detail.component.html',
+  styleUrls: ['../beer.component.css']
 })
 export class BeerDetailComponent implements OnInit {
-  // @HostBinding('@routeAnimation') routeAnimation = true;
-  // @HostBinding('style.display')   display = 'block';
-  // @HostBinding('style.position')  position = 'absolute';
 
   beer: Beer;
+  model: Beer = new Beer;
 
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private service: BeerService
-  ) {}
+  @Output() onAddBeer = new EventEmitter<Beer>();
+
+  constructor(private beerService: BierService) {
+  }
+
 
   ngOnInit() {
-    this.route.paramMap
-      .switchMap((params: ParamMap) =>
-        this.service.getBeer(params.get('id')))
-      .subscribe((beer: Beer) => this.beer = beer);
+    this.beerService.getBeer().subscribe((beer) => {
+      this.model = this.beerService.getViewModel();
+    })
   }
 
-  gotoBeers() {
-    const beerId = this.beer ? this.beer.id : null;
-    // Pass along the hero id if available
-    // so that the HeroList component can select that hero.
-    // Include a junk 'foo' property for fun.
-    this.router.navigate(['/home']);
+
+
+  onSubmit() {
+    this.beerService.submit();
   }
+
 }

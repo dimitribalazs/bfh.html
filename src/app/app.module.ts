@@ -10,6 +10,8 @@ import {AppRoutingModule} from './app-routing.module';
 import {BarsModule} from './bar/bars.module';
 import {HomeModule} from './home/home.module';
 import {BeerModule} from './beer/beer.module';
+import {BeerDatabaseService} from './shared/services/beer.service';
+import {UserDatabaseService} from './shared/services/user.service';
 
 
 
@@ -25,7 +27,8 @@ import {BeerModule} from './beer/beer.module';
     HomeModule,
     AppRoutingModule
   ],
-  providers: [],
+  // providers: [BeerDatabaseService],
+  providers: [BeerDatabaseService, UserDatabaseService],
   bootstrap: [AppComponent],
 
 

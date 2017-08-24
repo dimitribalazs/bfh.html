@@ -6,18 +6,18 @@ import { HomeComponent } from './home.component';
 
 import { HomeRoutingModule } from './home-routing.module';
 
-import { HomeService } from './home.service';
+// import { HomeService } from './home.service';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    HomeRoutingModule
+    HomeRoutingModule,
   ],
   declarations: [
     HomeComponent,
   ],
-
-  providers: [ HomeService ]
+  providers: [  ]
+   // providers: [ HomeService ]
 })
 export class HomeModule { }

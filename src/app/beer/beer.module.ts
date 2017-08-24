@@ -1,26 +1,27 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
 
 import { BeerComponent } from './beer.component';
 import { BeerDetailComponent } from './beer-detail/beer-detail.component';
 
 import { BeerRoutingModule} from './beer-routing.module';
+import {BierService} from './beerService'
 
-import {BeerService} from './beer.service';
-import { BeerEditComponent } from './beer-edit/beer-edit.component';
+import {BarDetailComponent} from '../bar/bar-detail/bar-detail.component';
 
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule,
-    BeerRoutingModule
+    BrowserModule, FormsModule, ReactiveFormsModule,
+     BeerRoutingModule
   ],
   declarations: [
     BeerComponent,
     BeerDetailComponent,
-    BeerEditComponent
+    BarDetailComponent
   ],
-  providers: [ BeerService ]
+  providers: [BierService]
 })
 export class BeerModule { }

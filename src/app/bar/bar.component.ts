@@ -1,7 +1,7 @@
 import 'rxjs/add/operator/switchMap';
 import { Component, OnInit } from '@angular/core';
-import {Bar} from "./Bar";
-import {BarService} from "./bar.service";
+import {Bar} from '../shared/dto/Bar';
+import {BeerDatabaseService} from '../shared/services/beer.service';
 import {Observable} from "rxjs/Observable";
 import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 
@@ -9,7 +9,7 @@ import {ActivatedRoute, ParamMap, Router} from "@angular/router";
   selector: 'app-bar',
   templateUrl: './bar.component.html',
   styleUrls: ['./bar.component.css'],
-  providers: [BarService]
+  // providers: [BeerDatabaseService]
 })
 export class BarComponent implements OnInit {
   bars: Observable<Bar[]>;
@@ -17,21 +17,22 @@ export class BarComponent implements OnInit {
   private selectedId: number;
 
   constructor(
-    private service: BarService,
+    private service: BeerDatabaseService<Bar>,
     private route: ActivatedRoute,
     private router: Router
   ) {}
 
   ngOnInit() {
-    this.bars = this.route.paramMap
-      .switchMap((params: ParamMap) => {
-        // (+) before `params.get()` turns the string into a number
-        this.selectedId = +params.get('id');
-        return this.service.getBars();
-      });
+    // this.bars = this.route.paramMap
+    //   .switchMap((params: ParamMap) => {
+    //     // (+) before `params.get()` turns the string into a number
+    //     this.selectedId = +params.get('id');
+    //     return this.service.getAll();
+    //   });
+    return this.service.getAll();
   }
 
-  isSelected(bar: Bar) { return bar.id === this.selectedId; }
+  // isSelected(bar: Bar) { return bar.id === this.selectedId; }
 
   onSelect(hero: Bar) {
     this.router.navigate(['/bar', hero.id]);

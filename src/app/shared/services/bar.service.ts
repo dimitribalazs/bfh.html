@@ -23,12 +23,7 @@ export class BarDatabaseService<Bar> extends DatabaseService<Bar>{
     update(id: string, entity: Bar): void {
         //https://firebase.google.com/docs/database/web/lists-of-data
         var resultFromApi = new Bar();
-        Object.keys(entity).map((value, index) => {
-            //update
-            if(value) {
-                resultFromApi[index] = value;
-            }
-        });
+        
     }
 
     getAll(): Observable<Bar[]> {

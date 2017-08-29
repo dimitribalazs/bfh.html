@@ -2,7 +2,7 @@ import { Injectable, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import * as firebase from 'firebase';
 
-enum FirebaseEvent  {
+export enum FirebaseEvent  {
     value,
     child_changed,
     child_added,
@@ -47,6 +47,15 @@ export abstract class DatabaseService<T> implements OnInit {
     abstract update(id: string, entity: T): void;
     abstract get(id: string): Observable<T>;
     abstract getAll(): Observable<T[]>;
+
+    copyData<TSource, TDestination>(source: TSource, destination: TDestination): void {
+        Object.keys(source).map((value: string, index: number) => {
+            //update
+            if(source.hasOwnProperty(value)) {
+                destination[value] = source[value];
+            }
+        });
+    }
 }
 
 

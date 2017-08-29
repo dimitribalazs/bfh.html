@@ -1,7 +1,7 @@
 import { Injectable, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import * as firebase from 'firebase';
-import {DatabaseService} from './database.service';
+import {DatabaseService, FirebaseEvent} from './database.service';
 import {getDatabase} from './firebase';
 import {Beer} from '../dto/beer';
 
@@ -27,16 +27,11 @@ export class BeerDatabaseService<Beer> extends DatabaseService<Beer>{
         resultFromApi.once("value")
         .then((snapshot: firebase.database.DataSnapshot) => {
             let dbBeer = snapshot.val() as Beer;
-            Object.keys(entity).map((value, index) => {
-                //update
-                if(entity.hasOwnProperty(value)) {
-                    dbBeer[value] = entity[value];
-                }
-            });
+            super.copyData(entity, dbBeer);
             resultFromApi.set(dbBeer).catch((error) => console.log("Error while updating beer", error));
         })
         .catch((error) => {
-            console.log("Error while getting beer", error)
+            console.log("Error while getting beer", error);
         });
     }
 

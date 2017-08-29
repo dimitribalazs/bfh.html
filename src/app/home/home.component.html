@@ -43,8 +43,6 @@
 </div>
 
 <ul class="list">
-  <li *ngFor="let beer of arroundYou"
-      [class.selected]="isSelected(beer)"
   <li *ngFor="let beer of beers | async"
       [class.selected]="isSelected(beer)">
       (click)="onSelect(beer)">

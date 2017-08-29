@@ -1,0 +1,10 @@
+<h4>{{title}}</h4>
+<div class="horizontal-scroller-outer">
+  <div class="horizontal-scroller-inner">
+    <span *ngFor="let beer of beers | async">
+      <a href="#">
+        <img src="{{ '../../assets/logos/logo-' + getImageUrl().toString() + '.jpg' }}" height="100px" width="100px"/>
+      </a>
+    </span>
+  </div>
+</div>

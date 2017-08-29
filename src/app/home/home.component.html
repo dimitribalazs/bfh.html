@@ -44,7 +44,7 @@
 
 <ul class="list">
   <li *ngFor="let beer of beers | async"
-      [class.selected]="isSelected(beer)">
+      [class.selected]="isSelected(beer)"
       (click)="onSelect(beer)">
     <span class="badge">{{ beer.id }}</span> {{ beer.name }}
   </li>

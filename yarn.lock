@@ -142,6 +142,10 @@
   dependencies:
     tsickle "^0.21.0"
 
+"@ng-bootstrap/ng-bootstrap@^1.0.0-beta.1":
+  version "1.0.0-beta.1"
+  resolved "https://registry.yarnpkg.com/@ng-bootstrap/ng-bootstrap/-/ng-bootstrap-1.0.0-beta.1.tgz#a7d5935293df22a2275bf572f2197b45136e3c52"
+
 "@ngtools/json-schema@1.1.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@ngtools/json-schema/-/json-schema-1.1.0.tgz#c3a0c544d62392acc2813a42c8a0dc6f58f86922"
@@ -766,8 +770,8 @@ caniuse-api@^1.5.2:
     lodash.uniq "^4.5.0"
 
 caniuse-db@^1.0.30000529, caniuse-db@^1.0.30000634, caniuse-db@^1.0.30000639:
-  version "1.0.30000715"
-  resolved "https://registry.yarnpkg.com/caniuse-db/-/caniuse-db-1.0.30000715.tgz#0b9b5c795950dfbaf301a8806bafe87f126da8ca"
+  version "1.0.30000716"
+  resolved "https://registry.yarnpkg.com/caniuse-db/-/caniuse-db-1.0.30000716.tgz#b0717765d157662e8c74a61562c84c9fc3604a49"
 
 caseless@~0.12.0:
   version "0.12.0"
@@ -1770,8 +1774,8 @@ find-up@^1.0.0:
     pinkie-promise "^2.0.0"
 
 firebase@^4.2.0:
-  version "4.2.0"
-  resolved "https://registry.yarnpkg.com/firebase/-/firebase-4.2.0.tgz#9181a0a22c6afc2b27bd810789beac48a438207d"
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/firebase/-/firebase-4.3.0.tgz#21d95a92f862c7e406ddf871c173b50f153f8d46"
   dependencies:
     dom-storage "^2.0.2"
     faye-websocket "0.9.3"
@@ -2680,8 +2684,8 @@ jsonify@~0.0.0:
   resolved "https://registry.yarnpkg.com/jsonify/-/jsonify-0.0.0.tgz#2c74b6ee41d93ca51b7b5aaee8f503631d252a73"
 
 jsonwebtoken@^7.3.0:
-  version "7.4.2"
-  resolved "https://registry.yarnpkg.com/jsonwebtoken/-/jsonwebtoken-7.4.2.tgz#571b903c07e875c0fc59203d1ac78667d80e09cd"
+  version "7.4.3"
+  resolved "https://registry.yarnpkg.com/jsonwebtoken/-/jsonwebtoken-7.4.3.tgz#77f5021de058b605a1783fa1283e99812e645638"
   dependencies:
     joi "^6.10.1"
     jws "^3.1.4"
@@ -4921,8 +4925,8 @@ type-is@~1.6.15:
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.3.4.tgz#3d38321828231e434f287514959c37a82b629f42"
 
 uglify-js@3.0.x:
-  version "3.0.27"
-  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.0.27.tgz#a97db8c8ba6b9dba4e2f88d86aa9548fa6320034"
+  version "3.0.28"
+  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.0.28.tgz#96b8495f0272944787b5843a1679aa326640d5f7"
   dependencies:
     commander "~2.11.0"
     source-map "~0.5.1"
@@ -5273,9 +5277,16 @@ wrappy@1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/wrappy/-/wrappy-1.0.2.tgz#b5243d8f3ec1aa35f1364605bc0d1036e30ab69f"
 
-ws@1.1.2, ws@^1.0.1:
+ws@1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/ws/-/ws-1.1.2.tgz#8a244fa052401e08c9886cf44a85189e1fd4067f"
+  dependencies:
+    options ">=0.0.5"
+    ultron "1.0.x"
+
+ws@^1.0.1:
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/ws/-/ws-1.1.4.tgz#57f40d036832e5f5055662a397c4de76ed66bf61"
   dependencies:
     options ">=0.0.5"
     ultron "1.0.x"

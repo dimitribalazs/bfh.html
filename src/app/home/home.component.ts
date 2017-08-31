@@ -41,8 +41,7 @@ export class HomeComponent implements OnInit {
     private serviceBrewery: BreweryDatabaseService<Brewery>,
     private serviceBar: BarDatabaseService<Bar>,
     private serviceGeo: GeoService,
-    private menuService: MenuService
-  ) {
+    private menuService: MenuService) {
     this.menu = menuService;
     this.menu.TitleText = 'Duff\'d';
     this.menu.visibleHomeLink = false;

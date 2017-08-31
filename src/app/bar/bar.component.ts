@@ -2,8 +2,9 @@ import 'rxjs/add/operator/switchMap';
 import { Component, OnInit } from '@angular/core';
 import {Bar} from '../shared/dto/Bar';
 import {BeerDatabaseService} from '../shared/services/beer.service';
-import {Observable} from "rxjs/Observable";
-import {ActivatedRoute, ParamMap, Router} from "@angular/router";
+import {Observable} from 'rxjs/Observable';
+import {ActivatedRoute, ParamMap, Router} from '@angular/router';
+import {MenuService} from '../shared/services/menu.service';
 
 @Component({
   selector: 'app-bar',
@@ -13,14 +14,23 @@ import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 })
 export class BarComponent implements OnInit {
   bars: Observable<Bar[]>;
+  menu: MenuService;
 
   private selectedId: number;
 
   constructor(
     private service: BeerDatabaseService<Bar>,
     private route: ActivatedRoute,
-    private router: Router
-  ) {}
+    private router: Router,
+    private menuService: MenuService) {
+    this.menu = menuService;
+    this.menu.TitleText = 'Bar info';
+    this.menu.visibleHomeLink = true;
+    this.menu.visibleSearchLink = false;
+    this.menu.visibleTitle = true;
+    this.menu.visibleSearchInput = false;
+    this.menu.visibleEdit = true;
+  }
 
   ngOnInit() {
     // this.bars = this.route.paramMap

@@ -16,18 +16,11 @@ export class BeerDetailComponent implements OnInit {
 
   beer: Beer;
   model: Beer = new Beer;
-  menu: MenuService;
 
   @Output() onAddBeer = new EventEmitter<Beer>();
 
-  constructor(private beerService: BierService, private menuService: MenuService) {
-    this.menu = menuService;
-    this.menu.TitleText = 'Beer info';
-    this.menu.visibleHomeLink = true;
-    this.menu.visibleSearchLink = false;
-    this.menu.visibleTitle = true;
-    this.menu.visibleSearchInput = false;
-    this.menu.visibleEdit = true;
+  constructor(private beerService: BierService) {
+
   }
 
 

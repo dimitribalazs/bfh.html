@@ -4,6 +4,7 @@ import {BeerDatabaseService} from '../shared/services/beer.service';
 import {Observable} from 'rxjs/Observable';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {BierService} from './beerService'
+import {MenuService} from "../shared/services/menu.service";
 
 @Component({
   selector: 'app-beer',
@@ -14,10 +15,20 @@ export class BeerComponent implements OnInit {
 
   id: string;
   model: Beer = new Beer;
+  menu: MenuService;
 
   constructor(private beerService: BierService,
               private route: ActivatedRoute,
-              private router: Router) { }
+              private router: Router,
+              private menuService: MenuService) {
+      this.menu = menuService;
+      this.menu.TitleText = 'Beer info';
+      this.menu.visibleHomeLink = true;
+      this.menu.visibleSearchLink = false;
+      this.menu.visibleTitle = true;
+      this.menu.visibleSearchInput = false;
+      this.menu.visibleEdit = true;
+  }
 
 
 

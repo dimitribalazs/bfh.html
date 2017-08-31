@@ -9,7 +9,10 @@ import * as NewBeer from '../shared/dto/Beer';
 import {AroundYou} from './AroundYouModel';
 import {User} from '../shared/dto/user';
 import {UserDatabaseService} from '../shared/services/user.service';
-import {MenuService} from "../shared/services/menu.service";
+import {MenuService} from '../shared/services/menu.service';
+import {Brewery} from '../shared/dto/brewery';
+import {BreweryDatabaseService} from '../shared/services/brewery.service';
+import {BarDatabaseService} from '../shared/services/bar.service';
 
 @Component({
   selector: 'app-main',
@@ -17,10 +20,11 @@ import {MenuService} from "../shared/services/menu.service";
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  title = 'Duffd';
-   beers: Observable<Beer[]>;
+  beers: Observable<Beer[]>;
   users: Observable<User[]>;
-   arroundYou: AroundYou[] = new Array();
+  brewery: Observable<Brewery[]>;
+  bars: Observable<Bar[]>;
+  arroundYou: AroundYou[] = new Array();
   menu: MenuService;
 
 
@@ -31,6 +35,8 @@ export class HomeComponent implements OnInit {
     private router: Router,
     private serviceBeer: BeerDatabaseService<Beer>,
     private serviceUser: UserDatabaseService<User>,
+    private serviceBrewery: BreweryDatabaseService<Brewery>,
+    private serviceBar: BarDatabaseService<Bar>,
     private menuService: MenuService) {
     this.menu = menuService;
     this.menu.TitleText = 'Duff\'d';
@@ -45,13 +51,55 @@ export class HomeComponent implements OnInit {
 
     this.beers = this.serviceBeer.getAll()
 
+    this.users = this.serviceUser.getAll()
+
+    this.brewery = this.serviceBrewery.getAll()
+
+    this.bars = this.serviceBar.getAll()
+
     this.beers.subscribe((value) => {
       value.forEach((beer) => {
         const a: AroundYou = new AroundYou();
         a.id = beer.id;
         a.name = beer.name;
         a.routerNavigate = '/beer/'
+        if (this.arroundYou.length < 3) {
+          this.arroundYou.push(a)
+        }
+      })
+    })
+
+    this.bars.subscribe((value) => {
+      value.forEach((bar) => {
+        const a: AroundYou = new AroundYou();
+        a.id = bar.id;
+        a.name = bar.name;
+        a.routerNavigate = '/bar/'
         if (this.arroundYou.length < 5) {
+          this.arroundYou.push(a)
+        }
+      })
+    })
+
+    this.users.subscribe((value) => {
+      value.forEach((user) => {
+        const a: AroundYou = new AroundYou();
+        a.id = user.id;
+        a.name = user.firstname + ', ' + user.lastname;
+        a.routerNavigate = '/friends/'
+        if (this.arroundYou.length < 7) {
+          this.arroundYou.push(a)
+        }
+      })
+    })
+
+    this.brewery.subscribe((value) => {
+      value.forEach((brewery) => {
+        const a: AroundYou = new AroundYou();
+        a.id = brewery.id;
+        a.name = brewery.name;
+        a.routerNavigate = '/brewery/'
+        if (this.arroundYou.length < 9) {
           this.arroundYou.push(a)
         }
       })

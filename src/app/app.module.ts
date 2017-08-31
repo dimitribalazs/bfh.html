@@ -17,7 +17,9 @@ import {SearchModule} from './search/search.module';
 import {UserModule} from './user/user.module';
 import {FriendsModule} from './friends/friends.module';
 import {BreweryModule} from './brewery/brewery.module';
-import {MenuService} from "./shared/services/menu.service";
+import {MenuService} from './shared/services/menu.service';
+import {BreweryDatabaseService} from './shared/services/brewery.service';
+import {BarDatabaseService} from './shared/services/bar.service';
 
 
 @NgModule({
@@ -38,7 +40,7 @@ import {MenuService} from "./shared/services/menu.service";
     NgbModule.forRoot()
   ],
   // providers: [BeerDatabaseService],
-  providers: [BeerDatabaseService, UserDatabaseService, MenuService],
+  providers: [BeerDatabaseService, BarDatabaseService, UserDatabaseService, BreweryDatabaseService, MenuService],
   bootstrap: [AppComponent],
 
 

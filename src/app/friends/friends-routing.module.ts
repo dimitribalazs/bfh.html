@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { FriendsComponent } from './friends.component';
 
 const friendsRoutes: Routes = [
-  { path: 'friends',
+  { path: 'friends/:id',
     component: FriendsComponent,
     },
 ];

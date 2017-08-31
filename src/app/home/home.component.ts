@@ -11,6 +11,8 @@ import {User} from '../shared/dto/user';
 import {GeoData} from '../shared/dto/geoData';
 import {UserDatabaseService} from '../shared/services/user.service';
 import {GeoService} from '../shared/services/geo.service';
+import {MenuService} from "../shared/services/menu.service";
+
 
 @Component({
   selector: 'app-main',
@@ -22,6 +24,7 @@ export class HomeComponent implements OnInit {
    beers: Observable<Beer[]>;
   users: Observable<User[]>;
    arroundYou: AroundYou[] = new Array();
+  menu: MenuService;
 
 
   private selectedId: string;
@@ -31,8 +34,18 @@ export class HomeComponent implements OnInit {
     private router: Router,
     private serviceBeer: BeerDatabaseService<Beer>,
     private serviceUser: UserDatabaseService<User>,
-    private serviceGeo: GeoService
-  ) { }
+    private serviceGeo: GeoService,
+    private menuService: MenuService
+  ) {
+    this.menu = menuService;
+    this.menu.TitleText = 'Duff\'d';
+    this.menu.visibleHomeLink = false;
+    this.menu.visibleSearchLink = true;
+    this.menu.visibleTitle = true;
+    this.menu.visibleSearchInput = false;
+    this.menu.visibleEdit = false;
+  }
+
 
   ngOnInit() {
 

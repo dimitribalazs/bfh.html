@@ -1,13 +1,12 @@
 <!--The whole content below can be removed with the new code.-->
 
 <nav>
-  <a routerLink="/home" routerLinkActive="active">&lt;</a>
-  <p style="display:inline">{{menu.Title}}</p>
-  <a routerLink="/search" routerLinkActive="active">search</a>
+  <a *ngIf="this.menu.visibleHomeLink" routerLink="/home" routerLinkActive="active">&lt;</a>
+  <p *ngIf="this.menu.visibleTitle" style="display:inline">{{menu.TitleText}}</p>
+  <input *ngIf="this.menu.visibleSearchInput" type="text" class="form-control" >
+  <a *ngIf="this.menu.visibleSearchLink" routerLink="/search" routerLinkActive="active">search</a>
+  <button *ngIf="this.menu.visibleEdit">edit</button>
 </nav>
-
-{{title}}
-
 
 
 <router-outlet></router-outlet>

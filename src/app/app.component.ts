@@ -12,7 +12,9 @@ export class AppComponent {
   menu: MenuService;
   constructor(private menuService: MenuService, private sw: NgServiceWorker) {
     this.menu = menuService;
-    this.menu.Title = 'Duff\'d';
+    this.menu.TitleText = 'Duff\'d';
+    this.menu.visibleHomeLink = false;
+    this.menu.visibleSearchLink = true;
 
     // ServiceWorker log
     sw.log().subscribe(log => console.debug('log', log));
@@ -21,13 +23,13 @@ export class AppComponent {
       console.debug('update event', u);
 
       // Immediately activate pending update
-      if (u.type == 'pending') {
-        sw.activateUpdate(u.version).subscribe(e => {
-          console.debug('updated', e);
-          alert("App updated! Reload App!");
-          // location.reload();
-        });
-      }
+      // if (u.type == 'pending') {
+      //   sw.activateUpdate(u.version).subscribe(e => {
+      //     console.debug('updated', e);
+      //     alert("App updated! Reload App!");
+      //     // location.reload();
+      //   });
+      // }
     });
 
     sw.checkForUpdate();

@@ -13,6 +13,10 @@ import {HomeModule} from './home/home.module';
 import {BeerModule} from './beer/beer.module';
 import {BeerDatabaseService} from './shared/services/beer.service';
 import {UserDatabaseService} from './shared/services/user.service';
+import {SearchModule} from './search/search.module';
+import {UserModule} from './user/user.module';
+import {FriendsModule} from './friends/friends.module';
+import {BreweryModule} from './brewery/brewery.module';
 
 
 @NgModule({
@@ -24,8 +28,12 @@ import {UserDatabaseService} from './shared/services/user.service';
     FormsModule, ReactiveFormsModule,
     BarsModule,
     BeerModule,
+    BreweryModule,
     HomeModule,
+    SearchModule,
     AppRoutingModule,
+    UserModule,
+    FriendsModule,
     NgbModule.forRoot()
   ],
   // providers: [BeerDatabaseService],

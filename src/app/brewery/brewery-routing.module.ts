@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import {BreweryComponent} from './brewery.component';
 
 const breweryRoutes: Routes = [
-  { path: 'brewery',
+  { path: 'brewery/:id',
     component: BreweryComponent,
     },
 ];

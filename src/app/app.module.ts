@@ -17,6 +17,7 @@ import {SearchModule} from './search/search.module';
 import {UserModule} from './user/user.module';
 import {FriendsModule} from './friends/friends.module';
 import {BreweryModule} from './brewery/brewery.module';
+import {MenuService} from "./shared/services/menu.service";
 
 
 @NgModule({
@@ -37,7 +38,7 @@ import {BreweryModule} from './brewery/brewery.module';
     NgbModule.forRoot()
   ],
   // providers: [BeerDatabaseService],
-  providers: [BeerDatabaseService, UserDatabaseService],
+  providers: [BeerDatabaseService, UserDatabaseService, MenuService],
   bootstrap: [AppComponent],
 
 

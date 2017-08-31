@@ -1,0 +1,40 @@
+{
+    "static.ignore": [
+        "\\.js\\.map$"
+    ],
+     "external": {
+        "urls": [
+            {"url": "https://fonts.googleapis.com/icon?family=Material+Icons"}
+        ]
+    },
+    "routing": {
+        "index": "/index.html",
+        "routes": {
+            "/": {
+                "match": "prefix"
+            }
+        }
+    },
+    "dynamic": {
+        "group": [
+            {
+                "name": "api",
+                "urls": {
+                    "http://www.angular.at/api": {
+                        "match": "prefix"
+                    }
+                },
+                "cache": {
+                    "optimizeFor": "freshness",
+                    "maxAgeMs": 3600000,
+                    "maxEntries": 4,
+                    "strategy": "lru"
+                }
+            }
+        ]
+    },
+    "push": {
+        "showNotifications": true,
+        "backgroundOnly": false
+    }
+}

@@ -1,7 +1,7 @@
 import { Injectable, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import * as firebase from 'firebase';
-import {DatabaseService} from './database.service';
+import {DatabaseService, FirebaseEvent} from './database.service';
 import {Brewery} from '../dto/brewery';
 import {getDatabase} from './firebase';
 
@@ -15,24 +15,24 @@ export class BreweryDatabaseService<Brewery> extends DatabaseService<Brewery>{
 
     create(entity: Brewery): void {
          const newKey: string = this.breweriesPath.push().key;
-         //validate stuff
-         console.log(newKey)
          this.breweriesPath.child(newKey).set(entity);
     }
 
     update(id: string, entity: Brewery): void {
-        //https://firebase.google.com/docs/database/web/lists-of-data
-        var resultFromApi = new Brewery();
-        Object.keys(entity).map((value, index) => {
-            //update
-            if(value) {
-                resultFromApi[index] = value;
-            }
+        const apiPath = this.breweriesPath.child(id);
+        apiPath.once(FirebaseEvent.value.toString())
+        .then((snapshot: firebase.database.DataSnapshot) => {
+            let dbBrewery = snapshot.val() as Brewery;
+            super.copyData(entity, dbBrewery);
+            apiPath.set(dbBrewery).catch((error) => console.log("Error while updating brewery", error));
+        })
+        .catch((error) => {
+            console.log("Error while getting brewery", error);
         });
     }
 
     getAll(): Observable<Brewery[]> {
-        return Observable.fromEvent(this.breweriesPath, "value", (snapshot) => {
+        return Observable.fromEvent(this.breweriesPath, FirebaseEvent.value.toString(), (snapshot) => {
             var result = snapshot.val();
             const brewery: Brewery[] = [];
             Object.keys(result).map((value:string) => {
@@ -44,6 +44,15 @@ export class BreweryDatabaseService<Brewery> extends DatabaseService<Brewery>{
     }
 
     get(id: string): Observable<Brewery> {
-        return null;
+        return Observable.fromEvent(this.breweriesPath, FirebaseEvent.value.toString(), (snapshot) => {
+            var result = snapshot.val();
+            let brewery: Brewery;
+            Object.keys(result).filter((value:string) => {
+                if(value == id) {
+                    brewery = result[value] as Brewery;
+                }
+            });
+            return brewery;
+        });
     }
 }

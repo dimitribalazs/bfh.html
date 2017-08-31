@@ -2,7 +2,16 @@
   <h1>{{title}}</h1>
   <h4>Around you</h4>
   <div>
+
     <ul class="list-group">
+      <li *ngFor="let data of arroundYou"
+          [class.selected]="isSelected(data)"
+          (click)="onSelect(data)"
+          class="list-group-item">
+        <span class="glyphicon glyphicon-map-marker"></span>
+        <span class="badge">{{ data.id }}m</span>
+        {{ data.name }}
+      </li>
       <li class="list-group-item">
         <span class="glyphicon glyphicon-user"></span>
         <span class="badge">144m</span>
@@ -13,27 +22,40 @@
         <span class="badge">144m</span>
         Barbière
       </li>
-      <li class="list-group-item">
-        <span class="glyphicon glyphicon-user"></span>
-        <span class="badge">1.3km</span>
-        Bud Spencer, Burgunder Bar
-      </li>
-      <li class="list-group-item">
-        <span class="glyphicon glyphicon-user"></span>
-        <span class="badge">1.3km</span>
-        Terrence Hill, Burgunder Bar
-      </li>
-      <li class="list-group-item">
-        <span class="glyphicon glyphicon-map-marker"></span>
-        <span class="badge">1.3km</span>
-        Burgunder Bar
-      </li>
-      <li class="list-group-item">
-        <span class="glyphicon glyphicon-map-marker"></span>
-        <span class="badge">1.8m</span>
-        Zum tänzelnden Pony
-      </li>
     </ul>
+
+    <!--<ul class="list-group">-->
+      <!--<li class="list-group-item">-->
+        <!--<span class="glyphicon glyphicon-user"></span>-->
+        <!--<span class="badge">144m</span>-->
+        <!--Ricco Stocker, Barbière-->
+      <!--</li>-->
+      <!--<li class="list-group-item">-->
+        <!--<span class="glyphicon glyphicon-map-marker"></span>-->
+        <!--<span class="badge">144m</span>-->
+        <!--Barbière-->
+      <!--</li>-->
+      <!--<li class="list-group-item">-->
+        <!--<span class="glyphicon glyphicon-user"></span>-->
+        <!--<span class="badge">1.3km</span>-->
+        <!--Bud Spencer, Burgunder Bar-->
+      <!--</li>-->
+      <!--<li class="list-group-item">-->
+        <!--<span class="glyphicon glyphicon-user"></span>-->
+        <!--<span class="badge">1.3km</span>-->
+        <!--Terrence Hill, Burgunder Bar-->
+      <!--</li>-->
+      <!--<li class="list-group-item">-->
+        <!--<span class="glyphicon glyphicon-map-marker"></span>-->
+        <!--<span class="badge">1.3km</span>-->
+        <!--Burgunder Bar-->
+      <!--</li>-->
+      <!--<li class="list-group-item">-->
+        <!--<span class="glyphicon glyphicon-map-marker"></span>-->
+        <!--<span class="badge">1.8m</span>-->
+        <!--Zum tänzelnden Pony-->
+      <!--</li>-->
+    <!--</ul>-->
   </div>
 </div>
 <div class="panel">
@@ -42,15 +64,5 @@
   <app-beer-top10 [title]="'Your friends top rated beers'" [beers]="beers"></app-beer-top10>
 </div>
 
-<ul class="list">
-  <li *ngFor="let beer of arroundYou"
-      [class.selected]="isSelected(beer)"
-      (click)="onSelect(beer)">
-    <span class="badge">{{ beer.id }}</span> {{ beer.name }}
-  </li>
-</ul>
 
-<!-- (click)="onSelect(beer)"> -->
 
-<button (click)="changeDb($event)">Change</button>
-<button (click)="createBeer($event)">BeerCreate</button>

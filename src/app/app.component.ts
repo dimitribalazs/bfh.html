@@ -11,6 +11,8 @@ export class AppComponent {
   menu: MenuService;
   constructor(private menuService: MenuService) {
     this.menu = menuService;
-    this.menu.Title = 'Duff\'d';
+    this.menu.TitleText = 'Duff\'d';
+    this.menu.visibleHomeLink = false;
+    this.menu.visibleSearchLink = true;
   }
 }

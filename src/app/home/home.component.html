@@ -59,7 +59,9 @@
   </div>
 </div>
 <div class="panel">
-  
+  <app-beer-top10 [title]="'Your top 10 beers'" [beers]="beers"></app-beer-top10>
+  <app-beer-top10 [title]="'Your friends most drunk beers'" [beers]="beers"></app-beer-top10>
+  <app-beer-top10 [title]="'Your friends top rated beers'" [beers]="beers"></app-beer-top10>
 </div>
 
 <button (click)="checkLocation()">test</button>

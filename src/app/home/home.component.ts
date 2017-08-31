@@ -8,7 +8,9 @@ import {BeerDatabaseService} from '../shared/services/beer.service';
 import * as NewBeer from '../shared/dto/Beer';
 import {AroundYou} from './AroundYouModel';
 import {User} from '../shared/dto/user';
+import {GeoData} from '../shared/dto/geoData';
 import {UserDatabaseService} from '../shared/services/user.service';
+import {GeoService} from '../shared/services/geo.service';
 
 @Component({
   selector: 'app-main',
@@ -29,6 +31,7 @@ export class HomeComponent implements OnInit {
     private router: Router,
     private serviceBeer: BeerDatabaseService<Beer>,
     private serviceUser: UserDatabaseService<User>,
+    private serviceGeo: GeoService
   ) { }
 
   ngOnInit() {
@@ -68,11 +71,44 @@ export class HomeComponent implements OnInit {
 
   createBeer(event): void {
     console.log(event);
+
     // const beer = new NewBeer.Beer();
     // beer.name = "Bier vo ergendwo";
     // beer.volume = 20;
     // beer.description = "super fein";
     // beer.taste = NewBeer.Taste.Fruchtig;
     // this.databaseService.create(beer);
+  }
+
+  checkLocation() {
+    //Wohlen AG
+    var lat = 47.349365;
+    var long = 8.276876;
+
+    var wohlen: GeoData = {
+      id: "11",
+      longitude: long,
+      latitude: lat
+    };
+
+    //waltenschwil
+    var lat1 = 47.334727;
+    var long1 = 8.300650;
+    
+    var waltenschwil: GeoData = {
+      id: "12",
+      longitude: long1,
+      latitude: lat1
+    };
+    var foo = this.serviceGeo.isInRange(wohlen, waltenschwil);
+    console.log("result 1 " + foo);
+
+    var lausanne: GeoData = {
+      id: "13",
+      longitude: 6.632273,
+      latitude: 46.519653
+    };
+    foo = this.serviceGeo.isInRange(wohlen, lausanne);
+    console.log("result 2 " + foo);
   }
 }

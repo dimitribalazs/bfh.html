@@ -52,7 +52,7 @@ export class BarDatabaseService<Bar> extends DatabaseService<Bar>{
                     bar = result[value] as Bar;
                 }
             });
-            return beer;
+            return bar;
         });
     }
 }

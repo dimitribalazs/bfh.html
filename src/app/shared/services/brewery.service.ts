@@ -52,7 +52,7 @@ export class BreweryDatabaseService<Brewery> extends DatabaseService<Brewery>{
                     brewery = result[value] as Brewery;
                 }
             });
-            return beer;
+            return brewery;
         });
     }
 }

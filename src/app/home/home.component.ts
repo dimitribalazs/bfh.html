@@ -94,34 +94,47 @@ export class HomeComponent implements OnInit {
   }
 
   checkLocation() {
-    //Wohlen AG
-    var lat = 47.349365;
-    var long = 8.276876;
-
-    var wohlen: GeoData = {
-      id: "11",
-      longitude: long,
-      latitude: lat
-    };
-
-    //waltenschwil
-    var lat1 = 47.334727;
-    var long1 = 8.300650;
     
-    var waltenschwil: GeoData = {
-      id: "12",
-      longitude: long1,
-      latitude: lat1
-    };
-    var foo = this.serviceGeo.isInRange(wohlen, waltenschwil);
-    console.log("result 1 " + foo);
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((pos) => {
+           const coords: Coordinates  = pos.coords;
 
-    var lausanne: GeoData = {
-      id: "13",
-      longitude: 6.632273,
-      latitude: 46.519653
-    };
-    foo = this.serviceGeo.isInRange(wohlen, lausanne);
-    console.log("result 2 " + foo);
-  }
+           let currentPos: GeoData = {
+            id: "10",
+            longitude: coords.longitude,
+            latitude: coords.latitude
+           }
+          //Wohlen AG
+          var lat = 47.349365;
+          var long = 8.276876;
+
+          var wohlen: GeoData = {
+            id: "11",
+            longitude: long,
+            latitude: lat
+          };
+
+          //waltenschwil
+          var lat1 = 47.334727;
+          var long1 = 8.300650;
+          
+          var waltenschwil: GeoData = {
+            id: "12",
+            longitude: long1,
+            latitude: lat1
+          };
+          var foo = this.serviceGeo.isInRange(wohlen, waltenschwil);
+          console.log("result 1 " + foo);
+
+          var lausanne: GeoData = {
+            id: "13",
+            longitude: 6.632273,
+            latitude: 46.519653
+          };
+          foo = this.serviceGeo.isInRange(wohlen, lausanne);
+          console.log("result 2 " + foo);
+  
+      }); 
+    }
+  }   
 }

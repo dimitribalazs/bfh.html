@@ -1,7 +1,7 @@
 import { Injectable, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import * as firebase from 'firebase';
-import {DatabaseService} from './database.service';
+import {DatabaseService, FirebaseEvent} from './database.service';
 import {User} from '../dto/user';
 import {getDatabase} from './firebase';
 
@@ -15,24 +15,24 @@ export class UserDatabaseService<User> extends DatabaseService<User>{
 
     create(entity: User): void {
          const newKey: string = this.usersPath.push().key;
-         //validate stuff
-         console.log(newKey)
          this.usersPath.child(newKey).set(entity);
     }
 
     update(id: string, entity: User): void {
-        //https://firebase.google.com/docs/database/web/lists-of-data
-        var resultFromApi = new User();
-        Object.keys(entity).map((value, index) => {
-            //update
-            if(value) {
-                resultFromApi[index] = value;
-            }
+        const apiPath = this.usersPath.child(id);
+        apiPath.once("value")
+        .then((snapshot: firebase.database.DataSnapshot) => {
+            let dbUser = snapshot.val() as User;
+            super.copyData(entity, dbUser);
+            apiPath.set(dbUser).catch((error) => console.log("Error while updating user", error));
+        })
+        .catch((error) => {
+            console.log("Error while getting user", error);
         });
     }
 
     getAll(): Observable<User[]> {
-        return Observable.fromEvent(this.usersPath, "value", (snapshot) => {
+        return Observable.fromEvent(this.usersPath, FirebaseEvent.value.toString(), (snapshot) => {
             var result = snapshot.val();
             const users: User[] = [];
             Object.keys(result).map((value:string) => {
@@ -44,6 +44,15 @@ export class UserDatabaseService<User> extends DatabaseService<User>{
     }
 
     get(id: string): Observable<User> {
-        return null;
+        return Observable.fromEvent(this.usersPath, FirebaseEvent.value.toString(), (snapshot) => {
+            var result = snapshot.val();
+            let user: User;
+            Object.keys(result).filter((value:string) => {
+                if(value == id) {
+                    user = result[value] as User;
+                }
+            });
+            return user;
+        });
     }
 }

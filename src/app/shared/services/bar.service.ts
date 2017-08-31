@@ -1,7 +1,7 @@
 import { Injectable, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import * as firebase from 'firebase';
-import {DatabaseService} from './database.service';
+import {DatabaseService, FirebaseEvent} from './database.service';
 import {getDatabase} from './firebase';
 import {Bar} from '../dto/bar';
 
@@ -15,19 +15,24 @@ export class BarDatabaseService<Bar> extends DatabaseService<Bar>{
 
     create(entity: Bar): void {
          const newKey: string = this.barsPath.push().key;
-         //validate stuff
-         console.log(newKey)
          this.barsPath.child(newKey).set(entity);
     }
 
     update(id: string, entity: Bar): void {
-        //https://firebase.google.com/docs/database/web/lists-of-data
-        var resultFromApi = new Bar();
-        
+        const apiPath = this.barsPath.child(id);
+        apiPath.once(FirebaseEvent.value.toString())
+        .then((snapshot: firebase.database.DataSnapshot) => {
+            let dbBar = snapshot.val() as Bar;
+            super.copyData(entity, dbBar);
+            apiPath.set(dbBar).catch((error) => console.log("Error while updating bar", error));
+        })
+        .catch((error) => {
+            console.log("Error while getting bar", error);
+        });
     }
 
     getAll(): Observable<Bar[]> {
-        return Observable.fromEvent(this.barsPath, "value", (snapshot) => {
+        return Observable.fromEvent(this.barsPath, FirebaseEvent.value.toString(), (snapshot) => {
             var result = snapshot.val();
             const bars: Bar[] = [];
             Object.keys(result).map((value:string) => {
@@ -39,6 +44,15 @@ export class BarDatabaseService<Bar> extends DatabaseService<Bar>{
     }
 
     get(id: string): Observable<Bar> {
-        return null;
+        return Observable.fromEvent(this.barsPath, FirebaseEvent.value.toString(), (snapshot) => {
+            var result = snapshot.val();
+            let bar: Bar;
+            Object.keys(result).filter((value: string) => {
+                if(value == id) {
+                    bar = result[value] as Bar;
+                }
+            });
+            return beer;
+        });
     }
 }

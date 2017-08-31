@@ -11,6 +11,7 @@ import {BierService} from './beerService'
 
 import {BarDetailComponent} from '../bar/bar-detail/bar-detail.component';
 import { RatingComponent } from './rating/rating.component';
+import { BeerInfoComponent } from './beer-info/beer-info.component';
 
 @NgModule({
   imports: [
@@ -22,7 +23,8 @@ import { RatingComponent } from './rating/rating.component';
     BeerComponent,
     BeerDetailComponent,
     BarDetailComponent,
-    RatingComponent
+    RatingComponent,
+    BeerInfoComponent
   ],
   providers: [BierService]
 })

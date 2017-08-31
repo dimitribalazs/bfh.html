@@ -121,7 +121,12 @@ export class HomeComponent implements OnInit {
   // }
 
   onSelect(around: AroundYou) {
-    this.router.navigate([around.routerNavigate, around.id]);
+    if (around.routerNavigate === '/beer/') {
+      this.router.navigate([around.routerNavigate, around.id, 'info']);
+    }else {
+      this.router.navigate([around.routerNavigate, around.id]);
+    }
+
   }
 
   changeDb(event): void {

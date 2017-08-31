@@ -7,7 +7,7 @@ import {BarDetailComponent} from '../bar/bar-detail/bar-detail.component';
 import { BeerInfoComponent } from './beer-info/beer-info.component';
 
 const beerRoutes: Routes = [
-  { path: 'beer/:id',
+  { path: 'beer/:id/edit',
     component: BeerComponent,
     children: [
       {
@@ -20,7 +20,7 @@ const beerRoutes: Routes = [
         ]
       }
     ]},
-  { path: 'beer/:id/info',
+  { path: 'beer/:id',
     component: BeerComponent,
     children: [
       {

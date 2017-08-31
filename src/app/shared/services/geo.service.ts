@@ -1,14 +1,16 @@
+import { Injectable, OnInit } from '@angular/core';
 import {GeoData} from '../dto/geoData';
 
+@Injectable()
 export class GeoService {
   private _earthRadius: number = 6371;
   private _radius = 30
   
-  _deg2rad(point): number { 
+  private _deg2rad(point): number { 
     return Math.tan(point * (Math.PI/180)) 
   }
 
-   isInRange(currentPosition: GeoData, positionToCheck: GeoData): boolean {
+   public isInRange(currentPosition: GeoData, positionToCheck: GeoData): boolean {
       let destinationLat = this._deg2rad(positionToCheck.latitude - currentPosition.latitude);
       let destinationLon = this._deg2rad(positionToCheck.longitude - currentPosition.longitude);
       

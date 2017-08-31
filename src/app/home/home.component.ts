@@ -5,8 +5,7 @@ import 'rxjs/add/operator/switchMap';
 import { Beer} from '../shared/dto/Beer';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import {BeerDatabaseService} from '../shared/services/beer.service';
-import * as NewBeer from '../shared/dto/Beer';
-import {AroundYou} from './AroundYouModel';
+import {AroundYou} from '../shared/dto/aroundyou';
 import {User} from '../shared/dto/user';
 import {GeoData} from '../shared/dto/geoData';
 import {UserDatabaseService} from '../shared/services/user.service';
@@ -48,8 +47,20 @@ export class HomeComponent implements OnInit {
 
 
   ngOnInit() {
+    console.log("init");
+    //Wohlen AG
+    var lat = 47.349365;
+    var long = 8.276876;
 
-    this.beers = this.serviceBeer.getAll()
+    var wohlen: GeoData = {
+      id: "11",
+      longitude: long,
+      latitude: lat
+    };
+
+    this.serviceUser.getAroundYou(wohlen, " ");
+
+    this.beers = this.serviceBeer.getAll();
 
     this.beers.subscribe((value) => {
       value.forEach((beer) => {
@@ -94,7 +105,8 @@ export class HomeComponent implements OnInit {
   }
 
   checkLocation() {
-    
+   
+
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((pos) => {
            const coords: Coordinates  = pos.coords;

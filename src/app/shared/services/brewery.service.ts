@@ -33,7 +33,7 @@ export class BreweryDatabaseService<Brewery> extends DatabaseService<Brewery>{
 
     getAll(): Observable<Brewery[]> {
         return Observable.fromEvent(this.breweriesPath, FirebaseEvent.value.toString(), (snapshot) => {
-            var result = snapshot.val();
+            const result = snapshot.val();
             const brewery: Brewery[] = [];
             Object.keys(result).map((value:string) => {
                 brewery.push(result[value] as Brewery);
@@ -45,9 +45,9 @@ export class BreweryDatabaseService<Brewery> extends DatabaseService<Brewery>{
 
     get(id: string): Observable<Brewery> {
         return Observable.fromEvent(this.breweriesPath, FirebaseEvent.value.toString(), (snapshot) => {
-            var result = snapshot.val();
+          const result = snapshot.val();
             let brewery: Brewery;
-            Object.keys(result).filter((value:string) => {
+            Object.keys(result).filter((value: string) => {
                 if(value == id) {
                     brewery = result[value] as Brewery;
                 }

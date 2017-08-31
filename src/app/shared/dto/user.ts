@@ -6,11 +6,10 @@ export class User {
     id: string;
     firstname: string;
     lastname: string;
-    currentLocation: GeoData;
+    location: GeoData;
     beerPreferences: Beer[];
     totalConsumption: number;
     //badges: Badge[];
-
 }
 
 export class UserFriends {

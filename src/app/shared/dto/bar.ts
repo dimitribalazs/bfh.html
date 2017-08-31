@@ -12,7 +12,7 @@ export class Bar {
     isSmokingAllowed: boolean;
     openingHours: string; //todo change
     snacks: string; //todo change
-    geoDaten: GeoData;
+    location: GeoData;
 
     //beer
 }

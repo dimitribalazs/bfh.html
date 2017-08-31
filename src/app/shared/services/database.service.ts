@@ -3,11 +3,11 @@ import { Observable } from 'rxjs/Rx';
 import * as firebase from 'firebase';
 
 export enum FirebaseEvent  {
-    value,
-    child_changed,
-    child_added,
-    child_removed,
-    child_moved
+    value = "value",
+    child_changed = "child_changed",
+    child_added = "child_added",
+    child_removed = "child_removed",
+    child_moved = "child_moved"
 }
 
 export abstract class DatabaseService<T> implements OnInit {

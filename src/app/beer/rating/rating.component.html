@@ -1,0 +1,14 @@
+
+  <!--<button (click)="onBad()">-</button>-->
+  <!--<button (click)="onOk()">-/+</button>-->
+  <!--<button (click)="onGreat()">+</button>-->
+  <input name="options" type="radio" [checked]="rating==1" (click)="onChange(1)" />
+  <input name="options" type="radio" [checked]="rating===2" (click)="onChange(2)" />
+  <input name="options" type="radio" [checked]="rating==3" (click)="onChange(3)" />
+
+  ({{ratingBad}})
+  ({{ratingOk}})
+  ({{ratingGreat}})
+
+
+

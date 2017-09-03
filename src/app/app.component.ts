@@ -23,13 +23,13 @@ export class AppComponent {
       console.debug('update event', u);
 
       // Immediately activate pending update
-      // if (u.type == 'pending') {
-      //   sw.activateUpdate(u.version).subscribe(e => {
-      //     console.debug('updated', e);
-      //     alert("App updated! Reload App!");
-      //     // location.reload();
-      //   });
-      // }
+      if (u.type == 'pending') {
+        sw.activateUpdate(u.version).subscribe(e => {
+          console.debug('updated', e);
+          // alert("App updated! Reload App!");
+          location.reload();
+        });
+      }
     });
 
     sw.checkForUpdate();

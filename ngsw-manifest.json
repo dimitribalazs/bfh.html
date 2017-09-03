@@ -5,7 +5,10 @@
      "external": {
         "urls": [
             {"url": "https://fonts.googleapis.com/icon?family=Material+Icons"},
-            {"url": "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"}
+            {"url": "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"},
+            {"url": "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/fonts/glyphicons-halflings-regular.woff2"},
+            {"url": "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/fonts/glyphicons-halflings-regular.woff"},
+            {"url": "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/fonts/glyphicons-halflings-regular.ttf"}
         ]
     },
     "routing": {
@@ -13,29 +16,10 @@
         "routes": {
             "/": {
                 "match": "prefix"
+            },
+            "/home": {
+                "match": "prefix"
             }
         }
-    },
-    "dynamic": {
-        "group": [
-            {
-                "name": "api",
-                "urls": {
-                    "http://www.angular.at/api": {
-                        "match": "prefix"
-                    }
-                },
-                "cache": {
-                    "optimizeFor": "freshness",
-                    "maxAgeMs": 3600000,
-                    "maxEntries": 4,
-                    "strategy": "lru"
-                }
-            }
-        ]
-    },
-    "push": {
-        "showNotifications": true,
-        "backgroundOnly": false
     }
 }

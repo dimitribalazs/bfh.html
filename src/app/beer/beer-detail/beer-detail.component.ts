@@ -14,20 +14,28 @@ import {MenuService} from '../../shared/services/menu.service';
 })
 export class BeerDetailComponent implements OnInit {
 
-  beer: Beer;
+  // beer: Beer;
   model: Beer = new Beer;
-  menu: MenuService;
+  public submitted: boolean = false;
+  public formErrorMessage: boolean = false;
 
-  @Output() onAddBeer = new EventEmitter<Beer>();
 
   constructor(private beerService: BierService, private menuService: MenuService) {
-    this.menu = menuService;
-    this.menu.TitleText = 'Beer info';
-    this.menu.visibleHomeLink = true;
-    this.menu.visibleSearchLink = false;
-    this.menu.visibleTitle = true;
-    this.menu.visibleSearchInput = false;
-    this.menu.visibleEdit = true;
+    this.menuService.setDefault();
+    this.menuService.TitleText = 'Enter or edit beer info'
+    this.menuService.visibleSave = true;
+    this.menuService.visibleHomeLink = true;
+    this.menuService.submitCallback = () => {
+
+      if (this.model.name.length > 0 && this.model.description.length > 0) {
+        this.beerService.submit();
+        this.submitted = true;
+        this.formErrorMessage = false;
+      } else {
+        this.formErrorMessage = true;
+      }
+    }
+
   }
 
 
@@ -35,12 +43,6 @@ export class BeerDetailComponent implements OnInit {
     this.beerService.getBeer().subscribe((beer) => {
       this.model = this.beerService.getViewModel();
     })
-  }
-
-
-
-  onSubmit() {
-    this.beerService.submit();
   }
 
 }

@@ -4,10 +4,14 @@ import { RouterModule, Routes } from '@angular/router';
 import { BeerComponent } from './beer.component';
 import { BeerDetailComponent } from './beer-detail/beer-detail.component';
 import {BarDetailComponent} from '../bar/bar-detail/bar-detail.component';
+import { BeerInfoComponent } from './beer-info/beer-info.component';
 
 const beerRoutes: Routes = [
-  { path: 'beer/:id',
+  { path: 'beer/:id/edit',
     component: BeerComponent,
+    data: {
+      type: 'edit'
+    },
     children: [
       {
         path: '',
@@ -16,6 +20,19 @@ const beerRoutes: Routes = [
           { path: 'bars', component: BarDetailComponent },
           { path: 'details', component: BeerDetailComponent },
           { path: '', component: BeerDetailComponent }
+        ]
+      }
+    ]},
+  { path: 'beer/:id',
+    component: BeerComponent,
+    data: {
+      type: 'info'
+    },
+    children: [
+      {
+        path: '',
+        children: [
+          { path: '', component: BeerInfoComponent }
         ]
       }
     ]},

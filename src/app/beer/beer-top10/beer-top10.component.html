@@ -2,8 +2,8 @@
 <div class="horizontal-scroller-outer">
   <div class="horizontal-scroller-inner">
     <span *ngFor="let beer of beers | async">
-      <a href="#">
-        <img src="{{ '../../assets/logos/logo-' + getImageUrl().toString() + '.jpg' }}" height="100px" width="100px"/>
+      <a href="{{'/beer/' + beer.id}}">
+        <img src="{{ '../../' +beer.image }}" height="100px" width="100px" />
       </a>
     </span>
   </div>

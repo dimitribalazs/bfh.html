@@ -10,6 +10,8 @@ import { BeerRoutingModule} from './beer-routing.module';
 import {BierService} from './beerService'
 
 import {BarDetailComponent} from '../bar/bar-detail/bar-detail.component';
+import { RatingComponent } from './rating/rating.component';
+import { BeerInfoComponent } from './beer-info/beer-info.component';
 
 @NgModule({
   imports: [
@@ -20,7 +22,9 @@ import {BarDetailComponent} from '../bar/bar-detail/bar-detail.component';
   declarations: [
     BeerComponent,
     BeerDetailComponent,
-    BarDetailComponent
+    BarDetailComponent,
+    RatingComponent,
+    BeerInfoComponent
   ],
   providers: [BierService]
 })

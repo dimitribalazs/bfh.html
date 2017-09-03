@@ -1,5 +1,6 @@
 import {Brewery} from './brewery';
 import {Bar} from './bar';
+import {GeoData} from './geoData';
 
 export class Beer {
     id: string;
@@ -12,6 +13,7 @@ export class Beer {
     bars: Bar[];
     image: string;
     taste: Taste;
+    location: GeoData;
 }
 
 export enum BrewType {

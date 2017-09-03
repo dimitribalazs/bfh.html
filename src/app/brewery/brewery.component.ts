@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {MenuService} from '../shared/services/menu.service';
 
 @Component({
   selector: 'app-brewery',
@@ -7,7 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BreweryComponent implements OnInit {
 
-  constructor() { }
+  constructor(private menuService: MenuService) {
+    this.menuService.setDefault();
+    this.menuService.TitleText = 'Brewery info';
+    this.menuService.visibleHomeLink = true;
+    this.menuService.visibleTitle = true;
+    this.menuService.visibleEdit = true;
+  }
 
   ngOnInit() {
   }

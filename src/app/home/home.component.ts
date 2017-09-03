@@ -45,6 +45,7 @@ export class HomeComponent implements OnInit {
     this.menuService.setDefault();
     this.menuService.visibleSearchLink = true;
     this.menuService.visibleTitle = true;
+    this.menuService.visibleMenu = true;
   }
 
 

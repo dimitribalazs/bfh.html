@@ -2,6 +2,7 @@ import {Component, Input} from '@angular/core';
 import {Beer} from '../../shared/dto/beer';
 import {Observable} from 'rxjs/Observable';
 import {logger} from 'codelyzer/util/logger';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-beer-top10',
@@ -14,10 +15,15 @@ export class BeerTop10Component {
   @Input() beers: Observable<Beer>;
 
 
-  constructor() {
+  constructor(private router: Router) {
   }
 
-  getImageUrl(): Number {
-    return Math.floor(Math.random() * 14 + 1)
+  onSelect(beer: Beer) {
+    this.router.navigate(['beer', beer.id]);
   }
+
+  onTest() {
+    console.log("jep")
+  }
+
 }

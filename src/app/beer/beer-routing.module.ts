@@ -9,6 +9,9 @@ import { BeerInfoComponent } from './beer-info/beer-info.component';
 const beerRoutes: Routes = [
   { path: 'beer/:id/edit',
     component: BeerComponent,
+    data: {
+      type: 'edit'
+    },
     children: [
       {
         path: '',
@@ -22,6 +25,9 @@ const beerRoutes: Routes = [
     ]},
   { path: 'beer/:id',
     component: BeerComponent,
+    data: {
+      type: 'info'
+    },
     children: [
       {
         path: '',

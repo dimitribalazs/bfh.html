@@ -18,6 +18,7 @@ export class BeerComponent implements OnInit {
   model: Beer = new Beer;
   ratings: number[] = new Array;
   meRating: number;
+  visibleChildNavigation: boolean;
 
   constructor(private beerService: BierService,
               private route: ActivatedRoute,
@@ -33,6 +34,15 @@ export class BeerComponent implements OnInit {
 
 
   ngOnInit() {
+
+    const type: string = this.route.snapshot.data['type'];
+
+    if (type === 'edit') {
+      this.visibleChildNavigation = false;
+    }else {
+      this.visibleChildNavigation = true;
+    }
+
     this.route.params.subscribe(params => {
       console.log('Load beer:' + params['id']);
       this.id = params['id'];

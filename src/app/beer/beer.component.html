@@ -10,7 +10,7 @@
       (onRatingChange)="onRatingChange($event)">
     </app-beer-rating>
   </div>
-  <nav class="container">
+  <nav class="container" *ngIf="visibleChildNavigation">
     <button (click)="onClick('details')">Detail</button>
     <button (click)="onClick('brewery')">Brewery</button>
     <button (click)="onClick('bars')">Bars</button>

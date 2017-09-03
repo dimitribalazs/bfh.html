@@ -1,6 +1,7 @@
 <div>
   <div class="container">
-    <img src="{{ '../../assets/logos/logo-1.jpg' }}" height="150px" width="150px"/>
+    <!--<img src="{{ '../../assets/logos/logo-1.jpg' }}" height="150px" width="150px"/>-->
+    <img src="{{ '../../' + model.image}}" height="150px" width="150px"/>
     <app-beer-rating
       ratingBad = {{ratings[1]}}
       ratingOk = {{ratings[2]}}

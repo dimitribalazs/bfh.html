@@ -7,14 +7,12 @@ import {MenuService} from '../shared/services/menu.service';
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {
-  menu: MenuService;
+
   constructor(private menuService: MenuService) {
-    this.menu = menuService;
-    this.menu.visibleHomeLink = true;
-    this.menu.visibleSearchLink = false;
-    this.menu.visibleTitle = false;
-    this.menu.visibleSearchInput = true;
-    this.menu.visibleEdit = false;
+    this.menuService.setDefault();
+    this.menuService.visibleHomeLink = true;
+    this.menuService.visibleTitle = false;
+    this.menuService.visibleSearchInput = true;
   }
 
   ngOnInit() {

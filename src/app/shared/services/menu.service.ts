@@ -9,6 +9,8 @@ export class MenuService {
   private _visibleSearchInput: boolean;
   private _visibleTitle: boolean;
   private _visibleEdit: boolean;
+  private _visibleSave: boolean;
+  public submitCallback: () => void;
 
   constructor() {
     this._titleText = '';
@@ -59,5 +61,27 @@ export class MenuService {
 
   set visibleEdit(value: boolean) {
     this._visibleEdit = value;
+  }
+
+  get visibleSave(): boolean {
+    return this._visibleSave;
+  }
+
+  set visibleSave(value: boolean) {
+    this._visibleSave = value;
+  }
+
+  public submit(): void {
+    this.submitCallback();
+  }
+
+  public setDefault() {
+    this._titleText = 'Duff\'d';
+    this._visibleHomeLink = false;
+    this._visibleSearchLink = false;
+    this._visibleSearchInput = false;
+    this._visibleTitle = true;
+    this._visibleEdit = false;
+    this._visibleSave = false;
   }
 }

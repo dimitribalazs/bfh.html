@@ -5,7 +5,8 @@
   <p *ngIf="this.menu.visibleTitle" style="display:inline">{{menu.TitleText}}</p>
   <input *ngIf="this.menu.visibleSearchInput" type="text" class="form-control" >
   <a *ngIf="this.menu.visibleSearchLink" routerLink="/search" routerLinkActive="active">search</a>
-  <button *ngIf="this.menu.visibleEdit">edit</button>
+  <button *ngIf="this.menu.visibleEdit" (click)="onViewDetails()">edit</button>
+  <button *ngIf="this.menu.visibleSave" (click)="menu.submit()">save</button>
 </nav>
 
 

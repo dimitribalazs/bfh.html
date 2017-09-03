@@ -28,7 +28,6 @@ export class HomeComponent implements OnInit {
   brewery: Observable<Brewery[]>;
   bars: Observable<Bar[]>;
   arroundYou: AroundYou[] = new Array();
-  menu: MenuService;
 
 
   private selectedId: string;
@@ -43,13 +42,9 @@ export class HomeComponent implements OnInit {
     private serviceGeo: GeoService,
     private menuService: MenuService
   ) {
-    this.menu = menuService;
-    this.menu.TitleText = 'Duff\'d';
-    this.menu.visibleHomeLink = false;
-    this.menu.visibleSearchLink = true;
-    this.menu.visibleTitle = true;
-    this.menu.visibleSearchInput = false;
-    this.menu.visibleEdit = false;
+    this.menuService.setDefault();
+    this.menuService.visibleSearchLink = true;
+    this.menuService.visibleTitle = true;
   }
 
 

@@ -7,15 +7,13 @@ import {MenuService} from '../shared/services/menu.service';
   styleUrls: ['./brewery.component.css']
 })
 export class BreweryComponent implements OnInit {
-  menu: MenuService;
+
   constructor(private menuService: MenuService) {
-    this.menu = menuService;
-    this.menu.TitleText = 'Brewery info';
-    this.menu.visibleHomeLink = true;
-    this.menu.visibleSearchLink = false;
-    this.menu.visibleTitle = true;
-    this.menu.visibleSearchInput = false;
-    this.menu.visibleEdit = true;
+    this.menuService.setDefault();
+    this.menuService.TitleText = 'Brewery info';
+    this.menuService.visibleHomeLink = true;
+    this.menuService.visibleTitle = true;
+    this.menuService.visibleEdit = true;
   }
 
   ngOnInit() {

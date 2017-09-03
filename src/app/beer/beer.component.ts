@@ -16,24 +16,18 @@ export class BeerComponent implements OnInit {
 
   id: string;
   model: Beer = new Beer;
-  menu: MenuService;
   ratings: number[] = new Array;
-  counterRatingBad: number;
-  counterRatingOk: number;
-  counterRatingGreat: number;
   meRating: number;
 
   constructor(private beerService: BierService,
               private route: ActivatedRoute,
               private router: Router,
               private menuService: MenuService) {
-      this.menu = menuService;
-      this.menu.TitleText = 'Beer info';
-      this.menu.visibleHomeLink = true;
-      this.menu.visibleSearchLink = false;
-      this.menu.visibleTitle = true;
-      this.menu.visibleSearchInput = false;
-      this.menu.visibleEdit = true;
+      this.menuService.setDefault();
+      this.menuService.TitleText = 'Beer info';
+      this.menuService.visibleHomeLink = true;
+      this.menuService.visibleTitle = true;
+      this.menuService.visibleEdit = true;
   }
 
 
@@ -53,6 +47,7 @@ export class BeerComponent implements OnInit {
       this.ratings[2] = 54;
       this.ratings[3] = 4;
       this.meRating = 1
+    console.log(this.route.snapshot.toString())
     }
 
   onClick(childView: string) {

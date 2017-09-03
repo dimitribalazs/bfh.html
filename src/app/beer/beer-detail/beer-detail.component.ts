@@ -17,10 +17,15 @@ export class BeerDetailComponent implements OnInit {
   beer: Beer;
   model: Beer = new Beer;
 
-  @Output() onAddBeer = new EventEmitter<Beer>();
+  constructor(private beerService: BierService, private menuService: MenuService) {
 
-  constructor(private beerService: BierService) {
-
+    this.menuService.setDefault();
+    this.menuService.TitleText = 'Enter or edit beer info'
+    this.menuService.visibleSave = true;
+    this.menuService.visibleHomeLink = true;
+    this.menuService.submitCallback = () => {
+      this.beerService.submit();
+      alert("done")}
   }
 
 

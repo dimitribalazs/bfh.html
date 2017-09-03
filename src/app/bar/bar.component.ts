@@ -14,7 +14,6 @@ import {MenuService} from '../shared/services/menu.service';
 })
 export class BarComponent implements OnInit {
   bars: Observable<Bar[]>;
-  menu: MenuService;
 
   private selectedId: number;
 
@@ -23,13 +22,11 @@ export class BarComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private menuService: MenuService) {
-    this.menu = menuService;
-    this.menu.TitleText = 'Bar info';
-    this.menu.visibleHomeLink = true;
-    this.menu.visibleSearchLink = false;
-    this.menu.visibleTitle = true;
-    this.menu.visibleSearchInput = false;
-    this.menu.visibleEdit = true;
+    this.menuService.setDefault();
+    this.menuService.TitleText = 'Bar info';
+    this.menuService.visibleHomeLink = true;
+    this.menuService.visibleTitle = true;
+    this.menuService.visibleEdit = true;
   }
 
   ngOnInit() {

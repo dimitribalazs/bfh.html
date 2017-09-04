@@ -1,21 +1,31 @@
-<div>
+<div *ngIf="!imageUploadShow">
   <div class="container">
-    <!--<img src="{{ '../../assets/logos/logo-1.jpg' }}" height="150px" width="150px"/>-->
+    <div class="imageShow" style="position:relative;" >
     <img src="{{ '../../' + model.image}}" height="150px" width="150px"/>
-    <app-beer-rating
-      ratingBad = {{ratings[1]}}
-      ratingOk = {{ratings[2]}}
-      ratingGreat = {{ratings[3]}}
-      rating = 1
-      (onRatingChange)="onRatingChange($event)">
-    </app-beer-rating>
+      <button *ngIf="edit" class="btn btn-default btn-sm" style="position:absolute;left:115.49px;top:120px;" (click)="onImageEdit()">
+        <span class="glyphicon glyphicon-pencil"></span>
+      </button>
+    </div>
+    <div class="Rating">
+      <app-beer-rating
+        ratingBad = {{ratings[1]}}
+        ratingOk = {{ratings[2]}}
+        ratingGreat = {{ratings[3]}}
+        rating = 1
+        (onRatingChange)="onRatingChange($event)">
+      </app-beer-rating>
+    </div>
   </div>
-  <nav class="container" *ngIf="visibleChildNavigation">
+  <br>
+  <nav class="container" *ngIf="!edit">
     <button (click)="onClick('details')">Detail</button>
     <button (click)="onClick('brewery')">Brewery</button>
     <button (click)="onClick('bars')">Bars</button>
   </nav>
+  <br>
   <div>
     <router-outlet></router-outlet>
   </div>
 </div>
+
+<app-image-uploader titleDetail={{model.name}} *ngIf="imageUploadShow"></app-image-uploader>

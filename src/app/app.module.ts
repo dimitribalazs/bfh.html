@@ -20,6 +20,7 @@ import {BreweryModule} from './brewery/brewery.module';
 import {MenuService} from './shared/services/menu.service';
 import {BreweryDatabaseService} from './shared/services/brewery.service';
 import {BarDatabaseService} from './shared/services/bar.service';
+import { ImageUploadModule } from '../../node_modules/angular2-image-upload/lib/image-upload.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
@@ -37,10 +38,10 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     AppRoutingModule,
     UserModule,
     FriendsModule,
+    ImageUploadModule.forRoot(),
     NgbModule.forRoot(),
     ServiceWorkerModule
   ],
-  // providers: [BeerDatabaseService],
   providers: [BeerDatabaseService, BarDatabaseService, UserDatabaseService, BreweryDatabaseService, MenuService],
   bootstrap: [AppComponent],
 

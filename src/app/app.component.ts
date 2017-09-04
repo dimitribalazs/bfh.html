@@ -34,4 +34,7 @@ export class AppComponent {
 
     sw.checkForUpdate();
   }
+    onBack() {
+      window.history.back();
+  }
 }

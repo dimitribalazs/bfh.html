@@ -6,20 +6,22 @@
       <span class="navbar-toggler-icon collapsed"></span>
     </button>
   <a *ngIf="this.menu.visibleHomeLink" routerLink="/home" routerLinkActive="active" class="btn btn-default btn-sm">
-    <span class="glyphicon glyphicon-chevron-left"></span>
+    <span class="glyphicon glyphicon-home"></span>
   </a>
+  <button *ngIf="this.menu.visibleBack" (click)="onBack()" class="btn btn-default btn-sm">
+    <span class="glyphicon glyphicon-chevron-left"></span>
+  </button>
   <p *ngIf="this.menu.visibleTitle" style="display:inline">{{menu.TitleText}}</p>
   <input *ngIf="this.menu.visibleSearchInput" type="text" class="form-control" >
-  <a *ngIf="this.menu.visibleSearchLink" routerLink="/search" routerLinkActive="active" class="btn btn-default btn-sm">
+  <a *ngIf="this.menu.visibleSearchLink" routerLink="/search" routerLinkActive="active" class="btn btn-default btn-sm pull-right">
     <span class="glyphicon glyphicon-search"></span>
   </a>
-  <button *ngIf="this.menu.visibleEdit" (click)="onViewDetails()" class="btn btn-default btn-sm">
+  <button *ngIf="this.menu.visibleEdit" (click)="onViewDetails()" class="btn btn-default btn-sm pull-right">
     <span class="glyphicon glyphicon-pencil"></span>
   </button>
-  <button *ngIf="this.menu.visibleSave" (click)="menu.submit()" type="submit" class="btn btn-default btn-sm">
+  <button *ngIf="this.menu.visibleSave" (click)="menu.submit()" type="submit" class="btn btn-default btn-sm pull-right">
     <span class="glyphicon glyphicon-ok"></span>
   </button>
 
 </nav>
 <router-outlet></router-outlet>
-<!--<homemain></homemain>-->

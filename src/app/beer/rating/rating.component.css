@@ -1,12 +1,19 @@
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
+/*ul {*/
+  /*list-style-type: none;*/
+  /*margin: 0;*/
+  /*padding: 0;*/
+  /*overflow: hidden;*/
+/*}*/
+
+/*li {*/
+  /*float: left;*/
+/*}*/
+
+.btn span.glyphicon {
+  opacity: 0;
+}
+.btn.active span.glyphicon {
+  opacity: 1;
 }
 
-li {
-  float: left;
-}
-
-
+.activeRating { background: black; color: white; }

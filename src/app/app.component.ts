@@ -24,4 +24,8 @@ export class AppComponent {
     this.router.navigate([state.snapshot.url, 'edit']);
   }
 
+  onBack() {
+    window.history.back();
+  }
+
 }

@@ -11,6 +11,8 @@ export class BeerInfoComponent implements OnInit {
 
   beer: Beer;
   model: Beer = new Beer;
+  taste: String = '';
+  brewType: String = '';
 
   constructor(private beerService: BierService) {
 
@@ -20,6 +22,14 @@ export class BeerInfoComponent implements OnInit {
   ngOnInit() {
     this.beerService.getBeer().subscribe((beer) => {
       this.model = this.beerService.getViewModel();
+      for (let taste of this.model.taste)
+      {
+        this.taste = this.taste + '{' + taste.itemName + '} '
+      }
+      for (let brewType of this.model.brewType)
+      {
+        this.brewType = this.brewType + '{' + brewType.itemName + '} '
+      }
     })
   }
 

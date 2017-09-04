@@ -11,6 +11,7 @@ export class MenuService {
   private _visibleEdit: boolean;
   private _visibleSave: boolean;
   private _visibleMenu: boolean;
+  private _visibleBack: boolean;
   public submitCallback: () => void;
 
   constructor() {
@@ -84,6 +85,14 @@ export class MenuService {
     this._visibleMenu = value;
   }
 
+  get visibleBack(): boolean {
+    return this._visibleBack;
+  }
+
+  set visibleBack(value: boolean) {
+    this._visibleBack = value;
+  }
+
   public setDefault() {
     this._titleText = 'Duff\'d';
     this._visibleHomeLink = false;
@@ -93,5 +102,6 @@ export class MenuService {
     this._visibleEdit = false;
     this._visibleSave = false;
     this._visibleMenu = false;
+    this.visibleBack = false;
   }
 }

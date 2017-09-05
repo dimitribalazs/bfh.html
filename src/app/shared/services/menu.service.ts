@@ -13,6 +13,7 @@ export class MenuService {
   private _visibleMenu: boolean;
   private _visibleBack: boolean;
   public submitCallback: () => void;
+  public searchInputCallback: (e) => void;
 
   constructor() {
     this._titleText = '';
@@ -75,6 +76,10 @@ export class MenuService {
 
   public submit(): void {
     this.submitCallback();
+  }
+
+  public onSearchInputChange(e): void {
+    this.searchInputCallback(e);
   }
 
   get visibleMenu(): boolean {

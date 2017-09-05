@@ -17,6 +17,13 @@
         </div>
 
         <div class="form-group">
+        <div>
+          <label for="brewery">Brewery</label>
+        </div>
+        <app-multi-select id="brewery" [dropdownList]='breweryDropDownList' [selectedItems]='brewerySelectedItem' ItemName='brewery' [singleSelection]="true" (onSelectChange)="onBrewerySelectChange($event)" ></app-multi-select>
+    </div>
+
+        <div class="form-group">
           <div>
             <label for="volume">Alcohol in %</label>
           </div>
@@ -28,14 +35,14 @@
           <div>
             <label for="taste">Taste</label>
           </div>
-          <app-multi-select id="taste" [dropdownList]='dropDownlists.tasteList' [selectedItems]='model.taste' ItemName='tastes' (onTasteSelectChange)="onItemSelect($event)" ></app-multi-select>
+          <app-multi-select id="taste" [dropdownList]='dropDownlists.tasteList' [selectedItems]='model.taste' ItemName='tastes' (onSelectChange)="onTasteSelectChange($event)" ></app-multi-select>
         </div>
 
         <div class="form-group">
           <div>
             <label for="brewType">Brew type</label>
           </div>
-          <app-multi-select id="brewType" [dropdownList]='dropDownlists.brewTypeList' [selectedItems]='model.brewType' ItemName='brew type' (onBrewTypeSelectChange)="onItemSelect($event)" ></app-multi-select>
+          <app-multi-select id="brewType" [dropdownList]='dropDownlists.brewTypeList' [selectedItems]='model.brewType' ItemName='brew type' (onSelectChange)="onBrewTypeSelectChange($event)" ></app-multi-select>
         </div>
 
         <div class="form-group">

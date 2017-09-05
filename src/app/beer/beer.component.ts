@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Beer} from '../shared/dto/beer';
+import {Brewery} from '../shared/dto/brewery';
 import {BeerDatabaseService} from '../shared/services/beer.service';
 import {Observable} from 'rxjs/Observable';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
@@ -32,6 +33,8 @@ export class BeerComponent implements OnInit {
       this.menuService.visibleHomeLink = true;
       this.menuService.visibleTitle = true;
       this.menuService.visibleEdit = true;
+      this.model.brewery = new Brewery();
+      this.model.brewery.name = '';
   }
 
 

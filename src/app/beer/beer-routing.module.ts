@@ -3,8 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { BeerComponent } from './beer.component';
 import { BeerDetailComponent } from './beer-detail/beer-detail.component';
-import {BarDetailComponent} from '../bar/bar-detail/bar-detail.component';
 import { BeerInfoComponent } from './beer-info/beer-info.component';
+// import {BarInfoComponent} from '../bar/bar-info/bar-info.component';
 
 const beerRoutes: Routes = [
   { path: 'beer/:id/edit',
@@ -16,8 +16,8 @@ const beerRoutes: Routes = [
       {
         path: '',
         children: [
-          { path: 'brewery', component: BarDetailComponent },
-          { path: 'bars', component: BarDetailComponent },
+          // { path: 'brewery', component: BarInfoComponent },
+          // { path: 'bars', component: BarInfoComponent },
           { path: 'details', component: BeerDetailComponent },
           { path: '', component: BeerDetailComponent }
         ]

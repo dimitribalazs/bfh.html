@@ -1,27 +1,29 @@
 import 'rxjs/add/operator/switchMap';
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Bar} from '../shared/dto/Bar';
-import {BeerDatabaseService} from '../shared/services/beer.service';
-import {Observable} from 'rxjs/Observable';
+import {RatingModel} from '../shared/components/rating/ratingModel';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {MenuService} from '../shared/services/menu.service';
+import {BarService} from './barService';
 
 @Component({
   selector: 'app-bar',
   templateUrl: './bar.component.html',
   styleUrls: ['./bar.component.css'],
-  // providers: [BeerDatabaseService]
 })
 export class BarComponent implements OnInit {
-  bars: Observable<Bar[]>;
 
-  private selectedId: number;
+  id: string;
+  model: Bar = new Bar;
+  ratings: number[] = new Array;
+  meRating: number;
+  imageUploadShow: boolean = false;
 
-  constructor(
-    private service: BeerDatabaseService<Bar>,
-    private route: ActivatedRoute,
-    private router: Router,
-    private menuService: MenuService) {
+
+  constructor(private barService: BarService,
+              private route: ActivatedRoute,
+              private router: Router,
+              private menuService: MenuService) {
     this.menuService.setDefault();
     this.menuService.TitleText = 'Bar info';
     this.menuService.visibleHomeLink = true;
@@ -30,19 +32,37 @@ export class BarComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.bars = this.route.paramMap
-    //   .switchMap((params: ParamMap) => {
-    //     // (+) before `params.get()` turns the string into a number
-    //     this.selectedId = +params.get('id');
-    //     return this.service.getAll();
-    //   });
-    return this.service.getAll();
+
+    this.route.params.subscribe(params => {
+      console.log('Load bar:' + params['id']);
+      this.id = params['id'];
+      this.barService.loadBar(params['id']);
+    });
+
+    this.barService.getBar().subscribe((beer) => {
+      this.model = this.barService.getViewModel();
+    })
+
+    this.ratings[1] = 12;
+    this.ratings[2] = 54;
+    this.ratings[3] = 4;
+    this.meRating = 1
+    console.log(this.route.snapshot.toString())
   }
 
-  // isSelected(bar: Bar) { return bar.id === this.selectedId; }
+  onClick(childView: string) {
+    this.router.navigate(['bar', this.id, childView]);
+  }
 
-  onSelect(hero: Bar) {
-    this.router.navigate(['/bar', hero.id]);
+  onRatingChange(rating: RatingModel) {
+    this.ratings[rating.oldRating] -= 1;
+    this.ratings[rating.newRating] += 1;
+  }
+
+
+  onImageEdit() {
+    this.menuService.visibleEdit = false;
+    this.imageUploadShow = true;
   }
 
 }

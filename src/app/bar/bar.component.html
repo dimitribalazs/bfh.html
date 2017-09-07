@@ -1,9 +1,33 @@
+<div *ngIf="!imageUploadShow">
+  <div class="container">
+    <!--<div class="imageShow" style="position:relative;">-->
+      <!--<img src="{{ '../../' + model.image}}" height="150px" width="150px"/>-->
+      <!--<button *ngIf="edit" class="btn btn-default btn-sm" style="position:absolute;left:115.49px;top:120px;"-->
+              <!--(click)="onImageEdit()">-->
+        <!--<span class="glyphicon glyphicon-pencil"></span>-->
+      <!--</button>-->
+    <!--</div>-->
+    <!--<div class="Rating">-->
+      <!--<app-beer-rating-->
+        <!--ratingBad={{ratings[1]}}-->
+        <!--ratingOk={{ratings[2]}}-->
+        <!--ratingGreat={{ratings[3]}}-->
+        <!--rating=1-->
+        <!--(onRatingChange)="onRatingChange($event)">-->
+      <!--</app-beer-rating>-->
+    <!--</div>-->
+  </div>
+  <br>
+  <nav class="container" *ngIf="!edit">
+    <button (click)="onClick('beers')">Beers</button>
+    <button (click)="onClick('info')">Info</button>
+    <button (click)="onClick('openingHours')">Open now</button>
+    <button (click)="onClick('photos')">Photos</button>
+  </nav>
+  <br>
+  <div>
+    <router-outlet></router-outlet>
+  </div>
+</div>
 
-<h2>My Bar</h2>
-<ul class="bars">
-  <li *ngFor="let bar of bars | async"
-      [class.selected]="isSelected(bar)"
-      (click)="onSelect(bar)">
-    <span class="badge">{{ bar.id }}</span> {{ bar.name }}
-  </li>
-</ul>
+<!--<app-image-uploader titleDetail={{model.name}} *ngIf="imageUploadShow"></app-image-uploader>-->

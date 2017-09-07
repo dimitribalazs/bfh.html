@@ -1,5 +1,5 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import {RatingModel} from '../ratingModel';
+import {RatingModel} from './ratingModel';
 import {forEach} from "@angular/router/src/utils/collection";
 
 @Component({

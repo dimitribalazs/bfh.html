@@ -6,7 +6,7 @@ import {Observable} from 'rxjs/Observable';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {BierService} from './beerService'
 import {MenuService} from '../shared/services/menu.service';
-import {RatingModel} from './ratingModel';
+import {RatingModel} from '../shared/components/rating/ratingModel';
 import {isUndefined} from "util";
 
 

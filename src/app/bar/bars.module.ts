@@ -3,9 +3,14 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { BarComponent } from './bar.component';
-import { BarDetailComponent } from './bar-detail/bar-detail.component';
 
 import { BarsRoutingModule } from './bars-routing.module';
+// import {RatingComponent} from '../shared/components/rating/rating.component';
+import { BarInfoComponent } from './bar-info/bar-info.component';
+import {BarService} from './barService';
+import { AvailableBeersComponent } from './available-beers/available-beers.component';
+import { OpeningHoursComponent } from './opening-hours/opening-hours.component';
+import { PhotosComponent } from './photos/photos.component';
 
 // import { BarService } from './bar.service';
 
@@ -17,9 +22,13 @@ import { BarsRoutingModule } from './bars-routing.module';
   ],
   declarations: [
     BarComponent,
+    // RatingComponent,
+    BarInfoComponent,
+    AvailableBeersComponent,
+    OpeningHoursComponent,
+    PhotosComponent,
     // BarDetailComponent
   ],
-  providers: [  ]
-  // providers: [ BarService ]
+  providers: [ BarService ]
 })
 export class BarsModule { }

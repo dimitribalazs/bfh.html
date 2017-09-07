@@ -55,7 +55,7 @@ export class BeerDetailComponent implements OnInit {
       }
     })
 
-    this.beerService.getBroweryList().subscribe(() => this.breweryDropDownList = this.beerService.getDropDownList())
+    this.beerService.getBroweryList().subscribe(() => this.breweryDropDownList = this.beerService.getDropDownList());
   }
 
   onTasteSelectChange(item: any[]) {

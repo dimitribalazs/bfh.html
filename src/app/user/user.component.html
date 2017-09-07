@@ -1,3 +1,24 @@
-<p>
-  user works!
-</p>
+<div *ngIf="!imageUploadShow">
+  <div class="container">
+    <div class="imageShow" style="position:relative;">
+      <img src="{{ '../../' + model.image}}" height="150px" width="150px"/>
+    </div>
+    <div class="Rating">
+      <h2>{{model.firstname}} {{model.lastname}}</h2>
+    </div>
+    <div>
+      {{model.totalConsumption}} since {{model.registrationDate}}
+    </div>
+  </div>
+  <br>
+  <nav class="container" *ngIf="!edit">
+    <button (click)="onClick('friends')">Friends</button>
+    <button (click)="onClick('favourites')">Favourites</button>
+    <button (click)="onClick('badges')">Badges</button>
+    <button (click)="onClick('detail')">Detail</button>
+  </nav>
+  <br>
+  <div>
+    <router-outlet></router-outlet>
+  </div>
+</div>

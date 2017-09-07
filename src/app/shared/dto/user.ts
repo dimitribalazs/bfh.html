@@ -6,6 +6,8 @@ export class User {
     id: string;
     firstname: string;
     lastname: string;
+    image: string;
+  registrationDate: string;
     location: GeoData;
     beerPreferences: Beer[];
     totalConsumption: number;

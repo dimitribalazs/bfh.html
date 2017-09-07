@@ -71,17 +71,17 @@ export class HomeComponent implements OnInit {
 
     this.bars = this.serviceBar.getAll()
 
-    this.beers.subscribe((value) => {
-      value.forEach((beer) => {
-        const a: AroundYou = new AroundYou();
-        a.id = beer.id;
-        a.name = beer.name;
-        a.routerNavigate = '/beer/'
-        if (this.arroundYou.length < 5) {
-          this.arroundYou.push(a)
-        }
-      })
-    })
+    // this.beers.subscribe((value) => {
+    //   value.forEach((beer) => {
+    //     const a: AroundYou = new AroundYou();
+    //     a.id = beer.id;
+    //     a.name = beer.name;
+    //     a.routerNavigate = '/beer/'
+    //     if (this.arroundYou.length < 5) {
+    //       this.arroundYou.push(a)
+    //     }
+    //   })
+    // })
 
     this.bars.subscribe((value) => {
       value.forEach((bar) => {
@@ -100,7 +100,7 @@ export class HomeComponent implements OnInit {
         const a: AroundYou = new AroundYou();
         a.id = user.id;
         a.name = user.firstname + ', ' + user.lastname;
-        a.routerNavigate = '/friends/'
+        a.routerNavigate = '/user/'
         if (this.arroundYou.length < 7) {
           this.arroundYou.push(a)
         }

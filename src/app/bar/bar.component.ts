@@ -17,7 +17,6 @@ export class BarComponent implements OnInit {
   model: Bar = new Bar;
   ratings: number[] = new Array;
   meRating: number;
-  imageUploadShow: boolean = false;
 
 
   constructor(private barService: BarService,
@@ -58,11 +57,4 @@ export class BarComponent implements OnInit {
     this.ratings[rating.oldRating] -= 1;
     this.ratings[rating.newRating] += 1;
   }
-
-
-  onImageEdit() {
-    this.menuService.visibleEdit = false;
-    this.imageUploadShow = true;
-  }
-
 }

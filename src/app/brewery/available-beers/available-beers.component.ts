@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {BarService} from '../barService';
 import {MenuService} from '../../shared/services/menu.service';
 import {Observable} from 'rxjs/Observable';
 import {Bar} from '../../shared/dto/bar';
 import {Beer} from '../../shared/dto/beer';
+import {BreweryService} from '../breweryService';
 
 @Component({
   selector: 'app-available-beers',
@@ -12,11 +12,11 @@ import {Beer} from '../../shared/dto/beer';
 })
 export class AvailableBeersComponent implements OnInit {
   beers: Observable<Beer[]>;
-  constructor(private barService: BarService) { }
+  constructor(private breweryService: BreweryService) { }
 
   ngOnInit() {
 
-    this.beers = this.barService.getAvailableBeers('1');
+    this.beers = this.breweryService.getAvailableBeers('1');
   }
 
 }

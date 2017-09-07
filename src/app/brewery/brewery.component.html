@@ -1,3 +1,19 @@
-<p>
-  brewery works!
-</p>
+<div *ngIf="!imageUploadShow">
+  <div class="container">
+    <!--<div class="imageShow" style="position:relative;">-->
+      <!--<img src="{{ '../../' + model.logo}}" height="150px" width="300px"/>-->
+    <!--</div>-->
+    <div class="imageShow" style="position:relative;">
+      <img src="{{ '../../' + model.image}}" height="150px" width="300px"/>
+    </div>
+  </div>
+  <br>
+  <nav class="container" *ngIf="!edit">
+    <button (click)="onClick('beers')">Beers</button>
+    <button (click)="onClick('info')">Info</button>
+  </nav>
+  <br>
+  <div>
+    <router-outlet></router-outlet>
+  </div>
+</div>

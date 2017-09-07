@@ -22,6 +22,7 @@ import {BreweryDatabaseService} from './shared/services/brewery.service';
 import {BarDatabaseService} from './shared/services/bar.service';
 import { ImageUploadModule } from '../../node_modules/angular2-image-upload/lib/image-upload.module';
 import {BarInfoComponent} from './bar/bar-info/bar-info.component';
+import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome'
 
 
 @NgModule({
@@ -39,6 +40,7 @@ import {BarInfoComponent} from './bar/bar-info/bar-info.component';
     AppRoutingModule,
     UserModule,
     FriendsModule,
+    Angular2FontawesomeModule,
     ImageUploadModule.forRoot(),
     NgbModule.forRoot()
   ],

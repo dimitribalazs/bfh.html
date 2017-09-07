@@ -44,5 +44,6 @@ export class RatingComponent implements OnInit {
       }
     }
   }
-
 }
+export class BeerRating extends RatingComponent {}
+export class BarRating extends RatingComponent {}

@@ -9,7 +9,7 @@ import { BeerDetailComponent } from './beer-detail/beer-detail.component';
 import { BeerRoutingModule} from './beer-routing.module';
 import {BierService} from './beerService'
 
-import { RatingComponent } from '../shared/components/rating/rating.component';
+import {BeerRating} from '../shared/components/rating/rating.component';
 import { BeerInfoComponent } from './beer-info/beer-info.component';
 import { ImageUploadModule } from '../../../node_modules/angular2-image-upload/lib/image-upload.module';
 import {ImageUploaderComponent} from '../image-uploader/image-uploader.component';
@@ -30,8 +30,8 @@ import {BarInfoComponent} from '../bar/bar-info/bar-info.component';
   declarations: [
     BeerComponent,
     BeerDetailComponent,
-    RatingComponent,
     BeerInfoComponent,
+    BeerRating,
     ImageUploaderComponent,
     TasteMultiSelectComponent
   ],

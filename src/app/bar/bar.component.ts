@@ -43,8 +43,8 @@ export class BarComponent implements OnInit {
       this.model = this.barService.getViewModel();
     })
 
-    this.ratings[1] = 12;
-    this.ratings[2] = 54;
+    this.ratings[1] = 11;
+    this.ratings[2] = 20;
     this.ratings[3] = 4;
     this.meRating = 1
     console.log(this.route.snapshot.toString())

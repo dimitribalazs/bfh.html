@@ -21,6 +21,7 @@ import {MenuService} from './shared/services/menu.service';
 import {BreweryDatabaseService} from './shared/services/brewery.service';
 import {BarDatabaseService} from './shared/services/bar.service';
 import { ImageUploadModule } from '../../node_modules/angular2-image-upload/lib/image-upload.module';
+import {BarInfoComponent} from './bar/bar-info/bar-info.component';
 
 
 @NgModule({

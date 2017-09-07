@@ -8,7 +8,7 @@ import {BeerDatabaseService} from '../shared/services/beer.service';
 import {Brewery} from '../shared/dto/brewery';
 import {isUndefined} from 'util';
 import {BarDatabaseService} from '../shared/services/bar.service';
-import {Bar} from '../shared/dto/bar';
+import {Bar} from '../shared/dto/Bar';
 
 @Injectable()
 export class BarService {

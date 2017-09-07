@@ -5,3 +5,9 @@
 .Rating {
   margin-left: 15%;
 }
+input {
+  background-color:transparent;
+  border: 0px solid;
+  height:30px;
+  width:260px;
+}

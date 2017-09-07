@@ -8,22 +8,29 @@ import {BeerDatabaseService} from '../shared/services/beer.service';
 import {Brewery} from '../shared/dto/brewery';
 import {isUndefined} from 'util';
 import {BarDatabaseService} from '../shared/services/bar.service';
-import {Bar} from '../shared/dto/Bar';
+import {Bar} from '../shared/dto/bar';
 
 @Injectable()
 export class BarService {
   bar: Observable<Bar>;
-  // beer: Observable<Beer[]>
+  beer: Observable<Beer[]>
 
 
 
   viewModel: Bar = new Bar();
   constructor(
-    // private beerService: BeerDatabaseService<Beer>,
+    private beerService: BeerDatabaseService<Beer>,
     private barService: BarDatabaseService<Bar>,
   ) {
 
   }
+
+
+  getAvailableBeers(barId: string): Observable<Beer[]>  {
+    this.beer = this.beerService.getAll()
+    return this.beer;
+  }
+
 
   loadBar(id: string): Observable<Bar>  {
       this.bar = this.barService.get(id)

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {BarService} from "../barService";
+import {Bar} from '../../shared/dto/bar';
 
 @Component({
   selector: 'app-opening-hours',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OpeningHoursComponent implements OnInit {
 
-  constructor() { }
+  model: Bar = new Bar;
+
+  constructor(private barService: BarService) {
+  }
 
   ngOnInit() {
+    this.barService.getBar().subscribe((beer) => {
+      this.model = this.barService.getViewModel();
+    })
   }
 
 }

@@ -1,3 +1,51 @@
-<p>
-  bar-info works!
-</p>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <form #beerForm="ngForm">
+        <div class="form-group">
+          <div>
+            <label>Name</label>
+          </div>
+          <input [value]="model.name" readonly>
+        </div>
+
+        <div class="form-group">
+          <div>
+            <label>Address</label>
+          </div>
+          <input [value]="model.address" readonly>
+        </div>
+
+        <div class="form-group">
+          <div>
+            <label>City</label>
+          </div>
+          <input [value]="model.city"  readonly>
+        </div>
+
+        <div class="form-group">
+          <div>
+            <label>Description</label>
+          </div>
+          <input [value]="model.description" readonly>
+        </div>
+
+        <div class="form-group">
+          <label>Smoking allowed: </label>
+          <label>{{model.isSmokingAllowed}}</label>
+        </div>
+
+        <div class="form-group">
+          <label>Snaks: </label>
+          <label>{{model.snacks}}</label>
+        </div>
+
+        <div class="form-group">
+          <label>Size: </label>
+          <label>{{model.size}}</label>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>

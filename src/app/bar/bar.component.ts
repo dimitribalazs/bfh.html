@@ -1,6 +1,6 @@
 import 'rxjs/add/operator/switchMap';
 import {Component, OnInit} from '@angular/core';
-import {Bar} from '../shared/dto/Bar';
+import {Bar} from '../shared/dto/bar';
 import {RatingModel} from '../shared/components/rating/ratingModel';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {MenuService} from '../shared/services/menu.service';

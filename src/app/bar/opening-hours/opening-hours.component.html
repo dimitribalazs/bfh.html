@@ -1,3 +1,57 @@
-<p>
-  opening-hours works!
-</p>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <form #beerForm="ngForm">
+        <div class="form-group">
+          <div>
+            <label>Monday</label>
+          </div>
+          <input [value]="model.openingHours.monday" readonly>
+        </div>
+
+        <div class="form-group">
+          <div>
+            <label>tuesday</label>
+          </div>
+          <input [value]="model.openingHours.tuesday" readonly>
+        </div>
+
+        <div class="form-group">
+          <div>
+            <label>Wednesday</label>
+          </div>
+          <input [value]="model.openingHours.wednesday" readonly>
+        </div>
+
+        <div class="form-group">
+          <div>
+            <label>Thursday</label>
+          </div>
+          <input [value]="model.openingHours.thursday" readonly>
+        </div>
+
+        <div class="form-group">
+          <div>
+            <label>Friday</label>
+          </div>
+          <input [value]="model.openingHours.friday" readonly>
+        </div>
+
+        <div class="form-group">
+          <div>
+            <label>Saturday</label>
+          </div>
+          <input [value]="model.openingHours.saturday" readonly>
+        </div>
+
+        <div class="form-group">
+          <div>
+            <label>Sunday</label>
+          </div>
+          <input [value]="model.openingHours.sunday" readonly>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>

@@ -10,10 +10,10 @@ export class Bar {
     rating: number;
     size: number;
     isSmokingAllowed: boolean;
-    openingHours: string; //todo change
+    openingHours: OpeningHours; //todo change
     snacks: string; //todo change
     location: GeoData;
-
+    description: String;
     //beer
 }
 
@@ -22,4 +22,16 @@ export class BreweryBeer {
     bar: Bar;
     price: number;
     tapOrBottled: boolean;
+}
+
+
+export class OpeningHours {
+  monday: string;
+  tuesday: string;
+  wednesday: string;
+  thursday: string;
+  friday: string;
+  saturday: string;
+  sunday: string;
+
 }

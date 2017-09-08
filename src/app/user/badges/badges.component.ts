@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {UserService} from '../userService';
+import {User} from '../../shared/dto/user';
 
 @Component({
   selector: 'app-badges',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BadgesComponent implements OnInit {
 
-  constructor() { }
+  model: User = new User();
+
+  constructor(private userService: UserService) {}
 
   ngOnInit() {
-  }
 
+    this.userService.getUser().subscribe((beer) => {
+      this.model = this.userService.getViewModel();
+    })
+  }
 }

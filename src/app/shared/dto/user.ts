@@ -7,10 +7,16 @@ export class User {
     firstname: string;
     lastname: string;
     image: string;
-  registrationDate: string;
+    registrationDate: string;
     location: GeoData;
     beerPreferences: Beer[];
     totalConsumption: number;
+    address: string;
+    city: string;
+    tel: string;
+    badge: string;
+    d
+  ateOfBirth: string;
     //badges: Badge[];
 }
 

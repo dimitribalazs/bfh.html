@@ -22,6 +22,13 @@ export class BierService {
     private breweryService: BreweryDatabaseService<Brewery>
   ) {
 
+    const beer = new Beer();
+    beer.name = "Pissebier";
+    beer.volume = 22;
+    const brewery = new Brewery();
+    brewery.name = "Iii";
+    beer.brewery = brewery;
+    this.beerService.create(beer);
   }
 
   loadBeer(id: string): Observable<Beer>  {

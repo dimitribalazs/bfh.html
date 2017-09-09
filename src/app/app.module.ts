@@ -22,13 +22,15 @@ import {BreweryDatabaseService} from './shared/services/brewery.service';
 import {BarDatabaseService} from './shared/services/bar.service';
 import { ImageUploadModule } from '../../node_modules/angular2-image-upload/lib/image-upload.module';
 import {BarInfoComponent} from './bar/bar-info/bar-info.component';
-import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome'
+import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome';
 import {SearchModule} from './search/search.module';
+import { MenuBarComponent } from './shared/components/menu-bar/menu-bar.component'
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    MenuBarComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +46,7 @@ import {SearchModule} from './search/search.module';
     FriendsModule,
     Angular2FontawesomeModule,
     ImageUploadModule.forRoot(),
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
   ],
   providers: [BeerDatabaseService, BarDatabaseService, UserDatabaseService, BreweryDatabaseService, MenuService],
   bootstrap: [AppComponent],

@@ -13,8 +13,7 @@ export class BreweryComponent implements OnInit {
 
   id: string;
   model: Brewery = new Brewery();
-  ratings: number[] = new Array;
-  meRating: number;
+  activeNavigation: number;
 
 
   constructor(private breweryService: BreweryService,
@@ -24,6 +23,7 @@ export class BreweryComponent implements OnInit {
     this.menuService.setDefault();
     this.menuService.TitleText = 'Brewery info';
     this.menuService.visibleHomeLink = true;
+    this.activeNavigation = 1;
   }
 
   ngOnInit() {
@@ -39,7 +39,8 @@ export class BreweryComponent implements OnInit {
     })
   }
 
-  onClick(childView: string) {
+  onClick(childView: string, activateNavigation: number) {
     this.router.navigate(['brewery', this.id, childView]);
+    this.activeNavigation = activateNavigation;
   }
 }

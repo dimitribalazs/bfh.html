@@ -1,47 +1,57 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12">
-        <div class="form-group">
-          <div>
-            <label>Name</label>
-          </div>
-          <input [value]="model.name" readonly>
-        </div>
-
-        <div class="form-group">
-          <div>
-            <label>Address</label>
-          </div>
-          <input [value]="model.address" readonly>
-        </div>
-
-        <div class="form-group">
-          <div>
-            <label>City</label>
-          </div>
-          <input [value]="model.city"  readonly>
-        </div>
-
       <div class="form-group">
+        <div>
+          <label>Name</label>
+        </div>
+        <p>{{model.name}}</p>
+      </div>
+
+      <div *ngIf="model.address" class="form-group">
+        <div>
+          <label>Address</label>
+        </div>
+        <p>{{model.address}}</p>
+      </div>
+
+      <div  *ngIf="model.city" class="form-group">
+        <div>
+          <label>City</label>
+        </div>
+        <p>{{model.city}}</p>
+      </div>
+
+      <div  *ngIf="model.country" class="form-group">
+        <div>
+          <label>Country</label>
+        </div>
+        <p>{{model.country}}</p>
+      </div>
+
+      <div  *ngIf="model.tel" class="form-group">
         <div>
           <label>Telephone number</label>
         </div>
-        <input [value]="model.tel"  readonly>
+        <p>{{model.tel}}</p>
       </div>
 
-      <div class="form-group">
+      <div  *ngIf="model.email" class="form-group">
+        <a href="mailto:{{model.email}}">{{model.email}}</a>
+      </div>
+
+      <div  *ngIf="model.homepage" class="form-group">
+        <a href={{model.homepage}}>{{model.homepage}}</a>
+      </div>
+
+      <div  *ngIf="model.description" class="form-group">
         <div>
-          <label>Email</label>
+          <label>Description</label>
         </div>
-        <input [value]="model.email"  readonly>
+        <p>
+          {{model.description}}
+        </p>
       </div>
-
-        <div class="form-group">
-          <div>
-            <label>Description</label>
-          </div>
-          <input [value]="model.description" readonly>
-        </div>
 
     </div>
   </div>

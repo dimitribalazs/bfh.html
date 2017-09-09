@@ -1,3 +1,7 @@
 .toggleMenuStyle {
   display: block;
 }
+
+.menubutton {
+  margin-left: 0.5em;
+}

@@ -1,5 +1,5 @@
 import {Brewery} from './brewery';
-import {Bar} from './bar';
+import {BarBeer} from './barBeer';
 import {GeoData} from './geoData';
 
 export class Beer {
@@ -10,7 +10,7 @@ export class Beer {
     brewType: DropDownEntry[];
     rating: number
     brewery: Brewery
-    bars: Bar[];
+    bars: BarBeer[];
     image: string;
     taste: DropDownEntry[];
     location: GeoData;

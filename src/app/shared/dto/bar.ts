@@ -1,5 +1,6 @@
 import {GeoData} from './geoData';
-import {Beer} from './beer'
+import {Beer} from './beer';
+import {BarBeer} from './barBeer'
 
 export class Bar {
     id: string;
@@ -14,16 +15,8 @@ export class Bar {
     snacks: string; //todo change
     location: GeoData;
     description: String;
-    //beer
+    beers: Beer[]
 }
-
-export class BreweryBeer {
-    beer: Beer;
-    bar: Bar;
-    price: number;
-    tapOrBottled: boolean;
-}
-
 
 export class OpeningHours {
   monday: string;

@@ -65,7 +65,7 @@ export class BarDatabaseService<Bar> extends DatabaseService<Bar>{
     addBeerToBar(barBeer: BarBeer): void {
         const newKey: string = barBeer.bar + "_" + barBeer.beer;
         this.barBeerPath.child(newKey).set(barBeer);
-        this.barsPath.child(barBeer.bar + "/beers/").push(newKey);
-        this.beersPath.child(barBeer.beer + "/bars").push(newKey);
+        this.barsPath.child(barBeer.bar + "/beers/" + newKey).set(true);
+        this.beersPath.child(barBeer.beer + "/bars/" + newKey).set(true);
     }
 }

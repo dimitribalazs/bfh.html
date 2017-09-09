@@ -35,6 +35,8 @@ export class BeerComponent implements OnInit {
       this.menuService.visibleEdit = true;
       this.model.brewery = new Brewery();
       this.model.brewery.name = '';
+
+
   }
 
 

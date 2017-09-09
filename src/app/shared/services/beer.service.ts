@@ -4,13 +4,16 @@ import * as firebase from 'firebase';
 import { DatabaseService, FirebaseEvent } from './database.service';
 import { getDatabase } from './firebase';
 import { Beer } from '../dto/beer';
+import {BarBeer} from "../dto/barBeer";
 
 @Injectable()
 export class BeerDatabaseService<Beer> extends DatabaseService<Beer>{
   private beersPath: firebase.database.Reference;
+  private barBeersPath: firebase.database.Reference;
   constructor() {
     super();
     this.beersPath = getDatabase().ref("beers");
+    this.barBeersPath = getDatabase().ref("beerBars");
   }
 
   /*
@@ -59,6 +62,23 @@ export class BeerDatabaseService<Beer> extends DatabaseService<Beer>{
       });
 
       return beers;
+    });
+  }
+
+  getAllBeersByBarId(barId: number): Observable<Beer[]> {
+  return Observable.fromEvent(this.barBeersPath.orderByChild("bar").equalTo(barId), FirebaseEvent.value.toString(), (barBeerSnapshot) => {
+    var barBeers = barBeerSnapshot.val();
+    const beers: Beer[] = [];
+    console.log(barBeers);
+
+    Object.keys(barBeers).map((value: string) => {
+        let barBeer  = barBeers[value] as BarBeer;
+        this.beersPath.child(barBeer.beer.toString()).once(FirebaseEvent.value.toString(), (beerSnapshot) => {
+          beers.push(beerSnapshot.val() as Beer);
+        });
+    });
+
+    return beers;
     });
   }
 

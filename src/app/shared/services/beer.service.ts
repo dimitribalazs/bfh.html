@@ -13,27 +13,27 @@ export class BeerDatabaseService<Beer> extends DatabaseService<Beer>{
     this.beersPath = getDatabase().ref("beers");
   }
 
+  /*
+  exists(entity: any): Promise<boolean> {
+
+    return this.beersPath.orderByChild("name").equalTo(entity.name).once("value").then((snapshot) => {
+      const beers = snapshot.val(); //as Beer[];
+      if (beers !== undefined) {
+        beers.forEach((beer) => {
+          if (beer.brewery.name == entity.brewery.name && beer.volume == entity.volume) {
+            //return true;
+          }
+        });
+      }
+
+      return false;
+    });
+  } */
+
 
   create(entity: any): void {
-    this.beersPath.orderByChild("name")
-      .equalTo(entity.name).once("value").then((snapshot) => {
-        let found = false;
-        const beers = snapshot.val(); //as Beer[];
-
-        if (beers !== undefined) {
-          beers.forEach((beer) => {
-            if (beer.brewery.name == entity.brewery.name && beer.volume == entity.volume) {
-              found = true;
-            }
-          });
-        }
-
-        if (found) throw new Error(`Beer ${entity.name} already exists`);
-
         const newKey: string = this.beersPath.push().key;
         this.beersPath.child(newKey).set(entity);
-
-      });
   }
 
   update(id: string, entity: Beer): void {

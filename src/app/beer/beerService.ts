@@ -30,6 +30,8 @@ export class BierService {
     brewery.name = "Iii";
     beer.brewery = brewery;
     this.beerService.create(beer); */
+
+    this.beerService.getAllBeerByBreweryId(1).subscribe((data) => console.log("foo ", data));
   }
 
   loadBeer(id: string): Observable<Beer>  {

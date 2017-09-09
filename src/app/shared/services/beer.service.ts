@@ -66,19 +66,26 @@ export class BeerDatabaseService<Beer> extends DatabaseService<Beer>{
   }
 
   getAllBeersByBarId(barId: number): Observable<Beer[]> {
-  return Observable.fromEvent(this.barBeersPath.orderByChild("bar").equalTo(barId), FirebaseEvent.value.toString(), (barBeerSnapshot) => {
-    var barBeers = barBeerSnapshot.val();
-    const beers: Beer[] = [];
-    console.log(barBeers);
+    return Observable.fromEvent(this.barBeersPath.orderByChild("bar").equalTo(barId), FirebaseEvent.value.toString(), (barBeerSnapshot) => {
+      var barBeers = barBeerSnapshot.val();
+      const beers: Beer[] = [];
+      console.log(barBeers);
 
-    Object.keys(barBeers).map((value: string) => {
-        let barBeer  = barBeers[value] as BarBeer;
-        this.beersPath.child(barBeer.beer.toString()).once(FirebaseEvent.value.toString(), (beerSnapshot) => {
-          beers.push(beerSnapshot.val() as Beer);
-        });
-    });
+      Object.keys(barBeers).map((value: string) => {
+          let barBeer  = barBeers[value] as BarBeer;
+          this.beersPath.child(barBeer.beer.toString()).once(FirebaseEvent.value.toString(), (beerSnapshot) => {
+            beers.push(beerSnapshot.val() as Beer);
+          });
+      });
 
-    return beers;
+      return beers;
+      });
+  }
+
+  getAllBeerByBreweryId(breweryId: number): Observable<Beer[]> {
+    return Observable.fromEvent(this.beersPath.orderByChild("brewery").equalTo(breweryId), FirebaseEvent.value.toString(), (beerSnapshot) => {
+      const beers: Beer[] = beerSnapshot.val() as Beer[];
+      return beers;
     });
   }
 

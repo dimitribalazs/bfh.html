@@ -16,6 +16,7 @@ export class MenuBarComponent {
   constructor(menuService: MenuService) {
     this.menuService = menuService;
     menuService.setDefault();
+    menuService.visibleSearchLink = true;
   }
 
   onToggleMenu() {

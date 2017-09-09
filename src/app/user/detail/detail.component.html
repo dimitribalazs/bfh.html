@@ -3,32 +3,32 @@
     <div class="col-xs-12">
       <div class="form-group">
 
-        <div class="form-group">
+        <div *ngIf="model.address" class="form-group">
           <div>
             <label>Address</label>
           </div>
-          <input [value]="model.address" readonly>
+          <p>{{model.address}}</p>
         </div>
 
-        <div class="form-group">
+        <div *ngIf="model.city" class="form-group">
           <div>
             <label>City</label>
           </div>
-          <input [value]="model.city" readonly>
+          <p>{{model.city}}</p>
         </div>
 
-        <div class="form-group">
+        <div *ngIf="model.tel" class="form-group">
           <div>
             <label>Telephone number</label>
           </div>
-          <input [value]="model.tel" readonly>
+          <p>{{model.tel}}</p>
         </div>
 
-        <div class="form-group">
+        <div *ngIf="model.dateOfBirth" class="form-group">
           <div>
             <label>Date of birth</label>
           </div>
-          <input [value]="model.dateOfBirth" readonly>
+          <p>{{model.dateOfBirth}}</p>
         </div>
 
       </div>

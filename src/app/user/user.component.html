@@ -12,10 +12,10 @@
   </div>
   <br>
   <nav class="container" *ngIf="!edit">
-    <button (click)="onClick('friends')">Friends</button>
-    <button (click)="onClick('favourites')">Favourites</button>
-    <button (click)="onClick('badges')">Badges</button>
-    <button (click)="onClick('detail')">Detail</button>
+    <button (click)="onClick('friends',0)" [class.activeNavigation]="activeNavigation===0">Friends</button>
+    <button (click)="onClick('favourites',1)" [class.activeNavigation]="activeNavigation===1">Favourites</button>
+    <button (click)="onClick('badges',2)" [class.activeNavigation]="activeNavigation===2">Badges</button>
+    <button (click)="onClick('detail',3)" [class.activeNavigation]="activeNavigation===3">Detail</button>
   </nav>
   <br>
   <div>

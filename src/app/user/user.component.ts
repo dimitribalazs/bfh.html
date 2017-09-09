@@ -12,6 +12,7 @@ import {MenuService} from '../shared/services/menu.service';
 export class UserComponent implements OnInit {
   id: string;
   model: User = new User();
+  activeNavigation: number;
 
 
   constructor(private userService: UserService,
@@ -21,6 +22,7 @@ export class UserComponent implements OnInit {
     this.menuService.setDefault();
     this.menuService.TitleText = 'User info';
     this.menuService.visibleHomeLink = true;
+    this.activeNavigation = 0;
   }
 
   ngOnInit() {
@@ -36,7 +38,8 @@ export class UserComponent implements OnInit {
     })
   }
 
-  onClick(childView: string) {
+  onClick(childView: string, activateNavigation: number) {
     this.router.navigate(['user', this.id, childView]);
+    this.activeNavigation = activateNavigation;
   }
 }

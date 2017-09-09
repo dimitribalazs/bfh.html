@@ -15,8 +15,7 @@ export class User {
     city: string;
     tel: string;
     badge: string;
-    d
-  ateOfBirth: string;
+    dateOfBirth: string;
     //badges: Badge[];
 }
 

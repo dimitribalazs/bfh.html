@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit {
   brewery: Observable<Brewery[]>;
   bars: Observable<Bar[]>;
   arroundYou: AroundYou[] = new Array();
-
+  distance: number = 0;
 
   private selectedId: string;
 
@@ -61,6 +61,7 @@ export class HomeComponent implements OnInit {
       latitude: lat
     };
 
+
     this.serviceUser.getAroundYou(wohlen, " ");
 
     this.beers = this.serviceBeer.getAll();
@@ -71,17 +72,17 @@ export class HomeComponent implements OnInit {
 
     this.bars = this.serviceBar.getAll()
 
-    this.beers.subscribe((value) => {
-      value.forEach((beer) => {
-        const a: AroundYou = new AroundYou();
-        a.id = beer.id;
-        a.name = beer.name;
-        a.routerNavigate = '/beer/'
-        if (this.arroundYou.length < 5) {
-          this.arroundYou.push(a)
-        }
-      })
-    })
+    // this.beers.subscribe((value) => {
+    //   value.forEach((beer) => {
+    //     const a: AroundYou = new AroundYou();
+    //     a.id = beer.id;
+    //     a.name = beer.name;
+    //     a.routerNavigate = '/beer/'
+    //     if (this.arroundYou.length < 5) {
+    //       this.arroundYou.push(a)
+    //     }
+    //   })
+    // })
 
     this.bars.subscribe((value) => {
       value.forEach((bar) => {
@@ -89,6 +90,9 @@ export class HomeComponent implements OnInit {
         a.id = bar.id;
         a.name = bar.name;
         a.routerNavigate = '/bar/'
+        a.glyphicon = 'glyphicon glyphicon-map-marker';
+        a.distance = this.distance++ ;
+        a.unit = 'm'
         if (this.arroundYou.length < 5) {
           this.arroundYou.push(a)
         }
@@ -100,7 +104,10 @@ export class HomeComponent implements OnInit {
         const a: AroundYou = new AroundYou();
         a.id = user.id;
         a.name = user.firstname + ', ' + user.lastname;
-        a.routerNavigate = '/friends/'
+        a.routerNavigate = '/user/'
+        a.glyphicon = 'glyphicon glyphicon-user';
+        a.distance = this.distance ++;
+        a.unit = 'm'
         if (this.arroundYou.length < 7) {
           this.arroundYou.push(a)
         }
@@ -113,6 +120,9 @@ export class HomeComponent implements OnInit {
         a.id = brewery.id;
         a.name = brewery.name;
         a.routerNavigate = '/brewery/'
+        a.glyphicon = 'glyphicon glyphicon-home';
+        a.distance = this.distance ++;
+        a.unit = 'm'
         if (this.arroundYou.length < 9) {
           this.arroundYou.push(a)
         }

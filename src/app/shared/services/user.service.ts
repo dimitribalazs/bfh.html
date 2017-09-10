@@ -69,6 +69,7 @@ export class UserDatabaseService<User> extends DatabaseService<User>{
         });
     }
 
+    //todo fertig machen
     getAroundYou(myPosition: GeoData, userId: string): void {
         console.log("yolo");
         const source = Observable.zip(
@@ -84,7 +85,7 @@ export class UserDatabaseService<User> extends DatabaseService<User>{
           .map((data) => {
                 console.log("map")
                 console.log(data);
-                return data;    
+                return data;
           })
           .filter((data) => {
             console.log("filter");
@@ -97,12 +98,12 @@ export class UserDatabaseService<User> extends DatabaseService<User>{
           source.subscribe(function(data) {
             console.log("foo");
             console.log(data);
-                        
+
             // filter((item) => {
             //     console.log(item);
-            //     return item;    
+            //     return item;
         //})
-            
-          });        
+
+          });
     }
 }

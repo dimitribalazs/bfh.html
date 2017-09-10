@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="form-group">
+
+        <div *ngIf="model.address" class="form-group">
+          <div>
+            <label>Address</label>
+          </div>
+          <p>{{model.address}}</p>
+        </div>
+
+        <div *ngIf="model.city" class="form-group">
+          <div>
+            <label>City</label>
+          </div>
+          <p>{{model.city}}</p>
+        </div>
+
+        <div *ngIf="model.tel" class="form-group">
+          <div>
+            <label>Telephone number</label>
+          </div>
+          <p>{{model.tel}}</p>
+        </div>
+
+        <div *ngIf="model.dateOfBirth" class="form-group">
+          <div>
+            <label>Date of birth</label>
+          </div>
+          <p>{{model.dateOfBirth}}</p>
+        </div>
+
+      </div>
+    </div>
+  </div>

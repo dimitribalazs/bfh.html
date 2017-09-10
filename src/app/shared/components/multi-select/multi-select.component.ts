@@ -13,7 +13,7 @@ export class TasteMultiSelectComponent implements OnInit {
   @Input() dropdownList;
   @Input() ItemName: String;
   @Input() singleSelection: boolean;
-  @Output() onSelectChange = new EventEmitter<any>();
+  @Output() onSelectChange = new EventEmitter();
 
   dropdownSettings = {};
 

@@ -9,13 +9,13 @@ import { BeerDetailComponent } from './beer-detail/beer-detail.component';
 import { BeerRoutingModule} from './beer-routing.module';
 import {BierService} from './beerService'
 
-import {BarDetailComponent} from '../bar/bar-detail/bar-detail.component';
-import { RatingComponent } from './rating/rating.component';
+import {BeerRating} from '../shared/components/rating/rating.component';
 import { BeerInfoComponent } from './beer-info/beer-info.component';
 import { ImageUploadModule } from '../../../node_modules/angular2-image-upload/lib/image-upload.module';
 import {ImageUploaderComponent} from '../image-uploader/image-uploader.component';
 import { TasteMultiSelectComponent } from '../shared/components/multi-select/multi-select.component';
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown/angular2-multiselect-dropdown';
+import {BarInfoComponent} from '../bar/bar-info/bar-info.component';
 
 @NgModule({
   imports: [
@@ -30,9 +30,8 @@ import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown/angular2
   declarations: [
     BeerComponent,
     BeerDetailComponent,
-    BarDetailComponent,
-    RatingComponent,
     BeerInfoComponent,
+    BeerRating,
     ImageUploaderComponent,
     TasteMultiSelectComponent
   ],

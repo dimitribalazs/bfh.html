@@ -2,9 +2,9 @@
 
 
 <nav class="container navbar navbar-light">
-    <button *ngIf="this.menu.visibleMenu" class="navbar-toggler collapsed" type="button">
-      <span class="navbar-toggler-icon collapsed"></span>
-    </button>
+  <button *ngIf="this.menu.visibleMenu" class="navbar-toggler collapsed" type="button">
+    <span class="navbar-toggler-icon collapsed"></span>
+  </button>
   <a *ngIf="this.menu.visibleHomeLink" routerLink="/home" routerLinkActive="active" class="btn btn-default btn-sm">
     <span class="glyphicon glyphicon-home"></span>
   </a>
@@ -12,7 +12,7 @@
     <span class="glyphicon glyphicon-chevron-left"></span>
   </button>
   <p *ngIf="this.menu.visibleTitle" style="display:inline">{{menu.TitleText}}</p>
-  <input *ngIf="this.menu.visibleSearchInput" type="text" class="form-control" >
+  <input *ngIf="this.menu.visibleSearchInput" type="text" (input)="menu.onSearchInputChange($event)" class="form-control" >
   <a *ngIf="this.menu.visibleSearchLink" routerLink="/search" routerLinkActive="active" class="btn btn-default btn-sm pull-right">
     <span class="glyphicon glyphicon-search"></span>
   </a>

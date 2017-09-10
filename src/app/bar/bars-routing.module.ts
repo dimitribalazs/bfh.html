@@ -1,13 +1,30 @@
-import { NgModule }             from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { BarComponent }    from './bar.component';
-import { BarDetailComponent }  from './bar-detail/bar-detail.component';
+import { BarComponent } from './bar.component';
+import {BarInfoComponent} from './bar-info/bar-info.component';
+import { AvailableBeersComponent } from './available-beers/available-beers.component';
+import { OpeningHoursComponent } from './opening-hours/opening-hours.component';
+import { PhotosComponent } from './photos/photos.component';
 
 const barsRoutes: Routes = [
-  { path: 'bars',  component: BarComponent },
-  { path: 'bar/:id', component: BarComponent }
-  // { path: 'bar/:id', component: BarDetailComponent }
+  { path: 'bar/:id',
+    component: BarComponent,
+    data: {
+      type: 'info'
+    },
+    children: [
+      {
+        path: '',
+        children: [
+          { path: '', component: AvailableBeersComponent },
+          { path: 'beers', component: AvailableBeersComponent },
+          { path: 'info', component: BarInfoComponent },
+          { path: 'openingHours', component: OpeningHoursComponent },
+          { path: 'photos', component: PhotosComponent },
+        ]
+      }
+    ]},
 ];
 
 @NgModule({

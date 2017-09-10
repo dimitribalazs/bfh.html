@@ -1,5 +1,6 @@
 import {GeoData} from './geoData';
-import {Beer} from './beer'
+import {Beer} from './beer';
+import {BarBeer} from './barBeer'
 
 export class Bar {
     id: string;
@@ -10,16 +11,30 @@ export class Bar {
     rating: number;
     size: number;
     isSmokingAllowed: boolean;
-    openingHours: string; //todo change
+    openingHours: OpeningHours; //todo change
     snacks: string; //todo change
     location: GeoData;
-
-    //beer
+    description: String;
+    beers: Beer[]
 }
 
-export class BreweryBeer {
-    beer: Beer;
-    bar: Bar;
-    price: number;
-    tapOrBottled: boolean;
+export class OpeningHours {
+  monday: string;
+  tuesday: string;
+  wednesday: string;
+  thursday: string;
+  friday: string;
+  saturday: string;
+  sunday: string;
+
+
+  constructor() {
+    this.monday = '';
+    this.tuesday = '';
+    this.wednesday = '';
+    this.thursday = '';
+    this.friday = '';
+    this.saturday = '';
+    this.sunday = '';
+  }
 }

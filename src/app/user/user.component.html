@@ -1,3 +1,24 @@
-<p>
-  user works!
-</p>
+<div>
+  <div class="container">
+    <div class="imageShow" style="position:relative;">
+      <img src="{{ '../../' + model.image}}" height="150px" width="150px"/>
+    </div>
+    <div class="Rating">
+      <h2>{{model.firstname}} {{model.lastname}}</h2>
+    </div>
+    <div>
+      {{model.totalConsumption}} since {{model.registrationDate}}
+    </div>
+  </div>
+  <br>
+  <nav class="container" *ngIf="!edit">
+    <button (click)="onClick('friends',0)" [class.activeNavigation]="activeNavigation===0">Friends</button>
+    <button (click)="onClick('favourites',1)" [class.activeNavigation]="activeNavigation===1">Favourites</button>
+    <button (click)="onClick('badges',2)" [class.activeNavigation]="activeNavigation===2">Badges</button>
+    <button (click)="onClick('detail',3)" [class.activeNavigation]="activeNavigation===3">Detail</button>
+  </nav>
+  <br>
+  <div>
+    <router-outlet></router-outlet>
+  </div>
+</div>

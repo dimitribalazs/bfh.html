@@ -4,13 +4,19 @@ import * as firebase from 'firebase';
 import {DatabaseService, FirebaseEvent} from './database.service';
 import {getDatabase} from './firebase';
 import {Bar} from '../dto/bar';
+import {BarBeer} from '../dto/barBeer';
 
 @Injectable()
 export class BarDatabaseService<Bar> extends DatabaseService<Bar>{
     private barsPath: firebase.database.Reference;
+    private barBeerPath: firebase.database.Reference;
+    private beersPath: firebase.database.Reference;
+
     constructor() {
         super();
         this.barsPath = getDatabase().ref("bars");
+        this.beersPath = getDatabase().ref("beers");
+        this.barBeerPath = getDatabase().ref("beerBars");
     }
 
     create(entity: Bar): void {
@@ -54,5 +60,12 @@ export class BarDatabaseService<Bar> extends DatabaseService<Bar>{
             });
             return bar;
         });
+    }
+
+    addBeerToBar(barBeer: BarBeer): void {
+        const newKey: string = barBeer.bar + "_" + barBeer.beer;
+        this.barBeerPath.child(newKey).set(barBeer);
+        this.barsPath.child(barBeer.bar + "/beers/" + newKey).set(true);
+        this.beersPath.child(barBeer.beer + "/bars/" + newKey).set(true);
     }
 }

@@ -21,7 +21,11 @@ import {MenuService} from './shared/services/menu.service';
 import {BreweryDatabaseService} from './shared/services/brewery.service';
 import {BarDatabaseService} from './shared/services/bar.service';
 import { ImageUploadModule } from '../../node_modules/angular2-image-upload/lib/image-upload.module';
+import {BarInfoComponent} from './bar/bar-info/bar-info.component';
+import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { NotificationService } from './shared/services/notification.service';
+
 
 @NgModule({
   declarations: [
@@ -38,11 +42,12 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     AppRoutingModule,
     UserModule,
     FriendsModule,
+    Angular2FontawesomeModule,
     ImageUploadModule.forRoot(),
     NgbModule.forRoot(),
     ServiceWorkerModule
   ],
-  providers: [BeerDatabaseService, BarDatabaseService, UserDatabaseService, BreweryDatabaseService, MenuService],
+  providers: [BeerDatabaseService, BarDatabaseService, UserDatabaseService, BreweryDatabaseService, MenuService, NotificationService],
   bootstrap: [AppComponent],
 
 

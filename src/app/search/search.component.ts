@@ -13,6 +13,11 @@ export class SearchComponent implements OnInit {
     this.menuService.visibleHomeLink = true;
     this.menuService.visibleTitle = false;
     this.menuService.visibleSearchInput = true;
+
+    this.menuService.searchInputCallback = (e) => {
+      console.log(e.target.value)
+    }
+
   }
 
   ngOnInit() {

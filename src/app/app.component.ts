@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {MenuService} from './shared/services/menu.service';
+import { ActivatedRoute, ParamMap, Router, RouterState  } from '@angular/router';
 import { NgServiceWorker, NgPushRegistration } from '@angular/service-worker';
+import { NotificationService } from './shared/services/notification.service';
 
 @Component({
   selector: 'app-root',
@@ -10,15 +12,24 @@ import { NgServiceWorker, NgPushRegistration } from '@angular/service-worker';
 export class AppComponent {
 
   menu: MenuService;
-  constructor(private menuService: MenuService, private sw: NgServiceWorker) {
-    this.menu = menuService;
-    this.menu.TitleText = 'Duff\'d';
-    this.menu.visibleHomeLink = false;
-    this.menu.visibleSearchLink = true;
+  notifications: NotificationService;
+
+  constructor(private menuService: MenuService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private sw: NgServiceWorker,
+    private notificationService: NotificationService) {
+      this.menu = menuService;
+      this.menu.setDefault();
+      this.menu.visibleSearchLink = true;
+
+    // PushService
+    this.notifications = notificationService;
+    this.notifications.register();
 
     // ServiceWorker log
     sw.log().subscribe(log => console.debug('log', log));
-  
+
     sw.updates.subscribe(u => {
       console.debug('update event', u);
 
@@ -34,7 +45,12 @@ export class AppComponent {
 
     sw.checkForUpdate();
   }
-    onBack() {
-      window.history.back();
+  onViewDetails() {
+    const state: RouterState = this.router.routerState;
+    this.router.navigate([state.snapshot.url, 'edit']);
+  }
+
+  onBack() {
+    window.history.back();
   }
 }

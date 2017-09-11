@@ -22,9 +22,11 @@ export class FriendsComponent implements OnInit {
   }
 
   onSelect(user: User) {
-    // this.router.navigate(['user', user.id]);
+    console.log(user.id)
+    this.router.navigate(['/user', user.id]);
 
-    this.router.navigate(['user', user.id]);
+
+      this.userService.loadUser(user.id);
   }
 
 }

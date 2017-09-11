@@ -1,112 +1,50 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
+import {Subject} from 'rxjs/Subject';
 
 @Injectable()
 export class MenuService {
+  defaultState = {
+    titleText: 'Duff\'d',
+    visibleHomeLink: false,
+    visibleSearchLink: false,
+    visibleSearchInput: false,
+    visibleTitle: false,
+    visibleEdit: false,
+    visibleSave: false,
+    visibleMenu: false,
+    visibleBack: false
+  };
+  state = { ...this.defaultState };
+  state$: Subject<Object> = new Subject();
 
-  private _titleText: string;
-  private _visibleHomeLink: boolean;
-  private _visibleSearchLink: boolean;
-  private _visibleSearchInput: boolean;
-  private _visibleTitle: boolean;
-  private _visibleEdit: boolean;
-  private _visibleSave: boolean;
-  private _visibleMenu: boolean;
-  private _visibleBack: boolean;
   public submitCallback: () => void;
   public searchInputCallback: (e: string) => void;
 
-  constructor() {
-    this._titleText = '';
-  }
+  setNewState(state: MenuState, title: string = null, callback: any = null): void {
+    // set defaults
+    this.state = { ...this.defaultState };
 
-  get TitleText(): string {
-    return this._titleText;
-  }
-  set TitleText(value: string) {
-    this._titleText = value;
-  }
+    switch (state) {
+      case MenuState.SEARCH: {
+        this.state.visibleBack = true;
+        this.state.visibleSearchInput = true;
 
-  get visibleHomeLink(): boolean {
-    return this._visibleHomeLink;
-  }
+        this.searchInputCallback = callback;
+        break;
+      }
+      default: {
+        // home
+        this.state.visibleMenu = true;
+        this.state.visibleTitle = true;
+        this.state.visibleSearchLink = true;
+      }
+    }
 
-  set visibleHomeLink(value: boolean) {
-    this._visibleHomeLink = value;
+    this.state$.next(this.state);
   }
+}
 
-  get visibleSearchLink(): boolean {
-    return this._visibleSearchLink;
-  }
-
-  set visibleSearchLink(value: boolean) {
-    this._visibleSearchLink = value;
-  }
-
-  get visibleSearchInput(): boolean {
-    return this._visibleSearchInput;
-  }
-
-  set visibleSearchInput(value: boolean) {
-    this._visibleSearchInput = value;
-  }
-
-  get visibleTitle(): boolean {
-    return this._visibleTitle;
-  }
-
-  set visibleTitle(value: boolean) {
-    this._visibleTitle = value;
-  }
-
-  get visibleEdit(): boolean {
-    return this._visibleEdit;
-  }
-
-  set visibleEdit(value: boolean) {
-    this._visibleEdit = value;
-  }
-
-  get visibleSave(): boolean {
-    return this._visibleSave;
-  }
-
-  set visibleSave(value: boolean) {
-    this._visibleSave = value;
-  }
-
-  public submit(): void {
-    this.submitCallback();
-  }
-
-  public onSearchInputChange(e): void {
-    this.searchInputCallback(e);
-  }
-
-  get visibleMenu(): boolean {
-    return this._visibleMenu;
-  }
-
-  set visibleMenu(value: boolean) {
-    this._visibleMenu = value;
-  }
-
-  get visibleBack(): boolean {
-    return this._visibleBack;
-  }
-
-  set visibleBack(value: boolean) {
-    this._visibleBack = value;
-  }
-
-  public setDefault() {
-    this._titleText = 'Duff\'d';
-    this._visibleHomeLink = false;
-    this._visibleSearchLink = false;
-    this._visibleSearchInput = false;
-    this._visibleTitle = true;
-    this._visibleEdit = false;
-    this._visibleSave = false;
-    this._visibleMenu = false;
-    this.visibleBack = false;
-  }
+export enum MenuState {
+  HOME,
+  SEARCH
 }

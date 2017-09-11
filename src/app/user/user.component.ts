@@ -22,9 +22,9 @@ export class UserComponent implements OnInit {
               private route: ActivatedRoute,
               private router: Router,
               private menuService: MenuService) {
-    this.menuService.setDefault();
-    this.menuService.TitleText = 'User info';
-    this.menuService.visibleHomeLink = true;
+    // this.menuService.setDefault();
+    // this.menuService.TitleText = 'User info';
+    // this.menuService.visibleHomeLink = true;
     this.activeNavigation = 0;
 
     // this.user = userService.viewModelSubject;

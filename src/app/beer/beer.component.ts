@@ -29,11 +29,11 @@ export class BeerComponent implements OnInit {
               private route: ActivatedRoute,
               private router: Router,
               private menuService: MenuService) {
-    this.menuService.setDefault();
-    this.menuService.TitleText = 'Beer info';
-    this.menuService.visibleHomeLink = true;
-    this.menuService.visibleTitle = true;
-    this.menuService.visibleEdit = true;
+      // this.menuService.setDefault();
+      // this.menuService.TitleText = 'Beer info';
+      // this.menuService.visibleHomeLink = true;
+      // this.menuService.visibleTitle = true;
+      // this.menuService.visibleEdit = true;
     // this.model.brewery = new Brewery();
     // this.model.brewery.name = '';
 
@@ -86,7 +86,7 @@ export class BeerComponent implements OnInit {
       this.ratings[1] = 12;
       this.ratings[2] = 54;
       this.ratings[3] = 4;
-      this.meRating = 1
+      this.meRating = 1;
       console.log(this.route.snapshot.toString())
     }
   }
@@ -102,7 +102,7 @@ export class BeerComponent implements OnInit {
 
 
   onImageEdit() {
-    this.menuService.visibleEdit = false;
+    // this.menuService.visibleEdit = false;
     this.imageUploadShow = true;
   }
 }

@@ -1,16 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { Bar } from '../shared/dto/Bar';
-import { Observable } from 'rxjs/Observable';
+import {Component, OnInit} from '@angular/core';
+import {Bar} from '../shared/dto/Bar';
+import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/switchMap';
-import { Beer} from '../shared/dto/Beer';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import {Beer} from '../shared/dto/Beer';
+import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {BeerDatabaseService} from '../shared/services/beer.service';
 import {AroundYou} from '../shared/dto/aroundyou';
 import {User} from '../shared/dto/user';
 import {GeoData} from '../shared/dto/geoData';
 import {UserDatabaseService} from '../shared/services/user.service';
 import {GeoService} from '../shared/services/geo.service';
-import {MenuService} from '../shared/services/menu.service';
+import {MenuService, MenuState} from '../shared/services/menu.service';
 import {Brewery} from '../shared/dto/brewery';
 import {BreweryDatabaseService} from '../shared/services/brewery.service';
 import {BarDatabaseService} from '../shared/services/bar.service';
@@ -32,25 +32,26 @@ export class HomeComponent implements OnInit {
 
   private selectedId: string;
 
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private serviceBeer: BeerDatabaseService<Beer>,
-    private serviceUser: UserDatabaseService<User>,
-    private serviceBrewery: BreweryDatabaseService<Brewery>,
-    private serviceBar: BarDatabaseService<Bar>,
-    private serviceGeo: GeoService,
-    private menuService: MenuService
-  ) {
-    this.menuService.setDefault();
-    this.menuService.visibleSearchLink = true;
-    this.menuService.visibleTitle = true;
-    this.menuService.visibleMenu = true;
+  constructor(private route: ActivatedRoute,
+              private router: Router,
+              private serviceBeer: BeerDatabaseService<Beer>,
+              private serviceUser: UserDatabaseService<User>,
+              private serviceBrewery: BreweryDatabaseService<Brewery>,
+              private serviceBar: BarDatabaseService<Bar>,
+              private serviceGeo: GeoService,
+              private menuService: MenuService) {
+    // this.menuService.setDefault();
+    // this.menuService.visibleSearchLink = true;
+    // this.menuService.visibleTitle = true;
+    // this.menuService.visibleMenu = true;
   }
 
 
   ngOnInit() {
     console.log("init");
+
+    this.menuService.setNewState(MenuState.HOME);
+
     //Wohlen AG
     var lat = 47.349365;
     var long = 8.276876;
@@ -91,7 +92,7 @@ export class HomeComponent implements OnInit {
         a.name = bar.name;
         a.routerNavigate = '/bar/'
         a.glyphicon = 'glyphicon glyphicon-map-marker';
-        a.distance = this.distance++ ;
+        a.distance = this.distance++;
         a.unit = 'm'
         if (this.arroundYou.length < 5) {
           this.arroundYou.push(a)
@@ -106,7 +107,7 @@ export class HomeComponent implements OnInit {
         a.name = user.firstname + ', ' + user.lastname;
         a.routerNavigate = '/user/'
         a.glyphicon = 'glyphicon glyphicon-user';
-        a.distance = this.distance ++;
+        a.distance = this.distance++;
         a.unit = 'm'
         if (this.arroundYou.length < 7) {
           this.arroundYou.push(a)
@@ -121,7 +122,7 @@ export class HomeComponent implements OnInit {
         a.name = brewery.name;
         a.routerNavigate = '/brewery/'
         a.glyphicon = 'glyphicon glyphicon-home';
-        a.distance = this.distance ++;
+        a.distance = this.distance++;
         a.unit = 'm'
         if (this.arroundYou.length < 9) {
           this.arroundYou.push(a)
@@ -129,12 +130,14 @@ export class HomeComponent implements OnInit {
       })
     })
 
-      this.serviceBeer.listen();
+    this.serviceBeer.listen();
 
 
   }
 
-  isSelected(around: AroundYou) { return around.id === this.selectedId; }
+  isSelected(around: AroundYou) {
+    return around.id === this.selectedId;
+  }
 
   // onSelect(beer: Beer) {
   //   this.router.navigate(['/beer/edit/', beer.id]);
@@ -164,42 +167,42 @@ export class HomeComponent implements OnInit {
 
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((pos) => {
-           const coords: Coordinates  = pos.coords;
+        const coords: Coordinates = pos.coords;
 
-           let currentPos: GeoData = {
-            id: "10",
-            longitude: coords.longitude,
-            latitude: coords.latitude
-           }
-          //Wohlen AG
-          var lat = 47.349365;
-          var long = 8.276876;
+        let currentPos: GeoData = {
+          id: "10",
+          longitude: coords.longitude,
+          latitude: coords.latitude
+        }
+        //Wohlen AG
+        var lat = 47.349365;
+        var long = 8.276876;
 
-          var wohlen: GeoData = {
-            id: "11",
-            longitude: long,
-            latitude: lat
-          };
+        var wohlen: GeoData = {
+          id: "11",
+          longitude: long,
+          latitude: lat
+        };
 
-          //waltenschwil
-          var lat1 = 47.334727;
-          var long1 = 8.300650;
+        //waltenschwil
+        var lat1 = 47.334727;
+        var long1 = 8.300650;
 
-          var waltenschwil: GeoData = {
-            id: "12",
-            longitude: long1,
-            latitude: lat1
-          };
-          var foo = this.serviceGeo.isInRange(wohlen, waltenschwil);
-          console.log("result 1 " + foo);
+        var waltenschwil: GeoData = {
+          id: "12",
+          longitude: long1,
+          latitude: lat1
+        };
+        var foo = this.serviceGeo.isInRange(wohlen, waltenschwil);
+        console.log("result 1 " + foo);
 
-          var lausanne: GeoData = {
-            id: "13",
-            longitude: 6.632273,
-            latitude: 46.519653
-          };
-          foo = this.serviceGeo.isInRange(wohlen, lausanne);
-          console.log("result 2 " + foo);
+        var lausanne: GeoData = {
+          id: "13",
+          longitude: 6.632273,
+          latitude: 46.519653
+        };
+        foo = this.serviceGeo.isInRange(wohlen, lausanne);
+        console.log("result 2 " + foo);
 
       });
     }

@@ -35,10 +35,10 @@ export class BeerDetailComponent implements OnInit {
 
 
   ngOnInit() {
-    this.menuService.setDefault();
-    this.menuService.TitleText = 'Enter or edit beer info'
-    this.menuService.visibleSave = true;
-    this.menuService.visibleBack = true;
+    // this.menuService.setDefault();
+    // this.menuService.TitleText = 'Enter or edit beer info'
+    // this.menuService.visibleSave = true;
+    // this.menuService.visibleBack = true;
     this.menuService.searchInputCallback = (e: string) => {
       this.searchSubject.next(e)
     }

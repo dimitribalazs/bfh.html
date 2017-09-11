@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {MenuService} from '../shared/services/menu.service';
+import {Component, OnChanges, OnInit} from '@angular/core';
+import {MenuService, MenuState} from '../shared/services/menu.service';
 import {BehaviorSubject} from 'rxjs/Rx';
 import {Subject} from 'rxjs/Subject';
 import {AroundYou} from '../shared/dto/aroundYou';
@@ -9,7 +9,7 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
-  styleUrls: ['./search.component.css']
+  styleUrls: ['./search.component.css'],
 })
 export class SearchComponent implements OnInit {
 
@@ -21,23 +21,23 @@ export class SearchComponent implements OnInit {
   constructor(
     private menuService: MenuService,
     private router: Router) {
-    this.menuService.setDefault();
-    this.menuService.visibleHomeLink = true;
-    this.menuService.visibleTitle = false;
-    this.menuService.visibleSearchInput = true;
+    // this.menuService.setDefault();
+    // this.menuService.visibleHomeLink = true;
+    // this.menuService.visibleTitle = false;
+    // this.menuService.visibleSearchInput = true;
 
     this.activeSearchString = ''
 
-    this.menuService.searchInputCallback = (e: string) => {
-      this.activeSearchString = e
-      this.searchSubject.next(e)
-      // console.log(e.target.value)
-    }
-
+    // this.menuService.searchInputCallback = (e: string) => {
+    //   this.activeSearchString = e
+    //   this.searchSubject.next(e)
+    //   console.log(e.target.value)
+    // }
     this.activefilter = 0
   }
 
   ngOnInit() {
+    this.menuService.setNewState(MenuState.SEARCH, null, e => console.log(e.target.value));
   }
 
   onClick(activateFilter: number) {

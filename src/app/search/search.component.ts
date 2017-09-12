@@ -50,4 +50,8 @@ export class SearchComponent implements OnInit {
     this.router.navigate([data.routerNavigate, data.id]);
   }
 
+  onAddBeer(data: AroundYou) {
+    console.log(data)
+    this.router.navigate(['beer/new', {name : data}]);
+  }
 }

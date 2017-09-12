@@ -58,6 +58,10 @@ export class BierService {
     return this.viewModel
   }
 
+  public setViewModel(beer: Beer) {
+    this.viewModel = beer;
+  }
+
   public getBroweryList(): Observable<Brewery[]>  {
     this.brewery = this.breweryService.getAll();
     this.brewery.subscribe((value) => (value.forEach((brewery: Brewery) => {

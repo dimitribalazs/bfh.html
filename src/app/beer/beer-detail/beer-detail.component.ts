@@ -1,7 +1,7 @@
 import {Component, OnInit, Output, EventEmitter, Input} from '@angular/core';
 import {Beer, DropDownEntry, DropDownlists} from '../../shared/dto/beer';
 import {Brewery} from '../../shared/dto/brewery';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import {Router, ActivatedRoute, ParamMap} from '@angular/router';
 import {BierService} from '../beerService'
 import {MenuService} from '../../shared/services/menu.service';
 import {isUndefined} from "util";
@@ -20,10 +20,9 @@ export class BeerDetailComponent implements OnInit {
   breweryDropDownList: DropDownEntry[];
   brewerySelectedItem: DropDownEntry[] = new Array;
 
-  constructor(
-    private beerService: BierService,
-    private menuService: MenuService,
-    private router: Router) {
+  constructor(private beerService: BierService,
+              private menuService: MenuService,
+              private router: Router) {
 
   }
 

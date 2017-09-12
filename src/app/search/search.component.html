@@ -1,4 +1,3 @@
-
 <nav class="container">
   <button (click)="onClick(0)" [class.activeNavigation]="activefilter===0">All</button>
   <button (click)="onClick(1)" [class.activeNavigation]="activefilter===1">Bar</button>
@@ -10,5 +9,6 @@
 <app-search-result
   [filter]="filterSubject"
   [search]="searchSubject"
-  (onSearchResult)="onResult($event)">
+  (onSearchResult)="onResult($event)"
+  (onAddBeer)="onAddBeer($event)">
 </app-search-result>

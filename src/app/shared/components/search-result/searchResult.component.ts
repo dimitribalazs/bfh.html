@@ -37,6 +37,7 @@ export class SearchResultComponent implements OnInit {
   numberOfBeers: number;
   numberOfBars: number;
   numberOfBrewerys: number;
+  entriesNotFound: string;
 
   searchString: string;
 
@@ -49,9 +50,23 @@ export class SearchResultComponent implements OnInit {
               private barService: BarDatabaseService<Bar>,
               private userService: UserDatabaseService<User>) {
     this.arroundYou = new Array()
+
     this.viewModelSubject.asObservable();
-    // sort the search result
-    this.viewModelSubject.map(arr => arr.sort((a: AroundYou, b: AroundYou) => a.name.localeCompare(b.name))).subscribe()
+
+    // sort the search result and set the entriesNotFound string
+    this.viewModelSubject.map(arr => arr.sort((a: AroundYou, b: AroundYou) => a.name.localeCompare(b.name))).subscribe(() => {
+      this.entriesNotFound = ''
+      if (this.numberOfBars === 0 && this.filterNumber === 0 || this.filterNumber === 1) {
+        this.entriesNotFound = 'bar'
+      }
+      if (this.numberOfBeers === 0 && this.filterNumber === 0 || this.filterNumber === 3) {
+        this.entriesNotFound += this.entriesNotFound.length > 0 ? ', beer' : 'beer'
+      }
+      if (this.numberOfBrewerys === 0 && this.filterNumber === 0 || this.filterNumber === 2) {
+        this.entriesNotFound += this.entriesNotFound.length > 0 ? ', brewery' : 'brewery'
+      }
+      this.entriesNotFound += this.entriesNotFound.length > 0 ? ' ' : ''
+    })
     this.filterNumber = 0;
     this.numberOfBeers = 0;
     this.numberOfBars = 0;

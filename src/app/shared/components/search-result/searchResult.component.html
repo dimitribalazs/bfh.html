@@ -1,0 +1,30 @@
+<div class="container">
+  <div style="overflow-y:hidden;">
+    <ul class="list-group">
+      <li *ngFor="let data of viewModelSubject | async"
+          (click)="onClick(data)"
+          class="list-group-item">
+        <span class={{data.glyphicon}}></span>
+        {{ data.name }}
+        <button *ngIf="data.routerNavigate === '/user/'" class="btn btn-default btn-sm pull-right">
+          <span class="glyphicon glyphicon-user"></span>
+          <span class="	glyphicon glyphicon-plus"></span>
+        </button>
+      </li>
+    </ul>
+  </div>
+  <div class="text-center">
+    <button *ngIf="numberOfBeers === 0 && (filterNumber === 0 || filterNumber === 3)" (click)="onNewBeer()" class="btn btn-default btn-sm ">
+      <span class="glyphicon glyphicon-glass"></span>
+      <span class="	glyphicon glyphicon-plus"></span>
+    </button>
+    <button *ngIf="numberOfBrewerys === 0 && (filterNumber === 0 || filterNumber === 2)" (click)="onNew()" class="btn btn-default btn-sm">
+      <span class="glyphicon glyphicon-home"></span>
+      <span class="	glyphicon glyphicon-plus"></span>
+    </button>
+    <button *ngIf="numberOfBars === 0 && (filterNumber === 0 || filterNumber === 1)" (click)="onNew()" class="btn btn-default btn-sm">
+      <span class="glyphicon glyphicon-map-marker"></span>
+      <span class="	glyphicon glyphicon-plus"></span>
+    </button>
+  </div>
+</div>

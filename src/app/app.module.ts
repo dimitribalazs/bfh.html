@@ -13,7 +13,7 @@ import {HomeModule} from './home/home.module';
 import {BeerModule} from './beer/beer.module';
 import {BeerDatabaseService} from './shared/services/beer.service';
 import {UserDatabaseService} from './shared/services/user.service';
-import {SearchModule} from './search/search.module';
+import {SearchResultModule} from './shared/components/search-result/searchResult.module';
 import {UserModule} from './user/user.module';
 import {FriendsModule} from './friends/friends.module';
 import {BreweryModule} from './brewery/brewery.module';
@@ -23,6 +23,7 @@ import {BarDatabaseService} from './shared/services/bar.service';
 import { ImageUploadModule } from '../../node_modules/angular2-image-upload/lib/image-upload.module';
 import {BarInfoComponent} from './bar/bar-info/bar-info.component';
 import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome'
+import {SearchModule} from './search/search.module';
 
 
 @NgModule({
@@ -37,6 +38,7 @@ import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawe
     BreweryModule,
     HomeModule,
     SearchModule,
+    SearchResultModule,
     AppRoutingModule,
     UserModule,
     FriendsModule,

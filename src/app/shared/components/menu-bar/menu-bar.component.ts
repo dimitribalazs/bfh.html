@@ -1,16 +1,15 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {MenuService} from '../../services/menu.service';
+import {MenuService, MenuState} from '../../services/menu.service';
 
 @Component({
   selector: 'app-menu-bar',
   templateUrl: './menu-bar.component.html',
   styleUrls: ['./menu-bar.component.css'],
-  providers: [MenuService]
 })
 
 
 export class MenuBarComponent implements OnInit {
-  @Input() menuState;
+  @Input() menuState: MenuState;
 
   menuService: MenuService;
   toggleMenu = false;
@@ -18,17 +17,17 @@ export class MenuBarComponent implements OnInit {
   constructor(menuService: MenuService) {
     this.menuService = menuService;
 
-    this.menuService.state$.subscribe(data => {
-      this.menuState = data;
-    });
+
+    this.menuState = this.menuService.state;
   }
 
   ngOnInit(): void {
-    this.menuService.setNewState({
-      visibleMenu: true,
-      visibleSearchLink: true,
-      visibleTitle: true
-    })
+    this.menuService.state$.subscribe({
+      next: data => {
+        console.log(data);
+        this.menuState = data;
+      }
+    });
   }
 
   onToggleMenu() {

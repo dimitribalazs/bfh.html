@@ -41,21 +41,18 @@ export class HomeComponent implements OnInit {
               private serviceGeo: GeoService,
               private menuService: MenuService) {
 
-
   }
 
 
   ngOnInit() {
-    console.log("init");
+    // console.log("init");
 
     this.menuService.setNewState({
+      titleText: 'Duff\'d',
       visibleSearchLink: true,
       visibleTitle: true,
       visibleMenu: true
     });
-
-    // set default menu state
-    this.menuService.setNewState({});
 
     //Wohlen AG
     var lat = 47.349365;
@@ -153,11 +150,11 @@ export class HomeComponent implements OnInit {
   }
 
   changeDb(event): void {
-    console.log(event);
+    // console.log(event);
   }
 
   createBeer(event): void {
-    console.log(event);
+    // console.log(event);
 
     // const beer = new NewBeer.Beer();
     // beer.name = "Bier vo ergendwo";
@@ -199,7 +196,7 @@ export class HomeComponent implements OnInit {
           latitude: lat1
         };
         var foo = this.serviceGeo.isInRange(wohlen, waltenschwil);
-        console.log("result 1 " + foo);
+        // console.log("result 1 " + foo);
 
         var lausanne: GeoData = {
           id: "13",
@@ -207,7 +204,7 @@ export class HomeComponent implements OnInit {
           latitude: 46.519653
         };
         foo = this.serviceGeo.isInRange(wohlen, lausanne);
-        console.log("result 2 " + foo);
+        // console.log("result 2 " + foo);
 
       });
     }

@@ -4,7 +4,7 @@ import {Subject} from 'rxjs/Subject';
 @Injectable()
 export class MenuService {
   defaultState = {
-    titleText: 'Duff\'d',
+    titleText: '',
     visibleHomeLink: false,
     visibleSearchLink: false,
     visibleSearchInput: false,
@@ -16,16 +16,27 @@ export class MenuService {
     callback: () => {
     }
   };
-  state$: Subject<Object> = new Subject();
+  state = {...this.defaultState};
+  state$: Subject<MenuState> = new Subject();
 
-  constructor() {
-    this.state$.next(this.defaultState);
-  }
-
-  setNewState(state: Object): void {
+  setNewState(state): void {
     // merge options
-    const newState = {...this.defaultState, ...state};
+    console.log(state);
+    this.state = {...this.defaultState, ...state};
 
-    this.state$.next(newState);
+    this.state$.next(this.state);
   }
+}
+
+export class MenuState {
+  titleText: string;
+  visibleHomeLink: boolean;
+  visibleSearchLink: boolean;
+  visibleSearchInput: boolean;
+  visibleTitle: boolean;
+  visibleEdit: boolean;
+  visibleSave: boolean;
+  visibleMenu: boolean;
+  visibleBack: boolean;
+  callback: any;
 }

@@ -16,11 +16,11 @@
       </button>
       <a *ngIf="menuState.visibleTitle" class="navbar-brand" href="#">{{menuState.titleText}}</a>
       <ul class="nav navbar-nav">
-        <li>
-          <input *ngIf="menuState.visibleSearchInput" type="text" (input)="menuState.onSearchInputChange($event)"
+        <li *ngIf="menuState.visibleSearchInput">
+          <input type="text" (input)="menuState.onSearchInputChange($event)"
                  class="form-control">
         </li>
-        <li>
+        <li *ngIf="menuState.visibleSearchLink">
           <a routerLink="/search" routerLinkActive="active" role="button"
              class="button pull-right menubutton-right">
             <span class="glyphicon glyphicon-search"></span>

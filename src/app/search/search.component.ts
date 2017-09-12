@@ -1,5 +1,5 @@
 import {Component, OnChanges, OnInit} from '@angular/core';
-import {MenuService, MenuState} from '../shared/services/menu.service';
+import {MenuService} from '../shared/services/menu.service';
 import {BehaviorSubject} from 'rxjs/Rx';
 import {Subject} from 'rxjs/Subject';
 import {AroundYou} from '../shared/dto/aroundYou';
@@ -37,7 +37,11 @@ export class SearchComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.menuService.setNewState(MenuState.SEARCH, null, e => console.log(e.target.value));
+    this.menuService.setNewState({
+      visibleBack: true,
+      visibleSearchInput: true,
+      callback: e => console.log(e.target.value)
+    });
   }
 
   onClick(activateFilter: number) {

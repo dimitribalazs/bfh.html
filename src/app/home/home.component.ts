@@ -10,7 +10,7 @@ import {User} from '../shared/dto/user';
 import {GeoData} from '../shared/dto/geoData';
 import {UserDatabaseService} from '../shared/services/user.service';
 import {GeoService} from '../shared/services/geo.service';
-import {MenuService, MenuState} from '../shared/services/menu.service';
+import {MenuService} from '../shared/services/menu.service';
 import {Brewery} from '../shared/dto/brewery';
 import {BreweryDatabaseService} from '../shared/services/brewery.service';
 import {BarDatabaseService} from '../shared/services/bar.service';
@@ -40,17 +40,22 @@ export class HomeComponent implements OnInit {
               private serviceBar: BarDatabaseService<Bar>,
               private serviceGeo: GeoService,
               private menuService: MenuService) {
-    // this.menuService.setDefault();
-    // this.menuService.visibleSearchLink = true;
-    // this.menuService.visibleTitle = true;
-    // this.menuService.visibleMenu = true;
+
+
   }
 
 
   ngOnInit() {
     console.log("init");
 
-    this.menuService.setNewState(MenuState.HOME);
+    this.menuService.setNewState({
+      visibleSearchLink: true,
+      visibleTitle: true,
+      visibleMenu: true
+    });
+
+    // set default menu state
+    this.menuService.setNewState({});
 
     //Wohlen AG
     var lat = 47.349365;

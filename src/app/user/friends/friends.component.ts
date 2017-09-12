@@ -22,7 +22,7 @@ export class FriendsComponent implements OnInit {
   }
 
   onSelect(user: User) {
-    console.log(user.id)
+    // console.log(user.id)
     this.router.navigate(['/user', user.id]);
 
 

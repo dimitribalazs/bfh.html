@@ -52,7 +52,7 @@ export class BeerDatabaseService<Beer> extends DatabaseService<Beer>{
         resultFromApi.set(dbBeer).catch((error) => console.log("Error while updating beer", error));
       })
       .catch((error) => {
-        console.log("Error while getting beer", error);
+        // console.log("Error while getting beer", error);
       });
   }
 
@@ -72,7 +72,7 @@ export class BeerDatabaseService<Beer> extends DatabaseService<Beer>{
     return Observable.fromEvent(this.barBeersPath.orderByChild("bar").equalTo(barId), FirebaseEvent.value.toString(), (barBeerSnapshot) => {
       var barBeers = barBeerSnapshot.val();
       const beers: Beer[] = [];
-      console.log(barBeers);
+      // console.log(barBeers);
 
       Object.keys(barBeers).map((value: string) => {
           let barBeer  = barBeers[value] as BarBeer;

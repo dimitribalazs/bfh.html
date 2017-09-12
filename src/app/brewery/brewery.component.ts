@@ -35,7 +35,7 @@ export class BreweryComponent implements OnInit {
 
     this.breweryService.getBrewery().subscribe((beer) => {
       this.model = this.breweryService.getViewModel();
-      console.log(this.model)
+      // console.log(this.model)
     })
   }
 

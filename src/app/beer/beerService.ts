@@ -69,7 +69,7 @@ export class BierService {
   public getBroweryList(): Observable<Brewery[]>  {
     this.brewery = this.breweryService.getAll();
     this.brewery.subscribe((value) => (value.forEach((brewery: Brewery) => {
-      console.log(brewery.name)
+      // console.log(brewery.name)
       const breweryItem: DropDownEntry = new DropDownEntry();
       breweryItem.id = brewery.id
       breweryItem.itemName = brewery.name

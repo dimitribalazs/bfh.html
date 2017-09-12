@@ -33,7 +33,7 @@ export class BarComponent implements OnInit {
   ngOnInit() {
 
     this.route.params.subscribe(params => {
-      console.log('Load bar:' + params['id']);
+      // console.log('Load bar:' + params['id']);
       this.id = params['id'];
       this.barService.loadBar(params['id']);
     });
@@ -46,7 +46,7 @@ export class BarComponent implements OnInit {
     this.ratings[2] = 20;
     this.ratings[3] = 4;
     this.meRating = 1
-    console.log(this.route.snapshot.toString())
+    // console.log(this.route.snapshot.toString())
   }
 
   onClick(childView: string) {

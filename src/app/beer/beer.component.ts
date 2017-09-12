@@ -66,7 +66,7 @@ export class BeerComponent implements OnInit {
 
     } else {
       this.route.params.subscribe(params => {
-        console.log('Load beer:' + params['id']);
+      // console.log('Load beer:' + params['id']);
         this.id = params['id'];
         this.beerService.loadBeer(params['id']);
       });
@@ -80,14 +80,14 @@ export class BeerComponent implements OnInit {
         if (isUndefined(this.model.brewType)) {
           this.model.brewType = [];
         }
-        console.log('Routing Mode', beer.name)
-      })
+      // console.log('Routing Mode', beer.name)
+    })
 
       this.ratings[1] = 12;
       this.ratings[2] = 54;
       this.ratings[3] = 4;
       this.meRating = 1;
-      console.log(this.route.snapshot.toString())
+      // console.log(this.route.snapshot.toString())
     }
   }
 

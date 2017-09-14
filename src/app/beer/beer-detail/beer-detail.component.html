@@ -7,8 +7,8 @@
           <div>
             <label for="name">Name</label>
           </div>
-          <input type="text" class="form-control" id="name" required oninvalid="foo()"
-                 [(ngModel)]="model.name" name="name" #name="ngModel" placeholder="Name is required!">
+          <input type="text" class="form-control" id="name" required
+                 [(ngModel)]="beerService.viewModel.name" name="name" #name="ngModel" readonly>
           <div [hidden]="name.valid || (!name.valid && !formErrorMessage)" class="alert alert-danger">
             <small class="text-danger">
               Name is required .
@@ -17,32 +17,38 @@
         </div>
 
         <div class="form-group">
-        <div>
-          <label for="brewery">Brewery</label>
+          <div>
+            <label for="brewery">Brewery</label>
+          </div>
+          <app-multi-select id="brewery" [dropdownList]='breweryDropDownList'
+                            [selectedItems]='brewerySelectedItem' ItemName='brewery'
+                            [singleSelection]="true"
+                            (onSelectChange)="onBrewerySelectChange($event)">
+          </app-multi-select>
         </div>
-        <app-multi-select id="brewery" [dropdownList]='breweryDropDownList' [selectedItems]='brewerySelectedItem' ItemName='brewery' [singleSelection]="true" (onSelectChange)="onBrewerySelectChange($event)" ></app-multi-select>
-    </div>
 
         <div class="form-group">
           <div>
             <label for="volume">Alcohol in %</label>
           </div>
           <input type="text" class="form-control" id="volume" required
-                 [(ngModel)]="model.volume" name="volume" #volume="ngModel" placeholder="Alcohol in % is required!">
+                 [(ngModel)]="beerService.viewModel.volume" name="volume" #volume="ngModel" placeholder="Alcohol in % is required!">
         </div>
 
         <div class="form-group">
           <div>
             <label for="taste">Taste</label>
           </div>
-          <app-multi-select id="taste" [dropdownList]='dropDownlists.tasteList' [selectedItems]='model.taste' ItemName='tastes' (onSelectChange)="onTasteSelectChange($event)" ></app-multi-select>
+          <app-multi-select id="taste" [dropdownList]='dropDownlists.tasteList' [selectedItems]='beerService.viewModel.taste'
+                            ItemName='tastes' (onSelectChange)="onTasteSelectChange($event)"></app-multi-select>
         </div>
 
         <div class="form-group">
           <div>
             <label for="brewType">Brew type</label>
           </div>
-          <app-multi-select id="brewType" [dropdownList]='dropDownlists.brewTypeList' [selectedItems]='model.brewType' ItemName='brew type' (onSelectChange)="onBrewTypeSelectChange($event)" ></app-multi-select>
+          <app-multi-select id="brewType" [dropdownList]='dropDownlists.brewTypeList' [selectedItems]='beerService.viewModel.brewType'
+                            ItemName='brew type' (onSelectChange)="onBrewTypeSelectChange($event)"></app-multi-select>
         </div>
 
         <div class="form-group">
@@ -50,7 +56,8 @@
             <label for="description">Description</label>
           </div>
           <input type="text" class="form-control" id="description" required
-                 [(ngModel)]="model.description" name="description" #description="ngModel" placeholder="Description is required!">
+                 [(ngModel)]="beerService.viewModel.description" name="description" #description="ngModel"
+                 placeholder="Description is required!">
           <div [hidden]="description.valid || (!description.pre && !formErrorMessage)" class="alert alert-danger">
             <small class="text-danger">
               Description is required.
@@ -64,13 +71,13 @@
 
 
 <!--<div class="margin-20">-->
-  <!--<div>Form details:-</div>-->
-  <!--<pre>Is form valid?: <br>{{beerForm.valid | json}}</pre>-->
-  <!--<pre>Is name valid?: <br>{{name.valid | json}}</pre>-->
-  <!--<pre>Is description valid?: <br>{{description.valid | json}}</pre>-->
-  <!--<pre>Is form submitted?: <br>{{submitted | json}}</pre>-->
-  <!--<pre>Is form error message?: <br>{{formErrorMessage | json}}</pre>-->
-  <!--<pre>form value: <br>{{beerForm.value | json}}</pre>-->
+<!--<div>Form details:-</div>-->
+<!--<pre>Is form valid?: <br>{{beerForm.valid | json}}</pre>-->
+<!--<pre>Is name valid?: <br>{{name.valid | json}}</pre>-->
+<!--<pre>Is description valid?: <br>{{description.valid | json}}</pre>-->
+<!--<pre>Is form submitted?: <br>{{submitted | json}}</pre>-->
+<!--<pre>Is form error message?: <br>{{formErrorMessage | json}}</pre>-->
+<!--<pre>form value: <br>{{beerForm.value | json}}</pre>-->
 
 
 <!--</div>-->

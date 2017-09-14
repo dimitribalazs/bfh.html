@@ -34,9 +34,11 @@ export class BeerDatabaseService<Beer> extends DatabaseService<Beer>{
   } */
 
 
-  create(entity: any): void {
+  create(entity: any): string {
         const newKey: string = this.beersPath.push().key;
+        entity.id = newKey
         this.beersPath.child(newKey).set(entity);
+        return newKey;
   }
 
   update(id: string, entity: Beer): void {

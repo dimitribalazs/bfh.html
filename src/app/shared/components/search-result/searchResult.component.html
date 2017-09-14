@@ -14,21 +14,33 @@
     </ul>
   </div>
   <div class="text-center">
-    <div *ngIf="numberOfBeers === 0 || numberOfBrewerys === 0 || numberOfBars === 0" >
+    <div *ngIf="numberOfBeers === 0 || numberOfBrewerys === 0 || numberOfBars === 0">
       <h4>No {{entriesNotFound}} entries found.</h4>
       <h4>But cou can create a new one!</h4>
     </div>
-    <button *ngIf="numberOfBeers === 0 && (filterNumber === 0 || filterNumber === 3)" (click)="onNewBeer()" class="btn btn-default btn-sm ">
-      <span class="glyphicon glyphicon-glass"></span>
-      <span class="	glyphicon glyphicon-plus"></span>
-    </button>
-    <button *ngIf="numberOfBrewerys === 0 && (filterNumber === 0 || filterNumber === 2)" (click)="onNew()" class="btn btn-default btn-sm">
-      <span class="glyphicon glyphicon-home"></span>
-      <span class="	glyphicon glyphicon-plus"></span>
-    </button>
-    <button *ngIf="numberOfBars === 0 && (filterNumber === 0 || filterNumber === 1)" (click)="onNew()" class="btn btn-default btn-sm">
-      <span class="glyphicon glyphicon-map-marker"></span>
-      <span class="	glyphicon glyphicon-plus"></span>
-    </button>
+    <div>
+      <button *ngIf="numberOfBeers === 0 && (filterNumber === 0 || filterNumber === 3)" (click)="onNewBeer()"
+              class="btn btn-default btn-sm ">
+        <span class="glyphicon glyphicon-glass"></span>
+        <span class="	glyphicon glyphicon-plus"></span>
+        Add a new Beer
+      </button>
+    </div>
+    <div>
+      <button *ngIf="numberOfBrewerys === 0 && (filterNumber === 0 || filterNumber === 2)" (click)="onNew()"
+              class="btn btn-default btn-sm">
+        <span class="glyphicon glyphicon-home"></span>
+        <span class="	glyphicon glyphicon-plus"></span>
+        Add new Brewery
+      </button>
+    </div>
+    <div>
+      <button *ngIf="numberOfBars === 0 && (filterNumber === 0 || filterNumber === 1)" (click)="onNew()"
+              class="btn btn-default btn-sm">
+        <span class="glyphicon glyphicon-map-marker"></span>
+        <span class="	glyphicon glyphicon-plus"></span>
+        Add new Bar
+      </button>
+    </div>
   </div>
 </div>

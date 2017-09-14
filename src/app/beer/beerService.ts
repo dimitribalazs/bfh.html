@@ -16,7 +16,7 @@ export class BierService {
 
   breweryDropDownList: DropDownEntry[] = [];
 
-  viewModel: Beer = new Beer();
+  public viewModel: Beer = new Beer();
   constructor(
     private beerService: BeerDatabaseService<Beer>,
     private breweryService: BreweryDatabaseService<Brewery>
@@ -51,7 +51,11 @@ export class BierService {
   }
 
   submit() {
-    this.beerService.update(this.viewModel.id, this.viewModel);
+    if (isUndefined(this.viewModel.id)) {
+      this.viewModel.id = this.beerService.create(this.viewModel)
+    } else {
+      this.beerService.update(this.viewModel.id, this.viewModel);
+    }
   }
 
   public getViewModel() {

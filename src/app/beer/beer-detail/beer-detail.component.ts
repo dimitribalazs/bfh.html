@@ -13,7 +13,7 @@ import {isUndefined} from "util";
 })
 export class BeerDetailComponent implements OnInit {
 
-  model: Beer = new Beer;
+  // model: Beer = new Beer;
   public submitted: boolean = false;
   public formErrorMessage: boolean = false;
   dropDownlists = new DropDownlists()
@@ -34,22 +34,22 @@ export class BeerDetailComponent implements OnInit {
     this.menuService.visibleBack = true;
     this.menuService.submitCallback = () => {
 
-      if (isUndefined(this.model.name) || this.model.name.length === 0 ||
-        isUndefined(this.model.description) || this.model.description.length === 0) {
+      if (isUndefined(this.beerService.viewModel.name) || this.beerService.viewModel.name.length === 0 ||
+        isUndefined(this.beerService.viewModel.description) || this.beerService.viewModel.description.length === 0) {
         this.formErrorMessage = true;
       } else {
         this.beerService.submit();
         this.submitted = true;
         this.formErrorMessage = false;
-        this.router.navigate(['beer/', this.model.id]);
+        this.router.navigate(['beer/', this.beerService.viewModel.id]);
       }
     }
     this.beerService.getBeer().subscribe((beer) => {
-      this.model = this.beerService.getViewModel();
-      if (!isUndefined(this.model.brewery)) {
+      // this.beerService.viewModel = this.beerService.getViewModel();
+      if (!isUndefined(this.beerService.viewModel.brewery)) {
         const selectedItem: DropDownEntry = new DropDownEntry();
-        selectedItem.id = this.model.brewery.id;
-        selectedItem.itemName = this.model.brewery.name;
+        selectedItem.id = this.beerService.viewModel.brewery.id;
+        selectedItem.itemName = this.beerService.viewModel.brewery.name;
         this.brewerySelectedItem.push(selectedItem);
       }
     })
@@ -58,18 +58,18 @@ export class BeerDetailComponent implements OnInit {
   }
 
   onTasteSelectChange(item: any[]) {
-    this.model.taste = item;
+    this.beerService.viewModel.taste = item;
   }
 
   onBrewTypeSelectChange(item: any[]) {
-    this.model.brewType = item;
+    this.beerService.viewModel.brewType = item;
   }
 
   onBrewerySelectChange(item: DropDownEntry) {
-    if (isUndefined(this.model.brewery)) {
-      this.model.brewery = new Brewery()
+    if (isUndefined(this.beerService.viewModel.brewery)) {
+      this.beerService.viewModel.brewery = new Brewery()
     }
-    this.model.brewery.id = item[0].id;
-    this.model.brewery.name = item[0].itemName;
+    this.beerService.viewModel.brewery.id = item[0].id;
+    this.beerService.viewModel.brewery.name = item[0].itemName;
   }
 }

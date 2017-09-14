@@ -27,8 +27,8 @@ export class MenuService {
     this.state$.next(this.state);
   }
 
-  callback(): void {
-    return this.state.callback();
+  callback(...a): void {
+    return this.state.callback(...a);
   }
 }
 

@@ -1,8 +1,9 @@
 import {GeoData} from './geoData';
 import {Beer} from './beer';
+import {IGeoData} from './IGeoData';
 //import {Badge} from './badge';
 
-export class User {
+export class User implements IGeoData{
     id: string;
     firstname: string;
     lastname: string;

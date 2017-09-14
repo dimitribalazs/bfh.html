@@ -13,6 +13,7 @@ import {GeoData} from '../dto/geoData';
 import {AroundYou} from '../dto/aroundYou'
 import {getDatabase} from './firebase';
 import {GeoService} from './geo.service';
+import {IGeoData} from "../dto/IGeoData";
 
 
 @Injectable()
@@ -21,7 +22,8 @@ export class UserDatabaseService<User> extends DatabaseService<User>{
     private beersPath: firebase.database.Reference;
     constructor(
         private barService: BarDatabaseService<Bar>,
-        private beerService: BeerDatabaseService<Beer>
+        private beerService: BeerDatabaseService<Beer>,
+        private geoService: GeoService
     ) {
         super();
         this.usersPath = getDatabase().ref("users");
@@ -71,42 +73,19 @@ export class UserDatabaseService<User> extends DatabaseService<User>{
         });
     }
 
-    //todo fertig machen
-    getAroundYou(myPosition: GeoData, userId: string): void {
-        // console.log("yolo");
-        const source = Observable.zip(
-          this.barService.getAll(),
-          this.beerService.getAll(),
-          this.getAll(),
-          (bars, beers, users) => {
-              // console.log("ret");
-              var ret =  [...bars, ...beers, ...users];
-              // console.log(ret);
-              return ret;
-          })
-          .map((data) => {
-                // console.log("map")
-                // console.log(data);
-                return data;
-          })
-          .filter((data) => {
-            // console.log("filter");
-            // if(data.location) {
-            //     return isInRange(data.location, " ");
-            // }
-            return false;
-          });
-
-          source.subscribe(function(data) {
-            // console.log("foo");
-            // console.log(data);
-
-            // filter((item) => {
-            //     console.log(item);
-            //     return item;
-        //})
-
-          });
+    //todo statt any müssen wirr hier noch eine klasse definiere oder verwenden wir hier aroundYou.ts?
+    //todo in riccos service
+    getAroundYou(myPosition: GeoData, userId: string): Observable<any> {
+     return Observable.zip(
+        this.barService.getAll(),
+        this.beerService.getAll(),
+        this.getAll(),
+        (bars: Bar[], beers: Beer[], users: User[]) => {
+            let flatData: IGeoData[] = [].concat(...bars, ...beers, ...users);
+            return flatData.filter((geoLocation: IGeoData) =>
+                this.geoService.isInRange(myPosition, geoLocation.location)
+            );
+        });
     }
 
     getFriendsOfUser(userId: string): Observable<User[]> {

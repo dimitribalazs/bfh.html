@@ -167,6 +167,18 @@ export class HomeComponent implements OnInit {
   checkLocation() {
     this.serviceUser.getFavoriteBeersOfUser("1").subscribe((data) => console.log("favs", data));
     this.serviceUser.getFriendsOfUser("1").subscribe((data) => console.log("friends", data));
+
+    //Wohlen AG
+    var lat = 47.349365;
+    var long = 8.276876;
+
+    var wohlen: GeoData = {
+      id: "11",
+      longitude: long,
+      latitude: lat
+    };
+    this.serviceUser.getAroundYou(wohlen, "1").subscribe((data) => console.log("around", data));
+
     var foo = false;
     if(foo) {
       if (navigator.geolocation) {

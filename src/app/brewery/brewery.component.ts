@@ -20,9 +20,9 @@ export class BreweryComponent implements OnInit {
               private route: ActivatedRoute,
               private router: Router,
               private menuService: MenuService) {
-    this.menuService.setDefault();
-    this.menuService.TitleText = 'Brewery info';
-    this.menuService.visibleHomeLink = true;
+    // this.menuService.setDefault();
+    // this.menuService.TitleText = 'Brewery info';
+    // this.menuService.visibleHomeLink = true;
     this.activeNavigation = 1;
   }
 
@@ -35,7 +35,7 @@ export class BreweryComponent implements OnInit {
 
     this.breweryService.getBrewery().subscribe((beer) => {
       this.model = this.breweryService.getViewModel();
-      console.log(this.model)
+      // console.log(this.model)
     })
   }
 

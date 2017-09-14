@@ -12,9 +12,9 @@ export class ImageUploaderComponent implements OnInit {
   constructor(private menuService: MenuService) {}
 
   ngOnInit() {
-    this.menuService.setDefault();
-    this.menuService.TitleText = this.titleDetail + ' image upload';
-    this.menuService.visibleBack = true;
+    // this.menuService.setDefault();
+    // this.menuService.TitleText = this.titleDetail + ' image upload';
+    // this.menuService.visibleBack = true;
   }
 
 }

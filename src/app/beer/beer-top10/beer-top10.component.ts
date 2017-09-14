@@ -23,7 +23,7 @@ export class BeerTop10Component {
   }
 
   onTest() {
-    console.log("jep")
+    // console.log("jep")
   }
 
 }

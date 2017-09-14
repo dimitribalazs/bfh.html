@@ -35,25 +35,28 @@ export class BeerDetailComponent implements OnInit {
 
 
   ngOnInit() {
-    this.menuService.setDefault();
-    this.menuService.TitleText = 'Enter or edit beer info'
-    this.menuService.visibleSave = true;
-    this.menuService.visibleBack = true;
-    this.menuService.searchInputCallback = (e: string) => {
-      this.searchSubject.next(e)
-    }
-    this.menuService.submitCallback = () => {
-
-      if (isUndefined(this.beerService.viewModel.name) || this.beerService.viewModel.name.length === 0 ||
-        isUndefined(this.beerService.viewModel.description) || this.beerService.viewModel.description.length === 0) {
-        this.formErrorMessage = true;
-      } else {
-        this.beerService.submit();
-        this.submitted = true;
-        this.formErrorMessage = false;
-        this.router.navigate(['beer/', this.beerService.viewModel.id]);
+    this.menuService.setNewState({
+      titleText: 'Enter or edit beer info',
+      visibleSave: true,
+      visibleBack: true,
+      visibleTitie: true,
+      callback: (e: string) => {
+        this.searchSubject.next(e)
       }
-    }
+    });
+
+   // this.menuService.submitCallback = () => {
+   //    if (isUndefined(this.beerService.viewModel.name) || this.beerService.viewModel.name.length === 0 ||
+   //      isUndefined(this.beerService.viewModel.description) || this.beerService.viewModel.description.length === 0) {
+   //        this.formErrorMessage = true;
+   //      } else {
+   //        this.beerService.submit();
+   //        this.submitted = true;
+   //        this.formErrorMessage = false;
+   //      this.router.navigate(['beer/', this.beerService.viewModel.id]);
+   //      }
+   //    };
+
     this.beerService.getBeer().subscribe((beer) => {
       // this.beerService.viewModel = this.beerService.getViewModel();
       if (!isUndefined(this.beerService.viewModel.brewery)) {

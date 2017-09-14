@@ -5,7 +5,8 @@ import { ActivatedRoute, ParamMap, Router, RouterState  } from '@angular/router'
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  providers: [MenuService]
 })
 export class AppComponent {
 
@@ -14,16 +15,5 @@ export class AppComponent {
               private route: ActivatedRoute,
               private router: Router) {
     this.menu = menuService;
-    this.menu.setDefault();
-    this.menu.visibleSearchLink = true;
   }
-  onViewDetails() {
-    const state: RouterState = this.router.routerState;
-    this.router.navigate([state.snapshot.url, 'edit']);
-  }
-
-  onBack() {
-    window.history.back();
-  }
-
 }

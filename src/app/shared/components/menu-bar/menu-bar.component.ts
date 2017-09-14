@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {MenuService, MenuState} from '../../services/menu.service';
+import {Router, RouterState} from '@angular/router';
 
 @Component({
   selector: 'app-menu-bar',
@@ -11,13 +12,9 @@ import {MenuService, MenuState} from '../../services/menu.service';
 export class MenuBarComponent implements OnInit {
   @Input() menuState: MenuState;
 
-  menuService: MenuService;
   toggleMenu = false;
 
-  constructor(menuService: MenuService) {
-    this.menuService = menuService;
-
-
+  constructor(private menuService: MenuService, private router: Router) {
     this.menuState = this.menuService.state;
   }
 
@@ -33,6 +30,12 @@ export class MenuBarComponent implements OnInit {
   onToggleMenu() {
     this.toggleMenu = !this.toggleMenu;
   }
+
+  onViewDetails() {
+    const state: RouterState = this.router.routerState;
+    this.router.navigate([state.snapshot.url, 'edit']);
+  }
+
 
   historyBack() {
     history.back();

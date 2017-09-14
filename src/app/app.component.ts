@@ -16,13 +16,4 @@ export class AppComponent {
               private router: Router) {
     this.menu = menuService;
   }
-  onViewDetails() {
-    const state: RouterState = this.router.routerState;
-    this.router.navigate([state.snapshot.url, 'edit']);
-  }
-
-  onBack() {
-    window.history.back();
-  }
-
 }

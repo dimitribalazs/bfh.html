@@ -15,7 +15,7 @@ export class Bar {
     snacks: string; //todo change
     location: GeoData;
     description: String;
-    beers: Beer[]
+    beers: number[]
 }
 
 export class OpeningHours {

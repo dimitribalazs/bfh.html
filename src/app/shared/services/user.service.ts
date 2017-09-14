@@ -18,12 +18,14 @@ import {GeoService} from './geo.service';
 @Injectable()
 export class UserDatabaseService<User> extends DatabaseService<User>{
     private usersPath: firebase.database.Reference;
+    private beersPath: firebase.database.Reference;
     constructor(
         private barService: BarDatabaseService<Bar>,
         private beerService: BeerDatabaseService<Beer>
     ) {
         super();
         this.usersPath = getDatabase().ref("users");
+        this.beersPath = getDatabase().ref("beers");
     }
 
     create(entity: User): void {
@@ -57,7 +59,7 @@ export class UserDatabaseService<User> extends DatabaseService<User>{
     }
 
     get(id: string): Observable<User> {
-        return Observable.fromEvent(this.usersPath, FirebaseEvent.value.toString(), (snapshot) => {
+        return Observable.fromEvent(this.usersPath.child(id), FirebaseEvent.value.toString(), (snapshot) => {
             var result = snapshot.val();
             let user: User;
             Object.keys(result).filter((value:string) => {
@@ -106,4 +108,36 @@ export class UserDatabaseService<User> extends DatabaseService<User>{
 
           });
     }
+
+    getFriendsOfUser(userId: string): Observable<User[]> {
+      return Observable.fromEvent(this.usersPath.child(userId).child("friends"), FirebaseEvent.value.toString(), (snapshot) => {
+        const friends: User[] = [];
+        const  friendIds = snapshot.val();
+        friendIds.map((friendId) => {
+          this.usersPath.child(friendId).once("value").then((friendSnapshot) => {
+            var friendUser = friendSnapshot as User;
+            if(friendUser != null) {
+              friends.push(friendUser);
+            }
+          })
+        })
+        return friends;
+      });
+    }
+
+  getFavoriteBeersOfUser(userId: string): Observable<Beer[]> {
+    return Observable.fromEvent(this.usersPath.child(userId).child("favoriteBeers"), FirebaseEvent.value.toString(), (snapshot) => {
+      const beers: Beer[] = [];
+      const  beerIds = snapshot.val();
+      beerIds.map((beerId) => {
+        this.beersPath.child(beerId).once("value").then((beerSnapshot) => {
+          var favoriteBeer = beerSnapshot as Beer;
+          if(favoriteBeer != null) {
+            beers.push(favoriteBeer);
+          }
+        })
+      })
+      return beers;
+    });
+  }
 }

@@ -31,7 +31,7 @@ export class SearchComponent implements OnInit {
       visibleBack: true,
       visibleSearchInput: true,
       callback: (e: string) => {
-        this.activeSearchString = e,
+        this.activeSearchString = e;
         this.searchSubject.next(e)
       }
     });

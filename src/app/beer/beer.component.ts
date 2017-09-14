@@ -29,11 +29,13 @@ export class BeerComponent implements OnInit {
               private route: ActivatedRoute,
               private router: Router,
               private menuService: MenuService) {
-      // this.menuService.setDefault();
-      // this.menuService.TitleText = 'Beer info';
-      // this.menuService.visibleHomeLink = true;
-      // this.menuService.visibleTitle = true;
-      // this.menuService.visibleEdit = true;
+    this.menuService.setNewState({
+      titleText: 'Beer info',
+      visibleBack: true,
+      visibleTitle: true,
+      visibleEdit: true
+    })
+    ;
     // this.model.brewery = new Brewery();
     // this.model.brewery.name = '';
 

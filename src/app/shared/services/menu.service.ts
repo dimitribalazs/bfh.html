@@ -8,7 +8,7 @@ export class MenuService {
     visibleHomeLink: false,
     visibleSearchLink: false,
     visibleSearchInput: false,
-    visibleTitle: false,
+    visibleTitle: true,
     visibleEdit: false,
     visibleSave: false,
     visibleMenu: false,
@@ -25,6 +25,10 @@ export class MenuService {
     this.state = {...this.defaultState, ...state};
 
     this.state$.next(this.state);
+  }
+
+  callback(...a): void {
+    return this.state.callback(...a);
   }
 }
 

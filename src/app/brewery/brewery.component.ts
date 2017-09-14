@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MenuService} from '../shared/services/menu.service';
 import {BreweryService} from "./breweryService";
 import {Brewery} from "../shared/dto/brewery";
@@ -20,13 +20,15 @@ export class BreweryComponent implements OnInit {
               private route: ActivatedRoute,
               private router: Router,
               private menuService: MenuService) {
-    // this.menuService.setDefault();
-    // this.menuService.TitleText = 'Brewery info';
-    // this.menuService.visibleHomeLink = true;
     this.activeNavigation = 1;
   }
 
   ngOnInit() {
+    this.menuService.setNewState({
+      titleText: 'Brewery info',
+      visibleBack: true,
+      visibleEdit: true
+    });
 
     this.route.params.subscribe(params => {
       this.id = params['id'];

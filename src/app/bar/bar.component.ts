@@ -23,14 +23,14 @@ export class BarComponent implements OnInit {
               private route: ActivatedRoute,
               private router: Router,
               private menuService: MenuService) {
-    // this.menuService.setDefault();
-    // this.menuService.TitleText = 'Bar info';
-    // this.menuService.visibleHomeLink = true;
-    // this.menuService.visibleTitle = true;
-    // this.menuService.visibleEdit = true;
   }
 
   ngOnInit() {
+    this.menuService.setNewState({
+      titleText: 'Bar info',
+      visibleBack: true,
+      visibleEdit: true
+    });
 
     this.route.params.subscribe(params => {
       // console.log('Load bar:' + params['id']);

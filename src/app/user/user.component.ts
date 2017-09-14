@@ -1,10 +1,10 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import {Component, OnInit, OnChanges} from '@angular/core';
 import {UserService} from './userService';
 import {User} from '../shared/dto/user';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {MenuService} from '../shared/services/menu.service';
 import {Observable} from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
+import {Subscription} from 'rxjs/Subscription';
 import {FriendsComponent} from "./friends/friends.component";
 
 @Component({
@@ -22,9 +22,6 @@ export class UserComponent implements OnInit {
               private route: ActivatedRoute,
               private router: Router,
               private menuService: MenuService) {
-    // this.menuService.setDefault();
-    // this.menuService.TitleText = 'User info';
-    // this.menuService.visibleHomeLink = true;
     this.activeNavigation = 0;
 
     // this.user = userService.viewModelSubject;
@@ -33,6 +30,10 @@ export class UserComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.menuService.setNewState({
+      titleText: 'User info',
+      visibleBack: true
+    });
 
     this.route.params.subscribe(params => {
       this.id = params['id'];
@@ -43,9 +44,9 @@ export class UserComponent implements OnInit {
 
     if (child === 'favourites') {
       this.activeNavigation = 1;
-    }else if (child === 'badges') {
+    } else if (child === 'badges') {
       this.activeNavigation = 2;
-    }else if (child === 'detail') {
+    } else if (child === 'detail') {
       this.activeNavigation = 3;
     }
   }

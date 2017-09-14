@@ -3,7 +3,7 @@ import {MenuService} from '../shared/services/menu.service';
 import {BehaviorSubject} from 'rxjs/Rx';
 import {Subject} from 'rxjs/Subject';
 import {AroundYou} from '../shared/dto/aroundYou';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 
 
 @Component({
@@ -15,24 +15,11 @@ export class SearchComponent implements OnInit {
 
   searchSubject: Subject<String> = new BehaviorSubject<String>('');
   filterSubject: Subject<number> = new BehaviorSubject<number>(0);
-  activefilter: number
-  activeSearchString: string
+  activefilter: number;
+  activeSearchString: string;
 
-  constructor(
-    private menuService: MenuService,
-    private router: Router) {
-    // this.menuService.setDefault();
-    // this.menuService.visibleHomeLink = true;
-    // this.menuService.visibleTitle = false;
-    // this.menuService.visibleSearchInput = true;
-
-    this.activeSearchString = ''
-
-    // this.menuService.searchInputCallback = (e: string) => {
-    //   this.activeSearchString = e
-    //   this.searchSubject.next(e)
-    //   console.log(e.target.value)
-    // }
+  constructor(private menuService: MenuService, private router: Router) {
+    this.activeSearchString = '';
     this.activefilter = 0
   }
 
@@ -40,7 +27,10 @@ export class SearchComponent implements OnInit {
     this.menuService.setNewState({
       visibleBack: true,
       visibleSearchInput: true,
-      callback: e => console.log(e.target.value)
+      callback: (e: string) => {
+        this.activeSearchString = e;
+        this.searchSubject.next(e)
+      }
     });
   }
 
@@ -56,6 +46,6 @@ export class SearchComponent implements OnInit {
 
   onAddBeer(data: AroundYou) {
     console.log(data)
-    this.router.navigate(['beer/new', {name : data}]);
+    this.router.navigate(['beer/new', {name: data}]);
   }
 }

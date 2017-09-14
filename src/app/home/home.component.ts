@@ -50,7 +50,6 @@ export class HomeComponent implements OnInit {
     this.menuService.setNewState({
       titleText: 'Duff\'d',
       visibleSearchLink: true,
-      visibleTitle: true,
       visibleMenu: true
     });
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, OnInit, Input} from '@angular/core';
 import {MenuService} from '../shared/services/menu.service';
 
 @Component({
@@ -9,12 +9,14 @@ import {MenuService} from '../shared/services/menu.service';
 export class ImageUploaderComponent implements OnInit {
   @Input() titleDetail: String;
 
-  constructor(private menuService: MenuService) {}
+  constructor(private menuService: MenuService) {
+  }
 
   ngOnInit() {
-    // this.menuService.setDefault();
-    // this.menuService.TitleText = this.titleDetail + ' image upload';
-    // this.menuService.visibleBack = true;
+    this.menuService.setNewState({
+      titleText: this.titleDetail + ' image upload',
+      visibleBack: true
+    });
   }
 
 }

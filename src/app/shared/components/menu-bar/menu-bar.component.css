@@ -4,6 +4,9 @@
 
 .menubutton-left {
   margin-left: 0.5em;
+  margin-top: 8px;
+  margin-right: 15px;
+  margin-bottom: 8px;
 }
 
 .menubutton-right {

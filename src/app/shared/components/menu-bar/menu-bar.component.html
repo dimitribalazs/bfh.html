@@ -6,19 +6,23 @@
               data-toggle="collapse"
               data-target="#bs-example-navbar-collapse-1" aria-expanded="false" (click)="onToggleMenu()">
         <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
+        <!--<span class="icon-bar"></span>-->
+        <!--<span class="icon-bar"></span>-->
+        <!--<span class="icon-bar"></span>-->
+        <span class="glyphicon glyphicon-menu-hamburger"></span>
+
       </button>
-      <button *ngIf="menuState.visibleBack" type="button" class="btn btn-default btn-sm menubutton-left"
+      <button *ngIf="menuState.visibleBack" type="button" class="btn btn-default pull-left menubutton-left"
               (click)="historyBack()">
         <span class="glyphicon glyphicon-chevron-left"></span>
       </button>
       <a *ngIf="menuState.visibleTitle" class="navbar-brand" href="#">{{menuState.titleText}}</a>
       <ul class="nav navbar-nav">
         <li *ngIf="menuState.visibleSearchInput">
-          <input type="text" (input)="menuState.onSearchInputChange($event)"
-                 class="form-control">
+          <form class="navbar-form">
+            <input type="text" (input)="menuState.onSearchInputChange($event)"
+                   class="form-control">
+          </form>
         </li>
         <li *ngIf="menuState.visibleSearchLink">
           <a routerLink="/search" routerLinkActive="active" role="button"

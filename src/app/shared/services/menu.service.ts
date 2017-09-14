@@ -8,7 +8,7 @@ export class MenuService {
     visibleHomeLink: false,
     visibleSearchLink: false,
     visibleSearchInput: false,
-    visibleTitle: false,
+    visibleTitle: true,
     visibleEdit: false,
     visibleSave: false,
     visibleMenu: false,

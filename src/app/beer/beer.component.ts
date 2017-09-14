@@ -32,7 +32,6 @@ export class BeerComponent implements OnInit {
     this.menuService.setNewState({
       titleText: 'Beer info',
       visibleBack: true,
-      visibleTitle: true,
       visibleEdit: true
     })
     ;

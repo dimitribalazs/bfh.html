@@ -160,17 +160,19 @@ export class HomeComponent implements OnInit {
   }
 
   checkLocation() {
+    this.serviceUser.getFavoriteBeersOfUser("1").subscribe((data) => console.log("favs", data));
+    this.serviceUser.getFriendsOfUser("1").subscribe((data) => console.log("friends", data));
+    var foo = false;
+    if(foo) {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((pos) => {
+          const coords: Coordinates = pos.coords;
 
-
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((pos) => {
-           const coords: Coordinates  = pos.coords;
-
-           let currentPos: GeoData = {
+          let currentPos: GeoData = {
             id: "10",
             longitude: coords.longitude,
             latitude: coords.latitude
-           }
+          }
           //Wohlen AG
           var lat = 47.349365;
           var long = 8.276876;
@@ -201,7 +203,8 @@ export class HomeComponent implements OnInit {
           foo = this.serviceGeo.isInRange(wohlen, lausanne);
           console.log("result 2 " + foo);
 
-      });
+        });
+      }
     }
   }
 }

@@ -113,14 +113,16 @@ export class UserDatabaseService<User> extends DatabaseService<User>{
       return Observable.fromEvent(this.usersPath.child(userId).child("friends"), FirebaseEvent.value.toString(), (snapshot) => {
         const friends: User[] = [];
         const  friendIds = snapshot.val();
-        friendIds.map((friendId) => {
-          this.usersPath.child(friendId).once("value").then((friendSnapshot) => {
-            var friendUser = friendSnapshot as User;
-            if(friendUser != null) {
-              friends.push(friendUser);
-            }
+        if(friendIds) {
+          friendIds.map((value, friendId) => {
+            this.usersPath.child(friendId).once("value").then((friendSnapshot) => {
+              const friendUser = friendSnapshot.val() as User;
+              if(friendUser != null) {
+                friends.push(friendUser);
+              }
+            })
           })
-        })
+        }
         return friends;
       });
     }
@@ -129,14 +131,16 @@ export class UserDatabaseService<User> extends DatabaseService<User>{
     return Observable.fromEvent(this.usersPath.child(userId).child("favoriteBeers"), FirebaseEvent.value.toString(), (snapshot) => {
       const beers: Beer[] = [];
       const  beerIds = snapshot.val();
-      beerIds.map((beerId) => {
-        this.beersPath.child(beerId).once("value").then((beerSnapshot) => {
-          var favoriteBeer = beerSnapshot as Beer;
-          if(favoriteBeer != null) {
-            beers.push(favoriteBeer);
-          }
+      if(beerIds) {
+        beerIds.map((value, beerId) => {
+          this.beersPath.child(beerId).once("value").then((beerSnapshot) => {
+            const favoriteBeer = beerSnapshot.val() as Beer;
+            if(favoriteBeer != null) {
+              beers.push(favoriteBeer);
+            }
+          })
         })
-      })
+      }
       return beers;
     });
   }

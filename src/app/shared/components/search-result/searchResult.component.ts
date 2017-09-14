@@ -45,10 +45,10 @@ export class SearchResultComponent implements OnInit {
 
   public viewModelSubject: Subject<AroundYou[]> = new BehaviorSubject<AroundYou[]>(this.arroundYou);
 
-  constructor(private beerService: BeerDatabaseService<Beer>,
-              private breweryService: BreweryDatabaseService<Brewery>,
-              private barService: BarDatabaseService<Bar>,
-              private userService: UserDatabaseService<User>) {
+  constructor(private beerService: BeerDatabaseService,
+              private breweryService: BreweryDatabaseService,
+              private barService: BarDatabaseService,
+              private userService: UserDatabaseService) {
     this.arroundYou = new Array()
 
     this.viewModelSubject.asObservable();

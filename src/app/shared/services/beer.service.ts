@@ -7,7 +7,7 @@ import { Beer } from '../dto/beer';
 import {BarBeer} from "../dto/barBeer";
 
 @Injectable()
-export class BeerDatabaseService<Beer> extends DatabaseService<Beer>{
+export class BeerDatabaseService extends DatabaseService{
   private beersPath: firebase.database.Reference;
   private barBeersPath: firebase.database.Reference;
   constructor() {
@@ -16,7 +16,7 @@ export class BeerDatabaseService<Beer> extends DatabaseService<Beer>{
     this.barBeersPath = getDatabase().ref("beerBars");
   }
 
-  exists(entity: any): Promise<boolean> {
+  exists(entity: Beer): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
       this.beersPath.orderByChild("name").equalTo(entity.name).once("value").then((snapshot) => {
         const beers = snapshot.val(); //as Beer[];
@@ -35,7 +35,7 @@ export class BeerDatabaseService<Beer> extends DatabaseService<Beer>{
   }
 
 
-  create(entity: any): string {
+  create(entity: Beer): string {
         const newKey: string = this.beersPath.push().key;
         entity.id = newKey
         this.beersPath.child(newKey).set(entity);

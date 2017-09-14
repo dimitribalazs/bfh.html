@@ -18,8 +18,8 @@ export class BarService {
 
   viewModel: Bar = new Bar();
   constructor(
-    private beerService: BeerDatabaseService<Beer>,
-    private barService: BarDatabaseService<Bar>,
+    private beerService: BeerDatabaseService,
+    private barService: BarDatabaseService,
   ) {
     this.viewModel = new Bar();
     this.viewModel.openingHours = new OpeningHours();

@@ -17,12 +17,12 @@ import {IGeoData} from "../dto/IGeoData";
 
 
 @Injectable()
-export class UserDatabaseService<User> extends DatabaseService<User>{
+export class UserDatabaseService extends DatabaseService{
     private usersPath: firebase.database.Reference;
     private beersPath: firebase.database.Reference;
     constructor(
-        private barService: BarDatabaseService<Bar>,
-        private beerService: BeerDatabaseService<Beer>,
+        private barService: BarDatabaseService,
+        private beerService: BeerDatabaseService,
         private geoService: GeoService
     ) {
         super();

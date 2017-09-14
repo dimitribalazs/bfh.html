@@ -7,7 +7,7 @@ import {Bar} from '../dto/bar';
 import {BarBeer} from '../dto/barBeer';
 
 @Injectable()
-export class BarDatabaseService<Bar> extends DatabaseService<Bar>{
+export class BarDatabaseService extends DatabaseService{
     private barsPath: firebase.database.Reference;
     private barBeerPath: firebase.database.Reference;
     private beersPath: firebase.database.Reference;

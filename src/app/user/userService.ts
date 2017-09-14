@@ -22,8 +22,8 @@ export class UserService {
   public viewModelSubject: Subject<User> = new BehaviorSubject<User>(this.viewModel);
 
   constructor(
-    private userService: UserDatabaseService<User>,
-    private beerService: BeerDatabaseService<Beer>) {
+    private userService: UserDatabaseService,
+    private beerService: BeerDatabaseService) {
     this.viewModelSubject.asObservable();
   }
 

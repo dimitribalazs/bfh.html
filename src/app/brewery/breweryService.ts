@@ -17,8 +17,8 @@ export class BreweryService {
 
   viewModel: Brewery = new Brewery();
   constructor(
-    private beerService: BeerDatabaseService<Beer>,
-    private breweryService: BreweryDatabaseService<Brewery>) {
+    private beerService: BeerDatabaseService,
+    private breweryService: BreweryDatabaseService) {
 
   }
 

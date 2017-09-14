@@ -34,10 +34,10 @@ export class HomeComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private serviceBeer: BeerDatabaseService<Beer>,
-              private serviceUser: UserDatabaseService<User>,
-              private serviceBrewery: BreweryDatabaseService<Brewery>,
-              private serviceBar: BarDatabaseService<Bar>,
+              private serviceBeer: BeerDatabaseService,
+              private serviceUser: UserDatabaseService,
+              private serviceBrewery: BreweryDatabaseService,
+              private serviceBar: BarDatabaseService,
               private serviceGeo: GeoService,
               private menuService: MenuService) {
 
@@ -131,10 +131,6 @@ export class HomeComponent implements OnInit {
         }
       })
     })
-
-    this.serviceBeer.listen();
-
-
   }
 
   isSelected(around: AroundYou) {

@@ -85,7 +85,7 @@ export class BeerDatabaseService<Beer> extends DatabaseService<Beer>{
       });
   }
 
-  getAllBeerByBreweryId(breweryId: number): Observable<Beer[]> {
+  getAllBeersByBreweryId(breweryId: number): Observable<Beer[]> {
     return Observable.fromEvent(this.beersPath.orderByChild("brewery").equalTo(breweryId), FirebaseEvent.value.toString(), (beerSnapshot) => {
       const beers: Beer[] = beerSnapshot.val() as Beer[];
       return beers;

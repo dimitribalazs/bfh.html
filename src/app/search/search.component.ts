@@ -15,14 +15,11 @@ export class SearchComponent implements OnInit {
 
   searchSubject: Subject<String> = new BehaviorSubject<String>('');
   filterSubject: Subject<number> = new BehaviorSubject<number>(0);
-  activefilter: number
-  activeSearchString: string
+  activefilter: number;
+  activeSearchString: string;
 
-  constructor(private menuService: MenuService,
-              private router: Router) {
-
-    this.activeSearchString = ''
-
+  constructor(private menuService: MenuService, private router: Router) {
+    this.activeSearchString = '';
     this.activefilter = 0
   }
 

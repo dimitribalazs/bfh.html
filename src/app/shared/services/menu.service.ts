@@ -26,6 +26,10 @@ export class MenuService {
 
     this.state$.next(this.state);
   }
+
+  callback(): void {
+    return this.state.callback();
+  }
 }
 
 export class MenuState {

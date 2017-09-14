@@ -45,14 +45,8 @@ export class BreweryDatabaseService extends DatabaseService{
 
     get(id: string): Observable<Brewery> {
         return Observable.fromEvent(this.breweriesPath.child(id), FirebaseEvent.value.toString(), (snapshot) => {
-          const result = snapshot.val();
-            let brewery: Brewery;
-            Object.keys(result).filter((value: string) => {
-                if(value == id) {
-                    brewery = result[value] as Brewery;
-                }
-            });
-            return brewery;
+            const result = snapshot.val();
+            return result as Brewery;
         });
     }
 }

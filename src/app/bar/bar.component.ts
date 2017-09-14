@@ -28,7 +28,7 @@ export class BarComponent implements OnInit {
   ngOnInit() {
     this.menuService.setNewState({
       titleText: 'Bar info',
-      visibleHomeLink: true,
+      visibleBack: true,
       visibleEdit: true
     });
 

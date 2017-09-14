@@ -6,6 +6,7 @@ import {BarInfoComponent} from './bar-info/bar-info.component';
 import { AvailableBeersComponent } from './available-beers/available-beers.component';
 import { OpeningHoursComponent } from './opening-hours/opening-hours.component';
 import { PhotosComponent } from './photos/photos.component';
+import { MapComponent } from './map/map.component';
 
 const barsRoutes: Routes = [
   { path: 'bar/:id',
@@ -22,6 +23,7 @@ const barsRoutes: Routes = [
           { path: 'info', component: BarInfoComponent },
           { path: 'openingHours', component: OpeningHoursComponent },
           { path: 'photos', component: PhotosComponent },
+          { path : 'map', component: MapComponent}
         ]
       }
     ]},

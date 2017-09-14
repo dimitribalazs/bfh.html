@@ -13,6 +13,7 @@ import { OpeningHoursComponent } from './opening-hours/opening-hours.component';
 import { PhotosComponent } from './photos/photos.component';
 import {RatingModel} from '../shared/components/rating/ratingModel';
 import {SearchResultModule} from '../shared/components/search-result/searchResult.module';
+import { MapComponent } from './map/map.component';
 
 // import { BarService } from './bar.service';
 
@@ -30,6 +31,7 @@ import {SearchResultModule} from '../shared/components/search-result/searchResul
     AvailableBeersComponent,
     OpeningHoursComponent,
     PhotosComponent,
+    MapComponent,
     // BarDetailComponent
   ],
   providers: [ BarService ]

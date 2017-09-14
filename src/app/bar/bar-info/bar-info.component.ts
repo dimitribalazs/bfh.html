@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Bar} from '../../shared/dto/bar';
-import {BarService} from "../barService";
+import {BarService} from '../barService';
 
 @Component({
   selector: 'app-bar-info',

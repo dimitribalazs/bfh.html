@@ -13,27 +13,27 @@ import {BarService} from './barService';
 })
 export class BarComponent implements OnInit {
 
-  id: string;
-  model: Bar = new Bar;
-  ratings: number[] = new Array;
-  meRating: number;
+    id: string;
+    model: Bar = new Bar;
+    ratings: number[] = new Array;
+    meRating: number;
 
 
-  constructor(private barService: BarService,
-              private route: ActivatedRoute,
-              private router: Router,
-              private menuService: MenuService) {
-    // this.menuService.setDefault();
-    // this.menuService.TitleText = 'Bar info';
-    // this.menuService.visibleHomeLink = true;
-    // this.menuService.visibleTitle = true;
-    // this.menuService.visibleEdit = true;
+    constructor(private barService: BarService,
+                private route: ActivatedRoute,
+                private router: Router,
+                private menuService: MenuService) {
+      // this.menuService.setDefault();
+      // this.menuService.TitleText = 'Bar info';
+      // this.menuService.visibleHomeLink = true;
+      // this.menuService.visibleTitle = true;
+      // this.menuService.visibleEdit = true;
   }
 
   ngOnInit() {
 
     this.route.params.subscribe(params => {
-      // console.log('Load bar:' + params['id']);
+      console.log('Load bar:' + params['id']);
       this.id = params['id'];
       this.barService.loadBar(params['id']);
     });
@@ -46,7 +46,7 @@ export class BarComponent implements OnInit {
     this.ratings[2] = 20;
     this.ratings[3] = 4;
     this.meRating = 1
-    // console.log(this.route.snapshot.toString())
+    console.log(this.route.snapshot.toString())
   }
 
   onClick(childView: string) {

@@ -63,13 +63,7 @@ export class UserDatabaseService extends DatabaseService{
     get(id: string): Observable<User> {
         return Observable.fromEvent(this.usersPath.child(id), FirebaseEvent.value.toString(), (snapshot) => {
             var result = snapshot.val();
-            let user: User;
-            Object.keys(result).filter((value:string) => {
-                if(value == id) {
-                    user = result[value] as User;
-                }
-            });
-            return user;
+            return result as User;
         });
     }
 

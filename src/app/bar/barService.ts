@@ -8,6 +8,7 @@ import {BeerDatabaseService} from '../shared/services/beer.service';
 import {BarDatabaseService} from '../shared/services/bar.service';
 import {Bar, OpeningHours} from '../shared/dto/bar';
 import {BarBeer} from '../shared/dto/barBeer';
+import {GeoData} from '../shared/dto/geoData';
 
 @Injectable()
 export class BarService {

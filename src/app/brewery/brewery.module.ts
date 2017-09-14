@@ -5,11 +5,13 @@ import {BreweryComponent} from './brewery.component';
 import { BreweryInfoComponent } from './brewery-info/brewery-info.component';
 import {BreweryService} from './breweryService';
 import {AvailableBeersComponent} from './available-beers/available-beers.component';
+import {SearchResultModule} from "../shared/components/search-result/searchResult.module";
 
 @NgModule({
   imports: [
     CommonModule,
-    BreweryRoutingModule
+    BreweryRoutingModule,
+    SearchResultModule
   ],
   declarations: [BreweryComponent, BreweryInfoComponent, AvailableBeersComponent],
   providers: [ BreweryService ]

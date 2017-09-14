@@ -14,7 +14,9 @@
     </ul>
   </div>
   <div class="text-center">
-    <div *ngIf="numberOfBeers === 0 || numberOfBrewerys === 0 || numberOfBars === 0">
+    <div *ngIf="numberOfBars === 0 && (filterNumber === 0 || filterNumber === 1) ||
+              numberOfBrewerys === 0 && (filterNumber === 0 || filterNumber === 2) ||
+              numberOfBeers === 0 && (filterNumber === 0 || filterNumber === 3) ">
       <h4>No {{entriesNotFound}} entries found.</h4>
       <h4>But cou can create a new one!</h4>
     </div>

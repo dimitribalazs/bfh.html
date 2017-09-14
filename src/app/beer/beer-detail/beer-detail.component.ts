@@ -4,7 +4,10 @@ import {Brewery} from '../../shared/dto/brewery';
 import {Router, ActivatedRoute, ParamMap} from '@angular/router';
 import {BierService} from '../beerService'
 import {MenuService} from '../../shared/services/menu.service';
-import {isUndefined} from "util";
+import {isUndefined} from 'util';
+import {BehaviorSubject} from 'rxjs/Rx';
+import {Subject} from 'rxjs/Subject';
+import {AroundYou} from '../../shared/dto/aroundYou';
 
 @Component({
   selector: 'app-beer-detail',
@@ -20,6 +23,10 @@ export class BeerDetailComponent implements OnInit {
   breweryDropDownList: DropDownEntry[];
   brewerySelectedItem: DropDownEntry[] = new Array;
 
+  searchSubject: Subject<String> = new BehaviorSubject<String>('');
+  filterSubject: Subject<number> = new BehaviorSubject<number>(2);
+
+
   constructor(private beerService: BierService,
               private menuService: MenuService,
               private router: Router) {
@@ -32,6 +39,9 @@ export class BeerDetailComponent implements OnInit {
     this.menuService.TitleText = 'Enter or edit beer info'
     this.menuService.visibleSave = true;
     this.menuService.visibleBack = true;
+    this.menuService.searchInputCallback = (e: string) => {
+      this.searchSubject.next(e)
+    }
     this.menuService.submitCallback = () => {
 
       if (isUndefined(this.beerService.viewModel.name) || this.beerService.viewModel.name.length === 0 ||
@@ -47,10 +57,10 @@ export class BeerDetailComponent implements OnInit {
     this.beerService.getBeer().subscribe((beer) => {
       // this.beerService.viewModel = this.beerService.getViewModel();
       if (!isUndefined(this.beerService.viewModel.brewery)) {
-        const selectedItem: DropDownEntry = new DropDownEntry();
-        selectedItem.id = this.beerService.viewModel.brewery.id;
-        selectedItem.itemName = this.beerService.viewModel.brewery.name;
-        this.brewerySelectedItem.push(selectedItem);
+        // const selectedItem: DropDownEntry = new DropDownEntry();
+        // selectedItem.id = this.beerService.viewModel.brewery.id;
+        // selectedItem.itemName = this.beerService.viewModel.brewery.name;
+        // this.brewerySelectedItem.push(selectedItem);
       }
     })
 
@@ -71,5 +81,16 @@ export class BeerDetailComponent implements OnInit {
     }
     this.beerService.viewModel.brewery.id = item[0].id;
     this.beerService.viewModel.brewery.name = item[0].itemName;
+  }
+
+  onResult(data: AroundYou) {
+    this.beerService.viewModel.brewery.id = data.id;
+    this.beerService.viewModel.brewery.name = data.name;
+    this.beerService.searchBrewery = false;
+  }
+
+  activateSearchBrewery() {
+    // this.menuService.visibleSearchInput = true;
+    this.beerService.searchBrewery = true;
   }
 }

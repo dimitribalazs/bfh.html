@@ -24,7 +24,7 @@ export class BarService {
     this.viewModel = new Bar();
     this.viewModel.openingHours = new OpeningHours();
 
-    console.log("save bar");
+    // console.log("save bar");
     var bb = new BarBeer();
     bb.beer = "1";
     bb.bar = "2";

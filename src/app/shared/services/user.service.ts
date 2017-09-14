@@ -42,7 +42,7 @@ export class UserDatabaseService<User> extends DatabaseService<User>{
             apiPath.set(dbUser).catch((error) => console.log("Error while updating user", error));
         })
         .catch((error) => {
-            console.log("Error while getting user", error);
+            // console.log("Error while getting user", error);
         });
     }
 
@@ -73,24 +73,24 @@ export class UserDatabaseService<User> extends DatabaseService<User>{
 
     //todo fertig machen
     getAroundYou(myPosition: GeoData, userId: string): void {
-        console.log("yolo");
+        // console.log("yolo");
         const source = Observable.zip(
           this.barService.getAll(),
           this.beerService.getAll(),
           this.getAll(),
           (bars, beers, users) => {
-              console.log("ret");
+              // console.log("ret");
               var ret =  [...bars, ...beers, ...users];
-              console.log(ret);
+              // console.log(ret);
               return ret;
           })
           .map((data) => {
-                console.log("map")
-                console.log(data);
+                // console.log("map")
+                // console.log(data);
                 return data;
           })
           .filter((data) => {
-            console.log("filter");
+            // console.log("filter");
             // if(data.location) {
             //     return isInRange(data.location, " ");
             // }
@@ -98,8 +98,8 @@ export class UserDatabaseService<User> extends DatabaseService<User>{
           });
 
           source.subscribe(function(data) {
-            console.log("foo");
-            console.log(data);
+            // console.log("foo");
+            // console.log(data);
 
             // filter((item) => {
             //     console.log(item);

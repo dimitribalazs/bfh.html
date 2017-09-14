@@ -27,7 +27,7 @@ export class BreweryDatabaseService<Brewery> extends DatabaseService<Brewery>{
             apiPath.set(dbBrewery).catch((error) => console.log("Error while updating brewery", error));
         })
         .catch((error) => {
-            console.log("Error while getting brewery", error);
+            // console.log("Error while getting brewery", error);
         });
     }
 

@@ -48,8 +48,9 @@ export class BeerDetailComponent implements OnInit {
       // this.beerService.viewModel = this.beerService.getViewModel();
       if (!isUndefined(this.beerService.viewModel.brewery)) {
         const selectedItem: DropDownEntry = new DropDownEntry();
-        selectedItem.id = this.beerService.viewModel.brewery.id;
-        selectedItem.itemName = this.beerService.viewModel.brewery.name;
+        selectedItem.id = this.beerService.viewModel.brewery;
+        //todo get from brewery
+        //selectedItem.itemName = this.beerService.viewModel.brewery.name;
         this.brewerySelectedItem.push(selectedItem);
       }
     })
@@ -67,9 +68,10 @@ export class BeerDetailComponent implements OnInit {
 
   onBrewerySelectChange(item: DropDownEntry) {
     if (isUndefined(this.beerService.viewModel.brewery)) {
-      this.beerService.viewModel.brewery = new Brewery()
+      //this.beerService.viewModel.brewery = new Brewery()
     }
-    this.beerService.viewModel.brewery.id = item[0].id;
-    this.beerService.viewModel.brewery.name = item[0].itemName;
+    this.beerService.viewModel.brewery = item[0].id;
+    //todo update brewery
+    //this.beerService.viewModel.brewery.name = item[0].itemName;
   }
 }

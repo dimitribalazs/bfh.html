@@ -28,15 +28,15 @@ export class BarService {
 
     console.log("save bar");
     var bb = new BarBeer();
-    bb.beer = 1;
-    bb.bar = 2;
+    bb.beer = "1";
+    bb.bar = "2";
     bb.price = 22.2;
     bb.tapOrBottled = true;
     this.barService.addBeerToBar(bb);
 
     bb = new BarBeer();
-    bb.beer = 2;
-    bb.bar = 2;
+    bb.beer = "2";
+    bb.bar = "2";
     bb.price = 11.1;
     bb.tapOrBottled = false;
     this.barService.addBeerToBar(bb);

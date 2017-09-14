@@ -31,7 +31,7 @@ export class BierService {
     beer.brewery = brewery;
     this.beerService.create(beer); */
 
-    this.beerService.getAllBeerByBreweryId(1).subscribe((data) => console.log("foo ", data));
+    this.beerService.getAllBeersByBreweryId(1).subscribe((data) => console.log("foo ", data));
   }
 
   loadBeer(id: string): Observable<Beer>  {
@@ -39,8 +39,8 @@ export class BierService {
       this.beer.subscribe((beer: Beer) => {
         this.viewModel = beer
         if (isUndefined(this.viewModel.brewery)) {
-          this.viewModel.brewery = new Brewery();
-          this.viewModel.brewery.name = '';
+          //this.viewModel.brewery = new Brewery();
+          //this.viewModel.brewery.name = '';
         }
       });
       return this.beer;

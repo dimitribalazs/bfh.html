@@ -9,7 +9,7 @@ export class Beer {
     volume: number;
     brewType: DropDownEntry[];
     rating: number
-    brewery: number
+    brewery: string
     bars: BarBeer[];
     image: string;
     taste: DropDownEntry[];

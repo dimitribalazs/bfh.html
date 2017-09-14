@@ -16,7 +16,7 @@ export class BeerInfoComponent implements OnInit {
   brewType: String = '';
 
   constructor(private beerService: BierService) {
-    this.model.brewery = new Brewery();
+    //this.model.brewery = new Brewery();
   }
 
 

@@ -9,13 +9,14 @@ export class User {
     image: string;
     registrationDate: string;
     location: GeoData;
-    beerPreferences: Beer[];
+    favoriteBeers: string[]
     totalConsumption: number;
     address: string;
     city: string;
     tel: string;
     badge: string;
     dateOfBirth: string;
+    friends: string[]
     //badges: Badge[];
 }
 

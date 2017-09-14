@@ -16,7 +16,7 @@ export class BierService {
 
   breweryDropDownList: DropDownEntry[] = [];
 
-  viewModel: Beer = new Beer();
+  public viewModel: Beer = new Beer();
   constructor(
     private beerService: BeerDatabaseService<Beer>,
     private breweryService: BreweryDatabaseService<Brewery>
@@ -31,7 +31,7 @@ export class BierService {
     beer.brewery = brewery;
     this.beerService.create(beer); */
 
-    this.beerService.getAllBeerByBreweryId(1).subscribe((data) => console.log("foo ", data));
+    this.beerService.getAllBeersByBreweryId(1).subscribe((data) => console.log("foo ", data));
   }
 
   loadBeer(id: string): Observable<Beer>  {
@@ -39,8 +39,8 @@ export class BierService {
       this.beer.subscribe((beer: Beer) => {
         this.viewModel = beer
         if (isUndefined(this.viewModel.brewery)) {
-          this.viewModel.brewery = new Brewery();
-          this.viewModel.brewery.name = '';
+          //this.viewModel.brewery = new Brewery();
+          //this.viewModel.brewery.name = '';
         }
       });
       return this.beer;
@@ -51,17 +51,25 @@ export class BierService {
   }
 
   submit() {
-    this.beerService.update(this.viewModel.id, this.viewModel);
+    if (isUndefined(this.viewModel.id)) {
+      this.viewModel.id = this.beerService.create(this.viewModel)
+    } else {
+      this.beerService.update(this.viewModel.id, this.viewModel);
+    }
   }
 
   public getViewModel() {
     return this.viewModel
   }
 
+  public setViewModel(beer: Beer) {
+    this.viewModel = beer;
+  }
+
   public getBroweryList(): Observable<Brewery[]>  {
     this.brewery = this.breweryService.getAll();
     this.brewery.subscribe((value) => (value.forEach((brewery: Brewery) => {
-      console.log(brewery.name)
+      // console.log(brewery.name)
       const breweryItem: DropDownEntry = new DropDownEntry();
       breweryItem.id = brewery.id
       breweryItem.itemName = brewery.name

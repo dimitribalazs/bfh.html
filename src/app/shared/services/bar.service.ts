@@ -33,7 +33,7 @@ export class BarDatabaseService<Bar> extends DatabaseService<Bar>{
             apiPath.set(dbBar).catch((error) => console.log("Error while updating bar", error));
         })
         .catch((error) => {
-            console.log("Error while getting bar", error);
+            // console.log("Error while getting bar", error);
         });
     }
 
@@ -50,7 +50,7 @@ export class BarDatabaseService<Bar> extends DatabaseService<Bar>{
     }
 
     get(id: string): Observable<Bar> {
-        return Observable.fromEvent(this.barsPath, FirebaseEvent.value.toString(), (snapshot) => {
+        return Observable.fromEvent(this.barsPath.child(id), FirebaseEvent.value.toString(), (snapshot) => {
             var result = snapshot.val();
             let bar: Bar;
             Object.keys(result).filter((value: string) => {

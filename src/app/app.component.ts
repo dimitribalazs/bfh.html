@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {MenuService} from './shared/services/menu.service';
+import { MenuService } from './shared/services/menu.service';
 import { ActivatedRoute, ParamMap, Router, RouterState  } from '@angular/router';
 import { NgServiceWorker, NgPushRegistration } from '@angular/service-worker';
 import { NotificationService } from './shared/services/notification.service';
@@ -20,8 +20,6 @@ export class AppComponent {
     private sw: NgServiceWorker,
     private notificationService: NotificationService) {
       this.menu = menuService;
-      this.menu.setDefault();
-      this.menu.visibleSearchLink = true;
 
     // PushService
     this.notifications = notificationService;

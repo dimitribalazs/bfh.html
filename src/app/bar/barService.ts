@@ -5,8 +5,6 @@ import { Injectable, OnInit } from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {Beer, DropDownEntry} from '../shared/dto/beer';
 import {BeerDatabaseService} from '../shared/services/beer.service';
-import {Brewery} from '../shared/dto/brewery';
-import {isUndefined} from 'util';
 import {BarDatabaseService} from '../shared/services/bar.service';
 import {Bar, OpeningHours} from '../shared/dto/bar';
 import {BarBeer} from '../shared/dto/barBeer';
@@ -26,17 +24,17 @@ export class BarService {
     this.viewModel = new Bar();
     this.viewModel.openingHours = new OpeningHours();
 
-    console.log("save bar");
+    // console.log("save bar");
     var bb = new BarBeer();
-    bb.beer = 1;
-    bb.bar = 2;
+    bb.beer = "1";
+    bb.bar = "2";
     bb.price = 22.2;
     bb.tapOrBottled = true;
     this.barService.addBeerToBar(bb);
 
     bb = new BarBeer();
-    bb.beer = 2;
-    bb.bar = 2;
+    bb.beer = "2";
+    bb.bar = "2";
     bb.price = 11.1;
     bb.tapOrBottled = false;
     this.barService.addBeerToBar(bb);

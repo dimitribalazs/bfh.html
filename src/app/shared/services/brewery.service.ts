@@ -27,7 +27,7 @@ export class BreweryDatabaseService<Brewery> extends DatabaseService<Brewery>{
             apiPath.set(dbBrewery).catch((error) => console.log("Error while updating brewery", error));
         })
         .catch((error) => {
-            console.log("Error while getting brewery", error);
+            // console.log("Error while getting brewery", error);
         });
     }
 
@@ -44,7 +44,7 @@ export class BreweryDatabaseService<Brewery> extends DatabaseService<Brewery>{
     }
 
     get(id: string): Observable<Brewery> {
-        return Observable.fromEvent(this.breweriesPath, FirebaseEvent.value.toString(), (snapshot) => {
+        return Observable.fromEvent(this.breweriesPath.child(id), FirebaseEvent.value.toString(), (snapshot) => {
           const result = snapshot.val();
             let brewery: Brewery;
             Object.keys(result).filter((value: string) => {

@@ -23,6 +23,20 @@ const beerRoutes: Routes = [
         ]
       }
     ]},
+  { path: 'beer/new',
+    component: BeerComponent,
+    data: {
+      type: 'new'
+    },
+    children: [
+      {
+        path: '',
+        children: [
+          { path: 'details', component: BeerDetailComponent },
+          { path: '', component: BeerDetailComponent }
+        ]
+      }
+    ]},
   { path: 'beer/:id',
     component: BeerComponent,
     data: {

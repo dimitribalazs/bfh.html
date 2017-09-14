@@ -15,8 +15,8 @@ export class DetailComponent implements OnInit {
 
   ngOnInit() {
 
-    this.userService.getUser().subscribe((beer) => {
+    this.userService.viewModelSubject.subscribe((beer) => {
       this.model = this.userService.getViewModel();
-    })
+     })
   }
 }

@@ -13,7 +13,7 @@ import {HomeModule} from './home/home.module';
 import {BeerModule} from './beer/beer.module';
 import {BeerDatabaseService} from './shared/services/beer.service';
 import {UserDatabaseService} from './shared/services/user.service';
-import {SearchModule} from './search/search.module';
+import {SearchResultModule} from './shared/components/search-result/searchResult.module';
 import {UserModule} from './user/user.module';
 import {FriendsModule} from './friends/friends.module';
 import {BreweryModule} from './brewery/brewery.module';
@@ -23,13 +23,16 @@ import {BarDatabaseService} from './shared/services/bar.service';
 import { ImageUploadModule } from '../../node_modules/angular2-image-upload/lib/image-upload.module';
 import {BarInfoComponent} from './bar/bar-info/bar-info.component';
 import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome';
+import {SearchModule} from './search/search.module';
+import { MenuBarComponent } from './shared/components/menu-bar/menu-bar.component'
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { NotificationService } from './shared/services/notification.service';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    MenuBarComponent
   ],
   imports: [
     BrowserModule,
@@ -39,6 +42,7 @@ import { NotificationService } from './shared/services/notification.service';
     BreweryModule,
     HomeModule,
     SearchModule,
+    SearchResultModule,
     AppRoutingModule,
     UserModule,
     FriendsModule,
@@ -55,6 +59,6 @@ import { NotificationService } from './shared/services/notification.service';
 export class AppModule {
   // Diagnostic only: inspect router configuration
   constructor(router: Router) {
-    console.log('Routes: ', JSON.stringify(router.config, undefined, 2));
+    // console.log('Routes: ', JSON.stringify(router.config, undefined, 2));
   }
 }

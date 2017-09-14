@@ -18,12 +18,14 @@ import {GeoService} from './geo.service';
 @Injectable()
 export class UserDatabaseService<User> extends DatabaseService<User>{
     private usersPath: firebase.database.Reference;
+    private beersPath: firebase.database.Reference;
     constructor(
         private barService: BarDatabaseService<Bar>,
         private beerService: BeerDatabaseService<Beer>
     ) {
         super();
         this.usersPath = getDatabase().ref("users");
+        this.beersPath = getDatabase().ref("beers");
     }
 
     create(entity: User): void {
@@ -40,7 +42,7 @@ export class UserDatabaseService<User> extends DatabaseService<User>{
             apiPath.set(dbUser).catch((error) => console.log("Error while updating user", error));
         })
         .catch((error) => {
-            console.log("Error while getting user", error);
+            // console.log("Error while getting user", error);
         });
     }
 
@@ -57,7 +59,7 @@ export class UserDatabaseService<User> extends DatabaseService<User>{
     }
 
     get(id: string): Observable<User> {
-        return Observable.fromEvent(this.usersPath, FirebaseEvent.value.toString(), (snapshot) => {
+        return Observable.fromEvent(this.usersPath.child(id), FirebaseEvent.value.toString(), (snapshot) => {
             var result = snapshot.val();
             let user: User;
             Object.keys(result).filter((value:string) => {
@@ -71,24 +73,24 @@ export class UserDatabaseService<User> extends DatabaseService<User>{
 
     //todo fertig machen
     getAroundYou(myPosition: GeoData, userId: string): void {
-        console.log("yolo");
+        // console.log("yolo");
         const source = Observable.zip(
           this.barService.getAll(),
           this.beerService.getAll(),
           this.getAll(),
           (bars, beers, users) => {
-              console.log("ret");
+              // console.log("ret");
               var ret =  [...bars, ...beers, ...users];
-              console.log(ret);
+              // console.log(ret);
               return ret;
           })
           .map((data) => {
-                console.log("map")
-                console.log(data);
+                // console.log("map")
+                // console.log(data);
                 return data;
           })
           .filter((data) => {
-            console.log("filter");
+            // console.log("filter");
             // if(data.location) {
             //     return isInRange(data.location, " ");
             // }
@@ -96,8 +98,8 @@ export class UserDatabaseService<User> extends DatabaseService<User>{
           });
 
           source.subscribe(function(data) {
-            console.log("foo");
-            console.log(data);
+            // console.log("foo");
+            // console.log(data);
 
             // filter((item) => {
             //     console.log(item);
@@ -106,4 +108,40 @@ export class UserDatabaseService<User> extends DatabaseService<User>{
 
           });
     }
+
+    getFriendsOfUser(userId: string): Observable<User[]> {
+      return Observable.fromEvent(this.usersPath.child(userId).child("friends"), FirebaseEvent.value.toString(), (snapshot) => {
+        const friends: User[] = [];
+        const  friendIds = snapshot.val();
+        if(friendIds) {
+          friendIds.map((value, friendId) => {
+            this.usersPath.child(friendId).once("value").then((friendSnapshot) => {
+              const friendUser = friendSnapshot.val() as User;
+              if(friendUser != null) {
+                friends.push(friendUser);
+              }
+            })
+          })
+        }
+        return friends;
+      });
+    }
+
+  getFavoriteBeersOfUser(userId: string): Observable<Beer[]> {
+    return Observable.fromEvent(this.usersPath.child(userId).child("favoriteBeers"), FirebaseEvent.value.toString(), (snapshot) => {
+      const beers: Beer[] = [];
+      const  beerIds = snapshot.val();
+      if(beerIds) {
+        beerIds.map((value, beerId) => {
+          this.beersPath.child(beerId).once("value").then((beerSnapshot) => {
+            const favoriteBeer = beerSnapshot.val() as Beer;
+            if(favoriteBeer != null) {
+              beers.push(favoriteBeer);
+            }
+          })
+        })
+      }
+      return beers;
+    });
+  }
 }

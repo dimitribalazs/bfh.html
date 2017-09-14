@@ -16,6 +16,7 @@ import {ImageUploaderComponent} from '../image-uploader/image-uploader.component
 import { TasteMultiSelectComponent } from '../shared/components/multi-select/multi-select.component';
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown/angular2-multiselect-dropdown';
 import {BarInfoComponent} from '../bar/bar-info/bar-info.component';
+import {SearchResultModule} from "../shared/components/search-result/searchResult.module";
 
 @NgModule({
   imports: [
@@ -25,6 +26,7 @@ import {BarInfoComponent} from '../bar/bar-info/bar-info.component';
     ReactiveFormsModule,
     AngularMultiSelectModule,
     BeerRoutingModule,
+    SearchResultModule,
     ImageUploadModule.forRoot(),
   ],
   declarations: [

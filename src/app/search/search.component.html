@@ -1,3 +1,14 @@
-<p>
-  search works!
-</p>
+<nav class="container">
+  <button (click)="onClick(0)" [class.activeNavigation]="activefilter===0">All</button>
+  <button (click)="onClick(1)" [class.activeNavigation]="activefilter===1">Bar</button>
+  <button (click)="onClick(2)" [class.activeNavigation]="activefilter===2">Brewery</button>
+  <button (click)="onClick(3)" [class.activeNavigation]="activefilter===3">Beer</button>
+  <button (click)="onClick(4)" [class.activeNavigation]="activefilter===4">People</button>
+</nav>
+
+<app-search-result
+  [filter]="filterSubject"
+  [search]="searchSubject"
+  (onSearchResult)="onResult($event)"
+  (onAddBeer)="onAddBeer($event)">
+</app-search-result>

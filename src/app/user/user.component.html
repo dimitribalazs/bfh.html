@@ -1,13 +1,13 @@
 <div>
   <div class="container">
     <div class="imageShow" style="position:relative;">
-      <img src="{{ '../../' + model.image}}" height="150px" width="150px"/>
+      <img src="{{ '../../' + userService.viewModel.image}}" height="150px" width="150px"/>
     </div>
     <div class="Rating">
-      <h2>{{model.firstname}} {{model.lastname}}</h2>
+      <h2>{{userService.viewModel.firstname}} {{userService.viewModel.lastname}}</h2>
     </div>
     <div>
-      {{model.totalConsumption}} since {{model.registrationDate}}
+      {{userService.viewModel.totalConsumption}} since {{userService.viewModel.registrationDate}}
     </div>
   </div>
   <br>

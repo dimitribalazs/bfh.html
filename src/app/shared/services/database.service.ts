@@ -14,15 +14,15 @@ export abstract class DatabaseService<T> implements OnInit {
 
 
     constructor() {
-        console.log("init DatabaseService")
+        // console.log("init DatabaseService")
     }
 
     ngOnInit(): void {
-        console.log("init DatabaseService via onInit")
+        // console.log("init DatabaseService via onInit")
     }
 
     listen(): void {
-        console.log("listen");
+        // console.log("listen");
         /*
         const dataPath: firebase.database.Reference = this.database.ref("beers");
         dataPath.on("child_added", function(data) {

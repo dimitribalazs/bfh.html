@@ -6,10 +6,7 @@ import {Observable} from 'rxjs/Observable';
 import {Beer, DropDownEntry} from '../shared/dto/beer';
 import {BeerDatabaseService} from '../shared/services/beer.service';
 import {Brewery} from '../shared/dto/brewery';
-import {isUndefined} from 'util';
-import {BarDatabaseService} from '../shared/services/bar.service';
-import {Bar, OpeningHours} from '../shared/dto/bar';
-import {BreweryDatabaseService} from "../shared/services/brewery.service";
+import {BreweryDatabaseService} from '../shared/services/brewery.service';
 
 @Injectable()
 export class BreweryService {

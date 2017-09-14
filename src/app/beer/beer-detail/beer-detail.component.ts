@@ -77,20 +77,24 @@ export class BeerDetailComponent implements OnInit {
 
   onBrewerySelectChange(item: DropDownEntry) {
     if (isUndefined(this.beerService.viewModel.brewery)) {
-      this.beerService.viewModel.brewery = new Brewery()
+      //this.beerService.viewModel.brewery = new Brewery()
     }
-    this.beerService.viewModel.brewery.id = item[0].id;
-    this.beerService.viewModel.brewery.name = item[0].itemName;
+
+    this.beerService.viewModel.brewery = item[0].id;
+    //todo brewery
+    //this.beerService.viewModel.brewery.name = item[0].itemName;
   }
 
   onResult(data: AroundYou) {
-    this.beerService.viewModel.brewery.id = data.id;
-    this.beerService.viewModel.brewery.name = data.name;
-    this.beerService.searchBrewery = false;
+    ////todo brewery
+    this.beerService.viewModel.brewery = data.id;
+    //this.beerService.viewModel.brewery.name = data.name;
+    //this.beerService.searchBrewery = false;
   }
 
   activateSearchBrewery() {
     // this.menuService.visibleSearchInput = true;
-    this.beerService.searchBrewery = true;
+    //todo brewery
+    //this.beerService.searchBrewery = true;
   }
 }

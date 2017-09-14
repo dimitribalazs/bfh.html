@@ -17,7 +17,8 @@ export class BeerInfoComponent implements OnInit {
 
   constructor(private beerService: BierService) {
     //this.model.brewery = new Brewery();
-    this.beerService.searchBrewery = false;
+    //todo brewery
+    //this.beerService.searchBrewery = false;
   }
 
 

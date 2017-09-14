@@ -16,9 +16,7 @@ export class AppComponent {
     this.menu = menuService;
     this.menu.setDefault();
     this.menu.visibleSearchLink = true;
-
   }
-
   onViewDetails() {
     const state: RouterState = this.router.routerState;
     this.router.navigate([state.snapshot.url, 'edit']);

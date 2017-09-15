@@ -14,7 +14,7 @@ import {BarService} from './barService';
 export class BarComponent implements OnInit {
 
   id: string;
-  model: Bar = new Bar;
+  // model: Bar = new Bar;
   ratings: number[] = new Array;
   meRating: number;
 
@@ -28,8 +28,7 @@ export class BarComponent implements OnInit {
   ngOnInit() {
     this.menuService.setNewState({
       titleText: 'Bar info',
-      visibleBack: true,
-      visibleEdit: true
+      visibleHomeLink: true
     });
 
     this.route.params.subscribe(params => {
@@ -38,9 +37,9 @@ export class BarComponent implements OnInit {
       this.barService.loadBar(params['id']);
     });
 
-    this.barService.getBar().subscribe((beer) => {
-      this.model = this.barService.getViewModel();
-    })
+    // this.barService.getBar().subscribe((beer) => {
+    //   this.model = this.barService.getViewModel();
+    // })
 
     this.ratings[1] = 11;
     this.ratings[2] = 20;

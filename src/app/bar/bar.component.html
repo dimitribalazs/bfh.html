@@ -1,7 +1,7 @@
 <div *ngIf="!imageUploadShow">
   <div class="container">
     <div class="imageShow" style="position:relative;">
-      <img src="{{ '../../' + model.image}}" height="150px" width="150px"/>
+      <img src="{{ '../../' + barService.viewModel.image}}" height="150px" width="150px"/>
     </div>
     <div class="Rating">
       <app-beer-rating

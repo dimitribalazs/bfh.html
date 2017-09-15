@@ -52,7 +52,9 @@ export class BarDatabaseService extends DatabaseService{
     get(id: string): Observable<Bar> {
         return Observable.fromEvent(this.barsPath.child(id), FirebaseEvent.value.toString(), (snapshot) => {
             var result = snapshot.val();
-            return result as Bar;
+            const bar: Bar = result;
+          return bar;
+            // return result as Bar;
         });
     }
 

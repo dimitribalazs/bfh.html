@@ -25,6 +25,7 @@ import {BarInfoComponent} from './bar/bar-info/bar-info.component';
 import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome';
 import {SearchModule} from './search/search.module';
 import { MenuBarComponent } from './shared/components/menu-bar/menu-bar.component'
+import {BusinessService} from './shared/services/business.service';
 
 
 @NgModule({
@@ -48,7 +49,7 @@ import { MenuBarComponent } from './shared/components/menu-bar/menu-bar.componen
     ImageUploadModule.forRoot(),
     NgbModule.forRoot(),
   ],
-  providers: [BeerDatabaseService, BarDatabaseService, UserDatabaseService, BreweryDatabaseService, MenuService],
+  providers: [BeerDatabaseService, BarDatabaseService, UserDatabaseService, BreweryDatabaseService, MenuService, BusinessService],
   bootstrap: [AppComponent],
 
 

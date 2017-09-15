@@ -1,47 +1,19 @@
 /**
  * Created by STRI on 22.08.2017.
  */
-import { Injectable, OnInit } from '@angular/core';
-import {Observable} from 'rxjs/Observable';
-import {Beer, DropDownEntry} from '../shared/dto/beer';
-import {BeerDatabaseService} from '../shared/services/beer.service';
-import {Brewery} from '../shared/dto/brewery';
-import {BreweryDatabaseService} from '../shared/services/brewery.service';
+import { Injectable } from '@angular/core';
+import {BusinessService} from '../shared/services/business.service';
+import {BreweryModel} from '../shared/domainModel/viewModels';
 
 @Injectable()
 export class BreweryService {
-  brewery: Observable<Brewery>;
-  beer: Observable<Beer[]>
+
+  viewModel: BreweryModel = new BreweryModel();
+
+  constructor(private businessService: BusinessService) {}
 
 
-
-  viewModel: Brewery = new Brewery();
-  constructor(
-    private beerService: BeerDatabaseService,
-    private breweryService: BreweryDatabaseService) {
-
-  }
-
-
-  getAvailableBeers(barId: string): Observable<Beer[]>  {
-    this.beer = this.beerService.getAll()
-    return this.beer;
-  }
-
-
-  loadBar(id: string): Observable<Brewery>  {
-      this.brewery = this.breweryService.get(id)
-      this.brewery.subscribe((brewery: Brewery) => {
-        this.viewModel = brewery
-      });
-      return this.brewery;
-  }
-
-  getBrewery(): Observable<Brewery>  {
-    return this.brewery;
-  }
-
-  public getViewModel() {
-    return this.viewModel
+  loadBrewery(id: string) {
+    this.businessService.getBrewery(id).subscribe((brewery: BreweryModel) => this.viewModel = brewery);
   }
 }

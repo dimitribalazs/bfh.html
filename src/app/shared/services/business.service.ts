@@ -25,6 +25,7 @@ export class BusinessService {
 
   //subjects
   public barSubject: Subject<BarModel> = new BehaviorSubject<BarModel>(new BarModel());
+  private brewerySubject: Subject<BreweryModel> = new BehaviorSubject<BreweryModel>(new BreweryModel());
   // public barAvailableBeersSubject: Subject<BeerModel[]> = new BehaviorSubject<BeerModel[]>(new Array<BeerModel>());
   // public barsSubject: Subject<BarModel[]> = new BehaviorSubject<BarModel[]>(this.bars);
 
@@ -33,6 +34,7 @@ export class BusinessService {
               private barService: BarDatabaseService,
               private userService: UserDatabaseService) {
     this.barSubject.asObservable();
+    this.brewerySubject.asObservable();
   }
 
 
@@ -62,6 +64,32 @@ export class BusinessService {
     return this.barSubject;
   }
 
+  getBrewery(id: string): Subject<BreweryModel> {
+    // emit the loaded Data
+    this.subscription.unsubscribe()
+    this.subscription = this.breweryService.get(id).subscribe((brewery: Brewery) => {
+      // map dto to viewModel
+      const breweryModel = this.mapBreweryDtoToDomainModel(brewery);
+      // emit the loaded bar data
+      this.brewerySubject.next(breweryModel)
+      // reload the available beers
+      // TODO: funktion fehlt
+      this.beerService.getAll().subscribe((data) => {
+        // map dto to viewModel
+        const beersArr: Array<BeerModel> = new Array<BeerModel>()
+        data.forEach((beer: Beer) => beersArr.push(this.mapBeerDtoToDomainModel(beer)))
+
+        // nur für funktionstest. Wenn getAllBeersByBarId funktioniert wieder löschen
+        const test: BeerModel = new BeerModel();
+        test.name = 'Nur ein test... wieder löschen!!!';
+        beersArr.push(test);
+
+        // emit the available beers
+        breweryModel.beers.next(beersArr)
+      })
+    })
+    return this.brewerySubject;
+  }
 
   private mapBarDtoToDomainModel(barDto: Bar): BarModel {
     const barModel = new BarModel();

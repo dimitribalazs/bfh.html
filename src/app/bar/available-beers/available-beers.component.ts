@@ -1,9 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {BarService} from '../barService';
-import {MenuService} from '../../shared/services/menu.service';
-import {Observable} from 'rxjs/Observable';
-import {Bar} from '../../shared/dto/bar';
-import {Beer} from '../../shared/dto/beer';
+import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 
 @Component({
   selector: 'app-available-beers',
@@ -14,7 +11,8 @@ export class AvailableBeersComponent implements OnInit {
   // beers: Observable<Beer[]>;
 
   service: BarService
-  constructor(private barService: BarService) {
+
+  constructor(private barService: BarService, private router: Router,) {
     this.service = barService;
   }
 
@@ -28,6 +26,9 @@ export class AvailableBeersComponent implements OnInit {
     alert('noch nicht implementiert')
   }
 
+  onShowBeer(id: string) {
+    this.router.navigate(['beer', id]);
+  }
 }
 
 

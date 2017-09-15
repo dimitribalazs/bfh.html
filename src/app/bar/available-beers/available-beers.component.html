@@ -3,8 +3,10 @@
   <div style="overflow-y:scroll; height:300px; background:gray">
     <ul class="list-group">
       <li *ngFor="let beer of service.viewModel.beers | async" class="list-group-item">
-        {{beer.name}} ,{{beer.volume}}%
-        <span class="glyphicon glyphicon-sunglasses pull-right"></span>
+        {{beer.beerName}} ,{{beer.price}}
+        <button (click)="onShowBeer(beer.beerId)" class="btn btn-default btn-sm  pull-right">
+        <span class="glyphicon glyphicon-sunglasses"></span>
+        </button>
       </li>
     </ul>
 

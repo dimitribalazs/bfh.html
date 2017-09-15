@@ -15,10 +15,10 @@
   </div>
   <br>
   <nav class="container" *ngIf="!edit">
-    <button (click)="onClick('beers')">Beers</button>
-    <button (click)="onClick('info')">Info</button>
-    <button (click)="onClick('openingHours')">Open now</button>
-    <button (click)="onClick('photos')">Photos</button>
+    <button (click)="onClick('info',0)" [class.activeNavigation]="activeNavigation===0">Info</button>
+    <button (click)="onClick('beers',1)" [class.activeNavigation]="activeNavigation===1">Beers</button>
+    <button (click)="onClick('openingHours',2)" [class.activeNavigation]="activeNavigation===2">Open now</button>
+    <button (click)="onClick('photos',3)" [class.activeNavigation]="activeNavigation===3">Photos</button>
   </nav>
   <br>
   <div>

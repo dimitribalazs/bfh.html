@@ -3,6 +3,7 @@
  */
 import {Observable} from 'rxjs/Observable';
 import {BehaviorSubject} from 'rxjs/Rx';
+import {falseIfMissing} from "protractor/built/util";
 
 export class BeerModel {
   id: string;
@@ -63,6 +64,24 @@ export class BreweryModel {
 
 }
 
+export class BeerBarModel {
+  beerId: string;
+  beerName: string;
+  barId: string;
+  barName: string;
+  price: string;
+  tapOrBottled: boolean;
+
+  constructor() {
+    this.beerId = '';
+    this.beerName = '';
+    this.barId = '';
+    this.barName = '';
+    this.price = '';
+    this.tapOrBottled = false
+  }
+}
+
 export class BarModel {
   id: string;
   name: string;
@@ -78,7 +97,7 @@ export class BarModel {
   location: GeoData;
   description: String;
   // beers: Array<BeerModel>;
-  beers: BehaviorSubject<BeerModel[]>
+  beers: BehaviorSubject<BeerBarModel[]>
 
   constructor() {
     this.id = '';
@@ -94,7 +113,7 @@ export class BarModel {
     this.location = new GeoData();
     this.description = '';
     // this.beers = new Array<BeerModel>();
-    this.beers = new BehaviorSubject<BeerModel[]>(new Array<BeerModel>());
+    this.beers = new BehaviorSubject<BeerBarModel[]>(new Array<BeerBarModel>());
   }
 }
 

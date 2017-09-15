@@ -14,7 +14,7 @@ import {BeerDatabaseService} from '../services/beer.service';
 import {BreweryDatabaseService} from '../services/brewery.service'
 import {BarDatabaseService} from '../services/bar.service';
 import {UserDatabaseService} from '../services/user.service';
-import {BarModel, BeerModel, BreweryModel} from '../domainModel/viewModels';
+import {BarModel, BeerModel, BreweryModel, BeerBarModel} from '../domainModel/viewModels';
 import {forEach} from "@angular/router/src/utils/collection";
 
 
@@ -48,12 +48,14 @@ export class BusinessService {
       // reload the available beers
       this.beerService.getAllBeersByBarId(bar.id).subscribe((beers) => {
         // map dto to viewModel
-        const beersArr: Array<BeerModel> = new Array<BeerModel>()
-        beers.forEach((beer: Beer) => beersArr.push(this.mapBeerDtoToDomainModel(beer)))
+        const beersArr: Array<BeerBarModel> = new Array<BeerBarModel>()
+        // beers.forEach((beer: Beer) => beersArr.push(this.mapBeerDtoToDomainModel(beer)))
 
         // nur für funktionstest. Wenn getAllBeersByBarId funktioniert wieder löschen
-        const test: BeerModel = new BeerModel();
-        test.name = 'Nur ein test... wieder löschen!!!';
+        const test: BeerBarModel = new BeerBarModel();
+        test.beerId = '1'
+        test.beerName = 'Feldschlösschen';
+        test.price = '5.5 fr.';
         beersArr.push(test);
 
         // emit the available beers

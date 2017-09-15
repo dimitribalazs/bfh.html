@@ -17,12 +17,14 @@ export class BarComponent implements OnInit {
   // model: Bar = new Bar;
   ratings: number[] = new Array;
   meRating: number;
+  activeNavigation: number;
 
 
   constructor(private barService: BarService,
               private route: ActivatedRoute,
               private router: Router,
               private menuService: MenuService) {
+    this.activeNavigation = 0;
   }
 
   ngOnInit() {
@@ -48,8 +50,9 @@ export class BarComponent implements OnInit {
     // console.log(this.route.snapshot.toString())
   }
 
-  onClick(childView: string) {
+  onClick(childView: string, activateNavigation: number) {
     this.router.navigate(['bar', this.id, childView]);
+    this.activeNavigation = activateNavigation;
   }
 
   onRatingChange(rating: RatingModel) {

@@ -29,10 +29,10 @@ export class RatingComponent implements OnInit {
   }
 
   onChange(e) {
-    this.ratingModel.newRating = e;
+    this.ratingModel.newRating = e - 1;
     this.setButtonActiv(e)
     this.onRatingChange.emit(this.ratingModel);
-    this.ratingModel.oldRating = e;
+    this.ratingModel.oldRating = this.ratingModel.newRating;
   }
 
   setButtonActiv(activeIndex: number): void {

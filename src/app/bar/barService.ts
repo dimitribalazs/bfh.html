@@ -1,28 +1,17 @@
 /**
  * Created by STRI on 22.08.2017.
  */
-<<<<<<< HEAD
-import { Injectable, OnInit } from '@angular/core';
-import {Observable} from 'rxjs/Observable';
-import {Beer, DropDownEntry} from '../shared/dto/beer';
-import {BeerDatabaseService} from '../shared/services/beer.service';
-import {BarDatabaseService} from '../shared/services/bar.service';
-import {Bar, OpeningHours} from '../shared/dto/bar';
-import {BarBeer} from '../shared/dto/barBeer';
-import {GeoData} from '../shared/dto/geoData';
-=======
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {BusinessService} from '../shared/services/business.service';
 import {BarModel} from '../shared/domainModel/viewModels';
->>>>>>> remotes/origin/develop
+import {RatingModel} from '../shared/components/rating/ratingModel';
 
 @Injectable()
 export class BarService {
 
   viewModel: BarModel = new BarModel();
 
-  constructor(
-    private businessService: BusinessService) {
+  constructor(private businessService: BusinessService) {
     // this.viewModel = new BarModel();
     // this.viewModel.openingHours = new OpeningHours();
 
@@ -43,6 +32,18 @@ export class BarService {
   }
 
   loadBar(id: string) {
-      this.businessService.getBar(id).subscribe((bar: BarModel) => this.viewModel = bar);
+    this.businessService.getBar(id).subscribe((bar: BarModel) => this.viewModel = bar);
+  }
+
+  // set the new user rating
+  setUserRating(rating: RatingModel) {
+    this.viewModel.ratings[rating.oldRating] >= 0 ?
+      this.viewModel.ratings[rating.oldRating] = 0 :
+      this.viewModel.ratings[rating.oldRating] -= 1;
+
+    this.viewModel.ratings[rating.newRating] += 1;
+    this.viewModel.userRating = rating.newRating;
+    this.businessService.setBarRating(this.viewModel.ratings[0], this.viewModel.ratings[1],
+      this.viewModel.ratings[2], this.viewModel.userRating)
   }
 }

@@ -40,7 +40,15 @@ export class SearchComponent implements OnInit {
     this.menuService.setNewState({
       visibleBack: true,
       visibleSearchInput: true,
+<<<<<<< HEAD
       callback: e => console.log(e.target.value)
+=======
+      visibleTitle: false,
+      onInput: (e: string) => {
+        this.activeSearchString = e;
+        this.searchSubject.next(e)
+      }
+>>>>>>> remotes/origin/develop
     });
   }
 

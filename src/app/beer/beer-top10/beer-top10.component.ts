@@ -21,9 +21,4 @@ export class BeerTop10Component {
   onSelect(beer: Beer) {
     this.router.navigate(['beer', beer.id]);
   }
-
-  onTest() {
-    // console.log("jep")
-  }
-
 }

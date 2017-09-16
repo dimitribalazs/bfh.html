@@ -15,25 +15,9 @@ export class BeerInfoComponent implements OnInit {
   taste: String = '';
   brewType: String = '';
 
-  constructor(private beerService: BierService) {
-    //this.model.brewery = new Brewery();
-    //todo brewery
-    //this.beerService.searchBrewery = false;
-  }
+  constructor(private beerService: BierService) {}
 
 
-  ngOnInit() {
-    this.beerService.getBeer().subscribe((beer) => {
-      this.model = this.beerService.getViewModel();
-      for (let taste of this.model.taste)
-      {
-        this.taste = this.taste + '{' + taste.itemName + '} '
-      }
-      for (let brewType of this.model.brewType)
-      {
-        this.brewType = this.brewType + '{' + brewType.itemName + '} '
-      }
-    })
-  }
+  ngOnInit() {}
 
 }

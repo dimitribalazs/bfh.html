@@ -12,22 +12,27 @@
         <span class="glyphicon glyphicon-menu-hamburger"></span>
 
       </button>
+      <button *ngIf="menuState.visibleHomeLink" routerLink="/home" routerLinkActive="active"
+      class="btn btn-default pull-left menubutton-left">
+      <span class="glyphicon glyphicon-home"></span>
+      </button>
       <button *ngIf="menuState.visibleBack" type="button" class="btn btn-default pull-left menubutton-left"
               (click)="historyBack()">
         <span class="glyphicon glyphicon-chevron-left"></span>
       </button>
     </div>
     <a *ngIf="menuState.visibleTitle" class="navbar-brand" href="#">{{menuState.titleText}}</a>
-    <div class="navbar-header pull-right">
-      <form *ngIf="menuState.visibleSearchInput" class="navbar-form" role="search">
+      <form *ngIf="menuState.visibleSearchInput" class="navbar-left navbar-search" role="search">
         <div class="form-group">
+<<<<<<< HEAD
           <input type="text" (input)="menuState.onSearchInputChange($event)"
+=======
+          <input type="text" (input)="this.menuService.onInput($event.target.value)"
+>>>>>>> remotes/origin/develop
                  class="form-control" placeholder="Search">
         </div>
-        <button type="submit" class="btn btn-default">
-          <span class="glyphicon glyphicon-search"></span>
-        </button>
       </form>
+    <div class="navbar-header pull-right">
       <a *ngIf="menuState.visibleSearchLink" routerLink="/search" routerLinkActive="active" role="button"
          class="btn btn-default menubutton-right">
         <span class="glyphicon glyphicon-search"></span>
@@ -36,7 +41,7 @@
       <a *ngIf="menuState.visibleEdit" (click)="onViewDetails()" class="btn btn-default menubutton-right">
         <span class="glyphicon glyphicon-pencil"></span>
       </a>
-      <a *ngIf="menuState.visibleSave" (click)="menu.submit()" type="submit"
+      <a *ngIf="menuState.visibleSave" (click)="this.menuService.onSubmit()" type="submit"
               class="btn btn-default menubutton-right">
         <span class="glyphicon glyphicon-ok"></span>
       </a>
@@ -47,7 +52,7 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"
          [ngClass]="{ 'toggleMenuStyle' : toggleMenu === true }">
       <ul class="nav navbar-nav">
-        <li><a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp;Account</a></li>
+        <li [ngClass]="{ 'menuitem-first': toggleMenu === true }"><a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp;Account</a></li>
         <li><a href="#"><span class="glyphicon glyphicon-cog"></span>&nbsp;Settings</a></li>
         <li><a href="#"><span class="glyphicon glyphicon-log-out"></span>&nbsp;Logout</a></li>
       </ul>

@@ -54,7 +54,7 @@ export class BeerDatabaseService extends DatabaseService {
         resultFromApi.set(dbBeer).catch((error) => console.log("Error while updating beer", error));
       })
       .catch((error) => {
-        // console.log("Error while getting beer", error);
+         console.log("Error while getting beer", error);
       });
   }
 
@@ -70,20 +70,9 @@ export class BeerDatabaseService extends DatabaseService {
     });
   }
 
-  getAllBeersByBarId(barId: string): Observable<Beer[]> {
+  getAllBarBeersByBarId(barId: string): Observable<BarBeer[]> {
     return Observable.fromEvent(this.barBeersPath.orderByChild("bar").equalTo(barId), FirebaseEvent.value.toString(), (barBeerSnapshot) => {
-      var barBeers = barBeerSnapshot.val();
-      const beers: Beer[] = [];
-      // console.log(barBeers);
-      if (!isNullOrUndefined(barBeers)) {
-        Object.keys(barBeers).map((value: string) => {
-          let barBeer = barBeers[value] as BarBeer;
-          this.beersPath.child(barBeer.beer.toString()).once(FirebaseEvent.value.toString(), (beerSnapshot) => {
-            beers.push(beerSnapshot.val() as Beer);
-          });
-        });
-      }
-      return beers;
+      return  barBeerSnapshot.val() as BarBeer[];
     });
   }
 

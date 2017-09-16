@@ -8,3 +8,19 @@
 .horizontal-scroller-inner {
   width: 60em;
 }
+
+.activeNavigation {
+  background: lightgray;
+  border-style: solid solid none solid;
+  border-width: 1px;
+  border-color: #337ab7;
+  border-radius: 5px 5px 0 0 !important;
+}
+
+.inactiveNavigation {
+  background: #f9f9f9;
+  border-style: none none solid none;
+  border-width: 1px;
+  border-color: #337ab7;
+  border-radius: 0 !important;
+}

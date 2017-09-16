@@ -7,7 +7,7 @@ import { BeerComponent } from './beer.component';
 import { BeerDetailComponent } from './beer-detail/beer-detail.component';
 
 import { BeerRoutingModule} from './beer-routing.module';
-import {BierService} from './beerService'
+import {BeerService} from './beerService'
 
 import {BeerRating} from '../shared/components/rating/rating.component';
 import { BeerInfoComponent } from './beer-info/beer-info.component';
@@ -17,6 +17,8 @@ import { TasteMultiSelectComponent } from '../shared/components/multi-select/mul
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown/angular2-multiselect-dropdown';
 import {BarInfoComponent} from '../bar/bar-info/bar-info.component';
 import {SearchResultModule} from "../shared/components/search-result/searchResult.module";
+import {BreweryInfoComponent} from "./brewery-info/brewery-info.component";
+import {AvailableBeersComponent} from "./available-bars/available-beers.component";
 
 @NgModule({
   imports: [
@@ -33,10 +35,12 @@ import {SearchResultModule} from "../shared/components/search-result/searchResul
     BeerComponent,
     BeerDetailComponent,
     BeerInfoComponent,
+    BreweryInfoComponent,
+    AvailableBeersComponent,
     BeerRating,
     ImageUploaderComponent,
     TasteMultiSelectComponent
   ],
-  providers: [BierService]
+  providers: [BeerService]
 })
 export class BeerModule { }

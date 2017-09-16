@@ -164,6 +164,7 @@ export class HomeComponent implements OnInit {
     this.serviceUser.getFavoriteBeersOfUser("1").subscribe((data) => console.log("favs", data));
     this.serviceUser.getFriendsOfUser("1").subscribe((data) => console.log("friends", data));
 
+
     //Wohlen AG
     var lat = 47.349365;
     var long = 8.276876;

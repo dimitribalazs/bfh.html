@@ -68,25 +68,34 @@ export class BusinessService {
       // load the userrating
       // TODO laden von DB (funktion fehlt)
       beerModel.userRating = 0;
+      this.userService.getBeerRatingsByBeerId("1").subscribe(user => console.log("rating", user));
+      this.breweryService.get(beer.brewery).subscribe((brewery) => beerModel.brewery = this.mapBreweryDtoToDomainModel(brewery));
       // emit the loaded bar data
       this.beerSubject.next(beerModel)
       // reload the available beers
       // TODO: getBarByBeer funktion fehlt
       this.barService.getAll().subscribe((data) => {
         // map dto to viewModel
-        const beersArr: Array<BeerBarModel> = new Array<BeerBarModel>()
-        // beers.forEach((beer: Beer) => beersArr.push(this.mapBeerDtoToDomainModel(beer)))
+        // reload the available bars
+        this.beerService.getAllBarBeersByBeerId(beer.id).subscribe((barBeers: BarBeer[]) => {
+          // map dto to viewModel
+          const beersArr: Array<BeerBarModel> = new Array<BeerBarModel>()
+          // beers.forEach((beer: Beer) => beersArr.push(this.mapBeerDtoToDomainModel(beer)))
+          Object.keys(barBeers).map((value: string) => {
+            const barBeer: BarBeer = barBeers[value] as BarBeer;
+            const model  = new BeerBarModel();
+            model.barName = barBeer.barName;
+            model.barId = barBeer.bar;
+            model.beerName = barBeer.beerName;
+            model.beerId = barBeer.beer;
+            model.price = barBeer.price.toString();
+            beersArr.push(model);
+          });
 
+          // emit the available beers
+          beerModel.bars.next(beersArr)
 
-
-        // nur für funktionstest. Wenn getAllBeersByBarId funktioniert wieder löschen
-        const test: BeerBarModel = new BeerBarModel();
-        test.barId = '1'
-        test.barName = 'Barbièr';
-        beersArr.push(test);
-
-        // emit the available beers
-        beerModel.bars.next(beersArr)
+        })
       })
     })
     return this.beerSubject;
@@ -160,7 +169,7 @@ export class BusinessService {
       this.brewerySubject.next(breweryModel)
       // reload the available beers
       // TODO: getBeerByBrewery funktion fehlt
-      this.beerService.getAll().subscribe((data) => {
+      this.beerService.getAllBeersByBreweryId(id).subscribe((data) => {
         // map dto to viewModel
         const beersArr: Array<BeerModel> = new Array<BeerModel>()
         data.forEach((beer: Beer) => beersArr.push(this.mapBeerDtoToDomainModel(beer)))
@@ -338,6 +347,7 @@ export class BusinessService {
     dto.volume = model.volume;
     dto.brewType = new Array<DropDownEntry>();
     dto.brewType = model.brewType;
+    dto.brewery = model.brewery.id
     // TODO save in db
     // dto.ratings[] = model.ratings[];
     dto.image = model.image;

@@ -13,7 +13,7 @@ export class BeerModel {
   brewType: DropDownEntry[];
   ratings: Array<number>;
   userRating: number;
-  brewery: BehaviorSubject<BreweryModel>
+  brewery: BreweryModel
   bars: BehaviorSubject<BeerBarModel[]>
   image: string;
   taste: Array<DropDownEntry>;
@@ -24,7 +24,7 @@ export class BeerModel {
     this.name = '';
     this.volume = 0;
     this.brewType = new Array<DropDownEntry>();
-    this.brewery = new BehaviorSubject<BreweryModel>(new BreweryModel());
+    this.brewery = new BreweryModel();
     this.ratings = new Array<number>(3)
     this.ratings[0] = 0;
     this.ratings[1] = 0;

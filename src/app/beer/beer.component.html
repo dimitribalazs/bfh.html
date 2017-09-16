@@ -17,15 +17,15 @@
     </div>
   </div>
   <br>
-  <!--<nav class="container" *ngIf="!edit">-->
-    <!--<button (click)="onClick('details')">Detail</button>-->
-    <!--<button (click)="onClick('brewery')">Brewery</button>-->
-    <!--<button (click)="onClick('bars')">Bars</button>-->
-  <!--</nav>-->
+  <nav class="container" *ngIf="!edit">
+    <button (click)="onClick('info')">Info</button>
+    <button (click)="onClick('brewery')">Brewery</button>
+    <button (click)="onClick('bars')">Bars</button>
+  </nav>
   <br>
   <div>
     <router-outlet></router-outlet>
   </div>
 </div>
 
-<app-image-uploader titleDetail={{model.name}} *ngIf="imageUploadShow"></app-image-uploader>
+<app-image-uploader titleDetail={{beerService.viewModel.name}} *ngIf="imageUploadShow"></app-image-uploader>

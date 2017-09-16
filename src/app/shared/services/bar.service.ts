@@ -16,7 +16,7 @@ export class BarDatabaseService extends DatabaseService{
         super();
         this.barsPath = getDatabase().ref("bars");
         this.beersPath = getDatabase().ref("beers");
-        this.barBeerPath = getDatabase().ref("beerBars");
+        this.barBeerPath = getDatabase().ref("barBeers");
     }
 
     create(entity: Bar): void {

@@ -7,7 +7,7 @@ import {BusinessService} from '../shared/services/business.service';
 import {RatingModel} from '../shared/components/rating/ratingModel';
 
 @Injectable()
-export class BierService {
+export class BeerService {
 
   breweryDropDownList: DropDownEntry[] = [];
 

@@ -14,12 +14,16 @@ import {AroundYou} from '../dto/aroundYou'
 import {getDatabase} from './firebase';
 import {GeoService} from './geo.service';
 import {IGeoData} from "../dto/IGeoData";
+import {UserBeerRating} from "../dto/userBeerRating";
 
 
 @Injectable()
 export class UserDatabaseService extends DatabaseService{
     private usersPath: firebase.database.Reference;
     private beersPath: firebase.database.Reference;
+    private userBeerRatingsPath: firebase.database.Reference;
+    private userBarRatingsPath: firebase.database.Reference;
+
     constructor(
         private barService: BarDatabaseService,
         private beerService: BeerDatabaseService,
@@ -28,6 +32,8 @@ export class UserDatabaseService extends DatabaseService{
         super();
         this.usersPath = getDatabase().ref("users");
         this.beersPath = getDatabase().ref("beers");
+        this.userBeerRatingsPath = getDatabase().ref("userBeerRatings");
+      this.userBeerRatingsPath = getDatabase().ref("userBarRatings");
     }
 
     create(entity: User): void {
@@ -117,4 +123,32 @@ export class UserDatabaseService extends DatabaseService{
       return beers;
     });
   }
+
+  getBeerRatingsByUserId(userId: string): Observable<UserBeerRating[]> {
+    return Observable.fromEvent(this.userBeerRatingsPath, FirebaseEvent.value.toString(), (snapshot) => {
+      const ratings: UserBeerRating[] = [];
+      const dbData = snapshot.val();
+      Object.keys(dbData).map(value => ratings.push(dbData[value] as UserBeerRating));
+      return ratings.filter(rating => rating.user == userId);
+    });
+  }
+
+  getBeerRatingsByBeerId(beerId: string): Observable<UserBeerRating[]> {
+    return Observable.fromEvent(this.userBeerRatingsPath, FirebaseEvent.value.toString(), (snapshot) => {
+      const ratings: UserBeerRating[] = [];
+      const dbData = snapshot.val();
+      Object.keys(dbData).map(value => ratings.push(dbData[value] as UserBeerRating));
+      return ratings.filter(rating => rating.beer == beerId);
+    });
+  }
+
+  getBarRatingsByBarId(beerId: string): Observable<UserBeerRating[]> {
+    return Observable.fromEvent(this.userBeerRatingsPath, FirebaseEvent.value.toString(), (snapshot) => {
+      const ratings: UserBeerRating[] = [];
+      const dbData = snapshot.val();
+      Object.keys(dbData).map(value => ratings.push(dbData[value] as UserBeerRating));
+      return ratings.filter(rating => rating.beer == beerId);
+    });
+  }
+
 }

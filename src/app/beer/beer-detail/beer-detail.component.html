@@ -20,16 +20,16 @@
           <div>
             <label for="brewery">Brewery</label>
           </div>
-          <Form class="formInputButtonField">
+          <!--<Form class="formInputButtonField">-->
             <input type="text" class="form-control" id="brewery" required
                    [(ngModel)]="beerService.viewModel.brewery.name" name="brewery" #brewery="ngModel" readonly>
             <button (click)="activateSearchBrewery()" class="btn btn-default btn-sm">
               <span class="glyphicon glyphicon-search"></span>
             </button>
-          </Form>
+          <!--</Form>-->
         </div>
 
-        <div *ngIf="!beerService.searchBrewery">
+        <div *ngIf="!searchBrewery">
           <div class="form-group">
             <div>
               <label for="volume">Alcohol in %</label>
@@ -71,14 +71,14 @@
             </div>
           </div>
         </div>
-        <!--<div *ngIf="beerService.searchBrewery">-->
+        <div *ngIf="searchBrewery">
           <app-search-result
             [filter]="filterSubject"
             [search]="searchSubject"
             (onSearchResult)="onResult($event)"
             (onAddBeer)="onAddBeer($event)">
           </app-search-result>
-        <!--</div>-->
+        </div>
       </form>
     </div>
   </div>

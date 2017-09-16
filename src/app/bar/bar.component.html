@@ -14,12 +14,22 @@
     </div>
   </div>
   <br>
-  <nav class="container" *ngIf="!edit">
-    <button (click)="onClick('info',0)" [class.activeNavigation]="activeNavigation===0">Info</button>
-    <button (click)="onClick('beers',1)" [class.activeNavigation]="activeNavigation===1">Beers</button>
-    <button (click)="onClick('openingHours',2)" [class.activeNavigation]="activeNavigation===2">{{barService.viewModel.openNowText}}</button>
-    <button (click)="onClick('photos',3)" [class.activeNavigation]="activeNavigation===3">Photos</button>
-  </nav>
+  <ul class="nav nav-pills" *ngIf="!edit">
+    <li role="presentation">
+      <a (click)="onClick('info',0)" [class.activeNavigation]="activeNavigation===0" [class.inactiveNavigation]="activeNavigation !== 0">Info</a>
+    </li>
+    <li role="presentation">
+      <a (click)="onClick('beers',1)" [class.activeNavigation]="activeNavigation===1" [class.inactiveNavigation]="activeNavigation !== 1">Beers</a>
+    </li>
+    <li role="presentation">
+      <a (click)="onClick('openingHours',2)" [class.activeNavigation]="activeNavigation===2" [class.inactiveNavigation]="activeNavigation !== 2">
+        {{barService.viewModel.openNowText}}
+      </a>
+    </li>
+    <li role="presentation">
+      <a (click)="onClick('photos',3)" [class.activeNavigation]="activeNavigation===3" [class.inactiveNavigation]="activeNavigation !== 3">Photos</a>
+    </li>
+  </ul>
   <br>
   <div>
     <router-outlet></router-outlet>

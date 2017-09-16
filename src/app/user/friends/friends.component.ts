@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {User} from '../../shared/dto/user';
 import {Observable} from 'rxjs/Observable';
 import {UserService} from '../userService';
-import { Router, ActivatedRoute } from '@angular/router';
+import {Router, ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-friends',
@@ -11,14 +11,12 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class FriendsComponent implements OnInit {
 
-  friends: Observable<User[]>;
   constructor(private userService: UserService,
               private router: Router,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute) {
+  }
 
   ngOnInit() {
-
-    this.friends = this.userService.getFriends();
   }
 
   onSelect(user: User) {
@@ -26,7 +24,7 @@ export class FriendsComponent implements OnInit {
     this.router.navigate(['/user', user.id]);
 
 
-      this.userService.loadUser(user.id);
+    this.userService.loadUser(user.id);
   }
 
 }

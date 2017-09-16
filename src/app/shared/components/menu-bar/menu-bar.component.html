@@ -12,6 +12,10 @@
         <span class="glyphicon glyphicon-menu-hamburger"></span>
 
       </button>
+      <button *ngIf="menuState.visibleHomeLink" routerLink="/home" routerLinkActive="active"
+      class="btn btn-default pull-left menubutton-left">
+      <span class="glyphicon glyphicon-home"></span>
+      </button>
       <button *ngIf="menuState.visibleBack" type="button" class="btn btn-default pull-left menubutton-left"
               (click)="historyBack()">
         <span class="glyphicon glyphicon-chevron-left"></span>

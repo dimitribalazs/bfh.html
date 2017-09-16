@@ -39,7 +39,8 @@ export class BeerDetailComponent implements OnInit {
       titleText: 'Enter or edit beer info',
       visibleSave: true,
       visibleBack: true,
-      visibleTitie: true,
+      visibleHomeLink: true,
+      visibleTitle: true,
       callback: (e: string) => {
         this.searchSubject.next(e)
       }

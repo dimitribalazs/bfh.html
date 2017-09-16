@@ -1,17 +1,17 @@
 
   <div class="btn-group" data-toggle="buttons">
     <label class="btn active" [class.activeRating]="activeRating[0]">
-      <input name="options" type="radio" [checked]="rating==1" (click)="onChange(1)">
+      <input name="options" type="radio"  (click)="onChange(1)">
       <span class="glyphicon glyphicon-minus"></span>
     </label>
 
     <label class="btn active" [class.activeRating]="activeRating[1]">
-      <input name="options" type="radio" [checked]="rating==2" (click)="onChange(2)">
+      <input name="options" type="radio" (click)="onChange(2)">
       <span class="	glyphicon glyphicon-ok"></span>
     </label>
 
     <label class="btn t active" [class.activeRating]="activeRating[2]">
-      <input name="options" type="radio" [checked]="rating==3" (click)="onChange(3)">
+      <input name="options" type="radio" (click)="onChange(3)">
       <span class="glyphicon glyphicon-plus"></span>
     </label>
   </div>

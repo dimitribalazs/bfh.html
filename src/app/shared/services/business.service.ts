@@ -14,12 +14,18 @@ import {BeerDatabaseService} from '../services/beer.service';
 import {BreweryDatabaseService} from '../services/brewery.service'
 import {BarDatabaseService} from '../services/bar.service';
 import {UserDatabaseService} from '../services/user.service';
-import {BarModel, BeerModel, BreweryModel, BeerBarModel} from '../domainModel/viewModels';
+import {BarModel, BeerModel, BreweryModel, BeerBarModel, Time} from '../domainModel/viewModels';
+import {RatingModel} from '../components/rating/ratingModel';
 import {forEach} from "@angular/router/src/utils/collection";
+import {isNullOrUndefined} from "util";
 
 
 @Injectable()
 export class BusinessService {
+
+  // TODO Login
+  currentUser = 1;
+  debugMode: boolean = true
 
   subscription: Subscription = new Subscription()
 
@@ -37,12 +43,15 @@ export class BusinessService {
     this.brewerySubject.asObservable();
   }
 
-
+  // load a bar with id
   getBar(id: string): Subject<BarModel> {
     // emit the loaded Data
     this.subscription = this.barService.get(id).subscribe((bar: Bar) => {
       // map dto to viewModel
       const barModel = this.mapBarDtoToDomainModel(bar);
+      // load the userrating
+      // TODO laden von DB (funktion fehlt)
+      barModel.userRating = 0;
       // emit the loaded bar data
       this.barSubject.next(barModel)
       // reload the available beers
@@ -66,16 +75,21 @@ export class BusinessService {
     return this.barSubject;
   }
 
+  setBarRating(ratingBad: number, ratingOk: number, ratingGreat: number, userRating: number) {
+    // TODO speichern in DB
+
+  }
+
   getBrewery(id: string): Subject<BreweryModel> {
     // emit the loaded Data
     this.subscription.unsubscribe()
     this.subscription = this.breweryService.get(id).subscribe((brewery: Brewery) => {
       // map dto to viewModel
-      const breweryModel = this.mapBreweryDtoToDomainModel(brewery);
+      const breweryModel: BreweryModel = this.mapBreweryDtoToDomainModel(brewery);
       // emit the loaded bar data
       this.brewerySubject.next(breweryModel)
       // reload the available beers
-      // TODO: funktion fehlt
+      // TODO: getBeerByBrewery funktion fehlt
       this.beerService.getAll().subscribe((data) => {
         // map dto to viewModel
         const beersArr: Array<BeerModel> = new Array<BeerModel>()
@@ -93,39 +107,95 @@ export class BusinessService {
     return this.brewerySubject;
   }
 
-  private mapBarDtoToDomainModel(barDto: Bar): BarModel {
-    const barModel = new BarModel();
-    barModel.id = barDto.id;
-    barModel.name = barDto.name;
-    barModel.address = barDto.address;
-    barModel.city = barDto.city;
-    barModel.plz = barDto.plz;
-    barModel.rating = barDto.rating;
-    barModel.size = barDto.size;
-    barModel.isSmokingAllowed = barDto.isSmokingAllowed;
-    barModel.openingHours = barDto.openingHours;
-    barModel.snacks = barDto.snacks;
-    barModel.image = barDto.image;
-    barModel.location = barDto.location;
-    barModel.description = barDto.description;
+  private mapBarDtoToDomainModel(dto: Bar): BarModel {
+    const model = new BarModel();
+    model.id = dto.id;
+    model.name = dto.name;
+    model.address = dto.address;
+    model.city = dto.city;
+    model.plz = dto.plz;
+    // TODO laden von dto
+    // barModel.rating[0] = barDto.rating;
+    // barModel.rating[1] = barDto.rating;
+    // barModel.rating[2] = barDto.rating;
+    model.ratings[0] = 0;
+    model.ratings[1] = 0;
+    model.ratings[2] = 0;
+    model.size = dto.size;
+    model.isSmokingAllowed = dto.isSmokingAllowed;
+    model.openingHours = dto.openingHours;
+    model.snacks = dto.snacks;
+    model.image = dto.image;
+    model.location = dto.location;
+    model.description = dto.description;
     // barModel.beers = new Array();
-    return barModel;
+
+    const ArrayOpen: Array<Time> = new Array()
+    const ArrayClose: Array<Time> = new Array()
+
+    ArrayOpen[6] = new Time
+    ArrayOpen[6].houre = 7;
+    ArrayOpen[6].min = 7;
+    ArrayOpen[6].sec = 0;
+
+    ArrayClose[6] = new Time
+    ArrayClose[6].houre = 25;
+    ArrayClose[6].min = 30;
+    ArrayClose[6].sec = 0;
+
+    // TODO set barModel.openNowText
+    const currentTime = new Date()
+    currentTime.setHours(25)
+    if (!isNullOrUndefined(ArrayOpen[currentTime.getDay()]) && !isNullOrUndefined(ArrayClose[currentTime.getDay()])) {
+      const openFrom = new Date();
+      openFrom.setHours(ArrayOpen[6].houre, ArrayOpen[6].min, ArrayOpen[6].sec)
+
+      const openTo = new Date();
+      openTo.setHours(ArrayClose[6].houre, ArrayClose[6].min, ArrayClose[6].sec)
+
+
+      if (currentTime > openFrom && currentTime < openTo) {
+        console.log('******** Open now')
+      }else {
+        console.log('******** Cloesed now: ' + currentTime)
+      }
+    }else {
+      console.log('******** Cloesed now: ' + currentTime)
+    }
+
+    if (this.debugMode) {
+      console.log('mapBeerDtoToDomainModel')
+      console.log('dto:')
+      console.log(dto)
+      console.log('viewModel:')
+      console.log(model)
+    }
+
+    return model;
   }
 
-  private mapBeerDtoToDomainModel(beerDto: Beer): BeerModel {
-    const beerModel = new BeerModel();
-    beerModel.id = beerDto.id;
-    beerModel.name = beerDto.name;
-    beerModel.description = beerDto.description;
-    beerModel.volume = beerDto.volume;
-    beerModel.brewType = beerDto.brewType;
-    beerModel.rating = beerDto.rating;
-    beerModel.brewery = beerDto.brewery;
-    beerModel.bars = new Array<BarModel>();
-    beerModel.image = beerDto.image;
-    beerModel.taste = beerDto.taste;
-    beerModel.location = beerDto.location;
-    return beerModel;
+
+  private mapBeerDtoToDomainModel(dto: Beer): BeerModel {
+    const model = new BeerModel();
+    model.id = dto.id;
+    model.name = dto.name;
+    model.description = dto.description;
+    model.volume = dto.volume;
+    model.brewType = dto.brewType;
+    model.rating = dto.rating;
+    model.brewery = dto.brewery;
+    model.bars = new Array<BarModel>();
+    model.image = dto.image;
+    model.taste = dto.taste;
+    model.location = dto.location;
+    if (this.debugMode) {
+      console.log('mapBeerDtoToDomainModel')
+      console.log('dto:')
+      console.log(dto)
+      console.log('viewModel:')
+      console.log(model)
+    }
+    return model;
   }
 
   private mapBreweryDtoToDomainModel(dto: Brewery): BreweryModel {
@@ -141,6 +211,13 @@ export class BusinessService {
     model.geoLocation = dto.geoLocation;
     model.description = dto.description;
     model.image = dto.image;
+    if (this.debugMode) {
+      console.log('mapBeerDtoToDomainModel')
+      console.log('dto:')
+      console.log(dto)
+      console.log('viewModel:')
+      console.log(model)
+    }
     return model;
   }
 

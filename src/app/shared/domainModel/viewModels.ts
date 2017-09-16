@@ -88,7 +88,7 @@ export class BarModel {
   address: string;
   city: string;
   plz: string;
-  rating: number;
+  // rating: number;
   size: number;
   image: string;
   isSmokingAllowed: boolean;
@@ -96,6 +96,9 @@ export class BarModel {
   snacks: string; //todo change
   location: GeoData;
   description: String;
+  ratings: Array<number>;
+  userRating: number;
+  openNowText: string;
   // beers: Array<BeerModel>;
   beers: BehaviorSubject<BeerBarModel[]>
 
@@ -105,10 +108,15 @@ export class BarModel {
     this.address = '';
     this.city = '';
     this.plz = '';
-    this.rating = 0;
     this.size = 0;
+    this.ratings = new Array<number>(3)
+    this.ratings[0] = 0;
+    this.ratings[1] = 0;
+    this.ratings[2] = 0;
+    this.userRating = 0;
     this.isSmokingAllowed = false;
     this.openingHours = new OpeningHours();
+    this.openNowText = 'closed now'
     this.snacks = '';
     this.location = new GeoData();
     this.description = '';
@@ -170,6 +178,12 @@ export class UserFriends {
 export class DropDownEntry {
   id: string;
   itemName: string;
+}
+
+export class Time {
+  houre: number;
+  min: number;
+  sec: number
 }
 
 export class DropDownlists {

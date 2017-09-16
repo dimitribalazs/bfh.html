@@ -1,17 +1,17 @@
 /**
  * Created by STRI on 22.08.2017.
  */
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {BusinessService} from '../shared/services/business.service';
 import {BarModel} from '../shared/domainModel/viewModels';
+import {RatingModel} from '../shared/components/rating/ratingModel';
 
 @Injectable()
 export class BarService {
 
   viewModel: BarModel = new BarModel();
 
-  constructor(
-    private businessService: BusinessService) {
+  constructor(private businessService: BusinessService) {
     // this.viewModel = new BarModel();
     // this.viewModel.openingHours = new OpeningHours();
 
@@ -32,6 +32,18 @@ export class BarService {
   }
 
   loadBar(id: string) {
-      this.businessService.getBar(id).subscribe((bar: BarModel) => this.viewModel = bar);
+    this.businessService.getBar(id).subscribe((bar: BarModel) => this.viewModel = bar);
+  }
+
+  // set the new user rating
+  setUserRating(rating: RatingModel) {
+    this.viewModel.ratings[rating.oldRating] >= 0 ?
+      this.viewModel.ratings[rating.oldRating] = 0 :
+      this.viewModel.ratings[rating.oldRating] -= 1;
+
+    this.viewModel.ratings[rating.newRating] += 1;
+    this.viewModel.userRating = rating.newRating;
+    this.businessService.setBarRating(this.viewModel.ratings[0], this.viewModel.ratings[1],
+      this.viewModel.ratings[2], this.viewModel.userRating)
   }
 }

@@ -5,10 +5,10 @@
     </div>
     <div class="Rating">
       <app-beer-rating
-        ratingBad={{ratings[1]}}
-        ratingOk={{ratings[2]}}
-        ratingGreat={{ratings[3]}}
-        rating=1
+        ratingBad={{barService.viewModel.ratings[0]}}
+        ratingOk={{barService.viewModel.ratings[1]}}
+        ratingGreat={{barService.viewModel.ratings[2]}}
+        [rating]='barService.viewModel.userRating'
         (onRatingChange)="onRatingChange($event)">
       </app-beer-rating>
     </div>
@@ -17,7 +17,7 @@
   <nav class="container" *ngIf="!edit">
     <button (click)="onClick('info',0)" [class.activeNavigation]="activeNavigation===0">Info</button>
     <button (click)="onClick('beers',1)" [class.activeNavigation]="activeNavigation===1">Beers</button>
-    <button (click)="onClick('openingHours',2)" [class.activeNavigation]="activeNavigation===2">Open now</button>
+    <button (click)="onClick('openingHours',2)" [class.activeNavigation]="activeNavigation===2">{{barService.viewModel.openNowText}}</button>
     <button (click)="onClick('photos',3)" [class.activeNavigation]="activeNavigation===3">Photos</button>
   </nav>
   <br>

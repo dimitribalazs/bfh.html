@@ -14,9 +14,6 @@ import {BarService} from './barService';
 export class BarComponent implements OnInit {
 
   id: string;
-  // model: Bar = new Bar;
-  ratings: number[] = new Array;
-  meRating: number;
   activeNavigation: number;
 
 
@@ -24,7 +21,6 @@ export class BarComponent implements OnInit {
               private route: ActivatedRoute,
               private router: Router,
               private menuService: MenuService) {
-    this.activeNavigation = 0;
   }
 
   ngOnInit() {
@@ -34,20 +30,10 @@ export class BarComponent implements OnInit {
     });
 
     this.route.params.subscribe(params => {
-      // console.log('Load bar:' + params['id']);
       this.id = params['id'];
       this.barService.loadBar(params['id']);
     });
-
-    // this.barService.getBar().subscribe((beer) => {
-    //   this.model = this.barService.getViewModel();
-    // })
-
-    this.ratings[1] = 11;
-    this.ratings[2] = 20;
-    this.ratings[3] = 4;
-    this.meRating = 1
-    // console.log(this.route.snapshot.toString())
+    this.activeNavigation = 0;
   }
 
   onClick(childView: string, activateNavigation: number) {
@@ -56,7 +42,6 @@ export class BarComponent implements OnInit {
   }
 
   onRatingChange(rating: RatingModel) {
-    this.ratings[rating.oldRating] -= 1;
-    this.ratings[rating.newRating] += 1;
+    this.barService.setUserRating(rating);
   }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, ParamMap, Router} from '@angular/router';
+import {ActivatedRoute, ParamMap } from '@angular/router';
 import {BarService} from '../barService';
 import {Bar} from '../../shared/dto/bar';
 import {GeoData} from '../../shared/dto/geoData';
@@ -15,7 +15,7 @@ declare var google: any;
 export class MapComponent implements OnInit {
   service: BarService
 
-  constructor(private barService: BarService, private router: Router, ) {
+  constructor(private barService: BarService) {
     this.service = barService;
   }
 

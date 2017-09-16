@@ -3,6 +3,7 @@ import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {BarService} from '../barService';
 import {Bar} from '../../shared/dto/bar';
 import {GeoData} from '../../shared/dto/geoData';
+import {} from '@types/googlemaps';
 
 declare var google: any;
 

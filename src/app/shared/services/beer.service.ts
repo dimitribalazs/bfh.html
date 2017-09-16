@@ -1,15 +1,17 @@
-import { Injectable, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
+import {Injectable, OnInit} from '@angular/core';
+import {Observable} from 'rxjs/Rx';
 import * as firebase from 'firebase';
-import { DatabaseService, FirebaseEvent } from './database.service';
-import { getDatabase } from './firebase';
-import { Beer } from '../dto/beer';
+import {DatabaseService, FirebaseEvent} from './database.service';
+import {getDatabase} from './firebase';
+import {Beer} from '../dto/beer';
 import {BarBeer} from "../dto/barBeer";
+import {isNullOrUndefined} from "util";
 
 @Injectable()
-export class BeerDatabaseService extends DatabaseService{
+export class BeerDatabaseService extends DatabaseService {
   private beersPath: firebase.database.Reference;
   private barBeersPath: firebase.database.Reference;
+
   constructor() {
     super();
     this.beersPath = getDatabase().ref("beers");
@@ -21,13 +23,13 @@ export class BeerDatabaseService extends DatabaseService{
       this.beersPath.orderByChild("name").equalTo(entity.name).once("value").then((snapshot) => {
         const beers = snapshot.val(); //as Beer[];
         //if (!isNullOrUndefined(beers)) {
-          beers.forEach((beer) => {
-            if (beer.name === entity.name) {
-              // if (beer.brewery.name === entity.brewery.name && beer.volume === entity.volume) {
-              resolve(true)
-            }
-            resolve(false)
-          })
+        beers.forEach((beer) => {
+          if (beer.name === entity.name) {
+            // if (beer.brewery.name === entity.brewery.name && beer.volume === entity.volume) {
+            resolve(true)
+          }
+          resolve(false)
+        })
         //}
         resolve(false)
       })
@@ -36,10 +38,10 @@ export class BeerDatabaseService extends DatabaseService{
 
 
   create(entity: Beer): string {
-        const newKey: string = this.beersPath.push().key;
-        entity.id = newKey
-        this.beersPath.child(newKey).set(entity);
-        return newKey;
+    const newKey: string = this.beersPath.push().key;
+    entity.id = newKey
+    this.beersPath.child(newKey).set(entity);
+    return newKey;
   }
 
   update(id: string, entity: Beer): void {
@@ -68,21 +70,21 @@ export class BeerDatabaseService extends DatabaseService{
     });
   }
 
-  getAllBeersByBarId(barId: number): Observable<Beer[]> {
+  getAllBeersByBarId(barId: string): Observable<Beer[]> {
     return Observable.fromEvent(this.barBeersPath.orderByChild("bar").equalTo(barId), FirebaseEvent.value.toString(), (barBeerSnapshot) => {
       var barBeers = barBeerSnapshot.val();
       const beers: Beer[] = [];
       // console.log(barBeers);
-
-      Object.keys(barBeers).map((value: string) => {
-          let barBeer  = barBeers[value] as BarBeer;
+      if (!isNullOrUndefined(barBeers)) {
+        Object.keys(barBeers).map((value: string) => {
+          let barBeer = barBeers[value] as BarBeer;
           this.beersPath.child(barBeer.beer.toString()).once(FirebaseEvent.value.toString(), (beerSnapshot) => {
             beers.push(beerSnapshot.val() as Beer);
           });
-      });
-
+        });
+      }
       return beers;
-      });
+    });
   }
 
   getAllBeersByBreweryId(breweryId: number): Observable<Beer[]> {

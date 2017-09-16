@@ -1,8 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {MenuService} from '../../shared/services/menu.service';
-import {Observable} from 'rxjs/Observable';
-import {Bar} from '../../shared/dto/bar';
-import {Beer} from '../../shared/dto/beer';
 import {BreweryService} from '../breweryService';
 
 @Component({
@@ -11,12 +7,13 @@ import {BreweryService} from '../breweryService';
   styleUrls: ['./available-beers.component.css']
 })
 export class AvailableBeersComponent implements OnInit {
-  beers: Observable<Beer[]>;
   constructor(private breweryService: BreweryService) { }
 
-  ngOnInit() {
+  ngOnInit() {}
 
-    this.beers = this.breweryService.getAvailableBeers('1');
+  onAddBeer() {
+    // TODO
+    alert('noch nicht implementiert')
   }
 
 }

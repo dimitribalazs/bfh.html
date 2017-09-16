@@ -18,7 +18,7 @@ const barsRoutes: Routes = [
       {
         path: '',
         children: [
-          { path: '', component: AvailableBeersComponent },
+          { path: '', component: BarInfoComponent },
           { path: 'beers', component: AvailableBeersComponent },
           { path: 'info', component: BarInfoComponent },
           { path: 'openingHours', component: OpeningHoursComponent },

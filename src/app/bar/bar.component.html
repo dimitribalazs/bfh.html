@@ -1,7 +1,7 @@
 <div *ngIf="!imageUploadShow">
   <div class="container">
     <div class="imageShow" style="position:relative;">
-      <img src="{{ '../../' + model.image}}" height="150px" width="150px"/>
+      <img src="{{ '../../' + barService.viewModel.image}}" height="150px" width="150px"/>
     </div>
     <div class="Rating">
       <app-beer-rating
@@ -15,11 +15,18 @@
   </div>
   <br>
   <nav class="container" *ngIf="!edit">
+<<<<<<< HEAD
     <button (click)="onClick('beers')">Beers</button>
     <button (click)="onClick('info')">Info</button>
     <button (click)="onClick('openingHours')">Open now</button>
     <button (click)="onClick('photos')">Photos</button>
     <button (click)="onClick('map')">Map</button>
+=======
+    <button (click)="onClick('info',0)" [class.activeNavigation]="activeNavigation===0">Info</button>
+    <button (click)="onClick('beers',1)" [class.activeNavigation]="activeNavigation===1">Beers</button>
+    <button (click)="onClick('openingHours',2)" [class.activeNavigation]="activeNavigation===2">Open now</button>
+    <button (click)="onClick('photos',3)" [class.activeNavigation]="activeNavigation===3">Photos</button>
+>>>>>>> remotes/origin/develop
   </nav>
   <br>
   <div>

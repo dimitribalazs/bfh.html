@@ -1,13 +1,13 @@
 <div>
   <div class="container">
     <div class="imageShow" style="position:relative;">
-      <img src="{{ '../../' + model.image}}" height="150px" width="300px"/>
+      <img src="{{ '../../' + breweryService.viewModel.image}}" height="150px" width="300px"/>
     </div>
   </div>
   <br>
   <nav class="container" *ngIf="!edit">
-    <button (click)="onClick('beers',0)" [class.activeNavigation]="activeNavigation===0">Beers</button>
-    <button (click)="onClick('info',1)" [class.activeNavigation]="activeNavigation===1">Info</button>
+    <button (click)="onClick('info',0)" [class.activeNavigation]="activeNavigation===0">Info</button>
+    <button (click)="onClick('beers',1)" [class.activeNavigation]="activeNavigation===1">Beers</button>
   </nav>
   <br>
   <div>

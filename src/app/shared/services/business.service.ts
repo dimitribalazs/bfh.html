@@ -9,17 +9,21 @@ import {Subscription} from 'rxjs/Subscription';
 import {Beer} from '../dto/beer';
 import {Brewery} from '../dto/brewery';
 import {User} from '../dto/user';
+import {GeoData} from '../dto/geoData';
+import {BarBeer} from '../dto/barBeer';
 import {Bar, OpenTime} from '../dto/bar';
 import {BeerDatabaseService} from '../services/beer.service';
 import {BreweryDatabaseService} from '../services/brewery.service'
 import {BarDatabaseService} from '../services/bar.service';
 import {UserDatabaseService} from '../services/user.service';
-import {BarModel, BeerModel, BreweryModel, BeerBarModel, Time, DropDownEntry} from '../domainModel/viewModels';
+import {
+  BarModel, BeerModel, BreweryModel, BeerBarModel, Time, DropDownEntry,
+  UserModel
+} from '../domainModel/viewModels';
 import {RatingModel} from '../components/rating/ratingModel';
 import {forEach} from '@angular/router/src/utils/collection';
 import {isNullOrUndefined} from 'util';
-import {GeoData} from "../dto/geoData";
-import {BarBeer} from "../dto/barBeer";
+
 
 
 @Injectable()
@@ -35,6 +39,7 @@ export class BusinessService {
   public barSubject: Subject<BarModel> = new BehaviorSubject<BarModel>(new BarModel());
   private brewerySubject: Subject<BreweryModel> = new BehaviorSubject<BreweryModel>(new BreweryModel());
   private beerSubject: Subject<BeerModel> = new BehaviorSubject<BeerModel>(new BeerModel());
+  private userSubject: Subject<UserModel> = new BehaviorSubject<UserModel>(new UserModel());
   // public barAvailableBeersSubject: Subject<BeerModel[]> = new BehaviorSubject<BeerModel[]>(new Array<BeerModel>());
   // public barsSubject: Subject<BarModel[]> = new BehaviorSubject<BarModel[]>(this.bars);
 
@@ -46,10 +51,11 @@ export class BusinessService {
     this.beerSubject.asObservable();
     this.barSubject.asObservable();
     this.brewerySubject.asObservable();
+    this.userSubject.asObservable();
   }
 
   /**
-   * get the beer with the id
+   * Get the beer with the id
    * @param id the id of the beer
    * @returns {Subject<BeerModel>} A beer subject
    */
@@ -172,6 +178,34 @@ export class BusinessService {
     return this.brewerySubject;
   }
 
+  getUser(id: string): Subject<UserModel> {
+    // emit the loaded Data
+    this.subscription.unsubscribe()
+    this.subscription = this.userService.get(id).subscribe((user: User) => {
+      // map dto to viewModel
+      const userModel: UserModel = this.mapUserDtoToDomainModel(user);
+      // emit the loaded bar data
+      this.userSubject.next(userModel)
+      // reload the favoriteBeers beers
+      this.userService.getFavoriteBeersOfUser(userModel.id).subscribe((data) => {
+        // map dto to viewModel
+        const beerArr: Array<BeerModel> = new Array<BeerModel>()
+        data.forEach((beer: Beer) => beerArr.push(this.mapBeerDtoToDomainModel(beer)))
+        // emit the available beers
+        userModel.favoriteBeers.next(beerArr)
+      })
+
+      this.userService.getFriendsOfUser(userModel.id).subscribe((data) => {
+        // map dto to viewModel
+        const friendsArr: Array<UserModel> = new Array<UserModel>()
+        data.forEach((friends: User) => friendsArr.push(this.mapUserDtoToDomainModel(friends)))
+        // emit the available beers
+        userModel.friends.next(friendsArr)
+      })
+    })
+    return this.userSubject;
+  }
+
   private mapBarDtoToDomainModel(dto: Bar): BarModel {
     const model = new BarModel();
     model.id = dto.id;
@@ -240,6 +274,30 @@ export class BusinessService {
     return model;
   }
 
+
+  private mapUserDtoToDomainModel(dto: User): UserModel {
+    const model = new UserModel();
+    model.id = dto.id;
+    model.firstname = dto.firstname;
+    model.lastname = dto.lastname;
+    model.image = dto.image;
+    model.registrationDate = dto.registrationDate;
+    model.totalConsumption = dto.totalConsumption;
+    model.address = dto.address;
+    model.city = dto.city;
+    model.tel = dto.tel;
+    model.badge = dto.badge;
+    model.dateOfBirth = dto.dateOfBirth;
+    model.location = isNullOrUndefined(dto.location) ? model.location =  new GeoData() : model.location = dto.location ;
+    if (this.debugMode) {
+      console.log('mapBeerDtoToDomainModel')
+      console.log('dto:')
+      console.log(dto)
+      console.log('viewModel:')
+      console.log(model)
+    }
+    return model;
+  }
 
   private mapBeerDtoToDomainModel(dto: Beer): BeerModel {
     const model = new BeerModel();

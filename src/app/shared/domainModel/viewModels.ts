@@ -149,22 +149,39 @@ export class OpeningHours {
   }
 }
 
-export class User {
+export class UserModel {
   id: string;
   firstname: string;
   lastname: string;
   image: string;
   registrationDate: string;
   location: GeoData;
-  favoriteBeers: string[]
+  favoriteBeers: BehaviorSubject<BeerModel[]>
   totalConsumption: number;
   address: string;
   city: string;
   tel: string;
   badge: string;
   dateOfBirth: string;
-  friends: string[]
+  friends: BehaviorSubject<UserModel[]>
   //badges: Badge[];
+
+  constructor() {
+    this.id = '';
+    this.firstname = '';
+    this.lastname = '';
+    this.image = '';
+    this.registrationDate = '';
+    this.location = new GeoData();
+    this.favoriteBeers = new BehaviorSubject<BeerModel[]>(new Array<BeerModel>());
+    this.totalConsumption = 0;
+    this.address = '';
+    this.city = '';
+    this.tel = '';
+    this.badge = ''
+    this.dateOfBirth = '';
+    this.friends = new BehaviorSubject<UserModel[]>(new Array<UserModel>());
+  }
 }
 
 export class GeoData {

@@ -18,6 +18,7 @@ import {BarModel, BeerModel, BreweryModel, BeerBarModel, Time} from '../domainMo
 import {RatingModel} from '../components/rating/ratingModel';
 import {forEach} from "@angular/router/src/utils/collection";
 import {isNullOrUndefined} from "util";
+import {BarBeer} from "../dto/barBeer";
 
 
 @Injectable()
@@ -55,18 +56,23 @@ export class BusinessService {
       // emit the loaded bar data
       this.barSubject.next(barModel)
       // reload the available beers
-      this.beerService.getAllBeersByBarId(bar.id).subscribe((beers) => {
+      this.beerService.getAllBarBeersByBarId(bar.id).subscribe((barBeers: BarBeer[]) => {
+        //console.log("fooooo", beers);
         // map dto to viewModel
         const beersArr: Array<BeerBarModel> = new Array<BeerBarModel>()
         // beers.forEach((beer: Beer) => beersArr.push(this.mapBeerDtoToDomainModel(beer)))
-
-        // nur für funktionstest. Wenn getAllBeersByBarId funktioniert wieder löschen
-        const test: BeerBarModel = new BeerBarModel();
-        test.beerId = '1'
-        test.beerName = 'Feldschlösschen';
-        test.price = '5.5 fr.';
-        beersArr.push(test);
-
+        if(barBeers) {
+            Object.keys(barBeers).map((value: string) => {
+            const barBeer: BarBeer = barBeers[value] as BarBeer;
+            const model = new BeerBarModel();
+            model.beerId = barBeer.beer;
+            model.beerName = barBeer.beerName;
+            model.barId = barBeer.bar;
+            model.barName = barBeer.barName;
+            model.price = barBeer.price.toString();
+            beersArr.push(model);
+          })
+        }
         // emit the available beers
         barModel.beers.next(beersArr)
 

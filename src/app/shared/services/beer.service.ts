@@ -54,7 +54,7 @@ export class BeerDatabaseService extends DatabaseService {
         resultFromApi.set(dbBeer).catch((error) => console.log("Error while updating beer", error));
       })
       .catch((error) => {
-        // console.log("Error while getting beer", error);
+         console.log("Error while getting beer", error);
       });
   }
 

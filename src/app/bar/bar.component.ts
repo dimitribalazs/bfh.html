@@ -26,7 +26,7 @@ export class BarComponent implements OnInit {
   ngOnInit() {
     this.menuService.setNewState({
       titleText: 'Bar info',
-      visibleHomeLink: true
+      visibleHomeLink: true,
     });
 
     this.route.params.subscribe(params => {

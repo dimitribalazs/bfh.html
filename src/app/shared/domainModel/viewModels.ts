@@ -11,11 +11,12 @@ export class BeerModel {
   description: string;
   volume: number;
   brewType: DropDownEntry[];
-  rating: number
-  brewery: string
-  bars: Array<BarModel>;
+  ratings: Array<number>;
+  userRating: number;
+  brewery: BehaviorSubject<BreweryModel>
+  bars: BehaviorSubject<BeerBarModel[]>
   image: string;
-  taste: DropDownEntry[];
+  taste: Array<DropDownEntry>;
   location: GeoData;
 
   constructor() {
@@ -23,12 +24,17 @@ export class BeerModel {
     this.name = '';
     this.volume = 0;
     this.brewType = new Array<DropDownEntry>();
-    this.brewery = '';
-    this.rating = 0;
+    this.brewery = new BehaviorSubject<BreweryModel>(new BreweryModel());
+    this.ratings = new Array<number>(3)
+    this.ratings[0] = 0;
+    this.ratings[1] = 0;
+    this.ratings[2] = 0;
+    this.userRating = 0;
     this.image = '';
     this.taste = new Array<DropDownEntry>();
     this.location = new GeoData();
     this.description = '';
+    this.bars = new BehaviorSubject<BeerBarModel[]>(new Array<BeerBarModel>());
   }
 
 }
@@ -88,18 +94,16 @@ export class BarModel {
   address: string;
   city: string;
   plz: string;
-  // rating: number;
   size: number;
   image: string;
   isSmokingAllowed: boolean;
-  openingHours: OpeningHours; //todo change
-  snacks: string; //todo change
+  openingHours: Array<string>;
+  snacks: string;
   location: GeoData;
   description: String;
   ratings: Array<number>;
   userRating: number;
   openNowText: string;
-  // beers: Array<BeerModel>;
   beers: BehaviorSubject<BeerBarModel[]>
 
   constructor() {
@@ -115,12 +119,11 @@ export class BarModel {
     this.ratings[2] = 0;
     this.userRating = 0;
     this.isSmokingAllowed = false;
-    this.openingHours = new OpeningHours();
+    this.openingHours = new Array<string>();
     this.openNowText = 'closed now'
     this.snacks = '';
     this.location = new GeoData();
     this.description = '';
-    // this.beers = new Array<BeerModel>();
     this.beers = new BehaviorSubject<BeerBarModel[]>(new Array<BeerBarModel>());
   }
 }

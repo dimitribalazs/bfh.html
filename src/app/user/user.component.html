@@ -11,11 +11,19 @@
     </div>
   </div>
   <br>
-  <nav class="container" *ngIf="!edit">
-    <button (click)="onClick('friends',0)" [class.activeNavigation]="activeNavigation===0">Friends</button>
-    <button (click)="onClick('favourites',1)" [class.activeNavigation]="activeNavigation===1">Favourites</button>
-    <button (click)="onClick('badges',2)" [class.activeNavigation]="activeNavigation===2">Badges</button>
-    <button (click)="onClick('detail',3)" [class.activeNavigation]="activeNavigation===3">Detail</button>
+  <nav class="nav nav-tabs" *ngIf="!edit">
+    <li role="presentation">
+      <a (click)="onClick('friends', 0)" [class.activeNavigation]="activeNavigation===0">Friends</a>
+    </li>
+    <li role="presentation">
+      <a (click)="onClick('favourites', 1)" [class.activeNavigation]="activeNavigation===1">Favourites</a>
+    </li>
+    <li role="presentation">
+      <a (click)="onClick('badges', 2)" [class.activeNavigation]="activeNavigation===2">Badges</a>
+    </li>
+    <li role="presentation">
+      <a (click)="onClick('detail', 3)" [class.activeNavigation]="activeNavigation===3">Detail</a>
+    </li>
   </nav>
   <br>
   <div>

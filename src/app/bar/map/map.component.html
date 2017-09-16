@@ -10,7 +10,11 @@
       <div>
         <label>location</label>
       </div>
-      <input [value]="model.location" readonly>
+      <p>{{barService.viewModel.location.latitude}}</p>
+      <div>
+        <label>longitude</label>
+      </div>
+      <p>{{barService.viewModel.location.longitude}}</p>
     </div>
   </div>
 </div>

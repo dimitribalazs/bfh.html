@@ -24,11 +24,7 @@
     <a *ngIf="menuState.visibleTitle" class="navbar-brand" href="#">{{menuState.titleText}}</a>
       <form *ngIf="menuState.visibleSearchInput" class="navbar-left navbar-search" role="search">
         <div class="form-group">
-<<<<<<< HEAD
-          <input type="text" (input)="menuState.onSearchInputChange($event)"
-=======
           <input type="text" (input)="this.menuService.onInput($event.target.value)"
->>>>>>> remotes/origin/develop
                  class="form-control" placeholder="Search">
         </div>
       </form>

@@ -28,8 +28,6 @@ export class MenuService {
 
     this.state$.next(this.state);
   }
-<<<<<<< HEAD
-=======
 
   onInput(...a): void {
     return this.state.onInput(...a);
@@ -38,7 +36,6 @@ export class MenuService {
   onSubmit(...a): void {
     return this.state.onSubmit(...a);
   }
->>>>>>> remotes/origin/develop
 }
 
 export class MenuState {

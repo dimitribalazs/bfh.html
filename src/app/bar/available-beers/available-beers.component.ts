@@ -12,7 +12,7 @@ export class AvailableBeersComponent implements OnInit {
 
   service: BarService
 
-  constructor(private barService: BarService, private router: Router,) {
+  constructor(private barService: BarService, private router: Router, ) {
     this.service = barService;
   }
 

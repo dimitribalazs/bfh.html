@@ -69,6 +69,7 @@ export class BusinessService {
       // TODO laden von DB (funktion fehlt)
       beerModel.userRating = 0;
       this.userService.getBeerRatingsByBeerId("1").subscribe(user => console.log("rating", user));
+      this.breweryService.get(beer.brewery).subscribe((brewery) => beerModel.brewery = this.mapBreweryDtoToDomainModel(brewery));
       // emit the loaded bar data
       this.beerSubject.next(beerModel)
       // reload the available beers

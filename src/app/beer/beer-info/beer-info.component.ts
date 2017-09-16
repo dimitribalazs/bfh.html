@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Beer} from '../../shared/dto/beer';
 import {Brewery} from '../../shared/dto/brewery';
-import {BierService} from '../beerService'
+import {BeerService} from '../beerService'
 
 @Component({
   selector: 'app-beer-info',
@@ -15,7 +15,7 @@ export class BeerInfoComponent implements OnInit {
   taste: String = '';
   brewType: String = '';
 
-  constructor(private beerService: BierService) {}
+  constructor(private beerService: BeerService) {}
 
 
   ngOnInit() {}

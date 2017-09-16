@@ -1,7 +1,7 @@
 import {Component, OnInit, Output, EventEmitter, Input} from '@angular/core';
 import {DropDownEntry, DropDownlists} from '../../shared/domainModel/viewModels';
 import {Router, ActivatedRoute, ParamMap} from '@angular/router';
-import {BierService} from '../beerService'
+import {BeerService} from '../beerService'
 import {MenuService} from '../../shared/services/menu.service';
 import {isUndefined} from 'util';
 import {BehaviorSubject} from 'rxjs/Rx';
@@ -26,7 +26,7 @@ export class BeerDetailComponent implements OnInit {
   filterSubject: Subject<number> = new BehaviorSubject<number>(2);
 
 
-  constructor(private beerService: BierService,
+  constructor(private beerService: BeerService,
               private menuService: MenuService,
               private router: Router) {
 

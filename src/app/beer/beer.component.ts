@@ -4,7 +4,7 @@ import {Brewery} from '../shared/dto/brewery';
 import {BeerDatabaseService} from '../shared/services/beer.service';
 import {Observable} from 'rxjs/Observable';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
-import {BierService} from './beerService'
+import {BeerService} from './beerService'
 import {MenuService} from '../shared/services/menu.service';
 import {RatingModel} from '../shared/components/rating/ratingModel';
 import {isUndefined} from "util";
@@ -22,7 +22,7 @@ export class BeerComponent implements OnInit {
   new: boolean;
   imageUploadShow: boolean = false;
 
-  constructor(private beerService: BierService,
+  constructor(private beerService: BeerService,
               private route: ActivatedRoute,
               private router: Router,
               private menuService: MenuService) {

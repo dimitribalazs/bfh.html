@@ -14,10 +14,11 @@ import {BeerDatabaseService} from '../services/beer.service';
 import {BreweryDatabaseService} from '../services/brewery.service'
 import {BarDatabaseService} from '../services/bar.service';
 import {UserDatabaseService} from '../services/user.service';
-import {BarModel, BeerModel, BreweryModel, BeerBarModel, Time} from '../domainModel/viewModels';
+import {BarModel, BeerModel, BreweryModel, BeerBarModel, Time, DropDownEntry} from '../domainModel/viewModels';
 import {RatingModel} from '../components/rating/ratingModel';
-import {forEach} from "@angular/router/src/utils/collection";
-import {isNullOrUndefined} from "util";
+import {forEach} from '@angular/router/src/utils/collection';
+import {isNullOrUndefined} from 'util';
+import {GeoData} from "../dto/geoData";
 
 
 @Injectable()
@@ -25,13 +26,14 @@ export class BusinessService {
 
   // TODO Login
   currentUser = 1;
-  debugMode: boolean = true
+  debugMode: boolean;
 
   subscription: Subscription = new Subscription()
 
-  //subjects
+  // subjects
   public barSubject: Subject<BarModel> = new BehaviorSubject<BarModel>(new BarModel());
   private brewerySubject: Subject<BreweryModel> = new BehaviorSubject<BreweryModel>(new BreweryModel());
+  private beerSubject: Subject<BeerModel> = new BehaviorSubject<BeerModel>(new BeerModel());
   // public barAvailableBeersSubject: Subject<BeerModel[]> = new BehaviorSubject<BeerModel[]>(new Array<BeerModel>());
   // public barsSubject: Subject<BarModel[]> = new BehaviorSubject<BarModel[]>(this.bars);
 
@@ -39,11 +41,67 @@ export class BusinessService {
               private breweryService: BreweryDatabaseService,
               private barService: BarDatabaseService,
               private userService: UserDatabaseService) {
+    this.debugMode = true;
+    this.beerSubject.asObservable();
     this.barSubject.asObservable();
     this.brewerySubject.asObservable();
   }
 
-  // load a bar with id
+  /**
+   * get the beer with the id
+   * @param id the id of the beer
+   * @returns {Subject<BeerModel>} A beer subject
+   */
+  getBeer(id: string): Subject<BeerModel> {
+    // emit the loaded Data
+    this.subscription.unsubscribe()
+    this.subscription = this.beerService.get(id).subscribe((beer: Beer) => {
+      // map dto to viewModel
+      const beerModel: BeerModel = this.mapBeerDtoToDomainModel(beer);
+      // load the userrating
+      // TODO laden von DB (funktion fehlt)
+      beerModel.userRating = 0;
+      // emit the loaded bar data
+      this.beerSubject.next(beerModel)
+      // reload the available beers
+      // TODO: getBarByBeer funktion fehlt
+      this.barService.getAll().subscribe((data) => {
+        // map dto to viewModel
+        const beersArr: Array<BeerBarModel> = new Array<BeerBarModel>()
+        // beers.forEach((beer: Beer) => beersArr.push(this.mapBeerDtoToDomainModel(beer)))
+
+        // nur für funktionstest. Wenn getAllBeersByBarId funktioniert wieder löschen
+        const test: BeerBarModel = new BeerBarModel();
+        test.barId = '1'
+        test.barName = 'Barbièr';
+        beersArr.push(test);
+
+        // emit the available beers
+        beerModel.bars.next(beersArr)
+      })
+    })
+    return this.beerSubject;
+  }
+
+  /**
+   * create or update a beer
+   * @param beer the beer
+   * @returns {string} the id of the beer
+   */
+  createOrUpdateBeer(beer: BeerModel): string {
+    if (isNullOrUndefined(beer.id)) {
+      beer.id = this.beerService.create(this.mapBeerDomainModeltoDto(beer))
+    } else {
+      this.beerService.update(beer.id, this.mapBeerDomainModeltoDto(beer));
+    }
+    return beer.id;
+  }
+
+  /**
+   * load a bar with id
+   * @param id the id of the bar
+   * @returns {Subject<BarModel>} A bar subject
+   */
   getBar(id: string): Subject<BarModel> {
     // emit the loaded Data
     this.subscription = this.barService.get(id).subscribe((bar: Bar) => {
@@ -128,7 +186,6 @@ export class BusinessService {
     model.image = dto.image;
     model.location = dto.location;
     model.description = dto.description;
-    // barModel.beers = new Array();
 
     const ArrayOpen: Array<Time> = new Array(7)
     const ArrayClose: Array<Time> = new Array(7)
@@ -184,12 +241,16 @@ export class BusinessService {
     model.description = dto.description;
     model.volume = dto.volume;
     model.brewType = dto.brewType;
-    model.rating = dto.rating;
-    model.brewery = dto.brewery;
-    model.bars = new Array<BarModel>();
+    // TODO laden von dto
+    // barModel.rating[0] = barDto.rating;
+    // barModel.rating[1] = barDto.rating;
+    // barModel.rating[2] = barDto.rating;
+    model.ratings[0] = 0;
+    model.ratings[1] = 0;
+    model.ratings[2] = 0;
     model.image = dto.image;
     model.taste = dto.taste;
-    model.location = dto.location;
+    model.location = isNullOrUndefined(dto.location) ? model.location =  new GeoData() : model.location = dto.location ;
     if (this.debugMode) {
       console.log('mapBeerDtoToDomainModel')
       console.log('dto:')
@@ -198,6 +259,35 @@ export class BusinessService {
       console.log(model)
     }
     return model;
+  }
+
+  /**
+   * map the beer domain model to a beer dto
+   * @param model
+   * @returns {Beer} dto
+   */
+  private mapBeerDomainModeltoDto(model: BeerModel): Beer {
+    const dto = new Beer();
+    dto.id = model.id;
+    dto.name = model.name;
+    dto.description = model.description;
+    dto.volume = model.volume;
+    dto.brewType = new Array<DropDownEntry>();
+    dto.brewType = model.brewType;
+    // TODO save in db
+    // dto.ratings[] = model.ratings[];
+    dto.image = model.image;
+    dto.taste = new Array<DropDownEntry>();
+    dto.taste = model.taste;
+    dto.location = model.location;
+    if (this.debugMode) {
+      console.log('mapBeerDtoToDomainModel')
+      console.log('dto:')
+      console.log(dto)
+      console.log('viewModel:')
+      console.log(model)
+    }
+    return dto;
   }
 
   private mapBreweryDtoToDomainModel(dto: Brewery): BreweryModel {

@@ -1,6 +1,5 @@
 import {Component, OnInit, Output, EventEmitter, Input} from '@angular/core';
-import {Beer, DropDownEntry, DropDownlists} from '../../shared/dto/beer';
-import {Brewery} from '../../shared/dto/brewery';
+import {DropDownEntry, DropDownlists} from '../../shared/domainModel/viewModels';
 import {Router, ActivatedRoute, ParamMap} from '@angular/router';
 import {BierService} from '../beerService'
 import {MenuService} from '../../shared/services/menu.service';
@@ -56,18 +55,6 @@ export class BeerDetailComponent implements OnInit {
         }
       }
     });
-
-    this.beerService.getBeer().subscribe((beer) => {
-      // this.beerService.viewModel = this.beerService.getViewModel();
-      if (!isUndefined(this.beerService.viewModel.brewery)) {
-        // const selectedItem: DropDownEntry = new DropDownEntry();
-        // selectedItem.id = this.beerService.viewModel.brewery.id;
-        // selectedItem.itemName = this.beerService.viewModel.brewery.name;
-        // this.brewerySelectedItem.push(selectedItem);
-      }
-    })
-
-    this.beerService.getBroweryList().subscribe(() => this.breweryDropDownList = this.beerService.getDropDownList());
   }
 
   onTasteSelectChange(item: any[]) {
@@ -90,7 +77,7 @@ export class BeerDetailComponent implements OnInit {
 
   onResult(data: AroundYou) {
     ////todo brewery
-    this.beerService.viewModel.brewery = data.id;
+    // this.beerService.viewModel.brewery = data.id;
     //this.beerService.viewModel.brewery.name = data.name;
     //this.beerService.searchBrewery = false;
   }

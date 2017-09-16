@@ -18,9 +18,6 @@ import {isUndefined} from "util";
 export class BeerComponent implements OnInit {
 
   id: string;
-  model: Beer = new Beer;
-  ratings: number[] = new Array;
-  meRating: number;
   edit: boolean;
   new: boolean;
   imageUploadShow: boolean = false;
@@ -34,12 +31,7 @@ export class BeerComponent implements OnInit {
       visibleBack: true,
       visibleHomeLink: true,
       visibleEdit: true
-    })
-    ;
-    // this.model.brewery = new Brewery();
-    // this.model.brewery.name = '';
-
-
+    });
   }
 
 
@@ -60,36 +52,17 @@ export class BeerComponent implements OnInit {
     if (this.new) {
       const name: string = this.route.snapshot.data['name'];
       this.route.params.subscribe(params => {
-        this.model = new Beer()
-        this.model.name = params['name']
-        this.beerService.setViewModel(this.model)
+        this.beerService.createNewBeer(params['name'])
       });
 
 
     } else {
       this.route.params.subscribe(params => {
-      // console.log('Load beer:' + params['id']);
+        // console.log('Load beer:' + params['id']);
         this.id = params['id'];
-        this.beerService.loadBeer(params['id']);
+        this.beerService.loadBeer(this.id);
+
       });
-
-      this.beerService.getBeer().subscribe((beer) => {
-        this.model = this.beerService.getViewModel();
-
-        if (isUndefined(this.model.taste)) {
-          this.model.taste = [];
-        }
-        if (isUndefined(this.model.brewType)) {
-          this.model.brewType = [];
-        }
-      // console.log('Routing Mode', beer.name)
-    })
-
-      this.ratings[1] = 12;
-      this.ratings[2] = 54;
-      this.ratings[3] = 4;
-      this.meRating = 1;
-      // console.log(this.route.snapshot.toString())
     }
   }
 
@@ -98,10 +71,8 @@ export class BeerComponent implements OnInit {
   }
 
   onRatingChange(rating: RatingModel) {
-    this.ratings[rating.oldRating] -= 1;
-    this.ratings[rating.newRating] += 1;
+    this.beerService.setUserRating(rating);
   }
-
 
   onImageEdit() {
     // this.menuService.visibleEdit = false;

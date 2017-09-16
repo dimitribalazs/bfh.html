@@ -6,42 +6,46 @@
           <div>
             <label>Name</label>
           </div>
-          <input [value]="model.name" readonly>
+          <p>{{beerService.viewModel.name}}</p>
         </div>
 
         <div class="form-group">
           <div>
             <label>Brewery</label>
           </div>
-          <input [value]="model.brewery.name" readonly>
+          <p>TODO eigene child</p>
         </div>
 
         <div class="form-group">
           <div>
             <label>Alcohol in %</label>
           </div>
-          <input [value]="model.volume"  readonly>
+          <p>{{beerService.viewModel.volume}}</p>
         </div>
 
         <div class="form-group">
           <div>
             <label>Taste</label>
           </div>
-          <input [value]="taste"  readonly>
+          <p *ngFor="let data of beerService.viewModel.taste">
+            {{data.itemName}}
+          </p>
         </div>
 
         <div class="form-group">
           <div>
             <label>Brew type</label>
           </div>
-          <input [value]="brewType"  readonly>
+          <p *ngFor="let data of beerService.viewModel.brewType">
+            {{data.itemName}}
+          </p>
         </div>
 
         <div class="form-group">
           <div>
             <label >Description</label>
           </div>
-          <input [value]="model.description" readonly>
+          <p>{{beerService.viewModel.description}}</p>
         </div>
       </form>
     </div>

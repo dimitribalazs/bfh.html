@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-default navbar-fixed-top">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header pull-left">
@@ -48,7 +48,7 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"
          [ngClass]="{ 'toggleMenuStyle' : toggleMenu === true }">
       <ul class="nav navbar-nav">
-        <li><a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp;Account</a></li>
+        <li [ngClass]="{ 'menuitem-first': toggleMenu === true }"><a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp;Account</a></li>
         <li><a href="#"><span class="glyphicon glyphicon-cog"></span>&nbsp;Settings</a></li>
         <li><a href="#"><span class="glyphicon glyphicon-log-out"></span>&nbsp;Logout</a></li>
       </ul>

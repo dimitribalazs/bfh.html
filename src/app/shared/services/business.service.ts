@@ -9,7 +9,7 @@ import {Subscription} from 'rxjs/Subscription';
 import {Beer} from '../dto/beer';
 import {Brewery} from '../dto/brewery';
 import {User} from '../dto/user';
-import {Bar} from '../dto/bar';
+import {Bar, OpenTime} from '../dto/bar';
 import {BeerDatabaseService} from '../services/beer.service';
 import {BreweryDatabaseService} from '../services/brewery.service'
 import {BarDatabaseService} from '../services/bar.service';
@@ -123,44 +123,46 @@ export class BusinessService {
     model.ratings[2] = 0;
     model.size = dto.size;
     model.isSmokingAllowed = dto.isSmokingAllowed;
-    model.openingHours = dto.openingHours;
+
     model.snacks = dto.snacks;
     model.image = dto.image;
     model.location = dto.location;
     model.description = dto.description;
     // barModel.beers = new Array();
 
-    const ArrayOpen: Array<Time> = new Array()
-    const ArrayClose: Array<Time> = new Array()
+    const ArrayOpen: Array<Time> = new Array(7)
+    const ArrayClose: Array<Time> = new Array(7)
 
-    ArrayOpen[6] = new Time
-    ArrayOpen[6].houre = 7;
-    ArrayOpen[6].min = 7;
-    ArrayOpen[6].sec = 0;
+    for (let i = 0 ; i < 7; i++) {
+      model.openingHours[i] = 'Cloesed'
+    }
 
-    ArrayClose[6] = new Time
-    ArrayClose[6].houre = 25;
-    ArrayClose[6].min = 30;
-    ArrayClose[6].sec = 0;
+    dto.openingHours.forEach((day) => {
+      ArrayOpen[day.day] = new Time
+      ArrayOpen[day.day].houre = day.openHoure;
+      ArrayOpen[day.day].min = day.openMin;
+      ArrayOpen[day.day].sec = day.openSec;
 
-    // TODO set barModel.openNowText
+      ArrayClose[day.day] = new Time
+      ArrayClose[day.day].houre = day.closeHoure;
+      ArrayClose[day.day].min = day.closeMin;
+      ArrayClose[day.day].sec = day.closeSec;
+      day.closeHoure = day.closeHoure >= 24 ? day.closeHoure - 24 : day.closeHoure
+      model.openingHours[day.day] = day.openHoure + ':' + day.openMin + ' - ' + day.closeHoure + ':' + day.closeMin
+    })
+
     const currentTime = new Date()
-    currentTime.setHours(25)
+    model.openNowText = 'Cloesed now'
     if (!isNullOrUndefined(ArrayOpen[currentTime.getDay()]) && !isNullOrUndefined(ArrayClose[currentTime.getDay()])) {
       const openFrom = new Date();
-      openFrom.setHours(ArrayOpen[6].houre, ArrayOpen[6].min, ArrayOpen[6].sec)
+      openFrom.setHours(ArrayOpen[currentTime.getDay()].houre, ArrayOpen[currentTime.getDay()].min, ArrayOpen[currentTime.getDay()].sec)
 
       const openTo = new Date();
-      openTo.setHours(ArrayClose[6].houre, ArrayClose[6].min, ArrayClose[6].sec)
-
+      openTo.setHours(ArrayClose[currentTime.getDay()].houre, ArrayClose[currentTime.getDay()].min, ArrayClose[currentTime.getDay()].sec)
 
       if (currentTime > openFrom && currentTime < openTo) {
-        console.log('******** Open now')
-      }else {
-        console.log('******** Cloesed now: ' + currentTime)
+        model.openNowText = 'Open now'
       }
-    }else {
-      console.log('******** Cloesed now: ' + currentTime)
     }
 
     if (this.debugMode) {

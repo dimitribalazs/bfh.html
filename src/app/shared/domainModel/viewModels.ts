@@ -92,8 +92,8 @@ export class BarModel {
   size: number;
   image: string;
   isSmokingAllowed: boolean;
-  openingHours: OpeningHours; //todo change
-  snacks: string; //todo change
+  openingHours: Array<string>;
+  snacks: string;
   location: GeoData;
   description: String;
   ratings: Array<number>;
@@ -115,7 +115,7 @@ export class BarModel {
     this.ratings[2] = 0;
     this.userRating = 0;
     this.isSmokingAllowed = false;
-    this.openingHours = new OpeningHours();
+    this.openingHours = new Array<string>();
     this.openNowText = 'closed now'
     this.snacks = '';
     this.location = new GeoData();

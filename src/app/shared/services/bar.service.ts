@@ -33,7 +33,7 @@ export class BarDatabaseService extends DatabaseService{
             apiPath.set(dbBar).catch((error) => console.log("Error while updating bar", error));
         })
         .catch((error) => {
-            // console.log("Error while getting bar", error);
+             console.log("Error while getting bar", error);
         });
     }
 

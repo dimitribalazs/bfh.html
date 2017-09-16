@@ -41,22 +41,21 @@ export class BeerDetailComponent implements OnInit {
       visibleBack: true,
       visibleHomeLink: true,
       visibleTitle: true,
-      callback: (e: string) => {
+      onInput: (e: string) => {
         this.searchSubject.next(e)
+      },
+      onSubmit: () => {
+        if (isUndefined(this.beerService.viewModel.name) || this.beerService.viewModel.name.length === 0 ||
+          isUndefined(this.beerService.viewModel.description) || this.beerService.viewModel.description.length === 0) {
+          this.formErrorMessage = true;
+        } else {
+          this.beerService.submit();
+          this.submitted = true;
+          this.formErrorMessage = false;
+          this.router.navigate(['beer/', this.beerService.viewModel.id]);
+        }
       }
     });
-
-   // this.menuService.submitCallback = () => {
-   //    if (isUndefined(this.beerService.viewModel.name) || this.beerService.viewModel.name.length === 0 ||
-   //      isUndefined(this.beerService.viewModel.description) || this.beerService.viewModel.description.length === 0) {
-   //        this.formErrorMessage = true;
-   //      } else {
-   //        this.beerService.submit();
-   //        this.submitted = true;
-   //        this.formErrorMessage = false;
-   //      this.router.navigate(['beer/', this.beerService.viewModel.id]);
-   //      }
-   //    };
 
     this.beerService.getBeer().subscribe((beer) => {
       // this.beerService.viewModel = this.beerService.getViewModel();

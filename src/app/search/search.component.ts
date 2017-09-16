@@ -27,7 +27,8 @@ export class SearchComponent implements OnInit {
     this.menuService.setNewState({
       visibleBack: true,
       visibleSearchInput: true,
-      callback: (e: string) => {
+      visibleTitle: false,
+      onInput: (e: string) => {
         this.activeSearchString = e;
         this.searchSubject.next(e)
       }

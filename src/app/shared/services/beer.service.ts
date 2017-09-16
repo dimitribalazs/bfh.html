@@ -15,7 +15,7 @@ export class BeerDatabaseService extends DatabaseService {
   constructor() {
     super();
     this.beersPath = getDatabase().ref("beers");
-    this.barBeersPath = getDatabase().ref("beerBars");
+    this.barBeersPath = getDatabase().ref("barBeers");
   }
 
   exists(entity: Beer): Promise<boolean> {
@@ -71,15 +71,20 @@ export class BeerDatabaseService extends DatabaseService {
   }
 
   getAllBarBeersByBarId(barId: string): Observable<BarBeer[]> {
-    return Observable.fromEvent(this.barBeersPath.orderByChild("bar").equalTo(barId), FirebaseEvent.value.toString(), (barBeerSnapshot) => {
-      return  barBeerSnapshot.val() as BarBeer[];
+    return Observable.fromEvent(this.barBeersPath, FirebaseEvent.value.toString(), (barBeerSnapshot) => {
+      const barBeers: BarBeer[] = [];
+      const dbData = barBeerSnapshot.val();
+      Object.keys(dbData).map(value => barBeers.push(dbData[value] as BarBeer));
+      return barBeers.filter(barBeer => barBeer.bar == barId);
     });
   }
 
-  getAllBeersByBreweryId(breweryId: number): Observable<Beer[]> {
-    return Observable.fromEvent(this.beersPath.orderByChild("brewery").equalTo(breweryId), FirebaseEvent.value.toString(), (beerSnapshot) => {
-      const beers: Beer[] = beerSnapshot.val() as Beer[];
-      return beers;
+  getAllBeersByBreweryId(breweryId: string): Observable<Beer[]> {
+    return Observable.fromEvent(this.beersPath, FirebaseEvent.value.toString(), (beerSnapshot) => {
+      const beers: Beer[] = [];
+      const dbData = beerSnapshot.val();
+      Object.keys(dbData).map(value => beers.push(dbData[value] as Beer));
+      return beers.filter(beer => beer.brewery == breweryId);
     });
   }
 

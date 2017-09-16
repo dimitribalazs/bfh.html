@@ -62,6 +62,7 @@ export class BusinessService {
       // load the userrating
       // TODO laden von DB (funktion fehlt)
       beerModel.userRating = 0;
+      this.userService.getBeerRatingsByBeerId("1").subscribe(user => console.log("rating", user));
       // emit the loaded bar data
       this.beerSubject.next(beerModel)
       // reload the available beers
@@ -154,7 +155,7 @@ export class BusinessService {
       this.brewerySubject.next(breweryModel)
       // reload the available beers
       // TODO: getBeerByBrewery funktion fehlt
-      this.beerService.getAll().subscribe((data) => {
+      this.beerService.getAllBeersByBreweryId(id).subscribe((data) => {
         // map dto to viewModel
         const beersArr: Array<BeerModel> = new Array<BeerModel>()
         data.forEach((beer: Beer) => beersArr.push(this.mapBeerDtoToDomainModel(beer)))

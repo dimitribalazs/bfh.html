@@ -1,9 +1,9 @@
 <div class="container">
-  Avaliable Beers
+  Avaliable Bars
   <div style="overflow-y:scroll; height:300px; background:gray">
     <ul class="list-group">
-      <li *ngFor="let bar of breweryService.viewModel.bars | async" class="list-group-item">
-        {{bar.name}}
+      <li *ngFor="let bar of beerService.viewModel.bars | async" class="list-group-item">
+        {{bar.barName}}
         <span class="glyphicon glyphicon-sunglasses pull-right"></span>
       </li>
     </ul>
@@ -14,6 +14,6 @@
   <button class="btn btn-default btn-sm center-block" (click)="onAddBeer()">
     <span class="glyphicon glyphicon-home"></span>
     <span class="	glyphicon glyphicon-plus"></span>
-    Add a Beer
+    Add a Bar
   </button>
 </div>

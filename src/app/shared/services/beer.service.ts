@@ -79,6 +79,15 @@ export class BeerDatabaseService extends DatabaseService {
     });
   }
 
+  getAllBarBeersByBeerId(beerId: string): Observable<BarBeer[]> {
+    return Observable.fromEvent(this.barBeersPath, FirebaseEvent.value.toString(), (barBeerSnapshot) => {
+      const barBeers: BarBeer[] = [];
+      const dbData = barBeerSnapshot.val();
+      Object.keys(dbData).map(value => barBeers.push(dbData[value] as BarBeer));
+      return barBeers.filter(barBeer => barBeer.beer == beerId);
+    });
+  }
+
   getAllBeersByBreweryId(breweryId: string): Observable<Beer[]> {
     return Observable.fromEvent(this.beersPath, FirebaseEvent.value.toString(), (beerSnapshot) => {
       const beers: Beer[] = [];

@@ -5,6 +5,7 @@ import { BeerComponent } from './beer.component';
 import { BeerDetailComponent } from './beer-detail/beer-detail.component';
 import { BeerInfoComponent } from './beer-info/beer-info.component';
 import {BreweryInfoComponent} from './brewery-info/brewery-info.component';
+import {AvailableBeersComponent} from "./available-bars/available-beers.component";
 // import {BarInfoComponent} from '../bar/bar-info/bar-info.component';
 
 const beerRoutes: Routes = [
@@ -65,7 +66,8 @@ const beerRoutes: Routes = [
         children: [
           { path: '', component: BeerInfoComponent },
           { path: 'info', component: BeerInfoComponent },
-          { path: 'brewery', component: BreweryInfoComponent }
+          { path: 'brewery', component: BreweryInfoComponent },
+          { path: 'bars', component: AvailableBeersComponent }
         ]
       }
     ]},

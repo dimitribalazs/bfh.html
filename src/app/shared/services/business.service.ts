@@ -347,6 +347,7 @@ export class BusinessService {
     dto.volume = model.volume;
     dto.brewType = new Array<DropDownEntry>();
     dto.brewType = model.brewType;
+    dto.brewery = model.brewery.id
     // TODO save in db
     // dto.ratings[] = model.ratings[];
     dto.image = model.image;

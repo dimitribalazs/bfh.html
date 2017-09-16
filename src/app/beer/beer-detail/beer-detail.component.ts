@@ -74,6 +74,7 @@ export class BeerDetailComponent implements OnInit {
     this.beerService.viewModel.brewery.id = data.id
     this.beerService.viewModel.brewery.name = data.name
     this.searchBrewery = false;
+    this.setMenu()
   }
 
   activateSearchBrewery() {

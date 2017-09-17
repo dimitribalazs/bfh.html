@@ -22,7 +22,7 @@ export class FavouritesComponent implements OnInit {
 
   // onClick(childView: string, activateNavigation: number) {
   //   this.router.navigate(['user', this.id, childView]);
-  //   this.activeNavigation = activateNavigation;
+  //   this.activefilter = activateNavigation;
   // }
 
   isSelected(beer: Beer) { return beer.id === this.selectedId; }

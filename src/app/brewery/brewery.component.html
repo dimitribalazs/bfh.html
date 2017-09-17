@@ -5,10 +5,14 @@
     </div>
   </div>
   <br>
-  <nav class="container" *ngIf="!edit">
-    <button (click)="onClick('info',0)" [class.activeNavigation]="activeNavigation===0">Info</button>
-    <button (click)="onClick('beers',1)" [class.activeNavigation]="activeNavigation===1">Beers</button>
-  </nav>
+  <ul class="nav nav-pills nav-justified" *ngIf="!edit">
+    <li role="presentation">
+    <a (click)="onClick('info',0)" [class.activeNavigation]="activeNavigation===0" [class.inactiveNavigation]="activeNavigation !== 0">Info</a>
+    </li>
+    <li role="presentation">
+    <a (click)="onClick('beers',1)" [class.activeNavigation]="activeNavigation===1" [class.inactiveNavigation]="activeNavigation !== 1">Beers</a>
+    </li>
+  </ul>
   <br>
   <div>
     <router-outlet></router-outlet>

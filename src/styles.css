@@ -8,3 +8,35 @@
 .horizontal-scroller-inner {
   width: 60em;
 }
+
+.activeNavigation {
+  background: #eeeeee;
+  border-color: #337ab7;
+  border-style: solid solid none solid;
+  border-width: 1px;
+  border-radius: 5px 5px 0 0 !important;
+}
+
+.activeNavigation:hover {
+  color: #337ab7;
+}
+
+.inactiveNavigation {
+  background: #f9f9f9;
+  color: #3a9de1;
+  border-color: #337ab7;
+  border-style: none none solid none;
+  border-width: 1px;
+  border-radius: 0 !important;
+}
+
+.nav-pills > li + li {
+  margin-left: 0;
+}
+.nav-justified > li {
+  display: table-cell;
+  width: 1%;
+}
+.nav-justified > li > a {
+  margin-bottom: 0;
+}

@@ -53,7 +53,7 @@ export class AvailableBeersComponent implements OnInit {
   }
 
   onResult(data: AroundYou) {
-    this.beerService.addBar(data.id)
+    this.beerService.addBar(data.id, data.name);
     this.search = false;
     this.setMenu()
   }

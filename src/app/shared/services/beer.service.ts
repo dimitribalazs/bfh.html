@@ -77,8 +77,10 @@ export class BeerDatabaseService extends DatabaseService {
     return Observable.fromEvent(this.barBeersPath, FirebaseEvent.value.toString(), (barBeerSnapshot) => {
       const barBeers: BarBeer[] = [];
       const dbData = barBeerSnapshot.val();
-      Object.keys(dbData).map(value => barBeers.push(dbData[value] as BarBeer));
-      return barBeers.filter(barBeer => barBeer.bar == barId);
+      if(dbData) {
+        Object.keys(dbData).map(value => barBeers.push(dbData[value] as BarBeer));
+        return barBeers.filter(barBeer => barBeer.bar == barId);
+      }
     });
   }
 
@@ -86,8 +88,10 @@ export class BeerDatabaseService extends DatabaseService {
     return Observable.fromEvent(this.barBeersPath, FirebaseEvent.value.toString(), (barBeerSnapshot) => {
       const barBeers: BarBeer[] = [];
       const dbData = barBeerSnapshot.val();
-      Object.keys(dbData).map(value => barBeers.push(dbData[value] as BarBeer));
-      return barBeers.filter(barBeer => barBeer.beer == beerId);
+      if(dbData) {
+        Object.keys(dbData).map(value => barBeers.push(dbData[value] as BarBeer));
+        return barBeers.filter(barBeer => barBeer.beer == beerId);
+      }
     });
   }
 
@@ -95,8 +99,10 @@ export class BeerDatabaseService extends DatabaseService {
     return Observable.fromEvent(this.beersPath, FirebaseEvent.value.toString(), (beerSnapshot) => {
       const beers: Beer[] = [];
       const dbData = beerSnapshot.val();
+      if(dbData) {
       Object.keys(dbData).map(value => beers.push(dbData[value] as Beer));
       return beers.filter(beer => beer.brewery == breweryId);
+      }
     });
   }
 

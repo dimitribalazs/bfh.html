@@ -44,12 +44,12 @@ export class MapComponent implements OnInit {
 
     // TODO
     // "46.956120, 7.452865"
-    // let targetDestination = { lat: 46.956120, lng: 7.452865 };
+    let targetDestination = { lat: 46.956120, lng: 7.452865 };
     // {lat: this.service.viewModel.location.latitude , lng: this.service.viewModel.location.longitude }
 
     directionsService.route({
       origin: currentLocation, //{lat: 41.85, lng: -87.65},
-      destination: this.targetDestination, //{lat: 49.3, lng: -123.12},
+      destination: targetDestination, //{lat: 49.3, lng: -123.12},
       optimizeWaypoints: true,
       travelMode: 'TRANSIT'
     }, function(response, status) {

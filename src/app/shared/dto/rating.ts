@@ -1,3 +1,4 @@
+//todo verschieben
 export enum Rating {
   Bad = 0,
   Ok = 1,

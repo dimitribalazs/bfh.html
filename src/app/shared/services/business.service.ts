@@ -23,6 +23,9 @@ import {
 import {RatingModel} from '../components/rating/ratingModel';
 import {forEach} from '@angular/router/src/utils/collection';
 import {isNullOrUndefined} from 'util';
+import {UserBarRating} from "../dto/userBarRating";
+import {Rating} from "../dto/rating";
+import {UserBeerRating} from "../dto/userBeerRating";
 
 
 
@@ -66,9 +69,16 @@ export class BusinessService {
       // map dto to viewModel
       const beerModel: BeerModel = this.mapBeerDtoToDomainModel(beer);
       // load the userrating
-      // TODO laden von DB (funktion fehlt)
+
       beerModel.userRating = 0;
-      this.userService.getBeerRatingsByBeerId("1").subscribe(user => console.log("rating", user));
+      this.beerService.getBeerRatingsByBeerId(id).subscribe((ratings: UserBeerRating[])  => {
+        ratings.map((rating: UserBeerRating) => {
+          if(rating.user == "1") {
+            beerModel.userRating = Rating[Rating[rating.rating]];
+          }
+        })
+      });
+
       this.breweryService.get(beer.brewery).subscribe((brewery) => beerModel.brewery = this.mapBreweryDtoToDomainModel(brewery));
       // emit the loaded bar data
       this.beerSubject.next(beerModel)
@@ -146,6 +156,14 @@ export class BusinessService {
       // load the userrating
       // TODO laden von DB (funktion fehlt)
       barModel.userRating = 0;
+      this.barService.getBarRatingsByBarId(id).subscribe((ratings: UserBarRating[])  => {
+        ratings.map((rating: UserBarRating) => {
+          if(rating.user == "1") {
+            barModel.userRating = Rating[Rating[rating.rating]];
+          }
+        })
+      });
+
       // emit the loaded bar data
       this.barSubject.next(barModel)
       // reload the available beers

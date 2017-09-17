@@ -135,21 +135,6 @@ export class UserDatabaseService extends DatabaseService{
     });
   }
 
-  getBeerRatingsByBeerId(beerId: string): Observable<UserBeerRating[]> {
-    return Observable.fromEvent(this.userBeerRatingsPath, FirebaseEvent.value.toString(), (snapshot) => {
-      const ratings: UserBeerRating[] = [];
-      const dbData = snapshot.val();
-      Object.keys(dbData).map(value => ratings.push(dbData[value] as UserBeerRating));
-      return ratings.filter(rating =>  rating.beer == beerId);
-    });
-  }
 
-  getBarRatingsByBarId(barId: string): Observable<UserBarRating[]> {
-    return Observable.fromEvent(this.userBarRatingsPath, FirebaseEvent.value.toString(), (snapshot) => {
-      const ratings: UserBarRating[] = [];
-      const dbData = snapshot.val();
-      Object.keys(dbData).map(value => ratings.push(dbData[value] as UserBarRating));
-      return ratings.filter(rating => rating.bar == barId);
-    });
-  }
+
 }

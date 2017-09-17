@@ -1,4 +1,12 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms'; // needed when NgForm is used
+
+import {RatingModel} from '../shared/components/rating/ratingModel';
+import {ActivatedRoute, ParamMap, Router} from '@angular/router';
+
+// Provide ALL Services, and their dependencies
+import {MenuService} from '../shared/services/menu.service';
+import {BarService} from './barService';
 
 import { BarComponent } from './bar.component';
 
@@ -8,7 +16,10 @@ describe('BarComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BarComponent ]
+      imports: [ FormsModule ],
+      declarations: [ BarComponent ],
+      providers: [ BarService,
+        MenuService ]
     })
     .compileComponents();
   }));

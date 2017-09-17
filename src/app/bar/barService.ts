@@ -3,7 +3,7 @@
  */
 import {Injectable} from '@angular/core';
 import {BusinessService} from '../shared/services/business.service';
-import {BarModel} from '../shared/domainModel/viewModels';
+import {BarModel, BeerBarModel} from '../shared/domainModel/viewModels';
 import {RatingModel} from '../shared/components/rating/ratingModel';
 
 @Injectable()
@@ -45,5 +45,22 @@ export class BarService {
     this.viewModel.userRating = rating.newRating;
     this.businessService.setBarRating(this.viewModel.ratings[0], this.viewModel.ratings[1],
       this.viewModel.ratings[2], this.viewModel.userRating)
+  }
+
+  //todo complete data (tapOrBottled, price)
+  addBar(id: string, name: string) {
+    const barBeer: BeerBarModel = {
+      barId: this.viewModel.id,
+      barName: this.viewModel.name,
+      beerId: id,
+      beerName: name,
+      tapOrBottled: true,
+      price: "99.9"
+    };
+    this.businessService.addBeerToBar(barBeer);
+  }
+
+  removeBar(id: string) {
+    this.businessService.removeBeerFromBar(id, this.viewModel.id);
   }
 }

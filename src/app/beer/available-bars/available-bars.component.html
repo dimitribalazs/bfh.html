@@ -5,10 +5,12 @@
       <ul class="list-group">
         <li *ngFor="let bar of beerService.viewModel.bars | async" class="list-group-item">
           <!--{{bar.barName}}-->
-          <!--<button class="glyphicon glyphicon-remove  pull-right"></button>-->
+          <!--<button>-->
+            <!--<i class="fa fa-times pull-right" aria-hidden="true"></i>-->
+          <!--</button>-->
 
           <button (click)="onRemove(bar.barId)" class="btn btn-default btn-sm pull-right">
-            <span class="glyphicon glyphicon-remove pull-right"></span>
+            <i class="fa fa-times pull-right" aria-hidden="true"></i>
           </button>
           <div style="overflow: hidden;" (click)="onBarShow(bar.barId)">
             <p>{{bar.barName}}</p>
@@ -19,8 +21,7 @@
     </div>
     <div class="container">
       <button class="btn btn-default btn-sm center-block" (click)="onAddBeer()">
-        <span class="glyphicon glyphicon-home"></span>
-        <span class="	glyphicon glyphicon-plus"></span>
+        <i class="fa fa-cutlery" aria-hidden="true"></i>
         Add a Bar
       </button>
     </div>
@@ -30,7 +31,7 @@
   <div *ngIf="search">
     <div>
       <button (click)="onAddBeer()" class="btn btn-default btn-sm">
-        <span class="glyphicon glyphicon-chevron-left"></span>
+        <i class="fa fa-angle-left" aria-hidden="true"></i>
       </button>
     </div>
     <app-search-result

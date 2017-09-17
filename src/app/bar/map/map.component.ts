@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, ParamMap } from '@angular/router';
+import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {BarService} from '../barService';
 import {Bar} from '../../shared/dto/bar';
 import {GeoData} from '../../shared/dto/geoData';
@@ -13,13 +13,19 @@ declare var google: any;
   styleUrls: ['./map.component.css']
 })
 export class MapComponent implements OnInit {
+  id: string;
   targetDestination: any = {};
 
-  constructor(private barService: BarService) {
+  constructor(private barService: BarService,
+              private route: ActivatedRoute,
+              private router: Router) {
   }
 
   ngOnInit() {
-    this.targetDestination = { lat: 46.956120, lng: 7.452865 };
+    this.route.params.subscribe(params => {
+      this.id = params['id'];
+      this.barService.loadBar(params['id']);
+    });
 
     const geoLocation = navigator.geolocation.getCurrentPosition(this.geoLocAllowed, this.geoLocDenied);
   }

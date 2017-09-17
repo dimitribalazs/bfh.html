@@ -34,14 +34,12 @@ export class BarService {
   }
 
   loadBar(id: string) {
-    this.businessService.getBar(id).subscribe((bar: BarModel) => this.viewModel = bar);
+    this.businessService.getBar(id).subscribe((bar: BarModel) =>
+    {
+      this.viewModel = bar
+      this.targetLocation = bar.location
+    });
  }
-
-  getTargetLocation(id: string) {
-    this.businessService.getBar(id).subscribe((bar: BarModel) => this.targetLocation = bar.location);
-
-    return this.targetLocation;
-  }
 
   // set the new user rating
   setUserRating(rating: RatingModel) {

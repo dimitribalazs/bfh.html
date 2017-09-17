@@ -3,7 +3,7 @@
     <div class="imageShow" style="position:relative;" >
     <img src="{{ '../../' + beerService.viewModel.image}}" height="150px" width="150px"/>
       <button *ngIf="edit" class="btn btn-default btn-sm" style="position:absolute;left:115.49px;top:120px;" (click)="onImageEdit()">
-        <span class="glyphicon glyphicon-pencil"></span>
+        <i class="fa fa-pencil" aria-hidden="true"></i>
       </button>
     </div>
     <div class="Rating">
@@ -17,11 +17,23 @@
     </div>
   </div>
   <br>
-  <nav class="container" *ngIf="!edit">
-    <button (click)="onClick('info')">Info</button>
-    <button (click)="onClick('brewery')">Brewery</button>
-    <button (click)="onClick('bars')">Bars</button>
-  </nav>
+  <ul class="nav nav-pills nav-justified" *ngIf="!edit">
+    <li role="presentation">
+      <a (click)="onClick('info', 0)" [class.activeNavigation]="activeNavigation===0" [class.inactiveNavigation]="activeNavigation !== 0">
+        Info
+      </a>
+    </li>
+    <li role="presentation">
+      <a (click)="onClick('brewery', 1)" [class.activeNavigation]="activeNavigation===1" [class.inactiveNavigation]="activeNavigation !== 1">
+        Brewery
+      </a>
+    </li>
+    <li role="presentation">
+      <a (click)="onClick('bars', 2)" [class.activeNavigation]="activeNavigation===2" [class.inactiveNavigation]="activeNavigation !== 2">
+        Bars
+      </a>
+    </li>
+  </ul>
   <br>
   <div>
     <router-outlet></router-outlet>

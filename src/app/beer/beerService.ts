@@ -1,11 +1,9 @@
-/**
- * Created by STRI on 22.08.2017.
- */
 import { Injectable, OnInit } from '@angular/core';
-import {BeerModel, DropDownEntry} from '../shared/domainModel/viewModels';
+import {BeerModel, DropDownEntry, BeerBarModel} from '../shared/domainModel/viewModels';
 import {BusinessService} from '../shared/services/business.service';
 import {RatingModel} from '../shared/components/rating/ratingModel';
 import {MenuState} from "../shared/services/menu.service";
+import {BarBeer} from "../shared/dto/barBeer";
 
 @Injectable()
 export class BeerService {
@@ -48,8 +46,17 @@ export class BeerService {
       this.viewModel.ratings[2], this.viewModel.userRating)
   }
 
-  addBar(id: string) {
-    this.businessService.addBeerToBar(this.viewModel.id, id);
+  //todo complete data (tapOrBottled, price)
+  addBar(id: string, name: string) {
+    const barBeer: BeerBarModel = {
+      barId: id,
+      barName: name,
+      beerId: this.viewModel.id,
+      beerName: this.viewModel.name,
+      tapOrBottled: true,
+      price: "99.9"
+    };
+    this.businessService.addBeerToBar(barBeer);
   }
 
   removeBar(id: string) {

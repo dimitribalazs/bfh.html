@@ -19,6 +19,7 @@ import {BarInfoComponent} from '../bar/bar-info/bar-info.component';
 import {SearchResultModule} from "../shared/components/search-result/searchResult.module";
 import {BreweryInfoComponent} from "./brewery-info/brewery-info.component";
 import {AvailableBeersComponent} from "./available-bars/available-bars.component";
+import {AvailableModule} from "../shared/components/available/available.module";
 
 @NgModule({
   imports: [
@@ -29,6 +30,7 @@ import {AvailableBeersComponent} from "./available-bars/available-bars.component
     AngularMultiSelectModule,
     BeerRoutingModule,
     SearchResultModule,
+    AvailableModule,
     ImageUploadModule.forRoot(),
   ],
   declarations: [

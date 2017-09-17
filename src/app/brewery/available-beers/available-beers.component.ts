@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {BreweryService} from '../breweryService';
+import {Router} from '@angular/router';
+import {AroundYou} from '../../shared/dto/aroundYou';
 
 @Component({
   selector: 'app-available-beers',
@@ -7,13 +9,24 @@ import {BreweryService} from '../breweryService';
   styleUrls: ['./available-beers.component.css']
 })
 export class AvailableBeersComponent implements OnInit {
-  constructor(private breweryService: BreweryService) { }
+  filter: number
+  dataIsBeerModel: boolean = true;
+  constructor(private breweryService: BreweryService, private router: Router) {
+    this.dataIsBeerModel = true;
+    this.filter = 3
+  }
 
   ngOnInit() {}
 
-  onAddBeer() {
-    // TODO
-    alert('noch nicht implementiert')
+  onShowBeer(id: string) {
+    this.router.navigate(['beer', id]);
+  }
+
+  addBeer(data: AroundYou) {
+    this.breweryService.addBeer(data)
+  }
+  removeBeer(id: string) {
+    this.breweryService.removeBeer(id)
   }
 
 }

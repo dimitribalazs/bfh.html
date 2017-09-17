@@ -21,6 +21,7 @@ export class BeerComponent implements OnInit {
   edit: boolean;
   new: boolean;
   imageUploadShow: boolean = false;
+  activeNavigation: number;
 
   constructor(private beerService: BeerService,
               private route: ActivatedRoute,
@@ -32,11 +33,21 @@ export class BeerComponent implements OnInit {
       visibleHomeLink: true,
       visibleEdit: true
     });
+    this.activeNavigation = 0;
   }
 
 
   ngOnInit() {
     const type: string = this.route.snapshot.data['type'];
+    const child: String = this.route.snapshot.firstChild.firstChild.url.toString();
+
+    if (child === 'info') {
+      this.activeNavigation = 0;
+    } else if (child === 'brewery') {
+      this.activeNavigation = 1;
+    } else if (child === 'bars') {
+      this.activeNavigation = 2;
+    }
 
     if (type === 'edit') {
       this.edit = true;
@@ -64,10 +75,13 @@ export class BeerComponent implements OnInit {
 
       });
     }
+
+
   }
 
-  onClick(childView: string) {
+  onClick(childView: string, activateNavigation: number) {
     this.router.navigate(['beer', this.id, childView]);
+    this.activeNavigation = activateNavigation;
   }
 
   onRatingChange(rating: RatingModel) {

@@ -26,6 +26,7 @@ import {isNullOrUndefined} from 'util';
 import {UserBarRating} from "../dto/userBarRating";
 import {Rating} from "../dto/rating";
 import {UserBeerRating} from "../dto/userBeerRating";
+import {AroundYou} from "../dto/aroundYou";
 
 
 
@@ -90,6 +91,7 @@ export class BusinessService {
         this.beerService.getAllBarBeersByBeerId(beer.id).subscribe((barBeers: BarBeer[]) => {
           // map dto to viewModel
           const beersArr: Array<BeerBarModel> = new Array<BeerBarModel>()
+          if(barBeers) {
           // beers.forEach((beer: Beer) => beersArr.push(this.mapBeerDtoToDomainModel(beer)))
           Object.keys(barBeers).map((value: string) => {
             const barBeer: BarBeer = barBeers[value] as BarBeer;
@@ -101,7 +103,7 @@ export class BusinessService {
             model.price = barBeer.price.toString();
             beersArr.push(model);
           });
-
+          }
           // emit the available beers
           beerModel.bars.next(beersArr)
 
@@ -116,15 +118,15 @@ export class BusinessService {
    * @param beerId
    * @param barId
    */
-  addBeerToBar(beerId: string, barId: string) {
-    console.log('beerId: ' + beerId + ', barId: ' + barId)
+  addBeerToBar(barBeerModel: BeerBarModel) {
+    console.log('beerId: ' + barBeerModel.beerId + ', barId: ' + barBeerModel.barId)
     const barBeer: BarBeer = {
-      beer: beerId,
-      bar: barId,
-      beerName: "example beer",
-      barName: "example bar",
-      price: 99.99,
-      tapOrBottled: true
+      price: parseFloat(barBeerModel.price),
+      tapOrBottled: barBeerModel.tapOrBottled,
+      beerName: barBeerModel.beerName,
+      beer: barBeerModel.beerId,
+      barName: barBeerModel.barName,
+      bar: barBeerModel.barId,
     };
     this.barService.addBeerToBar(barBeer);
   }
@@ -140,6 +142,26 @@ export class BusinessService {
     barBeer.beer = beerId;
     barBeer.bar = barId;
     this.barService.removeBeerFromBar(barBeer);
+  }
+
+
+  /**
+   * add a beer to a bar
+   * @param beerId
+   * @param breweryId
+   */
+  addBeerToBrewery(beer: AroundYou, breweryId: string, breweryName: string) {
+    //TODO
+
+  }
+
+  /**
+   * remove a beer from the brewery
+   * @param beerId
+   * @param breweryId
+   */
+  removeBeerFromBrewery(beerId: string, breweryId: string) {
+    // TODO
   }
 
   /**
@@ -184,20 +206,20 @@ export class BusinessService {
         // map dto to viewModel
         const beersArr: Array<BeerBarModel> = new Array<BeerBarModel>()
         // beers.forEach((beer: Beer) => beersArr.push(this.mapBeerDtoToDomainModel(beer)))
-        Object.keys(barBeers).map((value: string) => {
-          const barBeer: BarBeer = barBeers[value] as BarBeer;
-          const model  = new BeerBarModel();
-          model.barName = barBeer.barName;
-          model.barId = barBeer.bar;
-          model.beerName = barBeer.beerName;
-          model.beerId = barBeer.beer;
-          model.price = barBeer.price.toString();
-          beersArr.push(model);
-        });
-
+        if (barBeers) {
+          Object.keys(barBeers).map((value: string) => {
+            const barBeer: BarBeer = barBeers[value] as BarBeer;
+            const model = new BeerBarModel();
+            model.barName = barBeer.barName;
+            model.barId = barBeer.bar;
+            model.beerName = barBeer.beerName;
+            model.beerId = barBeer.beer;
+            model.price = barBeer.price.toString();
+            beersArr.push(model);
+          });
+        }
         // emit the available beers
-        barModel.beers.next(beersArr)
-
+        barModel.beers.next(beersArr);
       })
     })
     return this.barSubject;
@@ -217,17 +239,10 @@ export class BusinessService {
       // emit the loaded bar data
       this.brewerySubject.next(breweryModel)
       // reload the available beers
-      // TODO: getBeerByBrewery funktion fehlt
       this.beerService.getAllBeersByBreweryId(id).subscribe((data) => {
         // map dto to viewModel
         const beersArr: Array<BeerModel> = new Array<BeerModel>()
         data.forEach((beer: Beer) => beersArr.push(this.mapBeerDtoToDomainModel(beer)))
-
-        // nur für funktionstest. Wenn getAllBeersByBarId funktioniert wieder löschen
-        const test: BeerModel = new BeerModel();
-        test.name = 'Nur ein test... wieder löschen!!!';
-        beersArr.push(test);
-
         // emit the available beers
         breweryModel.beers.next(beersArr)
       })

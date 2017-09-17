@@ -1,44 +1,9 @@
 <div class="container">
-  Avaliable Bars
-  <div *ngIf="!search">
-    <div style="overflow-y:scroll; height:300px; background:gray">
-      <ul class="list-group">
-        <li *ngFor="let bar of beerService.viewModel.bars | async" class="list-group-item">
-          <!--{{bar.barName}}-->
-          <!--<button class="glyphicon glyphicon-remove  pull-right"></button>-->
-
-          <button (click)="onRemove(bar.barId)" class="btn btn-default btn-sm pull-right">
-            <span class="glyphicon glyphicon-remove pull-right"></span>
-          </button>
-          <div style="overflow: hidden;" (click)="onBarShow(bar.barId)">
-            <p>{{bar.barName}}</p>
-          </div>
-
-        </li>
-      </ul>
-    </div>
-    <div class="container">
-      <button class="btn btn-default btn-sm center-block" (click)="onAddBeer()">
-        <span class="glyphicon glyphicon-home"></span>
-        <span class="	glyphicon glyphicon-plus"></span>
-        Add a Bar
-      </button>
-    </div>
-  </div>
-
-
-  <div *ngIf="search">
-    <div>
-      <button (click)="onAddBeer()" class="btn btn-default btn-sm">
-        <span class="glyphicon glyphicon-chevron-left"></span>
-      </button>
-    </div>
-    <app-search-result
-      [filter]="filterSubject"
-      [search]="searchSubject"
-      (onSearchResult)="onResult($event)"
-      (onAddBeer)="onAddBeer($event)">
-    </app-search-result>
-  </div>
+  <app-available-data
+    [filter]="filter"
+    [items]="beerService.viewModel.bars"
+    (onAdd)="addBeer($event)"
+    (onRemove)="removeBeer($event)">
+  </app-available-data>
 </div>
 

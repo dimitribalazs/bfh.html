@@ -1,23 +1,25 @@
-
-  <div class="btn-group" data-toggle="buttons">
-    <label class="btn active" [class.activeRating]="activeRating[0]">
-      <input name="options" type="radio"  (click)="onChange(1)">
-      <span class="glyphicon glyphicon-minus"></span>
-    </label>
-
-    <label class="btn active" [class.activeRating]="activeRating[1]">
-      <input name="options" type="radio" (click)="onChange(2)">
-      <span class="	glyphicon glyphicon-ok"></span>
-    </label>
-
-    <label class="btn t active" [class.activeRating]="activeRating[2]">
-      <input name="options" type="radio" (click)="onChange(3)">
-      <span class="glyphicon glyphicon-plus"></span>
-    </label>
+<div class="btn-group">
+  <div class="pull-left">
+    <a class="btn btn-default center-block" (click)="onChange(1)" [class.activeRating]="activeRating[0]">
+      <i class="fa fa-minus fa-2x" aria-label="false"></i>
+    </a>
+    <br>
+    <span class="badge center-block">{{ratingBad}}</span>
   </div>
-  <div>
-    <label style="text-align:center;width: 37px">({{ratingBad}})</label>
-    <label style="text-align:center;width: 37px">({{ratingOk}})</label>
-    <label style="text-align:center;width: 34.51px">({{ratingGreat}})</label>
-</div>
 
+  <div class="pull-left">
+    <a class="btn btn-default center-block" (click)="onChange(2)" [class.activeRating]="activeRating[1]">
+      <i class="fa fa-check fa-2x" aria-label="false"></i>
+    </a>
+    <br>
+    <span class="badge center-block">{{ratingOk}}</span>
+  </div>
+
+  <div class="pull-left">
+    <a class="btn btn-default center-block" (click)="onChange(3)" [class.activeRating]="activeRating[2]">
+      <i class="fa fa-plus fa-2x" aria-label="false"></i>
+    </a>
+    <br>
+    <span class="badge center-block">{{ratingGreat}}</span>
+  </div>
+</div>

@@ -3,6 +3,7 @@ import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {BarService} from '../barService';
 import {Bar} from '../../shared/dto/bar';
 import {GeoData} from '../../shared/dto/geoData';
+import {isNullOrUndefined} from 'util';
 import {} from '@types/googlemaps';
 
 declare var google: any;
@@ -13,21 +14,20 @@ declare var google: any;
   styleUrls: ['./map.component.css']
 })
 export class MapComponent implements OnInit {
-  id: string;
-  targetDestination: any = {};
+  targetDestination: GeoData;
 
-  constructor(private barService: BarService,
-              private route: ActivatedRoute,
-              private router: Router) {
+  constructor(private barService: BarService) {
+    this.targetDestination = new GeoData()
   }
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
-      this.id = params['id'];
-      this.barService.loadBar(params['id']);
+    this.barService.targetLocationSubject.subscribe((location) => {
+           if (!isNullOrUndefined(location.longitude)) {
+              this.targetDestination = location
+       }
     });
 
-    const geoLocation = navigator.geolocation.getCurrentPosition(this.geoLocAllowed, this.geoLocDenied);
+    // const geoLocation = navigator.geolocation.getCurrentPosition(this.geoLocAllowed, this.geoLocDenied);
   }
 
   geoLocAllowed(position) {

@@ -63,7 +63,7 @@ export class BeerDatabaseService extends DatabaseService {
 
   getAll(): Observable<Beer[]> {
     return Observable.fromEvent(this.beersPath, FirebaseEvent.value.toString(), (snapshot) => {
-      var result = snapshot.val();
+      const result = snapshot.val();
       const beers: Beer[] = [];
       Object.keys(result).map((value: string) => {
         beers.push(result[value] as Beer);

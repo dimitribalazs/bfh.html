@@ -117,8 +117,16 @@ export class BusinessService {
    * @param beerId
    * @param barId
    */
-  addBeerToBar(barBeer: BarBeer) {
-    console.log('beerId: ' + barBeer.beer + ', barId: ' + barBeer.bar)
+  addBeerToBar(barBeerModel: BeerBarModel) {
+    console.log('beerId: ' + barBeerModel.beerId + ', barId: ' + barBeerModel.barId)
+    const barBeer: BarBeer = {
+      price: parseFloat(barBeerModel.price),
+      tapOrBottled: barBeerModel.tapOrBottled,
+      beerName: barBeerModel.beerName,
+      beer: barBeerModel.beerId,
+      barName: barBeerModel.barName,
+      bar: barBeerModel.barId,
+    };
     this.barService.addBeerToBar(barBeer);
   }
 

@@ -3,7 +3,7 @@ export class AroundYou {
     id: string;
     name: string;
     routerNavigate: string;
-    glyphicon: string;
+    icon: string;
     distance: number;
     unit: string;
 }

@@ -9,10 +9,10 @@
   /*float: left;*/
 /*}*/
 
-.btn span.glyphicon {
+.btn i.fa {
   opacity: 0;
 }
-.btn.active span.glyphicon {
+.btn.active i.fa {
   opacity: 1;
 }
 

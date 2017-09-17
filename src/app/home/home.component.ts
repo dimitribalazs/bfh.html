@@ -92,7 +92,7 @@ export class HomeComponent implements OnInit {
         a.id = bar.id;
         a.name = bar.name;
         a.routerNavigate = '/bar/'
-        a.glyphicon = 'glyphicon glyphicon-map-marker';
+        a.icon = 'fa fa-map-marker';
         a.distance = this.distance++;
         a.unit = 'm'
         if (this.arroundYou.length < 5) {
@@ -107,7 +107,7 @@ export class HomeComponent implements OnInit {
         a.id = user.id;
         a.name = user.firstname + ', ' + user.lastname;
         a.routerNavigate = '/user/'
-        a.glyphicon = 'glyphicon glyphicon-user';
+        a.icon = 'fa fa-user';
         a.distance = this.distance++;
         a.unit = 'm'
         if (this.arroundYou.length < 7) {
@@ -122,7 +122,7 @@ export class HomeComponent implements OnInit {
         a.id = brewery.id;
         a.name = brewery.name;
         a.routerNavigate = '/brewery/'
-        a.glyphicon = 'glyphicon glyphicon-home';
+        a.icon = 'fa fa-home';
         a.distance = this.distance++;
         a.unit = 'm'
         if (this.arroundYou.length < 9) {

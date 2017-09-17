@@ -10,7 +10,7 @@ import {UserBarRating} from '../dto/userBarRating';
 @Injectable()
 export class BarDatabaseService extends DatabaseService{
     private barsPath: firebase.database.Reference;
-    private barBeerPath: firebase.database.Reference;
+    private barBeersPath: firebase.database.Reference;
     private beersPath: firebase.database.Reference;
     private userBarRatingsPath: firebase.database.Reference;
 
@@ -18,7 +18,7 @@ export class BarDatabaseService extends DatabaseService{
         super();
         this.barsPath = getDatabase().ref("bars");
         this.beersPath = getDatabase().ref("beers");
-        this.barBeerPath = getDatabase().ref("barBeers");
+        this.barBeersPath = getDatabase().ref("barBeers");
         this.userBarRatingsPath = getDatabase().ref("userBarRatings");
     }
 
@@ -56,16 +56,20 @@ export class BarDatabaseService extends DatabaseService{
         return Observable.fromEvent(this.barsPath.child(id), FirebaseEvent.value.toString(), (snapshot) => {
             var result = snapshot.val();
             const bar: Bar = result;
-          return bar;
-            // return result as Bar;
+            return bar;
         });
     }
 
     addBeerToBar(barBeer: BarBeer): void {
         const newKey: string = barBeer.bar + "_" + barBeer.beer;
-        this.barBeerPath.child(newKey).set(barBeer);
+        this.barBeersPath.child(newKey).set(barBeer);
         this.barsPath.child(barBeer.bar + "/beers/" + newKey).set(true);
         this.beersPath.child(barBeer.beer + "/bars/" + newKey).set(true);
+    }
+
+    removeBeerFromBar(barBeer: BarBeer): void {
+      const newKey: string = barBeer.bar + "_" + barBeer.beer;
+      this.barBeersPath.child(newKey).remove();
     }
 
     getBarRatingsByBarId(barId: string): Observable<UserBarRating[]> {

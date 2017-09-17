@@ -125,7 +125,6 @@ export class UserDatabaseService extends DatabaseService{
       return beers;
     });
   }
-
   getBeerRatingsByUserId(userId: string): Observable<UserBeerRating[]> {
     return Observable.fromEvent(this.userBeerRatingsPath, FirebaseEvent.value.toString(), (snapshot) => {
       const ratings: UserBeerRating[] = [];

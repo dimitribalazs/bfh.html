@@ -15,6 +15,8 @@ import {getDatabase} from './firebase';
 import {GeoService} from './geo.service';
 import {IGeoData} from "../dto/IGeoData";
 import {UserBeerRating} from "../dto/userBeerRating";
+import {UserBarRating} from "../dto/userBarRating";
+import {Rating} from '../dto/rating';
 
 
 @Injectable()
@@ -142,12 +144,12 @@ export class UserDatabaseService extends DatabaseService{
     });
   }
 
-  getBarRatingsByBarId(beerId: string): Observable<UserBeerRating[]> {
-    return Observable.fromEvent(this.userBeerRatingsPath, FirebaseEvent.value.toString(), (snapshot) => {
-      const ratings: UserBeerRating[] = [];
+  getBarRatingsByBarId(barId: string): Observable<UserBarRating[]> {
+    return Observable.fromEvent(this.userBarRatingsPath, FirebaseEvent.value.toString(), (snapshot) => {
+      const ratings: UserBarRating[] = [];
       const dbData = snapshot.val();
-      Object.keys(dbData).map(value => ratings.push(dbData[value] as UserBeerRating));
-      return ratings.filter(rating => rating.beer == beerId);
+      Object.keys(dbData).map(value => ratings.push(dbData[value] as UserBarRating));
+      return ratings.filter(rating => rating.bar == barId);
     });
   }
 }

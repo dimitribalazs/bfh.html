@@ -1,3 +1,5 @@
+import {Rating} from "./rating";
+
 export class UserBeerRating {
   user: string;
   beer: string;
@@ -5,8 +7,3 @@ export class UserBeerRating {
 }
 
 
-export enum Rating {
-  Bad = 0,
-  Ok = 1,
-  Great = 2
-}

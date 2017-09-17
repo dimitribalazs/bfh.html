@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterContentInit } from '@angular/core';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {BarService} from '../barService';
 import {Bar} from '../../shared/dto/bar';
@@ -13,11 +13,11 @@ declare var google: any;
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css']
 })
-export class MapComponent implements OnInit {
+export class MapComponent implements OnInit, AfterContentInit {
   targetDestination: GeoData;
 
   constructor(private barService: BarService) {
-    this.targetDestination = new GeoData()
+    this.targetDestination = new GeoData();
   }
 
   ngOnInit() {
@@ -26,11 +26,18 @@ export class MapComponent implements OnInit {
               this.targetDestination = location
        }
     });
-
-    // const geoLocation = navigator.geolocation.getCurrentPosition(this.geoLocAllowed, this.geoLocDenied);
   }
 
-  geoLocAllowed(position) {
+  ngAfterContentInit() {
+    if (navigator.geolocation) {
+      // navigator.geolocation.getCurrentPosition((pos) => this.setPosition(pos))
+      navigator.geolocation.getCurrentPosition((pos) => this.showRoute(pos))
+    }else {
+      console.log('GeoLocation is disabled');
+    }
+  }
+
+  showRoute(position) {
     const directionsService = new google.maps.DirectionsService;
     const directionsDisplay = new google.maps.DirectionsRenderer;
 
@@ -65,10 +72,5 @@ export class MapComponent implements OnInit {
         window.alert('Directions request failed due to ' + status);
       }
     });
-
-  }
-
-  geoLocDenied(position){
-      console.log('GeoLocation is disabled');
   }
 }

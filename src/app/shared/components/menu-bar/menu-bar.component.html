@@ -6,19 +6,15 @@
               data-toggle="collapse"
               data-target="#bs-example-navbar-collapse-1" aria-expanded="false" (click)="onToggleMenu()">
         <span class="sr-only">Toggle navigation</span>
-        <!--<span class="icon-bar"></span>-->
-        <!--<span class="icon-bar"></span>-->
-        <!--<span class="icon-bar"></span>-->
-        <span class="glyphicon glyphicon-menu-hamburger"></span>
-
+        <i class="fa fa-bars" aria-hidden="true"></i>
       </button>
       <button *ngIf="menuState.visibleHomeLink" routerLink="/home" routerLinkActive="active"
       class="btn btn-default pull-left menubutton-left">
-      <span class="glyphicon glyphicon-home"></span>
+        <i class="fa fa-home" aria-hidden="true"></i>
       </button>
       <button *ngIf="menuState.visibleBack" type="button" class="btn btn-default pull-left menubutton-left"
               (click)="historyBack()">
-        <span class="glyphicon glyphicon-chevron-left"></span>
+        <i class="fa fa-angle-left" aria-hidden="true"></i>
       </button>
     </div>
     <a *ngIf="menuState.visibleTitle" class="navbar-brand" href="#">{{menuState.titleText}}</a>
@@ -31,15 +27,15 @@
     <div class="navbar-header pull-right">
       <a *ngIf="menuState.visibleSearchLink" routerLink="/search" routerLinkActive="active" role="button"
          class="btn btn-default menubutton-right">
-        <span class="glyphicon glyphicon-search"></span>
+        <i class="fa fa-search" aria-hidden="true"></i>
       </a>
 
       <a *ngIf="menuState.visibleEdit" (click)="onViewDetails()" class="btn btn-default menubutton-right">
-        <span class="glyphicon glyphicon-pencil"></span>
+        <i class="fa fa-pencil" aria-hidden="true"></i>
       </a>
       <a *ngIf="menuState.visibleSave" (click)="this.menuService.onSubmit()" type="submit"
               class="btn btn-default menubutton-right">
-        <span class="glyphicon glyphicon-ok"></span>
+        <i class="fa fa-check" aria-hidden="true"></i>
       </a>
 
     </div>

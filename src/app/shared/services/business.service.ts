@@ -26,6 +26,7 @@ import {isNullOrUndefined} from 'util';
 import {UserBarRating} from "../dto/userBarRating";
 import {Rating} from "../dto/rating";
 import {UserBeerRating} from "../dto/userBeerRating";
+import {AroundYou} from "../dto/aroundYou";
 
 
 
@@ -143,6 +144,26 @@ export class BusinessService {
     this.barService.removeBeerFromBar(barBeer);
   }
 
+
+  /**
+   * add a beer to a bar
+   * @param beerId
+   * @param breweryId
+   */
+  addBeerToBrewery(beer: AroundYou, breweryId: string, breweryName: string) {
+    //TODO
+
+  }
+
+  /**
+   * remove a beer from the brewery
+   * @param beerId
+   * @param breweryId
+   */
+  removeBeerFromBrewery(beerId: string, breweryId: string) {
+    // TODO
+  }
+
   /**
    * create or update a beer
    * @param beer the beer
@@ -218,17 +239,10 @@ export class BusinessService {
       // emit the loaded bar data
       this.brewerySubject.next(breweryModel)
       // reload the available beers
-      // TODO: getBeerByBrewery funktion fehlt
       this.beerService.getAllBeersByBreweryId(id).subscribe((data) => {
         // map dto to viewModel
         const beersArr: Array<BeerModel> = new Array<BeerModel>()
         data.forEach((beer: Beer) => beersArr.push(this.mapBeerDtoToDomainModel(beer)))
-
-        // nur für funktionstest. Wenn getAllBeersByBarId funktioniert wieder löschen
-        const test: BeerModel = new BeerModel();
-        test.name = 'Nur ein test... wieder löschen!!!';
-        beersArr.push(test);
-
         // emit the available beers
         breweryModel.beers.next(beersArr)
       })

@@ -15,8 +15,9 @@ import {BeerBarModel} from "../../../domainModel/viewModels";
 })
 export class AvailableDataComponent implements OnInit {
 
-  @Input() items: Observable<BeerBarModel>;
+  @Input() items: Observable<any>;
   @Input() filter: number;
+  @Input() dataIsBeerModel: boolean;
   @Output() onAdd = new EventEmitter<AroundYou>()
   @Output() onRemove = new EventEmitter<string>()
   @Output() onCancel = new EventEmitter()

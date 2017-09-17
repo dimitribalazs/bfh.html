@@ -11,7 +11,7 @@
             <p>{{item.barName}} ,{{item.price}} </p>
           </div>
 
-            <div *ngIf="filter ==3" style="overflow: hidden;" (click)="onBeerShow(item.beerId)">
+            <div *ngIf="filter ==3 && !dataIsBeerModel" style="overflow: hidden;" (click)="onBeerShow(item.beerId)">
               <button (click)="onRemoveItem(item.beerId)" class="btn btn-default btn-sm pull-right">
                 <span class="glyphicon glyphicon-remove pull-right"></span>
               </button>
@@ -20,6 +20,16 @@
               </button>
               <p>{{item.beerName}} ,{{item.price}} </p>
             </div>
+
+          <div *ngIf="filter ==3 && dataIsBeerModel" style="overflow: hidden;" (click)="onBeerShow(item.Id)">
+            <button (click)="onRemoveItem(item.Id)" class="btn btn-default btn-sm pull-right">
+              <span class="glyphicon glyphicon-remove pull-right"></span>
+            </button>
+            <button (click)="onProst(item.id)" class="btn btn-default btn-sm pull-right">
+              <span class="fa fa-beer"></span>
+            </button>
+            <p>{{item.name}}</p>
+          </div>
 
         </li>
       </ul>

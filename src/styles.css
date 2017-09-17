@@ -10,17 +10,26 @@
 }
 
 .activeNavigation {
-  background: lightgray;
+  background: #eeeeee;
+  border-color: #337ab7;
   border-style: solid solid none solid;
   border-width: 1px;
-  border-color: #337ab7;
   border-radius: 5px 5px 0 0 !important;
+}
+
+.activeNavigation:hover {
+  color: #337ab7;
 }
 
 .inactiveNavigation {
   background: #f9f9f9;
+  color: #3a9de1;
+  border-color: #337ab7;
   border-style: none none solid none;
   border-width: 1px;
-  border-color: #337ab7;
   border-radius: 0 !important;
+}
+
+.nav-pills > li + li {
+  margin-left: 0;
 }

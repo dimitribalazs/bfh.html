@@ -33,7 +33,7 @@ export class UserDatabaseService extends DatabaseService{
         this.usersPath = getDatabase().ref("users");
         this.beersPath = getDatabase().ref("beers");
         this.userBeerRatingsPath = getDatabase().ref("userBeerRatings");
-      this.userBeerRatingsPath = getDatabase().ref("userBarRatings");
+        this.userBarRatingsPath = getDatabase().ref("userBarRatings");
     }
 
     create(entity: User): void {
@@ -138,7 +138,7 @@ export class UserDatabaseService extends DatabaseService{
       const ratings: UserBeerRating[] = [];
       const dbData = snapshot.val();
       Object.keys(dbData).map(value => ratings.push(dbData[value] as UserBeerRating));
-      return ratings.filter(rating => rating.beer == beerId);
+      return ratings.filter(rating =>  rating.beer == beerId);
     });
   }
 
@@ -150,5 +150,4 @@ export class UserDatabaseService extends DatabaseService{
       return ratings.filter(rating => rating.beer == beerId);
     });
   }
-
 }

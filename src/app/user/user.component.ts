@@ -33,6 +33,10 @@ export class UserComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.menuService.setNewState({
+      titleText: 'User info',
+      visibleHomeLink: true
+    });
 
     this.route.params.subscribe(params => {
       this.id = params['id'];

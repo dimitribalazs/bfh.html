@@ -23,6 +23,9 @@ import {
 import {RatingModel} from '../components/rating/ratingModel';
 import {forEach} from '@angular/router/src/utils/collection';
 import {isNullOrUndefined} from 'util';
+import {UserBarRating} from "../dto/userBarRating";
+import {Rating} from "../dto/rating";
+import {UserBeerRating} from "../dto/userBeerRating";
 
 
 
@@ -66,9 +69,16 @@ export class BusinessService {
       // map dto to viewModel
       const beerModel: BeerModel = this.mapBeerDtoToDomainModel(beer);
       // load the userrating
-      // TODO laden von DB (funktion fehlt)
+
       beerModel.userRating = 0;
-      this.userService.getBeerRatingsByBeerId("1").subscribe(user => console.log("rating", user));
+      this.beerService.getBeerRatingsByBeerId(id).subscribe((ratings: UserBeerRating[])  => {
+        ratings.map((rating: UserBeerRating) => {
+          if(rating.user == "1") {
+            beerModel.userRating = Rating[Rating[rating.rating]];
+          }
+        })
+      });
+
       this.breweryService.get(beer.brewery).subscribe((brewery) => beerModel.brewery = this.mapBreweryDtoToDomainModel(brewery));
       // emit the loaded bar data
       this.beerSubject.next(beerModel)
@@ -102,6 +112,37 @@ export class BusinessService {
   }
 
   /**
+   * add a beer to a bar
+   * @param beerId
+   * @param barId
+   */
+  addBeerToBar(beerId: string, barId: string) {
+    console.log('beerId: ' + beerId + ', barId: ' + barId)
+    const barBeer: BarBeer = {
+      beer: beerId,
+      bar: barId,
+      beerName: "example beer",
+      barName: "example bar",
+      price: 99.99,
+      tapOrBottled: true
+    };
+    this.barService.addBeerToBar(barBeer);
+  }
+
+  /**
+   * remove a beer from the bar
+   * @param beerId
+   * @param barId
+   */
+  removeBeerFromBar(beerId: string, barId: string) {
+    console.log('beerId: ' + beerId + ', barId: ' + barId);
+    const barBeer: BarBeer = new BarBeer();
+    barBeer.beer = beerId;
+    barBeer.bar = barId;
+    this.barService.removeBeerFromBar(barBeer);
+  }
+
+  /**
    * create or update a beer
    * @param beer the beer
    * @returns {string} the id of the beer
@@ -128,6 +169,14 @@ export class BusinessService {
       // load the userrating
       // TODO laden von DB (funktion fehlt)
       barModel.userRating = 0;
+      this.barService.getBarRatingsByBarId(id).subscribe((ratings: UserBarRating[])  => {
+        ratings.map((rating: UserBarRating) => {
+          if(rating.user == "1") {
+            barModel.userRating = Rating[Rating[rating.rating]];
+          }
+        })
+      });
+
       // emit the loaded bar data
       this.barSubject.next(barModel)
       // reload the available beers

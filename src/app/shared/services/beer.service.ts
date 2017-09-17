@@ -5,17 +5,20 @@ import {DatabaseService, FirebaseEvent} from './database.service';
 import {getDatabase} from './firebase';
 import {Beer} from '../dto/beer';
 import {BarBeer} from "../dto/barBeer";
+import {UserBeerRating} from "../dto/userBeerRating";
 import {isNullOrUndefined} from "util";
 
 @Injectable()
 export class BeerDatabaseService extends DatabaseService {
   private beersPath: firebase.database.Reference;
   private barBeersPath: firebase.database.Reference;
+  private userBeerRatingsPath: firebase.database.Reference;
 
   constructor() {
     super();
     this.beersPath = getDatabase().ref("beers");
     this.barBeersPath = getDatabase().ref("barBeers");
+    this.userBeerRatingsPath = getDatabase().ref("userBeerRatings");
   }
 
   exists(entity: Beer): Promise<boolean> {
@@ -99,8 +102,17 @@ export class BeerDatabaseService extends DatabaseService {
 
   get(id: string): Observable<Beer> {
     return Observable.fromEvent(this.beersPath.child(id), FirebaseEvent.value.toString(), (snapshot) => {
-      var result = snapshot.val();
+      const result = snapshot.val();
       return result as Beer;
+    });
+  }
+
+  getBeerRatingsByBeerId(beerId: string): Observable<UserBeerRating[]> {
+    return Observable.fromEvent(this.userBeerRatingsPath, FirebaseEvent.value.toString(), (snapshot) => {
+      const ratings: UserBeerRating[] = [];
+      const dbData = snapshot.val();
+      Object.keys(dbData).map(value => ratings.push(dbData[value] as UserBeerRating));
+      return ratings.filter(rating =>  rating.beer == beerId);
     });
   }
 }

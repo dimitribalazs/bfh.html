@@ -15,6 +15,8 @@ import {getDatabase} from './firebase';
 import {GeoService} from './geo.service';
 import {IGeoData} from "../dto/IGeoData";
 import {UserBeerRating} from "../dto/userBeerRating";
+import {UserBarRating} from "../dto/userBarRating";
+import {Rating} from '../dto/rating';
 
 
 @Injectable()
@@ -33,7 +35,7 @@ export class UserDatabaseService extends DatabaseService{
         this.usersPath = getDatabase().ref("users");
         this.beersPath = getDatabase().ref("beers");
         this.userBeerRatingsPath = getDatabase().ref("userBeerRatings");
-      this.userBeerRatingsPath = getDatabase().ref("userBarRatings");
+        this.userBarRatingsPath = getDatabase().ref("userBarRatings");
     }
 
     create(entity: User): void {
@@ -123,7 +125,6 @@ export class UserDatabaseService extends DatabaseService{
       return beers;
     });
   }
-
   getBeerRatingsByUserId(userId: string): Observable<UserBeerRating[]> {
     return Observable.fromEvent(this.userBeerRatingsPath, FirebaseEvent.value.toString(), (snapshot) => {
       const ratings: UserBeerRating[] = [];
@@ -133,22 +134,6 @@ export class UserDatabaseService extends DatabaseService{
     });
   }
 
-  getBeerRatingsByBeerId(beerId: string): Observable<UserBeerRating[]> {
-    return Observable.fromEvent(this.userBeerRatingsPath, FirebaseEvent.value.toString(), (snapshot) => {
-      const ratings: UserBeerRating[] = [];
-      const dbData = snapshot.val();
-      Object.keys(dbData).map(value => ratings.push(dbData[value] as UserBeerRating));
-      return ratings.filter(rating => rating.beer == beerId);
-    });
-  }
 
-  getBarRatingsByBarId(beerId: string): Observable<UserBeerRating[]> {
-    return Observable.fromEvent(this.userBeerRatingsPath, FirebaseEvent.value.toString(), (snapshot) => {
-      const ratings: UserBeerRating[] = [];
-      const dbData = snapshot.val();
-      Object.keys(dbData).map(value => ratings.push(dbData[value] as UserBeerRating));
-      return ratings.filter(rating => rating.beer == beerId);
-    });
-  }
 
 }

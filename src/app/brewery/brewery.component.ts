@@ -22,6 +22,12 @@ export class BreweryComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.menuService.setNewState({
+      titleText: 'Brewery info',
+      visibleBack: true,
+      visibleHomeLink: true,
+      visibleEdit: true
+    });
 
     this.route.params.subscribe(params => {
       this.id = params['id'];

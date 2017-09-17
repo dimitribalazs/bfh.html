@@ -30,11 +30,11 @@ export class MapComponent implements OnInit {
     const currentLocation =  {lat: position.coords.latitude, lng: position.coords.longitude };
     console.log('Your current location ' + currentLocation.lat, currentLocation.lng);
 
-    var map = new google.maps.Map(document.getElementById('map'), {
+    let map = new google.maps.Map(document.getElementById('map'), {
       zoom: 7,
       center: currentLocation
     });
-    var marker = new google.maps.Marker({
+    let marker = new google.maps.Marker({
       position: currentLocation,
       map: map
     });
@@ -43,7 +43,7 @@ export class MapComponent implements OnInit {
 
     // TODO
     // "46.956120, 7.452865"
-    var targetDestination = { lat: 46.956120, lng: 7.452865 };
+    let targetDestination = { lat: 46.956120, lng: 7.452865 };
     // {lat: this.service.viewModel.location.latitude , lng: this.service.viewModel.location.longitude }
 
     directionsService.route({

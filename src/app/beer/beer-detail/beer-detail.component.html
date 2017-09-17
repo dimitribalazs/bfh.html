@@ -22,7 +22,7 @@
               <label for="brewery">Brewery</label>
             </div>
             <button (click)="activateSearchBrewery()" class="btn btn-default btn-sm pull-right">
-              <span class="glyphicon glyphicon-search"></span>
+              <i class="fa fa-search" aria-hidden="true"></i>
             </button>
             <div style="overflow: hidden; padding-right: .5em;">
             <input type="text" class="form-control" id="brewery" required
@@ -74,7 +74,7 @@
         <div *ngIf="searchBrewery">
           <div>
             <button (click)="activateSearchBrewery()" class="btn btn-default btn-sm">
-              <span class="glyphicon glyphicon-chevron-left"></span>
+              <i class="fa fa-angle-left" aria-hidden="true"></i>
             </button>
             Current brewery: {{beerService.viewModel.brewery.name}}
           </div>

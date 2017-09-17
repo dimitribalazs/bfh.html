@@ -118,6 +118,15 @@ export class BusinessService {
    */
   addBeerToBar(beerId: string, barId: string) {
     console.log('beerId: ' + beerId + ', barId: ' + barId)
+    const barBeer: BarBeer = {
+      beer: beerId,
+      bar: barId,
+      beerName: "example beer",
+      barName: "example bar",
+      price: 99.99,
+      tapOrBottled: true
+    };
+    this.barService.addBeerToBar(barBeer);
   }
 
   /**
@@ -126,7 +135,11 @@ export class BusinessService {
    * @param barId
    */
   removeBeerFromBar(beerId: string, barId: string) {
-    console.log('beerId: ' + beerId + ', barId: ' + barId)
+    console.log('beerId: ' + beerId + ', barId: ' + barId);
+    const barBeer: BarBeer = new BarBeer();
+    barBeer.beer = beerId;
+    barBeer.bar = barId;
+    this.barService.removeBeerFromBar(barBeer);
   }
 
   /**

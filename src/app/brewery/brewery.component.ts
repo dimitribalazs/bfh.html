@@ -25,6 +25,7 @@ export class BreweryComponent implements OnInit {
     this.menuService.setNewState({
       titleText: 'Brewery info',
       visibleBack: true,
+      visibleHomeLink: true,
       visibleEdit: true
     });
 

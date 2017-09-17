@@ -1,0 +1,57 @@
+<div class="container">
+  <div *ngIf="!search">
+    <div style="overflow-y:scroll; height:300px; background:gray">
+      <ul class="list-group">
+        <li *ngFor="let item of items | async" class="list-group-item">
+
+          <button (click)="onRemoveItem(item.id)" class="btn btn-default btn-sm pull-right">
+            <span class="glyphicon glyphicon-remove pull-right"></span>
+          </button>
+          <div style="overflow: hidden;" (click)="onBarShow(item.id)">
+            <div *ngIf="filter ==1">
+            <p>{{item.barName}} ,{{item.price}} </p>
+            </div>
+            <div *ngIf="filter ==3">
+              <button (click)="onProst(item.id)" class="btn btn-default btn-sm pull-right">
+                <span class="fa fa-beer"></span>
+              </button>
+              <p>{{item.beerName}} ,{{item.price}} </p>
+            </div>
+          </div>
+
+        </li>
+      </ul>
+    </div>
+    <div class="container">
+      <div *ngIf="filter ==1">
+        <button class="btn btn-default btn-sm center-block" (click)="onAddItem()">
+          <span class="glyphicon glyphicon-home"></span>
+          <span class="	glyphicon glyphicon-plus"></span>
+          Add a Bar
+        </button>
+      </div>
+      <div *ngIf="filter ==3">
+        <button class="btn btn-default btn-sm center-block" (click)="onAddItem()">
+          <span class="glyphicon glyphicon-glass"></span>
+          <span class="	glyphicon glyphicon-plus"></span>
+          Add a Beer
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <div *ngIf="search">
+    <div>
+      <button (click)="onAddItem()" class="btn btn-default btn-sm">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+      </button>
+    </div>
+    <app-search-result
+      [filter]="filterSubject"
+      [search]="searchSubject"
+      (onSearchResult)="onResult($event)"
+      (onAddBeer)="onCreateBeer($event)">
+    </app-search-result>
+  </div>
+</div>

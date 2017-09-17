@@ -13,6 +13,7 @@ import { OpeningHoursComponent } from './opening-hours/opening-hours.component';
 import { PhotosComponent } from './photos/photos.component';
 import {RatingModel} from '../shared/components/rating/ratingModel';
 import {SearchResultModule} from '../shared/components/search-result/searchResult.module';
+import {AvailableModule} from '../shared/components/available/available.module';
 
 // import { BarService } from './bar.service';
 
@@ -21,7 +22,8 @@ import {SearchResultModule} from '../shared/components/search-result/searchResul
     CommonModule,
     FormsModule,
     BarsRoutingModule,
-    SearchResultModule
+    SearchResultModule,
+    AvailableModule
   ],
   declarations: [
     BarComponent,

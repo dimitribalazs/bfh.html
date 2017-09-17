@@ -122,7 +122,7 @@ export class HomeComponent implements OnInit {
         a.id = brewery.id;
         a.name = brewery.name;
         a.routerNavigate = '/brewery/'
-        a.icon = 'fa fa-home';
+        a.icon = 'fa fa-industry';
         a.distance = this.distance++;
         a.unit = 'm'
         if (this.arroundYou.length < 9) {

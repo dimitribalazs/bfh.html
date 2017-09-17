@@ -43,8 +43,8 @@ export class AvailableBeersComponent implements OnInit {
   }
 
 
-  addBeer(id: string) {
-    // this.beerService.addBar(id)
+  addBeer(data: AroundYou) {
+    this.beerService.addBar(data.id, data.name)
   }
   removeBeer(id: string) {
     this.beerService.removeBar(id)

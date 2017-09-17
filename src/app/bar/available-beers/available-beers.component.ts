@@ -4,6 +4,7 @@ import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {BehaviorSubject} from 'rxjs/Rx';
 import {MultiNavigationModel} from '../../shared/domainModel/multiNavigationModel';
 import {BeerBarModel} from "../../shared/domainModel/viewModels";
+import {AroundYou} from "../../shared/dto/aroundYou";
 
 @Component({
   selector: 'app-available-beers',
@@ -33,11 +34,11 @@ export class AvailableBeersComponent implements OnInit {
     this.router.navigate(['beer', id]);
   }
 
-  addBeer(id: string) {
-    console.log('******************************************add')
+  addBeer(data: AroundYou) {
+    this.barService.addBar(data.id, data.name)
   }
   removeBeer(id: string) {
-    console.log('******************************************remove')
+    this.barService.removeBar(id)
   }
 }
 

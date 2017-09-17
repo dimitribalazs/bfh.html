@@ -4,21 +4,22 @@
       <ul class="list-group">
         <li *ngFor="let item of items | async" class="list-group-item">
 
-          <button (click)="onRemoveItem(item.id)" class="btn btn-default btn-sm pull-right">
-            <span class="glyphicon glyphicon-remove pull-right"></span>
-          </button>
-
           <div *ngIf="filter ==1" style="overflow: hidden;" (click)="onBarShow(item.barId)">
+            <button (click)="onRemoveItem(item.barId)" class="btn btn-default btn-sm pull-right">
+              <span class="glyphicon glyphicon-remove pull-right"></span>
+            </button>
             <p>{{item.barName}} ,{{item.price}} </p>
           </div>
 
-            <div *ngIf="filter ==3" style="overflow: hidden;" (click)="onBeerShow(item.barId)">
+            <div *ngIf="filter ==3" style="overflow: hidden;" (click)="onBeerShow(item.beerId)">
+              <button (click)="onRemoveItem(item.beerId)" class="btn btn-default btn-sm pull-right">
+                <span class="glyphicon glyphicon-remove pull-right"></span>
+              </button>
               <button (click)="onProst(item.id)" class="btn btn-default btn-sm pull-right">
                 <span class="fa fa-beer"></span>
               </button>
               <p>{{item.beerName}} ,{{item.price}} </p>
             </div>
-
 
         </li>
       </ul>

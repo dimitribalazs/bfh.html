@@ -17,7 +17,7 @@ export class AvailableDataComponent implements OnInit {
 
   @Input() items: Observable<BeerBarModel>;
   @Input() filter: number;
-  @Output() onAdd = new EventEmitter<string>()
+  @Output() onAdd = new EventEmitter<AroundYou>()
   @Output() onRemove = new EventEmitter<string>()
   @Output() onCancel = new EventEmitter()
 
@@ -61,7 +61,7 @@ export class AvailableDataComponent implements OnInit {
   onResult(data: AroundYou) {
     this.search = false;
     this.menuService.setNewState(this.menuState)
-    this.onAdd.emit(data.id);
+    this.onAdd.emit(data);
   }
 
   onBarShow(id: string) {

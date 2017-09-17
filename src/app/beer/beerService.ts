@@ -1,5 +1,5 @@
 import { Injectable, OnInit } from '@angular/core';
-import {BeerModel, DropDownEntry} from '../shared/domainModel/viewModels';
+import {BeerModel, DropDownEntry, BeerBarModel} from '../shared/domainModel/viewModels';
 import {BusinessService} from '../shared/services/business.service';
 import {RatingModel} from '../shared/components/rating/ratingModel';
 import {MenuState} from "../shared/services/menu.service";
@@ -46,14 +46,15 @@ export class BeerService {
       this.viewModel.ratings[2], this.viewModel.userRating)
   }
 
+  //todo complete data (tapOrBottled, price)
   addBar(id: string, name: string) {
-    const barBeer: BarBeer = {
-      bar: id,
+    const barBeer: BeerBarModel = {
+      barId: id,
       barName: name,
-      beer: this.viewModel.id,
+      beerId: this.viewModel.id,
       beerName: this.viewModel.name,
       tapOrBottled: true,
-      price: 99.9
+      price: "99.9"
     };
     this.businessService.addBeerToBar(barBeer);
   }

@@ -6,7 +6,7 @@
           [class.selected]="isSelected(data)"
           (click)="onSelect(data)"
           class="list-group-item">
-        <span class={{data.glyphicon}}></span>
+        <i class={{data.icon}} aria-hidden="true"></i>
         <span class="badge">{{ data.distance }} {{data.unit}}</span>
         {{ data.name }}
       </li>

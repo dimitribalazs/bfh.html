@@ -5,7 +5,7 @@ import { BeerComponent } from './beer.component';
 import { BeerDetailComponent } from './beer-detail/beer-detail.component';
 import { BeerInfoComponent } from './beer-info/beer-info.component';
 import {BreweryInfoComponent} from './brewery-info/brewery-info.component';
-import {AvailableBeersComponent} from "./available-bars/available-beers.component";
+import {AvailableBeersComponent} from "./available-bars/available-bars.component";
 // import {BarInfoComponent} from '../bar/bar-info/bar-info.component';
 
 const beerRoutes: Routes = [

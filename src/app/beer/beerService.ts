@@ -5,6 +5,7 @@ import { Injectable, OnInit } from '@angular/core';
 import {BeerModel, DropDownEntry} from '../shared/domainModel/viewModels';
 import {BusinessService} from '../shared/services/business.service';
 import {RatingModel} from '../shared/components/rating/ratingModel';
+import {MenuState} from "../shared/services/menu.service";
 
 @Injectable()
 export class BeerService {
@@ -31,6 +32,7 @@ export class BeerService {
     return this.breweryDropDownList;
   }
 
+
   /**
    * set the new user rating
    * @param rating
@@ -46,4 +48,11 @@ export class BeerService {
       this.viewModel.ratings[2], this.viewModel.userRating)
   }
 
+  addBar(id: string) {
+    this.businessService.addBeerToBar(this.viewModel.id, id);
+  }
+
+  removeBar(id: string) {
+    this.businessService.removeBeerFromBar(this.viewModel.id, id);
+  }
 }

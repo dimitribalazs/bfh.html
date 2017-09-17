@@ -102,6 +102,24 @@ export class BusinessService {
   }
 
   /**
+   * add a beer to a bar
+   * @param beerId
+   * @param barId
+   */
+  addBeerToBar(beerId: string, barId: string) {
+    console.log('beerId: ' + beerId + ', barId: ' + barId)
+  }
+
+  /**
+   * remove a beer from the bar
+   * @param beerId
+   * @param barId
+   */
+  removeBeerFromBar(beerId: string, barId: string) {
+    console.log('beerId: ' + beerId + ', barId: ' + barId)
+  }
+
+  /**
    * create or update a beer
    * @param beer the beer
    * @returns {string} the id of the beer

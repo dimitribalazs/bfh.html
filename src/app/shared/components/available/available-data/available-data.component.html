@@ -7,17 +7,18 @@
           <button (click)="onRemoveItem(item.id)" class="btn btn-default btn-sm pull-right">
             <span class="glyphicon glyphicon-remove pull-right"></span>
           </button>
-          <div style="overflow: hidden;" (click)="onBarShow(item.id)">
-            <div *ngIf="filter ==1">
+
+          <div *ngIf="filter ==1" style="overflow: hidden;" (click)="onBarShow(item.barId)">
             <p>{{item.barName}} ,{{item.price}} </p>
-            </div>
-            <div *ngIf="filter ==3">
+          </div>
+
+            <div *ngIf="filter ==3" style="overflow: hidden;" (click)="onBeerShow(item.barId)">
               <button (click)="onProst(item.id)" class="btn btn-default btn-sm pull-right">
                 <span class="fa fa-beer"></span>
               </button>
               <p>{{item.beerName}} ,{{item.price}} </p>
             </div>
-          </div>
+
 
         </li>
       </ul>

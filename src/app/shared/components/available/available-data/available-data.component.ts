@@ -68,6 +68,10 @@ export class AvailableDataComponent implements OnInit {
     this.router.navigate(['bar', id]);
   }
 
+  onBeerShow(id: string) {
+    this.router.navigate(['beer', id]);
+  }
+
   onRemoveItem(id: string) {
     this.menuService.setNewState(this.menuState)
     this.onRemove.emit(id);

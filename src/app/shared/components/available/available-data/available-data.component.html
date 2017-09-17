@@ -8,7 +8,15 @@
             <span class="glyphicon glyphicon-remove pull-right"></span>
           </button>
           <div style="overflow: hidden;" (click)="onBarShow(item.id)">
-            <p>{{item.beerName}} ,{{item.price}} </p>
+            <div *ngIf="filter ==1">
+            <p>{{item.barName}} ,{{item.price}} </p>
+            </div>
+            <div *ngIf="filter ==3">
+              <button (click)="onProst(item.id)" class="btn btn-default btn-sm pull-right">
+                <span class="fa fa-beer"></span>
+              </button>
+              <p>{{item.beerName}} ,{{item.price}} </p>
+            </div>
           </div>
 
         </li>

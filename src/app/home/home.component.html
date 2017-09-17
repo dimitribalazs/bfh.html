@@ -1,6 +1,6 @@
 <div class="container">
   <h4>Around you</h4>
-  <div>
+  <div style="max-height: 25vh; overflow: scroll">
     <ul class="list-group">
       <li *ngFor="let data of arroundYou"
           [class.selected]="isSelected(data)"

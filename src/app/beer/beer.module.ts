@@ -18,7 +18,7 @@ import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown/angular2
 import {BarInfoComponent} from '../bar/bar-info/bar-info.component';
 import {SearchResultModule} from "../shared/components/search-result/searchResult.module";
 import {BreweryInfoComponent} from "./brewery-info/brewery-info.component";
-import {AvailableBeersComponent} from "./available-bars/available-beers.component";
+import {AvailableBeersComponent} from "./available-bars/available-bars.component";
 
 @NgModule({
   imports: [

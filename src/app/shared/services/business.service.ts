@@ -33,7 +33,7 @@ import {AroundYou} from "../dto/aroundYou";
 export class BusinessService {
 
   // TODO Login
-  currentUser = 1;
+  currentUser: string = '1';
   debugMode: boolean;
 
   subscription: Subscription = new Subscription()
@@ -56,13 +56,7 @@ export class BusinessService {
     this.brewerySubject.asObservable();
     this.userSubject.asObservable();
 
-    const barRating: UserBarRating = {
-      user: "2",
-      bar: "1",
-      rating: Rating.Great
-    };
 
-    this.barService.addBarRating(barRating);
   }
 
   /**
@@ -232,10 +226,26 @@ export class BusinessService {
     return this.barSubject;
   }
 
-  setBarRating(ratingBad: number, ratingOk: number, ratingGreat: number, userRating: number) {
-    // TODO speichern in DB
+  setBarRating(barId: string, userRating: number) {
+    const barRating: UserBarRating = {
+      user: this.currentUser,
+      bar: barId,
+      rating: userRating
+    };
 
+    this.barService.addBarRating(barRating);
   }
+
+  setBeerRating(beerId: string, userRating: number) {
+    const beerRating: UserBeerRating = {
+      user: this.currentUser,
+      beer: beerId,
+      rating: userRating
+    };
+
+    this.beerService.addBeerRating(beerRating);
+  }
+
 
   getBrewery(id: string): Subject<BreweryModel> {
     // emit the loaded Data

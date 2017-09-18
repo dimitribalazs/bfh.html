@@ -25,25 +25,25 @@ export class RatingComponent implements OnInit {
 
   ngOnInit() {
     this.ratingModel.oldRating = this.rating;
-    this.setButtonActiv(this.rating)
+    // this.setButtonActiv(this.rating)
   }
 
   onChange(e) {
     this.ratingModel.newRating = e - 1;
-    this.setButtonActiv(e)
+    // this.setButtonActiv(e)
     this.onRatingChange.emit(this.ratingModel);
     this.ratingModel.oldRating = this.ratingModel.newRating;
   }
 
-  setButtonActiv(activeIndex: number): void {
-    for (let _i = 0; _i <  this.activeRating.length; _i++) {
-      if (_i === (activeIndex - 1)) {
-        this.activeRating[_i] = true;
-      } else {
-        this.activeRating[_i] = false;
-      }
-    }
-  }
+  // setButtonActiv(activeIndex: number): void {
+  //   for (let _i = 0; _i <  this.activeRating.length; _i++) {
+  //     if (_i === (activeIndex - 1)) {
+  //       this.activeRating[_i] = true;
+  //     } else {
+  //       this.activeRating[_i] = false;
+  //     }
+  //   }
+  // }
 }
 export class BeerRating extends RatingComponent {}
 export class BarRating extends RatingComponent {}

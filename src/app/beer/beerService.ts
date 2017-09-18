@@ -46,8 +46,7 @@ export class BeerService {
 
     this.viewModel.ratings[rating.newRating] += 1;
     this.viewModel.userRating = rating.newRating;
-    this.businessService.setBarRating(this.viewModel.ratings[0], this.viewModel.ratings[1],
-      this.viewModel.ratings[2], this.viewModel.userRating)
+    this.businessService.setBarRating(this.viewModel.id,  this.viewModel.userRating)
   }
 
   /**

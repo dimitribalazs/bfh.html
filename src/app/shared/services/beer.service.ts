@@ -122,7 +122,7 @@ export class BeerDatabaseService extends DatabaseService {
     });
   }
 
-  addBarRating(beerRating: UserBeerRating) {
+  addBeerRating(beerRating: UserBeerRating) {
     const newKey: string = beerRating.user + "_" + beerRating.beer;
     this.userBeerRatingsPath.child(newKey).set(beerRating);
   }

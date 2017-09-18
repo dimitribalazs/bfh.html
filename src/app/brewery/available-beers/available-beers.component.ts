@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {BreweryService} from '../breweryService';
 import {Router} from '@angular/router';
 import {AroundYou} from '../../shared/dto/aroundYou';
+import {BeerBarModel} from "../../shared/domainModel/viewModels";
 
 @Component({
   selector: 'app-available-beers',
@@ -22,7 +23,7 @@ export class AvailableBeersComponent implements OnInit {
     this.router.navigate(['beer', id]);
   }
 
-  addBeer(data: AroundYou) {
+  addBeer(data: BeerBarModel) {
     this.breweryService.addBeer(data)
   }
   removeBeer(id: string) {

@@ -18,8 +18,8 @@ export class BreweryService {
     this.businessService.getBrewery(id).subscribe((brewery: BreweryModel) => this.viewModel = brewery);
   }
 
-  addBeer(data: AroundYou) {
-    this.businessService.addBeerToBrewery(data, this.viewModel.id, this.viewModel.name)
+  addBeer(data: BeerBarModel) {
+    this.businessService.addBeerToBrewery(data.beerId, data.beerName, this.viewModel.id, this.viewModel.name)
   }
   removeBeer(id: string) {
     this.businessService.removeBeerFromBrewery(id, this.viewModel.id)

@@ -25,17 +25,13 @@ export class AvailableBeersComponent implements OnInit {
   ngOnInit() {
   }
 
-  onAddBeer() {
-    // TODO
-    alert('noch nicht implementiert')
-  }
 
   onShowBeer(id: string) {
     this.router.navigate(['beer', id]);
   }
 
-  addBeer(data: AroundYou) {
-    this.barService.addBar(data.id, data.name)
+  addBeer(data: BeerBarModel) {
+    this.barService.addBar(data)
   }
   removeBeer(id: string) {
     this.barService.removeBar(id)

@@ -18,7 +18,7 @@ export class AvailableDataComponent implements OnInit {
   @Input() items: Observable<any>;
   @Input() filter: number;
   @Input() dataIsBeerModel: boolean;
-  @Output() onAdd = new EventEmitter<AroundYou>()
+  @Output() onAdd = new EventEmitter<BeerBarModel>()
   @Output() onRemove = new EventEmitter<string>()
   @Output() onCancel = new EventEmitter()
 
@@ -27,11 +27,15 @@ export class AvailableDataComponent implements OnInit {
   searchSubject: Subject<String> = new BehaviorSubject<string>('');
   filterSubject: Subject<number> = new BehaviorSubject<number>(1);
   menuState
+  linkInformation: boolean
+  linkModel: BeerBarModel;
 
   constructor(private menuService: MenuService,
               private router: Router) {
     this.search = false;
+    this.linkInformation = false;
     this.menuState = menuService.state
+    this.linkModel = new BeerBarModel();
   }
 
   ngOnInit() {
@@ -61,6 +65,18 @@ export class AvailableDataComponent implements OnInit {
 
   onResult(data: AroundYou) {
     this.search = false;
+    this.linkModel.beerId = data.id;
+    this.linkModel.beerName = data.name;
+    if (this.dataIsBeerModel) {
+      this.OnAddPrice(this.linkModel);
+    }else {
+      this.linkInformation = true;
+    }
+  }
+
+  OnAddPrice(data: BeerBarModel) {
+    this.search = false;
+    this.linkInformation = false;
     this.menuService.setNewState(this.menuState)
     this.onAdd.emit(data);
   }

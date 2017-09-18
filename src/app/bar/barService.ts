@@ -47,17 +47,14 @@ export class BarService {
       this.viewModel.ratings[2], this.viewModel.userRating)
   }
 
-  //todo complete data (tapOrBottled, price)
-  addBar(id: string, name: string) {
-    const barBeer: BeerBarModel = {
-      barId: this.viewModel.id,
-      barName: this.viewModel.name,
-      beerId: id,
-      beerName: name,
-      tapOrBottled: true,
-      price: "99.9"
-    };
-    this.businessService.addBeerToBar(barBeer);
+  /**
+   * add a Beer to a bar with prise and serving
+   * @param data
+   */
+  addBar(data: BeerBarModel) {
+    data.barId = this.viewModel.id;
+    data.barName = this.viewModel.name;
+    this.businessService.addBeerToBar(data);
   }
 
   removeBar(id: string) {

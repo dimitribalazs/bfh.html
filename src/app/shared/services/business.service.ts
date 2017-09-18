@@ -29,7 +29,6 @@ import {UserBeerRating} from "../dto/userBeerRating";
 import {AroundYou} from "../dto/aroundYou";
 
 
-
 @Injectable()
 export class BusinessService {
 
@@ -72,9 +71,9 @@ export class BusinessService {
       // load the userrating
 
       beerModel.userRating = 0;
-      this.beerService.getBeerRatingsByBeerId(id).subscribe((ratings: UserBeerRating[])  => {
+      this.beerService.getBeerRatingsByBeerId(id).subscribe((ratings: UserBeerRating[]) => {
         ratings.map((rating: UserBeerRating) => {
-          if(rating.user == "1") {
+          if (rating.user == "1") {
             beerModel.userRating = Rating[Rating[rating.rating]];
           }
         })
@@ -91,18 +90,18 @@ export class BusinessService {
         this.beerService.getAllBarBeersByBeerId(beer.id).subscribe((barBeers: BarBeer[]) => {
           // map dto to viewModel
           const beersArr: Array<BeerBarModel> = new Array<BeerBarModel>()
-          if(barBeers) {
-          // beers.forEach((beer: Beer) => beersArr.push(this.mapBeerDtoToDomainModel(beer)))
-          Object.keys(barBeers).map((value: string) => {
-            const barBeer: BarBeer = barBeers[value] as BarBeer;
-            const model  = new BeerBarModel();
-            model.barName = barBeer.barName;
-            model.barId = barBeer.bar;
-            model.beerName = barBeer.beerName;
-            model.beerId = barBeer.beer;
-            model.price = barBeer.price.toString();
-            beersArr.push(model);
-          });
+          if (barBeers) {
+            // beers.forEach((beer: Beer) => beersArr.push(this.mapBeerDtoToDomainModel(beer)))
+            Object.keys(barBeers).map((value: string) => {
+              const barBeer: BarBeer = barBeers[value] as BarBeer;
+              const model = new BeerBarModel();
+              model.barName = barBeer.barName;
+              model.barId = barBeer.bar;
+              model.beerName = barBeer.beerName;
+              model.beerId = barBeer.beer;
+              model.price = barBeer.price.toString();
+              beersArr.push(model);
+            });
           }
           // emit the available beers
           beerModel.bars.next(beersArr)
@@ -148,9 +147,11 @@ export class BusinessService {
   /**
    * add a beer to a bar
    * @param beerId
+   * @param beerName
    * @param breweryId
+   * @param breweryName
    */
-  addBeerToBrewery(beer: AroundYou, breweryId: string, breweryName: string) {
+  addBeerToBrewery(beerId: string, beerName: string, breweryId: string, breweryName: string) {
     //TODO
 
   }
@@ -191,9 +192,9 @@ export class BusinessService {
       // load the userrating
       // TODO laden von DB (funktion fehlt)
       barModel.userRating = 0;
-      this.barService.getBarRatingsByBarId(id).subscribe((ratings: UserBarRating[])  => {
+      this.barService.getBarRatingsByBarId(id).subscribe((ratings: UserBarRating[]) => {
         ratings.map((rating: UserBarRating) => {
-          if(rating.user == "1") {
+          if (rating.user == "1") {
             barModel.userRating = Rating[Rating[rating.rating]];
           }
         })
@@ -296,45 +297,54 @@ export class BusinessService {
     model.isSmokingAllowed = dto.isSmokingAllowed;
 
     model.snacks = dto.snacks;
-    model.image = dto.image;
+    if (isNullOrUndefined(dto.image)) {
+      model.image = 'assets/bars/Default.jpg';
+    }else {
+      model.image = dto.image;
+    }
     model.location = dto.location;
     model.description = dto.description;
 
     const ArrayOpen: Array<Time> = new Array(7)
     const ArrayClose: Array<Time> = new Array(7)
 
-    for (let i = 0 ; i < 7; i++) {
-      model.openingHours[i] = 'Cloesed'
-    }
+    if (isNullOrUndefined(dto.openingHours)) {
+      for (let i = 0; i < 7; i++) {
+        model.openingHours[i] = 'Opening hours unknown'
+      }
+    } else {
+      for (let i = 0; i < 7; i++) {
+        model.openingHours[i] = 'Cloesed'
+      }
 
-    dto.openingHours.forEach((day) => {
-      ArrayOpen[day.day] = new Time
-      ArrayOpen[day.day].houre = day.openHoure;
-      ArrayOpen[day.day].min = day.openMin;
-      ArrayOpen[day.day].sec = day.openSec;
+      dto.openingHours.forEach((day) => {
+        ArrayOpen[day.day] = new Time
+        ArrayOpen[day.day].houre = day.openHoure;
+        ArrayOpen[day.day].min = day.openMin;
+        ArrayOpen[day.day].sec = day.openSec;
 
-      ArrayClose[day.day] = new Time
-      ArrayClose[day.day].houre = day.closeHoure;
-      ArrayClose[day.day].min = day.closeMin;
-      ArrayClose[day.day].sec = day.closeSec;
-      day.closeHoure = day.closeHoure >= 24 ? day.closeHoure - 24 : day.closeHoure
-      model.openingHours[day.day] = day.openHoure + ':' + day.openMin + ' - ' + day.closeHoure + ':' + day.closeMin
-    })
+        ArrayClose[day.day] = new Time
+        ArrayClose[day.day].houre = day.closeHoure;
+        ArrayClose[day.day].min = day.closeMin;
+        ArrayClose[day.day].sec = day.closeSec;
+        day.closeHoure = day.closeHoure >= 24 ? day.closeHoure - 24 : day.closeHoure
+        model.openingHours[day.day] = day.openHoure + ':' + day.openMin + ' - ' + day.closeHoure + ':' + day.closeMin
+      })
 
-    const currentTime = new Date()
-    model.openNowText = 'Cloesed now'
-    if (!isNullOrUndefined(ArrayOpen[currentTime.getDay()]) && !isNullOrUndefined(ArrayClose[currentTime.getDay()])) {
-      const openFrom = new Date();
-      openFrom.setHours(ArrayOpen[currentTime.getDay()].houre, ArrayOpen[currentTime.getDay()].min, ArrayOpen[currentTime.getDay()].sec)
+      const currentTime = new Date()
+      model.openNowText = 'Cloesed now'
+      if (!isNullOrUndefined(ArrayOpen[currentTime.getDay()]) && !isNullOrUndefined(ArrayClose[currentTime.getDay()])) {
+        const openFrom = new Date();
+        openFrom.setHours(ArrayOpen[currentTime.getDay()].houre, ArrayOpen[currentTime.getDay()].min, ArrayOpen[currentTime.getDay()].sec)
 
-      const openTo = new Date();
-      openTo.setHours(ArrayClose[currentTime.getDay()].houre, ArrayClose[currentTime.getDay()].min, ArrayClose[currentTime.getDay()].sec)
+        const openTo = new Date();
+        openTo.setHours(ArrayClose[currentTime.getDay()].houre, ArrayClose[currentTime.getDay()].min, ArrayClose[currentTime.getDay()].sec)
 
-      if (currentTime > openFrom && currentTime < openTo) {
-        model.openNowText = 'Open now'
+        if (currentTime > openFrom && currentTime < openTo) {
+          model.openNowText = 'Open now'
+        }
       }
     }
-
     if (this.debugMode) {
       console.log('mapBeerDtoToDomainModel')
       console.log('dto:')
@@ -352,7 +362,11 @@ export class BusinessService {
     model.id = dto.id;
     model.firstname = dto.firstname;
     model.lastname = dto.lastname;
-    model.image = dto.image;
+    if (isNullOrUndefined(dto.image)) {
+      model.image = 'assets/users/Default.jpg';
+    }else {
+      model.image = dto.image;
+    }
     model.registrationDate = dto.registrationDate;
     model.totalConsumption = dto.totalConsumption;
     model.address = dto.address;
@@ -360,7 +374,7 @@ export class BusinessService {
     model.tel = dto.tel;
     model.badge = dto.badge;
     model.dateOfBirth = dto.dateOfBirth;
-    model.location = isNullOrUndefined(dto.location) ? model.location =  new GeoData() : model.location = dto.location ;
+    model.location = isNullOrUndefined(dto.location) ? model.location = new GeoData() : model.location = dto.location;
     if (this.debugMode) {
       console.log('mapBeerDtoToDomainModel')
       console.log('dto:')
@@ -385,9 +399,13 @@ export class BusinessService {
     model.ratings[0] = 0;
     model.ratings[1] = 0;
     model.ratings[2] = 0;
-    model.image = dto.image;
+    if (isNullOrUndefined(dto.image)) {
+      model.image = 'assets/logos/Default.jpg';
+    }else {
+      model.image = dto.image;
+    }
     model.taste = dto.taste;
-    model.location = isNullOrUndefined(dto.location) ? model.location =  new GeoData() : model.location = dto.location ;
+    model.location = isNullOrUndefined(dto.location) ? model.location = new GeoData() : model.location = dto.location;
     if (this.debugMode) {
       console.log('mapBeerDtoToDomainModel')
       console.log('dto:')

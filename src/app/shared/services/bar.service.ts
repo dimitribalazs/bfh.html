@@ -7,6 +7,7 @@ import {Bar} from '../dto/bar';
 import {BarBeer} from '../dto/barBeer';
 import {UserBarRating} from '../dto/userBarRating';
 
+
 @Injectable()
 export class BarDatabaseService extends DatabaseService{
     private barsPath: firebase.database.Reference;
@@ -80,4 +81,10 @@ export class BarDatabaseService extends DatabaseService{
         return ratings.filter(rating => rating.bar == barId);
       });
     }
+
+    addBarRating(barRating: UserBarRating) {
+      const newKey: string = barRating.user + "_" + barRating.bar;
+      this.userBarRatingsPath.child(newKey).set(barRating);
+    }
+
 }

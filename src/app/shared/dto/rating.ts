@@ -7,3 +7,15 @@ export enum Rating {
 export function getRatingDefault(): Rating {
   return 3;
 }
+
+export class UserBeerRating {
+  public user: number;
+  public beer: number;
+  public rating: Rating;
+}
+
+export class UserBarRating {
+  public user: number;
+  public bar: number;
+  public rating: Rating;
+}

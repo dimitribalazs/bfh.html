@@ -11,7 +11,11 @@ export class BeerService {
   breweryDropDownList: DropDownEntry[] = [];
 
   public viewModel: BeerModel = new BeerModel();
-  constructor(private businessService: BusinessService) {}
+  constructor(private businessService: BusinessService) {
+
+
+
+  }
 
   loadBeer(id: string) {
     this.businessService.getBeer(id).subscribe((beer: BeerModel) => this.viewModel = beer);

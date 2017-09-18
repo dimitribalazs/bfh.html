@@ -121,5 +121,10 @@ export class BeerDatabaseService extends DatabaseService {
       return ratings.filter(rating =>  rating.beer == beerId);
     });
   }
+
+  addBarRating(beerRating: UserBeerRating) {
+    const newKey: string = beerRating.user + "_" + beerRating.beer;
+    this.userBeerRatingsPath.child(newKey).set(beerRating);
+  }
 }
 

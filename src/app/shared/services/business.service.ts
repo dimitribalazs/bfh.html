@@ -55,6 +55,14 @@ export class BusinessService {
     this.barSubject.asObservable();
     this.brewerySubject.asObservable();
     this.userSubject.asObservable();
+
+    const barRating: UserBarRating = {
+      user: "2",
+      bar: "1",
+      rating: Rating.Great
+    };
+
+    this.barService.addBarRating(barRating);
   }
 
   /**

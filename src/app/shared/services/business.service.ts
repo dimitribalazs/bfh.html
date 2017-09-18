@@ -77,13 +77,12 @@ export class BusinessService {
       // map dto to viewModel
       const beerModel: BeerModel = this.mapBeerDtoToDomainModel(beer);
       // load the userrating
-
-
       this.beerService.getBeerRatingsByBeerId(id).subscribe((ratings: UserBeerRating[]) => {
         ratings.map((rating: UserBeerRating) => {
           if (rating.user == "1") {
             beerModel.userRating = Rating[Rating[rating.rating]];
           }
+          beerModel.incrementRating(rating.rating);
         })
       });
 
@@ -205,6 +204,7 @@ export class BusinessService {
           if (rating.user == "1") {
             barModel.userRating = Rating[Rating[rating.rating]];
           }
+          barModel.incrementRating(rating.rating);
         })
       });
 

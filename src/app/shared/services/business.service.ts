@@ -197,8 +197,6 @@ export class BusinessService {
       // map dto to viewModel
       const barModel = this.mapBarDtoToDomainModel(bar);
       // load the userrating
-      // TODO laden von DB (funktion fehlt)
-      barModel.userRating = 0;
       this.barService.getBarRatingsByBarId(id).subscribe((ratings: UserBarRating[]) => {
         ratings.map((rating: UserBarRating) => {
           if (rating.user == "1") {
@@ -294,10 +292,7 @@ export class BusinessService {
     model.address = dto.address;
     model.city = dto.city;
     model.plz = dto.plz;
-    // TODO laden von dto
-    // barModel.rating[0] = barDto.rating;
-    // barModel.rating[1] = barDto.rating;
-    // barModel.rating[2] = barDto.rating;
+    model.userRating = getRatingDefault();
     model.ratings[0] = 0;
     model.ratings[1] = 0;
     model.ratings[2] = 0;
@@ -400,10 +395,7 @@ export class BusinessService {
     model.description = dto.description;
     model.volume = dto.volume;
     model.brewType = dto.brewType;
-    // TODO laden von dto
-    // barModel.rating[0] = barDto.rating;
-    // barModel.rating[1] = barDto.rating;
-    // barModel.rating[2] = barDto.rating;
+    model.userRating = getRatingDefault();
     model.ratings[0] = 0;
     model.ratings[1] = 0;
     model.ratings[2] = 0;

@@ -4,8 +4,9 @@
 import {Observable} from 'rxjs/Observable';
 import {BehaviorSubject} from 'rxjs/Rx';
 import {falseIfMissing} from "protractor/built/util";
+import {Rating} from "../dto/rating";
 
-export class BeerModel {
+export class BeerModel implements IRating{
   id: string;
   name: string;
   description: string;
@@ -37,6 +38,21 @@ export class BeerModel {
     this.bars = new BehaviorSubject<BeerBarModel[]>(new Array<BeerBarModel>());
   }
 
+  incrementRating(rating: Rating): void {
+    switch(rating) {
+      case Rating.Great:
+        this.ratings[2] += 1;
+        break;
+      case Rating.Ok:
+        this.ratings[1] += 1;
+        break;
+      case Rating.Bad:
+        this.ratings[0] += 1;
+        break;
+      default:
+        throw Error("invalid rating");
+    }
+  }
 }
 
 export class BreweryModel {
@@ -88,7 +104,7 @@ export class BeerBarModel {
   }
 }
 
-export class BarModel {
+export class BarModel implements IRating{
   id: string;
   name: string;
   address: string;
@@ -125,6 +141,22 @@ export class BarModel {
     this.location = new GeoData();
     this.description = '';
     this.beers = new BehaviorSubject<BeerBarModel[]>(new Array<BeerBarModel>());
+  }
+
+  incrementRating(rating: Rating): void {
+    switch(rating) {
+      case Rating.Great:
+        this.ratings[2] += 1;
+        break;
+      case Rating.Ok:
+        this.ratings[1] += 1;
+        break;
+      case Rating.Bad:
+        this.ratings[0] += 1;
+        break;
+      default:
+        throw Error("invalid rating");
+    }
   }
 }
 
@@ -242,3 +274,8 @@ export class DropDownlists {
   name: string;
 }
 
+
+export interface IRating {
+  ratings: Array<number>;
+  incrementRating(rating: Rating): void;
+}

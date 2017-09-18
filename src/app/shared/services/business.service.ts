@@ -1,6 +1,3 @@
-/**
- * Created by STRI on 14.09.2017.
- */
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {BehaviorSubject} from 'rxjs/Rx';
@@ -24,7 +21,7 @@ import {RatingModel} from '../components/rating/ratingModel';
 import {forEach} from '@angular/router/src/utils/collection';
 import {isNullOrUndefined} from 'util';
 import {UserBarRating} from "../dto/userBarRating";
-import {Rating} from "../dto/rating";
+import {Rating, getRatingDefault} from "../dto/rating";
 import {UserBeerRating} from "../dto/userBeerRating";
 import {AroundYou} from "../dto/aroundYou";
 
@@ -70,12 +67,15 @@ export class BusinessService {
       const beerModel: BeerModel = this.mapBeerDtoToDomainModel(beer);
       // load the userrating
 
-      beerModel.userRating = 0;
+      beerModel.userRating = getRatingDefault();
       this.beerService.getBeerRatingsByBeerId(id).subscribe((ratings: UserBeerRating[]) => {
         ratings.map((rating: UserBeerRating) => {
+          //todo user auslesen und setzten
           if (rating.user == "1") {
             beerModel.userRating = Rating[Rating[rating.rating]];
           }
+
+          beerModel.incrementRating(rating.rating);
         })
       });
 
@@ -190,13 +190,14 @@ export class BusinessService {
       // map dto to viewModel
       const barModel = this.mapBarDtoToDomainModel(bar);
       // load the userrating
-      // TODO laden von DB (funktion fehlt)
-      barModel.userRating = 0;
+      barModel.userRating = getRatingDefault();
       this.barService.getBarRatingsByBarId(id).subscribe((ratings: UserBarRating[]) => {
+        //todo user auslesen und setzten
         ratings.map((rating: UserBarRating) => {
           if (rating.user == "1") {
             barModel.userRating = Rating[Rating[rating.rating]];
           }
+          barModel.incrementRating(rating.rating);
         })
       });
 
@@ -468,5 +469,4 @@ export class BusinessService {
     }
     return model;
   }
-
 }

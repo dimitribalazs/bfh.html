@@ -14,6 +14,7 @@ import { PhotosComponent } from './photos/photos.component';
 import {RatingModel} from '../shared/components/rating/ratingModel';
 import {SearchResultModule} from '../shared/components/search-result/searchResult.module';
 import {AvailableModule} from '../shared/components/available/available.module';
+import { MapComponent } from './map/map.component';
 
 // import { BarService } from './bar.service';
 
@@ -32,6 +33,7 @@ import {AvailableModule} from '../shared/components/available/available.module';
     AvailableBeersComponent,
     OpeningHoursComponent,
     PhotosComponent,
+    MapComponent,
     // BarDetailComponent
   ],
   providers: [ BarService ]

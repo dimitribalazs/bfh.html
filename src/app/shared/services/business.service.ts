@@ -1,3 +1,6 @@
+/**
+ * Created by STRI on 14.09.2017.
+ */
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {BehaviorSubject} from 'rxjs/Rx';
@@ -65,15 +68,14 @@ export class BusinessService {
     this.subscription = this.beerService.get(id).subscribe((beer: Beer) => {
       // map dto to viewModel
       const beerModel: BeerModel = this.mapBeerDtoToDomainModel(beer);
+      // load the userrating
+
 
       this.beerService.getBeerRatingsByBeerId(id).subscribe((ratings: UserBeerRating[]) => {
         ratings.map((rating: UserBeerRating) => {
-          //todo user auslesen und setzten
           if (rating.user == "1") {
             beerModel.userRating = Rating[Rating[rating.rating]];
           }
-
-          beerModel.incrementRating(rating.rating);
         })
       });
 
@@ -188,13 +190,13 @@ export class BusinessService {
       // map dto to viewModel
       const barModel = this.mapBarDtoToDomainModel(bar);
       // load the userrating
+      // TODO laden von DB (funktion fehlt)
+      barModel.userRating = 0;
       this.barService.getBarRatingsByBarId(id).subscribe((ratings: UserBarRating[]) => {
-        //todo user auslesen und setzten
         ratings.map((rating: UserBarRating) => {
           if (rating.user == "1") {
             barModel.userRating = Rating[Rating[rating.rating]];
           }
-          barModel.incrementRating(rating.rating);
         })
       });
 
@@ -288,7 +290,6 @@ export class BusinessService {
     // barModel.rating[0] = barDto.rating;
     // barModel.rating[1] = barDto.rating;
     // barModel.rating[2] = barDto.rating;
-    model.userRating = getRatingDefault();
     model.ratings[0] = 0;
     model.ratings[1] = 0;
     model.ratings[2] = 0;
@@ -391,7 +392,10 @@ export class BusinessService {
     model.description = dto.description;
     model.volume = dto.volume;
     model.brewType = dto.brewType;
-    model.userRating = getRatingDefault();
+    // TODO laden von dto
+    // barModel.rating[0] = barDto.rating;
+    // barModel.rating[1] = barDto.rating;
+    // barModel.rating[2] = barDto.rating;
     model.ratings[0] = 0;
     model.ratings[1] = 0;
     model.ratings[2] = 0;
@@ -464,4 +468,5 @@ export class BusinessService {
     }
     return model;
   }
+
 }

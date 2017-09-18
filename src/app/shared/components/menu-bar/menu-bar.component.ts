@@ -13,11 +13,9 @@ export class MenuBarComponent implements OnInit {
   @Input() menuState: MenuState;
 
   toggleMenu = false;
-  menuService: MenuService;
 
-  constructor(menuService: MenuService, private router: Router) {
-    this.menuService = menuService;
-    this.menuState = menuService.state;
+  constructor(private menuService: MenuService, private router: Router) {
+    this.menuState = this.menuService.state;
   }
 
   ngOnInit(): void {

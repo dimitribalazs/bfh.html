@@ -5,11 +5,15 @@ import {Injectable} from '@angular/core';
 import {BusinessService} from '../shared/services/business.service';
 import {BarModel, BeerBarModel} from '../shared/domainModel/viewModels';
 import {RatingModel} from '../shared/components/rating/ratingModel';
+import { Subject } from 'rxjs/Subject';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import {GeoData} from '../shared/dto/geoData';
 
 @Injectable()
 export class BarService {
 
   viewModel: BarModel = new BarModel();
+  public targetLocationSubject: Subject<GeoData> = new BehaviorSubject<GeoData>(new GeoData());
 
   constructor(private businessService: BusinessService) {
     // this.viewModel = new BarModel();
@@ -32,8 +36,11 @@ export class BarService {
   }
 
   loadBar(id: string) {
-    this.businessService.getBar(id).subscribe((bar: BarModel) => this.viewModel = bar);
-  }
+    this.businessService.getBar(id).subscribe((bar: BarModel) => {
+      this.viewModel = bar
+      this.targetLocationSubject.next(bar.location)
+    });
+ }
 
   // set the new user rating
   setUserRating(rating: RatingModel) {

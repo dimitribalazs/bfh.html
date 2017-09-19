@@ -1,4 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+  padding-top: 70px;
+}
+
 .horizontal-scroller-outer {
   overflow: scroll;
   width: 100vw;
@@ -33,10 +37,12 @@
 .nav-pills > li + li {
   margin-left: 0;
 }
+
 .nav-justified > li {
   display: table-cell;
   width: 1%;
 }
+
 .nav-justified > li > a {
   margin-bottom: 0;
 }

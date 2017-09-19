@@ -5,10 +5,11 @@ import { FavouritesComponent } from './favourites/favourites.component';
 import { BadgesComponent } from './badges/badges.component';
 import { DetailComponent } from './detail/detail.component';
 import { UserComponent } from './user.component';
+import {AuthGuard} from '../shared/_guards/AuthGuard';
 
 const userRoutes: Routes = [
   { path: 'user/:id',
-    component: UserComponent,
+    component: UserComponent , canActivate: [AuthGuard],
     data: {
       type: 'info'
     },
@@ -16,11 +17,11 @@ const userRoutes: Routes = [
       {
         path: '',
         children: [
-          { path: '', component: FriendsComponent },
-          { path: 'friends', component: FriendsComponent },
-          { path: 'favourites', component: FavouritesComponent },
-          { path: 'badges', component: BadgesComponent },
-          { path: 'detail', component: DetailComponent },
+          { path: '', component: FriendsComponent, canActivate: [AuthGuard] },
+          { path: 'friends', component: FriendsComponent, canActivate: [AuthGuard] },
+          { path: 'favourites', component: FavouritesComponent, canActivate: [AuthGuard] },
+          { path: 'badges', component: BadgesComponent, canActivate: [AuthGuard] },
+          { path: 'detail', component: DetailComponent, canActivate: [AuthGuard] },
         ]
       }
     ]},

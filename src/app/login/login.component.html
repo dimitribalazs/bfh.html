@@ -1,0 +1,22 @@
+
+
+
+<div class="container">
+  <h1></h1>
+  <img src="{{ '../../assets/logos/Default.jpg'}}"  class="img-responsive center-block"/>
+  <h1>Login</h1>
+  <div style="overflow-y:scroll; height:300px">
+    <ul class="list-group">
+      <li *ngFor="let user of userModel| async" class="list-group-item" (click)="onSelect(user)">
+        {{user.firstname}} {{user.lastname}}
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!--<app-search-result-->
+  <!--[filter]="filterSubject"-->
+  <!--[search]="searchSubject"-->
+  <!--(onSearchResult)="onResult($event)"-->
+  <!--(onAddBeer)="onAddBeer($event)">-->
+<!--</app-search-result>-->

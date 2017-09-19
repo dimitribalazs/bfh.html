@@ -32,9 +32,7 @@ import {AroundYou} from "../dto/aroundYou";
 @Injectable()
 export class BusinessService {
 
-  // TODO Login
-  currentUser: string = '1';
-  isLoggedIn: Boolean = false;
+  currentUser: UserModel = new UserModel();
   debugMode: boolean;
 
   subscription: Subscription = new Subscription()
@@ -61,6 +59,10 @@ export class BusinessService {
 
   }
 
+  setCurrentUser(userId: string) {
+    this.getUser(userId).subscribe((user) => this.currentUser = user)
+  }
+
   /**
    * Get the beer with the id
    * @param id the id of the beer
@@ -78,7 +80,7 @@ export class BusinessService {
         beerModel.ratings[1] = 0
         beerModel.ratings[2] = 0
         ratings.map((rating: UserBeerRating) => {
-          if (rating.user === this.currentUser) {
+          if (rating.user === this.currentUser.id) {
             beerModel.userRating = Rating[Rating[rating.rating]];
           }
           beerModel.incrementRating(rating.rating);
@@ -158,7 +160,7 @@ export class BusinessService {
    * @param breweryName
    */
   addBeerToBrewery(beerId: string, beerName: string, breweryId: string, breweryName: string) {
-    //TODO
+    // TODO
 
   }
 
@@ -201,7 +203,7 @@ export class BusinessService {
         barModel.ratings[1] = 0
         barModel.ratings[2] = 0
         ratings.map((rating: UserBarRating) => {
-          if (rating.user === this.currentUser) {
+          if (rating.user === this.currentUser.id) {
             barModel.userRating = Rating[Rating[rating.rating]];
           }
           barModel.incrementRating(rating.rating);
@@ -236,7 +238,7 @@ export class BusinessService {
 
   setBarRating(barId: string, userRating: number) {
     const barRating: UserBarRating = {
-      user: this.currentUser,
+      user: this.currentUser.id,
       bar: barId,
       rating: userRating
     };
@@ -246,7 +248,7 @@ export class BusinessService {
 
   setBeerRating(beerId: string, userRating: number) {
     const beerRating: UserBeerRating = {
-      user: this.currentUser,
+      user: this.currentUser.id,
       beer: beerId,
       rating: userRating
     };

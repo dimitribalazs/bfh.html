@@ -4,11 +4,12 @@ import { RouterModule, Routes } from '@angular/router';
 import {BreweryComponent} from './brewery.component';
 import {BreweryInfoComponent} from './brewery-info/brewery-info.component';
 import {AvailableBeersComponent} from './available-beers/available-beers.component';
+import {AuthGuard} from '../shared/_guards/AuthGuard';
 
 ;
 const breweryRoutes: Routes = [
   { path: 'brewery/:id',
-    component: BreweryComponent,
+    component: BreweryComponent, canActivate: [AuthGuard],
     data: {
       type: 'info'
     },
@@ -16,9 +17,9 @@ const breweryRoutes: Routes = [
       {
         path: '',
         children: [
-          { path: '', component: BreweryInfoComponent },
-          { path: 'beers', component: AvailableBeersComponent },
-          { path: 'info', component: BreweryInfoComponent },
+          { path: '', component: BreweryInfoComponent, canActivate: [AuthGuard] },
+          { path: 'beers', component: AvailableBeersComponent, canActivate: [AuthGuard] },
+          { path: 'info', component: BreweryInfoComponent, canActivate: [AuthGuard] },
         ]
       }
     ]},

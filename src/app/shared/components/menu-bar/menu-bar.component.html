@@ -44,20 +44,20 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"
          [ngClass]="{ 'toggleMenuStyle' : toggleMenu === true }">
       <ul class="nav navbar-nav">
-        <li [ngClass]="{ 'menuitem-first': toggleMenu === true }">
-          <a href="#">
-            <i class="fa fa-user" aria-hidden="true"></i>&nbsp;Account
+        <li *ngIf="authGuard.isLoggedOn" [ngClass]="{ 'menuitem-first': toggleMenu === true }">
+          <a href="user/{{businessService.currentUser.id}}">
+            <i class="fa fa-user" aria-hidden="true"></i>&nbsp;{{businessService.currentUser.firstname}}, {{businessService.currentUser.lastname}}
           </a>
         </li>
         <li>
-          <a href="#">
+          <a *ngIf="authGuard.isLoggedOn" href="#">
             <i class="fa fa-cog" aria-hidden="true"></i>&nbsp;Settings
           </a>
         </li>
         <li>
-          <a href="#">
+          <button *ngIf="authGuard.isLoggedOn" type="button" class="btn btn-link pull-left menubutton-left" (click)="logOut()">
             <i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;Logout
-          </a>
+          </button>
         </li>
       </ul>
     </div><!-- /.navbar-collapse -->

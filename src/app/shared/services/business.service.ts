@@ -34,6 +34,7 @@ export class BusinessService {
 
   // TODO Login
   currentUser: string = '1';
+  isLoggedIn: Boolean = false;
   debugMode: boolean;
 
   subscription: Subscription = new Subscription()
@@ -43,6 +44,7 @@ export class BusinessService {
   private brewerySubject: Subject<BreweryModel> = new BehaviorSubject<BreweryModel>(new BreweryModel());
   private beerSubject: Subject<BeerModel> = new BehaviorSubject<BeerModel>(new BeerModel());
   private userSubject: Subject<UserModel> = new BehaviorSubject<UserModel>(new UserModel());
+  private usersSubject: Subject<UserModel[]> = new BehaviorSubject<UserModel[]>(new Array<UserModel>());
   // public barAvailableBeersSubject: Subject<BeerModel[]> = new BehaviorSubject<BeerModel[]>(new Array<BeerModel>());
   // public barsSubject: Subject<BarModel[]> = new BehaviorSubject<BarModel[]>(this.bars);
 
@@ -72,8 +74,11 @@ export class BusinessService {
       const beerModel: BeerModel = this.mapBeerDtoToDomainModel(beer);
       // load the userrating
       this.beerService.getBeerRatingsByBeerId(id).subscribe((ratings: UserBeerRating[]) => {
+        beerModel.ratings[0] = 0
+        beerModel.ratings[1] = 0
+        beerModel.ratings[2] = 0
         ratings.map((rating: UserBeerRating) => {
-          if (rating.user == "1") {
+          if (rating.user === this.currentUser) {
             beerModel.userRating = Rating[Rating[rating.rating]];
           }
           beerModel.incrementRating(rating.rating);
@@ -192,8 +197,11 @@ export class BusinessService {
       const barModel = this.mapBarDtoToDomainModel(bar);
       // load the userrating
       this.barService.getBarRatingsByBarId(id).subscribe((ratings: UserBarRating[]) => {
+        barModel.ratings[0] = 0
+        barModel.ratings[1] = 0
+        barModel.ratings[2] = 0
         ratings.map((rating: UserBarRating) => {
-          if (rating.user == "1") {
+          if (rating.user === this.currentUser) {
             barModel.userRating = Rating[Rating[rating.rating]];
           }
           barModel.incrementRating(rating.rating);
@@ -293,6 +301,22 @@ export class BusinessService {
       })
     })
     return this.userSubject;
+  }
+
+  /**
+   * Get all user
+   * @param id
+   * @returns {Subject<UserModel[]>}
+   */
+  getAllUser(): Subject<UserModel[]> {
+    // emit the loaded Data
+    this.subscription.unsubscribe()
+    this.subscription = this.userService.getAll().subscribe((users) => {
+      const usersViewModel: Array<UserModel> = new Array()
+      Object.keys(users).map(value => usersViewModel.push(this.mapUserDtoToDomainModel(users[value] as User)));
+      this.usersSubject.next(usersViewModel);
+    })
+    return this.usersSubject;
   }
 
   private mapBarDtoToDomainModel(dto: Bar): BarModel {

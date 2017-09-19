@@ -27,6 +27,7 @@ import {SearchModule} from './search/search.module';
 import { MenuBarComponent } from './shared/components/menu-bar/menu-bar.component'
 import {BusinessService} from './shared/services/business.service';
 import {AvailableModule} from './shared/components/available/available.module';
+import {RatingModule} from './shared/components/rating/rating.module';
 
 
 @NgModule({
@@ -45,6 +46,7 @@ import {AvailableModule} from './shared/components/available/available.module';
     AvailableModule,
     SearchResultModule,
     AppRoutingModule,
+    RatingModule,
     UserModule,
     FriendsModule,
     Angular2FontawesomeModule,

@@ -4,13 +4,13 @@
       <img src="{{ '../../' + barService.viewModel.image}}" height="150px" width="150px"/>
     </div>
     <div class="Rating">
-      <app-beer-rating
+      <app-rating
         ratingBad={{barService.viewModel.ratings[0]}}
         ratingOk={{barService.viewModel.ratings[1]}}
         ratingGreat={{barService.viewModel.ratings[2]}}
         [rating]='barService.viewModel.userRating'
         (onRatingChange)="onRatingChange($event)">
-      </app-beer-rating>
+      </app-rating>
     </div>
   </div>
   <br>

@@ -7,13 +7,13 @@
       </button>
     </div>
     <div class="Rating">
-      <app-beer-rating
+      <app-rating
         ratingBad={{beerService.viewModel.ratings[0]}}
         ratingOk={{beerService.viewModel.ratings[1]}}
         ratingGreat={{beerService.viewModel.ratings[2]}}
         [rating]='beerService.viewModel.userRating'
         (onRatingChange)="onRatingChange($event)">
-      </app-beer-rating>
+      </app-rating>
     </div>
   </div>
   <br>

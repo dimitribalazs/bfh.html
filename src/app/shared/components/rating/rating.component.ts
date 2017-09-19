@@ -3,7 +3,7 @@ import {RatingModel} from './ratingModel';
 import {forEach} from "@angular/router/src/utils/collection";
 
 @Component({
-  selector: 'app-beer-rating',
+  selector: 'app-rating',
   templateUrl: './rating.component.html',
   styleUrls: ['./rating.component.css']
 })
@@ -18,14 +18,10 @@ export class RatingComponent implements OnInit {
   activeRating: boolean[] = new Array;
 
   constructor() {
-    this.activeRating[0] = false;
-    this.activeRating[1] = false;
-    this.activeRating[2] = false;
   }
 
   ngOnInit() {
     this.ratingModel.oldRating = this.rating;
-    // this.setButtonActiv(this.rating)
   }
 
   onChange(e) {
@@ -34,16 +30,4 @@ export class RatingComponent implements OnInit {
     this.onRatingChange.emit(this.ratingModel);
     this.ratingModel.oldRating = this.ratingModel.newRating;
   }
-
-  // setButtonActiv(activeIndex: number): void {
-  //   for (let _i = 0; _i <  this.activeRating.length; _i++) {
-  //     if (_i === (activeIndex - 1)) {
-  //       this.activeRating[_i] = true;
-  //     } else {
-  //       this.activeRating[_i] = false;
-  //     }
-  //   }
-  // }
 }
-export class BeerRating extends RatingComponent {}
-export class BarRating extends RatingComponent {}

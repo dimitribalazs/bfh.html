@@ -44,12 +44,6 @@ export class BarService {
 
   // set the new user rating
   setUserRating(rating: RatingModel) {
-    // this.viewModel.ratings[rating.oldRating] >= 0 ?
-    //   this.viewModel.ratings[rating.oldRating] = 0 :
-    //   this.viewModel.ratings[rating.oldRating] -= 1;
-    //
-    // this.viewModel.ratings[rating.newRating] += 1;
-    // this.viewModel.userRating = rating.newRating;
     this.businessService.setBarRating(this.viewModel.id, rating.newRating)
   }
 

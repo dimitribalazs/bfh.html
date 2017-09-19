@@ -21,7 +21,6 @@ export class MenuBarComponent implements OnInit {
   ngOnInit(): void {
     this.menuService.state$.subscribe({
       next: data => {
-        console.log(data);
         this.menuState = data;
       }
     });

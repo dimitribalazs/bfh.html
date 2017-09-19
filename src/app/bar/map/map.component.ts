@@ -70,11 +70,11 @@ export class MapComponent implements OnInit, AfterContentInit {
         if (status === 'OK') {
           directionsDisplay.setDirections(response);
         } else {
-          window.alert('Directions request failed due to ' + status);
+          console.log('Directions request failed due to ' + status);
         }
       });
     }else {
-      window.alert('Geolocation of bar is unknown');
+      console.log('Geolocation of bar is unknown');
     }
   }
 }

@@ -29,7 +29,6 @@ import {BusinessService} from './shared/services/business.service';
 import {AvailableModule} from './shared/components/available/available.module';
 import {RatingModule} from './shared/components/rating/rating.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { NotificationService } from './shared/services/notification.service';
 
 @NgModule({
   declarations: [

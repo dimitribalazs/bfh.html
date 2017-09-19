@@ -1,25 +1,23 @@
-<div class="container-fluid">
-  <div class="box">
-    <div class="row header">
-      <h4>Around you</h4>
-    </div>
-    <div class="row content">
-      <ul class="list-group">
-        <li *ngFor="let data of arroundYou"
-            [class.selected]="isSelected(data)"
-            (click)="onSelect(data)"
-            class="list-group-item">
-          <i class={{data.icon}} aria-hidden="true"></i>
-          <span class="badge">{{ data.distance }} {{data.unit}}</span>
-          {{ data.name }}
-        </li>
-      </ul>
-    </div>
-    <div class="row footer">
-      <app-beer-top10 [title]="'Your top 10 beers'" [beers]="beers"></app-beer-top10>
-      <app-beer-top10 [title]="'Your friends most drunk beers'" [beers]="beers"></app-beer-top10>
-      <app-beer-top10 [title]="'Your friends top rated beers'" [beers]="beers"></app-beer-top10>
-    </div>
+<div class="duffd-box">
+  <div class="duffd-row duffd-header">
+    <h4>Around you</h4><a class="btn btn-default" (click)="checkLocation()">test</a>
+  </div>
+  <div class="duffd-row duffd-content">
+    <ul class="list-group">
+      <li *ngFor="let data of arroundYou"
+          [class.selected]="isSelected(data)"
+          (click)="onSelect(data)"
+          class="list-group-item">
+        <i class={{data.icon}} aria-hidden="true"></i>
+        <span class="badge">{{ data.distance }} {{data.unit}}</span>
+        {{ data.name }}
+      </li>
+    </ul>
+  </div>
+  <div class="duffd-row duffd-footer">
+    <app-beer-top10 [title]="'Your top 10 beers'" [beers]="beers"></app-beer-top10>
+    <app-beer-top10 [title]="'Your friends most drunk beers'" [beers]="beers"></app-beer-top10>
+    <app-beer-top10 [title]="'Your friends top rated beers'" [beers]="beers"></app-beer-top10>
   </div>
 </div>
 

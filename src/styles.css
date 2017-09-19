@@ -6,35 +6,27 @@ body {
 }
 
 body {
-  padding-top: 70px;
+  padding-top: 56px;
 }
 
 
-.box {
+.duffd-box {
   display: flex;
   flex-flow: column;
   height: 100%;
 }
 
-.box .row {
-  border: 1px dotted grey;
-}
-
-.box .row.header {
+.duffd-box .duffd-row.duffd-header {
   flex: 0 1 auto;
-  /* The above is shorthand for:
-  flex-grow: 0,
-  flex-shrink: 1,
-  flex-basis: auto
-  */
 }
 
-.box .row.content {
+.duffd-box .duffd-row.duffd-content {
   flex: 1 1 auto;
+  overflow: scroll;
 }
 
-.box .row.footer {
-  flex: 0 1 500px;
+.duffd-box .duffd-row.duffd-footer {
+  flex: 0 1 357px;
 }
 
 .horizontal-scroller-outer {

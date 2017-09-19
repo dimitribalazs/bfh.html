@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Bar} from '../../shared/dto/bar';
-import {BarService} from "../barService";
+import {BarService} from '../barService';
 
 @Component({
   selector: 'app-bar-info',
@@ -8,15 +8,15 @@ import {BarService} from "../barService";
   styleUrls: ['./bar-info.component.css']
 })
 export class BarInfoComponent implements OnInit {
-  model: Bar = new Bar;
+  // model: Bar = new Bar;
 
   constructor(private barService: BarService) {
   }
 
   ngOnInit() {
-    this.barService.getBar().subscribe((beer) => {
-      this.model = this.barService.getViewModel();
-    })
+    // this.barService.getBar().subscribe((beer) => {
+    //   this.model = this.barService.getViewModel();
+    // })
   }
 
 }

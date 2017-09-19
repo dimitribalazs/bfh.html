@@ -1,0 +1,9 @@
+<div class="container">
+  <app-available-data
+    [filter]="filter"
+    [items]="beerService.viewModel.bars"
+    (onAdd)="addBeer($event)"
+    (onRemove)="removeBeer($event)">
+  </app-available-data>
+</div>
+

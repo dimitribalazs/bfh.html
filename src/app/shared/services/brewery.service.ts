@@ -6,7 +6,7 @@ import {Brewery} from '../dto/brewery';
 import {getDatabase} from './firebase';
 
 @Injectable()
-export class BreweryDatabaseService<Brewery> extends DatabaseService<Brewery>{
+export class BreweryDatabaseService extends DatabaseService{
     private breweriesPath: firebase.database.Reference;
     constructor() {
         super();
@@ -45,14 +45,8 @@ export class BreweryDatabaseService<Brewery> extends DatabaseService<Brewery>{
 
     get(id: string): Observable<Brewery> {
         return Observable.fromEvent(this.breweriesPath.child(id), FirebaseEvent.value.toString(), (snapshot) => {
-          const result = snapshot.val();
-            let brewery: Brewery;
-            Object.keys(result).filter((value: string) => {
-                if(value == id) {
-                    brewery = result[value] as Brewery;
-                }
-            });
-            return brewery;
+            const result = snapshot.val();
+            return result as Brewery;
         });
     }
 }

@@ -1,25 +1,38 @@
 <div *ngIf="!imageUploadShow">
   <div class="container">
     <div class="imageShow" style="position:relative;">
-      <img src="{{ '../../' + model.image}}" height="150px" width="150px"/>
+      <img src="{{ '../../' + barService.viewModel.image}}" height="150px" width="150px"/>
     </div>
     <div class="Rating">
-      <app-beer-rating
-        ratingBad={{ratings[1]}}
-        ratingOk={{ratings[2]}}
-        ratingGreat={{ratings[3]}}
-        rating=1
+      <app-rating
+        ratingBad={{barService.viewModel.ratings[0]}}
+        ratingOk={{barService.viewModel.ratings[1]}}
+        ratingGreat={{barService.viewModel.ratings[2]}}
+        [rating]='barService.viewModel.userRating'
         (onRatingChange)="onRatingChange($event)">
-      </app-beer-rating>
+      </app-rating>
     </div>
   </div>
   <br>
-  <nav class="container" *ngIf="!edit">
-    <button (click)="onClick('beers')">Beers</button>
-    <button (click)="onClick('info')">Info</button>
-    <button (click)="onClick('openingHours')">Open now</button>
-    <button (click)="onClick('photos')">Photos</button>
-  </nav>
+  <ul class="nav nav-pills nav-justified" *ngIf="!edit">
+    <li role="presentation">
+      <a (click)="onClick('info',0)" [class.activeNavigation]="activeNavigation===0" [class.inactiveNavigation]="activeNavigation !== 0">Info</a>
+    </li>
+    <li role="presentation">
+      <a (click)="onClick('beers',1)" [class.activeNavigation]="activeNavigation===1" [class.inactiveNavigation]="activeNavigation !== 1">Beers</a>
+    </li>
+    <li role="presentation">
+      <a (click)="onClick('openingHours',2)" [class.activeNavigation]="activeNavigation===2" [class.inactiveNavigation]="activeNavigation !== 2">
+        {{barService.viewModel.openNowText}}
+      </a>
+    </li>
+    <li role="presentation">
+      <a (click)="onClick('photos',3)" [class.activeNavigation]="activeNavigation===3" [class.inactiveNavigation]="activeNavigation !== 3">Photos</a>
+    </li>
+    <li role="presentation">
+      <a (click)="onClick('map',4)" [class.activeNavigation]="activeNavigation===4" [class.inactiveNavigation]="activeNavigation !== 4">Map</a>
+    </li>
+  </ul>
   <br>
   <div>
     <router-outlet></router-outlet>

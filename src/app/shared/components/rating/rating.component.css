@@ -1,19 +1,4 @@
-/*ul {*/
-  /*list-style-type: none;*/
-  /*margin: 0;*/
-  /*padding: 0;*/
-  /*overflow: hidden;*/
-/*}*/
-
-/*li {*/
-  /*float: left;*/
-/*}*/
-
-.btn span.glyphicon {
-  opacity: 0;
+.activeRating {
+  background: #eeeeee;
+  color: #337ab7;
 }
-.btn.active span.glyphicon {
-  opacity: 1;
-}
-
-.activeRating { background: black; color: white; }

@@ -22,6 +22,7 @@ export class SearchResultComponent implements OnInit {
 
   @Input() search: Observable<string>;
   @Input() filter: Observable<number>;
+  @Input() ignorList: Array<AroundYou>;
   @Output() onSearchResult = new EventEmitter<AroundYou>()
   @Output() onAddBeer = new EventEmitter<string>()
   @Output() onAddFriend = new EventEmitter<AroundYou>()
@@ -45,10 +46,10 @@ export class SearchResultComponent implements OnInit {
 
   public viewModelSubject: Subject<AroundYou[]> = new BehaviorSubject<AroundYou[]>(this.arroundYou);
 
-  constructor(private beerService: BeerDatabaseService<Beer>,
-              private breweryService: BreweryDatabaseService<Brewery>,
-              private barService: BarDatabaseService<Bar>,
-              private userService: UserDatabaseService<User>) {
+  constructor(private beerService: BeerDatabaseService,
+              private breweryService: BreweryDatabaseService,
+              private barService: BarDatabaseService,
+              private userService: UserDatabaseService) {
     this.arroundYou = new Array()
 
     this.viewModelSubject.asObservable();
@@ -98,7 +99,7 @@ export class SearchResultComponent implements OnInit {
               const a: AroundYou = new AroundYou();
               a.id = beer.id;
               a.name = beer.name;
-              a.glyphicon = 'glyphicon glyphicon-glass';
+              a.icon = 'fa fa-beer';
               a.routerNavigate = '/beer/'
               // if find the search string in the beer name, emit the new result to the observer
               if (a.name.toLowerCase().indexOf(s.toLowerCase()) >= 0) {
@@ -119,7 +120,7 @@ export class SearchResultComponent implements OnInit {
               const a: AroundYou = new AroundYou();
               a.id = brewery.id;
               a.name = brewery.name;
-              a.glyphicon = 'glyphicon glyphicon-home';
+              a.icon = 'fa fa-industry';
               a.routerNavigate = '/brewery/'
               // if find the search string in the brewery name, emit the new result to the observer
               if (a.name.toLowerCase().indexOf(s.toLowerCase()) >= 0) {
@@ -140,7 +141,7 @@ export class SearchResultComponent implements OnInit {
               const a: AroundYou = new AroundYou();
               a.id = bar.id;
               a.name = bar.name;
-              a.glyphicon = 'glyphicon glyphicon-map-marker';
+              a.icon = 'fa fa-cutlery';
               a.routerNavigate = '/bar/'
               // if find the search string in the bar name, emit the new result to the observer
               if (a.name.toLowerCase().indexOf(s.toLowerCase()) >= 0) {
@@ -160,7 +161,7 @@ export class SearchResultComponent implements OnInit {
               const a: AroundYou = new AroundYou();
               a.id = user.id;
               a.name = user.firstname + ', ' + user.lastname;
-              a.glyphicon = 'glyphicon glyphicon-user';
+              a.icon = 'fa fa-user';
               a.routerNavigate = '/user/'
               // if find the search string in the beer name, emit the new result to the observer
               if (a.name.toLowerCase().indexOf(s.toLocaleLowerCase()) >= 0) {

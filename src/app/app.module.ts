@@ -25,9 +25,11 @@ import {BarInfoComponent} from './bar/bar-info/bar-info.component';
 import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome';
 import {SearchModule} from './search/search.module';
 import { MenuBarComponent } from './shared/components/menu-bar/menu-bar.component'
+import {BusinessService} from './shared/services/business.service';
+import {AvailableModule} from './shared/components/available/available.module';
+import {RatingModule} from './shared/components/rating/rating.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { NotificationService } from './shared/services/notification.service';
-
 
 @NgModule({
   declarations: [
@@ -42,8 +44,10 @@ import { NotificationService } from './shared/services/notification.service';
     BreweryModule,
     HomeModule,
     SearchModule,
+    AvailableModule,
     SearchResultModule,
     AppRoutingModule,
+    RatingModule,
     UserModule,
     FriendsModule,
     Angular2FontawesomeModule,
@@ -51,7 +55,7 @@ import { NotificationService } from './shared/services/notification.service';
     NgbModule.forRoot(),
     ServiceWorkerModule
   ],
-  providers: [BeerDatabaseService, BarDatabaseService, UserDatabaseService, BreweryDatabaseService, MenuService, NotificationService],
+  providers: [BeerDatabaseService, BarDatabaseService, UserDatabaseService, BreweryDatabaseService, MenuService, BusinessService],
   bootstrap: [AppComponent],
 
 

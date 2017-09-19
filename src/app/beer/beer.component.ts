@@ -4,7 +4,7 @@ import {Brewery} from '../shared/dto/brewery';
 import {BeerDatabaseService} from '../shared/services/beer.service';
 import {Observable} from 'rxjs/Observable';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
-import {BierService} from './beerService'
+import {BeerService} from './beerService'
 import {MenuService} from '../shared/services/menu.service';
 import {RatingModel} from '../shared/components/rating/ratingModel';
 import {isUndefined} from "util";
@@ -18,33 +18,36 @@ import {isUndefined} from "util";
 export class BeerComponent implements OnInit {
 
   id: string;
-  model: Beer = new Beer;
-  ratings: number[] = new Array;
-  meRating: number;
   edit: boolean;
   new: boolean;
   imageUploadShow: boolean = false;
+  activeNavigation: number;
 
-  constructor(private beerService: BierService,
+  constructor(private beerService: BeerService,
               private route: ActivatedRoute,
               private router: Router,
               private menuService: MenuService) {
     this.menuService.setNewState({
       titleText: 'Beer info',
       visibleBack: true,
-      visibleTitle: true,
+      visibleHomeLink: true,
       visibleEdit: true
-    })
-    ;
-    // this.model.brewery = new Brewery();
-    // this.model.brewery.name = '';
-
-
+    });
+    this.activeNavigation = 0;
   }
 
 
   ngOnInit() {
     const type: string = this.route.snapshot.data['type'];
+    const child: String = this.route.snapshot.firstChild.firstChild.url.toString();
+
+    if (child === 'info') {
+      this.activeNavigation = 0;
+    } else if (child === 'brewery') {
+      this.activeNavigation = 1;
+    } else if (child === 'bars') {
+      this.activeNavigation = 2;
+    }
 
     if (type === 'edit') {
       this.edit = true;
@@ -60,48 +63,30 @@ export class BeerComponent implements OnInit {
     if (this.new) {
       const name: string = this.route.snapshot.data['name'];
       this.route.params.subscribe(params => {
-        this.model = new Beer()
-        this.model.name = params['name']
-        this.beerService.setViewModel(this.model)
+        this.beerService.createNewBeer(params['name'])
       });
 
 
     } else {
       this.route.params.subscribe(params => {
-      // console.log('Load beer:' + params['id']);
+        // console.log('Load beer:' + params['id']);
         this.id = params['id'];
-        this.beerService.loadBeer(params['id']);
+        this.beerService.loadBeer(this.id);
+
       });
-
-      this.beerService.getBeer().subscribe((beer) => {
-        this.model = this.beerService.getViewModel();
-
-        if (isUndefined(this.model.taste)) {
-          this.model.taste = [];
-        }
-        if (isUndefined(this.model.brewType)) {
-          this.model.brewType = [];
-        }
-      // console.log('Routing Mode', beer.name)
-    })
-
-      this.ratings[1] = 12;
-      this.ratings[2] = 54;
-      this.ratings[3] = 4;
-      this.meRating = 1;
-      // console.log(this.route.snapshot.toString())
     }
+
+
   }
 
-  onClick(childView: string) {
+  onClick(childView: string, activateNavigation: number) {
     this.router.navigate(['beer', this.id, childView]);
+    this.activeNavigation = activateNavigation;
   }
 
   onRatingChange(rating: RatingModel) {
-    this.ratings[rating.oldRating] -= 1;
-    this.ratings[rating.newRating] += 1;
+    this.beerService.setUserRating(rating);
   }
-
 
   onImageEdit() {
     // this.menuService.visibleEdit = false;

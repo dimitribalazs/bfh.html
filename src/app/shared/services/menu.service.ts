@@ -13,7 +13,9 @@ export class MenuService {
     visibleSave: false,
     visibleMenu: false,
     visibleBack: false,
-    callback: () => {
+    onInput: () => {
+    },
+    onSubmit: () => {
     }
   };
   state = {...this.defaultState};
@@ -25,6 +27,14 @@ export class MenuService {
     this.state = {...this.defaultState, ...state};
 
     this.state$.next(this.state);
+  }
+
+  onInput(...a): void {
+    return this.state.onInput(...a);
+  }
+
+  onSubmit(...a): void {
+    return this.state.onSubmit(...a);
   }
 }
 
@@ -38,5 +48,6 @@ export class MenuState {
   visibleSave: boolean;
   visibleMenu: boolean;
   visibleBack: boolean;
-  callback: any;
+  onInput: any;
+  onSubmit: any;
 }

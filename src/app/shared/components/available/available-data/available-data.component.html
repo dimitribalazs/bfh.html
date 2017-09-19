@@ -1,0 +1,71 @@
+<div class="container">
+  <div *ngIf="!search && !linkInformation">
+      <div style="overflow-y:scroll; max-height: 50vh">
+      <ul class="list-group">
+        <li *ngFor="let item of items | async" class="list-group-item">
+
+          <div *ngIf="filter ==1" style="overflow: hidden;" (click)="onBarShow(item.barId)">
+            <button (click)="onRemoveItem(item.barId)" class="btn btn-default btn-sm pull-right">
+              <i class="fa fa-times pull-right" aria-hidden="true"></i>
+            </button>
+            <p>{{item.barName}} ,{{item.price}} CHF</p>
+          </div>
+
+          <div *ngIf="filter ==3 && !dataIsBeerModel" style="overflow: hidden;" (click)="onBeerShow(item.beerId)">
+            <button (click)="onRemoveItem(item.beerId)" class="btn btn-default btn-sm pull-right">
+              <i class="fa fa-times pull-right" aria-hidden="true"></i>
+            </button>
+            <button (click)="onProst(item.id)" class="btn btn-default btn-sm pull-right">
+              <i class="fa fa-beer pull-right" aria-hidden="true"></i>
+            </button>
+            <p>{{item.beerName}} ,{{item.price}} CHF</p>
+          </div>
+
+          <div *ngIf="filter ==3 && dataIsBeerModel" style="overflow: hidden;" (click)="onBeerShow(item.Id)">
+            <button (click)="onRemoveItem(item.Id)" class="btn btn-default btn-sm pull-right">
+              <i class="fa fa-times pull-right" aria-hidden="true"></i>
+            </button>
+            <button (click)="onProst(item.id)" class="btn btn-default btn-sm pull-right">
+              <i class="fa fa-beer" aria-hidden="true"></i>
+            </button>
+            <p>{{item.name}}</p>
+          </div>
+
+        </li>
+      </ul>
+    </div>
+    <div class="container">
+      <div *ngIf="filter ==1">
+        <button class="btn btn-default btn-sm center-block" (click)="onAddItem()">
+          <i class="fa fa-industry fa-2x" aria-hidden="true"></i>
+          Add a Bar
+        </button>
+      </div>
+      <div *ngIf="filter ==3">
+        <a class="btn btn-default btn-sm center-block" (click)="onAddItem()">
+          <i class="fa fa-beer fa-2x" aria-hidden="true"></i>
+          Add a Beer
+        </a>
+      </div>
+    </div>
+  </div>
+
+
+  <div *ngIf="search && !linkInformation">
+    <div>
+      <a (click)="onAddItem()" class="btn btn-default btn-sm">
+        <i class="fa fa-angle-left" aria-hidden="true"></i>
+      </a>
+    </div>
+    <app-search-result
+      [filter]="filterSubject"
+      [search]="searchSubject"
+      (onSearchResult)="onResult($event)"
+      (onAddBeer)="onCreateBeer($event)">
+    </app-search-result>
+  </div>
+
+  <div *ngIf="linkInformation">
+    <app-link-information [model]="linkModel" (onAddBeerBarModel)="OnAddPrice($event)"></app-link-information>
+  </div>
+</div>

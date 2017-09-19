@@ -1,31 +1,43 @@
 <div *ngIf="!imageUploadShow">
   <div class="container">
     <div class="imageShow" style="position:relative;" >
-    <img src="{{ '../../' + model.image}}" height="150px" width="150px"/>
+    <img src="{{ '../../' + beerService.viewModel.image}}" height="150px" width="150px"/>
       <button *ngIf="edit" class="btn btn-default btn-sm" style="position:absolute;left:115.49px;top:120px;" (click)="onImageEdit()">
-        <span class="glyphicon glyphicon-pencil"></span>
+        <i class="fa fa-pencil" aria-hidden="true"></i>
       </button>
     </div>
     <div class="Rating">
-      <app-beer-rating
-        ratingBad = {{ratings[1]}}
-        ratingOk = {{ratings[2]}}
-        ratingGreat = {{ratings[3]}}
-        rating = 1
+      <app-rating
+        ratingBad={{beerService.viewModel.ratings[0]}}
+        ratingOk={{beerService.viewModel.ratings[1]}}
+        ratingGreat={{beerService.viewModel.ratings[2]}}
+        [rating]='beerService.viewModel.userRating'
         (onRatingChange)="onRatingChange($event)">
-      </app-beer-rating>
+      </app-rating>
     </div>
   </div>
   <br>
-  <!--<nav class="container" *ngIf="!edit">-->
-    <!--<button (click)="onClick('details')">Detail</button>-->
-    <!--<button (click)="onClick('brewery')">Brewery</button>-->
-    <!--<button (click)="onClick('bars')">Bars</button>-->
-  <!--</nav>-->
+  <ul class="nav nav-pills nav-justified" *ngIf="!edit">
+    <li role="presentation">
+      <a (click)="onClick('info', 0)" [class.activeNavigation]="activeNavigation===0" [class.inactiveNavigation]="activeNavigation !== 0">
+        Info
+      </a>
+    </li>
+    <li role="presentation">
+      <a (click)="onClick('brewery', 1)" [class.activeNavigation]="activeNavigation===1" [class.inactiveNavigation]="activeNavigation !== 1">
+        Brewery
+      </a>
+    </li>
+    <li role="presentation">
+      <a (click)="onClick('bars', 2)" [class.activeNavigation]="activeNavigation===2" [class.inactiveNavigation]="activeNavigation !== 2">
+        Bars
+      </a>
+    </li>
+  </ul>
   <br>
   <div>
     <router-outlet></router-outlet>
   </div>
 </div>
 
-<app-image-uploader titleDetail={{model.name}} *ngIf="imageUploadShow"></app-image-uploader>
+<app-image-uploader titleDetail={{beerService.viewModel.name}} *ngIf="imageUploadShow"></app-image-uploader>

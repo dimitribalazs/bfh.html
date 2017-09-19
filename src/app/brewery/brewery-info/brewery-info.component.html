@@ -5,51 +5,51 @@
         <div>
           <label>Name</label>
         </div>
-        <p>{{model.name}}</p>
+        <p>{{breweryService.viewModel.name}}</p>
       </div>
 
-      <div *ngIf="model.address" class="form-group">
+      <div *ngIf="breweryService.viewModel.address" class="form-group">
         <div>
           <label>Address</label>
         </div>
-        <p>{{model.address}}</p>
+        <p>{{breweryService.viewModel.address}}</p>
       </div>
 
-      <div  *ngIf="model.city" class="form-group">
+      <div  *ngIf="breweryService.viewModel.city" class="form-group">
         <div>
           <label>City</label>
         </div>
-        <p>{{model.city}}</p>
+        <p>{{breweryService.viewModel.city}}</p>
       </div>
 
-      <div  *ngIf="model.country" class="form-group">
+      <div  *ngIf="breweryService.viewModel.country" class="form-group">
         <div>
           <label>Country</label>
         </div>
-        <p>{{model.country}}</p>
+        <p>{{breweryService.viewModel.country}}</p>
       </div>
 
-      <div  *ngIf="model.tel" class="form-group">
+      <div  *ngIf="breweryService.viewModel.tel" class="form-group">
         <div>
           <label>Telephone number</label>
         </div>
-        <p>{{model.tel}}</p>
+        <p>{{breweryService.viewModel.tel}}</p>
       </div>
 
-      <div  *ngIf="model.email" class="form-group">
-        <a href="mailto:{{model.email}}">{{model.email}}</a>
+      <div  *ngIf="breweryService.viewModel.email" class="form-group">
+        <a href="mailto:{{breweryService.viewModel.email}}">{{breweryService.viewModel.email}}</a>
       </div>
 
-      <div  *ngIf="model.homepage" class="form-group">
-        <a href={{model.homepage}}>{{model.homepage}}</a>
+      <div  *ngIf="breweryService.viewModel.homepage" class="form-group">
+        <a href={{breweryService.viewModel.homepage}}>{{breweryService.viewModel.homepage}}</a>
       </div>
 
-      <div  *ngIf="model.description" class="form-group">
+      <div  *ngIf="breweryService.viewModel.description" class="form-group">
         <div>
           <label>Description</label>
         </div>
         <p>
-          {{model.description}}
+          {{breweryService.viewModel.description}}
         </p>
       </div>
 

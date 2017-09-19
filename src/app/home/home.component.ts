@@ -34,10 +34,10 @@ export class HomeComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private serviceBeer: BeerDatabaseService<Beer>,
-              private serviceUser: UserDatabaseService<User>,
-              private serviceBrewery: BreweryDatabaseService<Brewery>,
-              private serviceBar: BarDatabaseService<Bar>,
+              private serviceBeer: BeerDatabaseService,
+              private serviceUser: UserDatabaseService,
+              private serviceBrewery: BreweryDatabaseService,
+              private serviceBar: BarDatabaseService,
               private serviceGeo: GeoService,
               private menuService: MenuService) {
 
@@ -93,7 +93,7 @@ export class HomeComponent implements OnInit {
         a.id = bar.id;
         a.name = bar.name;
         a.routerNavigate = '/bar/'
-        a.glyphicon = 'glyphicon glyphicon-map-marker';
+        a.icon = 'fa fa-map-marker';
         a.distance = this.distance++;
         a.unit = 'm'
         if (this.arroundYou.length < 5) {
@@ -108,7 +108,7 @@ export class HomeComponent implements OnInit {
         a.id = user.id;
         a.name = user.firstname + ', ' + user.lastname;
         a.routerNavigate = '/user/'
-        a.glyphicon = 'glyphicon glyphicon-user';
+        a.icon = 'fa fa-user';
         a.distance = this.distance++;
         a.unit = 'm'
         if (this.arroundYou.length < 7) {
@@ -123,7 +123,7 @@ export class HomeComponent implements OnInit {
         a.id = brewery.id;
         a.name = brewery.name;
         a.routerNavigate = '/brewery/'
-        a.glyphicon = 'glyphicon glyphicon-home';
+        a.icon = 'fa fa-industry';
         a.distance = this.distance++;
         a.unit = 'm'
         if (this.arroundYou.length < 9) {
@@ -131,10 +131,6 @@ export class HomeComponent implements OnInit {
         }
       })
     })
-
-    this.serviceBeer.listen();
-
-
   }
 
   isSelected(around: AroundYou) {
@@ -167,7 +163,20 @@ export class HomeComponent implements OnInit {
   checkLocation() {
     this.serviceUser.getFavoriteBeersOfUser("1").subscribe((data) => console.log("favs", data));
     this.serviceUser.getFriendsOfUser("1").subscribe((data) => console.log("friends", data));
-    var foo = true;
+
+
+    //Wohlen AG
+    var lat = 47.349365;
+    var long = 8.276876;
+
+    var wohlen: GeoData = {
+      id: "11",
+      longitude: long,
+      latitude: lat
+    };
+    this.serviceUser.getAroundYou(wohlen, "1").subscribe((data) => console.log("around", data));
+
+    var foo = false;
     if(foo) {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((pos) => {

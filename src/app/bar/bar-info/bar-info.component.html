@@ -6,43 +6,43 @@
           <div>
             <label>Name</label>
           </div>
-          <input [value]="model.name" readonly>
+          <p>{{barService.viewModel.name}}</p>
         </div>
 
         <div class="form-group">
           <div>
             <label>Address</label>
           </div>
-          <input [value]="model.address" readonly>
+          <p>{{barService.viewModel.address}}</p>
         </div>
 
         <div class="form-group">
           <div>
             <label>City</label>
           </div>
-          <input [value]="model.city"  readonly>
+          <p>{{barService.viewModel.city}}</p>
         </div>
 
         <div class="form-group">
           <div>
             <label>Description</label>
           </div>
-          <input [value]="model.description" readonly>
+          <p>{{barService.viewModel.description}}</p>
         </div>
 
         <div class="form-group">
           <label>Smoking allowed: </label>
-          <label>{{model.isSmokingAllowed}}</label>
+          <p>{{barService.viewModel.isSmokingAllowed}}</p>
         </div>
 
         <div class="form-group">
           <label>Snaks: </label>
-          <label>{{model.snacks}}</label>
+          <p>{{barService.viewModel.snacks}}</p>
         </div>
 
         <div class="form-group">
           <label>Size: </label>
-          <label>{{model.size}}</label>
+          <p>{{barService.viewModel.size}}</p>
         </div>
 
       </form>

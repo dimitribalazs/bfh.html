@@ -1,17 +1,7 @@
-<div class="container">
-  Avaliable Beers
-  <div style="overflow-y:scroll; height:300px; background:gray">
-    <ul class="list-group">
-      <li *ngFor="let beer of beers | async" class="list-group-item">
-        {{beer.name}} ,{{beer.volume}}%
-        <span class="glyphicon glyphicon-sunglasses pull-right"></span>
-      </li>
-    </ul>
+<app-available-data
+  [filter]="filter"
+  [items]="service.viewModel.beers"
+  (onAdd)="addBeer($event)"
+  (onRemove)="removeBeer($event)">
+</app-available-data>
 
-  </div>
-</div>
-<div class="container">
-  <button class="btn btn-default btn-sm center-block">
-    <span class="glyphicon glyphicon-hand-up"></span>
-  </button>
-</div>

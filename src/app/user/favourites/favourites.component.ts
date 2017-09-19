@@ -12,19 +12,17 @@ import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 export class FavouritesComponent implements OnInit {
 
   private selectedId: string;
-  favorurites: Observable<Beer[]>;
+
   constructor(private userService: UserService,
               private router: Router,
               private route: ActivatedRoute) { }
 
   ngOnInit() {
-
-    this.favorurites = this.userService.getFavorurites();
   }
 
   // onClick(childView: string, activateNavigation: number) {
   //   this.router.navigate(['user', this.id, childView]);
-  //   this.activeNavigation = activateNavigation;
+  //   this.activefilter = activateNavigation;
   // }
 
   isSelected(beer: Beer) { return beer.id === this.selectedId; }

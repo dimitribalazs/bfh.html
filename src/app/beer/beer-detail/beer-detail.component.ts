@@ -1,9 +1,8 @@
 import {Component, OnInit, Output, EventEmitter, Input} from '@angular/core';
-import {Beer, DropDownEntry, DropDownlists} from '../../shared/dto/beer';
-import {Brewery} from '../../shared/dto/brewery';
+import {DropDownEntry, DropDownlists} from '../../shared/domainModel/viewModels';
 import {Router, ActivatedRoute, ParamMap} from '@angular/router';
-import {BierService} from '../beerService'
-import {MenuService} from '../../shared/services/menu.service';
+import {BeerService} from '../beerService'
+import {MenuService, MenuState} from '../../shared/services/menu.service';
 import {isUndefined} from 'util';
 import {BehaviorSubject} from 'rxjs/Rx';
 import {Subject} from 'rxjs/Subject';
@@ -23,53 +22,46 @@ export class BeerDetailComponent implements OnInit {
   breweryDropDownList: DropDownEntry[];
   brewerySelectedItem: DropDownEntry[] = new Array;
 
+  searchBrewery: boolean
+
   searchSubject: Subject<String> = new BehaviorSubject<String>('');
   filterSubject: Subject<number> = new BehaviorSubject<number>(2);
 
 
-  constructor(private beerService: BierService,
+  constructor(private beerService: BeerService,
               private menuService: MenuService,
               private router: Router) {
-
+    this.searchBrewery = false;
   }
 
 
   ngOnInit() {
+    this.setMenu()
+  }
+
+  setMenu() {
     this.menuService.setNewState({
       titleText: 'Enter or edit beer info',
       visibleSave: true,
       visibleBack: true,
-      visibleTitie: true,
-      callback: (e: string) => {
+      visibleHomeLink: true,
+      visibleTitle: true,
+      onInput: (e: string) => {
         this.searchSubject.next(e)
+      },
+      onSubmit: () => {
+        if (isUndefined(this.beerService.viewModel.name) || this.beerService.viewModel.name.length === 0 ||
+          isUndefined(this.beerService.viewModel.description) || this.beerService.viewModel.description.length === 0) {
+          this.formErrorMessage = true;
+        } else {
+          this.beerService.submit();
+          this.submitted = true;
+          this.formErrorMessage = false;
+          this.router.navigate(['beer/', this.beerService.viewModel.id]);
+        }
       }
     });
-
-   // this.menuService.submitCallback = () => {
-   //    if (isUndefined(this.beerService.viewModel.name) || this.beerService.viewModel.name.length === 0 ||
-   //      isUndefined(this.beerService.viewModel.description) || this.beerService.viewModel.description.length === 0) {
-   //        this.formErrorMessage = true;
-   //      } else {
-   //        this.beerService.submit();
-   //        this.submitted = true;
-   //        this.formErrorMessage = false;
-   //      this.router.navigate(['beer/', this.beerService.viewModel.id]);
-   //      }
-   //    };
-
-    this.beerService.getBeer().subscribe((beer) => {
-      // this.beerService.viewModel = this.beerService.getViewModel();
-      if (!isUndefined(this.beerService.viewModel.brewery)) {
-        // const selectedItem: DropDownEntry = new DropDownEntry();
-        // selectedItem.id = this.beerService.viewModel.brewery.id;
-        // selectedItem.itemName = this.beerService.viewModel.brewery.name;
-        // this.brewerySelectedItem.push(selectedItem);
-      }
-    })
-
-    this.beerService.getBroweryList().subscribe(() => this.breweryDropDownList = this.beerService.getDropDownList());
   }
-
   onTasteSelectChange(item: any[]) {
     this.beerService.viewModel.taste = item;
   }
@@ -78,26 +70,27 @@ export class BeerDetailComponent implements OnInit {
     this.beerService.viewModel.brewType = item;
   }
 
-  onBrewerySelectChange(item: DropDownEntry) {
-    if (isUndefined(this.beerService.viewModel.brewery)) {
-      //this.beerService.viewModel.brewery = new Brewery()
-    }
-
-    this.beerService.viewModel.brewery = item[0].id;
-    //todo brewery
-    //this.beerService.viewModel.brewery.name = item[0].itemName;
-  }
-
   onResult(data: AroundYou) {
-    ////todo brewery
-    this.beerService.viewModel.brewery = data.id;
-    //this.beerService.viewModel.brewery.name = data.name;
-    //this.beerService.searchBrewery = false;
+    this.beerService.viewModel.brewery.id = data.id
+    this.beerService.viewModel.brewery.name = data.name
+    this.searchBrewery = false;
+    this.setMenu()
   }
 
   activateSearchBrewery() {
-    // this.menuService.visibleSearchInput = true;
-    //todo brewery
-    //this.beerService.searchBrewery = true;
+    if (this.searchBrewery) {
+      this.searchBrewery = false;
+      this.setMenu()
+    } else {
+      this.searchBrewery = true;
+      this.menuService.setNewState({
+        visibleSearchInput: true,
+        visibleTitle: false,
+        onInput: (e: string) => {
+          // this.activeSearchString = e;
+          this.searchSubject.next(e)
+        }
+      })
+    }
   }
 }

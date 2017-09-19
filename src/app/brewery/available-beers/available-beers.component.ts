@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {MenuService} from '../../shared/services/menu.service';
-import {Observable} from 'rxjs/Observable';
-import {Bar} from '../../shared/dto/bar';
-import {Beer} from '../../shared/dto/beer';
 import {BreweryService} from '../breweryService';
+import {Router} from '@angular/router';
+import {AroundYou} from '../../shared/dto/aroundYou';
+import {BeerBarModel} from "../../shared/domainModel/viewModels";
 
 @Component({
   selector: 'app-available-beers',
@@ -11,12 +10,24 @@ import {BreweryService} from '../breweryService';
   styleUrls: ['./available-beers.component.css']
 })
 export class AvailableBeersComponent implements OnInit {
-  beers: Observable<Beer[]>;
-  constructor(private breweryService: BreweryService) { }
+  filter: number
+  dataIsBeerModel: boolean = true;
+  constructor(private breweryService: BreweryService, private router: Router) {
+    this.dataIsBeerModel = true;
+    this.filter = 3
+  }
 
-  ngOnInit() {
+  ngOnInit() {}
 
-    this.beers = this.breweryService.getAvailableBeers('1');
+  onShowBeer(id: string) {
+    this.router.navigate(['beer', id]);
+  }
+
+  addBeer(data: BeerBarModel) {
+    this.breweryService.addBeer(data)
+  }
+  removeBeer(id: string) {
+    this.breweryService.removeBeer(id)
   }
 
 }

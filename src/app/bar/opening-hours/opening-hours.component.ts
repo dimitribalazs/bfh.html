@@ -9,16 +9,16 @@ import {Bar, OpeningHours} from '../../shared/dto/bar';
 })
 export class OpeningHoursComponent implements OnInit {
 
-  model: Bar = new Bar();
+  // model: Bar = new Bar();
 
   constructor(private barService: BarService) {
-    this.model.openingHours = new OpeningHours();
+    // this.model.openingHours = new OpeningHours();
   }
 
   ngOnInit() {
-    this.barService.getBar().subscribe((beer) => {
-      this.model = this.barService.getViewModel();
-    })
+    // this.barService.getBar().subscribe((beer) => {
+    //   this.model = this.barService.getViewModel();
+    // })
   }
 
 }

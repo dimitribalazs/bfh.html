@@ -1,8 +1,9 @@
 import {Brewery} from './brewery';
 import {BarBeer} from './barBeer';
 import {GeoData} from './geoData';
+import {IGeoData} from './IGeoData';
 
-export class Beer {
+export class Beer implements IGeoData {
     id: string;
     name: string;
     description: string;

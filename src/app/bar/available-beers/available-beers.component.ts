@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {BarService} from '../barService';
-import {MenuService} from '../../shared/services/menu.service';
-import {Observable} from 'rxjs/Observable';
-import {Bar} from '../../shared/dto/bar';
-import {Beer} from '../../shared/dto/beer';
+import {ActivatedRoute, ParamMap, Router} from '@angular/router';
+import {BehaviorSubject} from 'rxjs/Rx';
+import {MultiNavigationModel} from '../../shared/domainModel/multiNavigationModel';
+import {BeerBarModel} from '../../shared/domainModel/viewModels';
+import {AroundYou} from '../../shared/dto/aroundYou';
 
 @Component({
   selector: 'app-available-beers',
@@ -11,14 +12,30 @@ import {Beer} from '../../shared/dto/beer';
   styleUrls: ['./available-beers.component.css']
 })
 export class AvailableBeersComponent implements OnInit {
-  beers: Observable<Beer[]>;
-  constructor(private barService: BarService) { }
+  // beers: Observable<Beer[]>;
 
-  ngOnInit() {
+  filter: number
+  service: BarService
 
-    this.beers = this.barService.getAvailableBeers('1');
+  constructor(private barService: BarService, private router: Router) {
+    this.service = barService;
+    this.filter = 3
   }
 
+  ngOnInit() {
+  }
+
+
+  onShowBeer(id: string) {
+    this.router.navigate(['beer', id]);
+  }
+
+  addBeer(data: BeerBarModel) {
+    this.barService.addBar(data)
+  }
+  removeBeer(id: string) {
+    this.barService.removeBar(id)
+  }
 }
 
 

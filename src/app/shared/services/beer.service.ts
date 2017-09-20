@@ -1,4 +1,4 @@
-import {Injectable, OnInit} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Rx';
 import * as firebase from 'firebase';
 import {DatabaseService, FirebaseEvent} from './database.service';
@@ -6,19 +6,22 @@ import {getDatabase} from './firebase';
 import {Beer} from '../dto/beer';
 import {BarBeer} from "../dto/barBeer";
 import {UserBeerRating} from "../dto/userBeerRating";
-import {isNullOrUndefined} from "util";
+import {UserBeer} from "../dto/userBeer";
+import {BeerStatistics} from "../dto/beerStatistics";
 
 @Injectable()
 export class BeerDatabaseService extends DatabaseService {
   private beersPath: firebase.database.Reference;
   private barBeersPath: firebase.database.Reference;
   private userBeerRatingsPath: firebase.database.Reference;
+  private userBeerDrankPath: firebase.database.Reference;
 
   constructor() {
     super();
     this.beersPath = getDatabase().ref("beers");
     this.barBeersPath = getDatabase().ref("barBeers");
     this.userBeerRatingsPath = getDatabase().ref("userBeerRatings");
+    this.userBeerDrankPath = getDatabase().ref("userBeerDrank");
   }
 
   exists(entity: Beer): Promise<boolean> {
@@ -126,5 +129,34 @@ export class BeerDatabaseService extends DatabaseService {
     const newKey: string = beerRating.user + "_" + beerRating.beer;
     this.userBeerRatingsPath.child(newKey).set(beerRating);
   }
+
+  getDrankBeersByGroupedByDateByUserId(userId: string): Observable<BeerStatistics> {
+    return Observable.fromEvent(this.userBeerDrankPath, FirebaseEvent.value.toString(), (snapshot) => {
+      const beers: UserBeer[] = [];
+      const dbData = snapshot.val() || [];
+      Object.keys(dbData).map(value => beers.push(dbData[value] as UserBeer));
+      const resultsByUser: UserBeer[] = beers.filter(rating =>  rating.user == userId) as UserBeer[];
+      const beerStatistics = new BeerStatistics();
+      beerStatistics.beersDrankByDate = new Map<number, UserBeer[]>();
+
+      const differentBeers = [];
+
+      resultsByUser.map((result: UserBeer) => {
+        if(beerStatistics.beersDrankByDate[result.dateDrank] == undefined) {
+          beerStatistics.beersDrankByDate[result.dateDrank] = [];
+        }
+        beerStatistics.beersDrankByDate[result.dateDrank].push(result);
+        differentBeers[result.beer] = true;
+      });
+
+      beerStatistics.differentBeersTotal = Object.keys(differentBeers).length;
+      return beerStatistics;
+    });
+  }
+
+  addBeerDrank(userBeer: UserBeer): void {
+    this.userBeerDrankPath.push(userBeer);
+  }
 }
+
 

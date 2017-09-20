@@ -6,6 +6,9 @@ import {getDatabase} from './firebase';
 import {Bar} from '../dto/bar';
 import {BarBeer} from '../dto/barBeer';
 import {UserBarRating} from '../dto/userBarRating';
+import {UserBeer} from "../dto/userBeer";
+import {BarStatistics} from "../dto/barStatistics";
+import {UserBar} from "../dto/userBar";
 
 
 @Injectable()
@@ -14,6 +17,7 @@ export class BarDatabaseService extends DatabaseService{
     private barBeersPath: firebase.database.Reference;
     private beersPath: firebase.database.Reference;
     private userBarRatingsPath: firebase.database.Reference;
+    private userBarVisitedPath: firebase.database.Reference;
 
     constructor() {
         super();
@@ -21,6 +25,7 @@ export class BarDatabaseService extends DatabaseService{
         this.beersPath = getDatabase().ref("beers");
         this.barBeersPath = getDatabase().ref("barBeers");
         this.userBarRatingsPath = getDatabase().ref("userBarRatings");
+        this.userBarVisitedPath = getDatabase().ref("userBarVisited");
     }
 
     create(entity: Bar): void {
@@ -86,5 +91,32 @@ export class BarDatabaseService extends DatabaseService{
       const newKey: string = barRating.user + "_" + barRating.bar;
       this.userBarRatingsPath.child(newKey).set(barRating);
     }
+
+  getVisitedBarsGroupeByDateByUserId(userId: string): Observable<BarStatistics> {
+    return Observable.fromEvent(this.userBarVisitedPath, FirebaseEvent.value.toString(), (snapshot) => {
+      const beers: UserBeer[] = [];
+      const dbData = snapshot.val() || [];
+      Object.keys(dbData).map(value => beers.push(dbData[value] as UserBeer));
+      const resultsByUser: UserBeer[] = beers.filter(rating =>  rating.user == userId) as UserBeer[];
+      const barStatistics = new BarStatistics();
+      barStatistics.barsVisitedByDate = new Map<number, UserBar[]>();
+
+      const differentBeers = [];
+
+      resultsByUser.map((result: UserBeer) => {
+        if(barStatistics.barsVisitedByDate[result.dateDrank] == undefined) {
+          barStatistics.barsVisitedByDate[result.dateDrank] = [];
+        }
+        barStatistics.barsVisitedByDate[result.dateDrank].push(result);
+        differentBeers[result.beer] = true;
+      });
+
+      return barStatistics;
+    });
+  }
+
+  addBarVisited(userBar: UserBar): void {
+    this.userBarVisitedPath.push(userBar);
+  }
 
 }

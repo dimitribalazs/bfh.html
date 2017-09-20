@@ -1,6 +1,7 @@
 import {GeoData} from './geoData';
 import {Beer} from './beer';
 import {IGeoData} from './IGeoData';
+import {Badge} from "./badge";
 //import {Badge} from './badge';
 
 export class User implements IGeoData{
@@ -18,7 +19,7 @@ export class User implements IGeoData{
     badge: string;
     dateOfBirth: string;
     friends: string[]
-    //badges: Badge[];
+    badges: Badge[];
 }
 
 export class UserFriends {

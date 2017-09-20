@@ -1,4 +1,5 @@
-export class Badge {
-    id: string;
-    name: string;
+export enum Badge {
+  Diversity,
+  NotToSteep,
+  Connaisseur
 }

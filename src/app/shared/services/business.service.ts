@@ -18,7 +18,7 @@ import {BarDatabaseService} from '../services/bar.service';
 import {UserDatabaseService} from '../services/user.service';
 import {
   BarModel, BeerModel, BreweryModel, BeerBarModel, Time, DropDownEntry,
-  UserModel
+  UserModel, Badge
 } from '../domainModel/viewModels';
 import {RatingModel} from '../components/rating/ratingModel';
 import {forEach} from '@angular/router/src/utils/collection';
@@ -27,6 +27,10 @@ import {UserBarRating} from "../dto/userBarRating";
 import {Rating, getRatingDefault} from "../dto/rating";
 import {UserBeerRating} from "../dto/userBeerRating";
 import {AroundYou} from "../dto/aroundYou";
+import {UserBeer} from "../dto/userBeer";
+import {UserBar} from "../dto/userBar";
+import {BeerStatistics} from "../dto/beerStatistics";
+import {BarStatistics} from "../dto/barStatistics";
 
 
 @Injectable()
@@ -56,12 +60,75 @@ export class BusinessService {
     this.brewerySubject.asObservable();
     this.userSubject.asObservable();
 
+    let date = new Date(2017,5, 20).toDateString();
+
+    let beerDrank: UserBeer = {
+      beer: "1",
+      user: "1",
+      dateDrank: date
+    };
+
+    let beerDrank1: UserBeer = {
+      beer: "2",
+      user: "1",
+      dateDrank: date
+    };
+
+    let beerDrank2: UserBeer = {
+      beer: "3",
+      user: "1",
+      dateDrank: date
+    };
+
+    let beerDrank3: UserBeer = {
+      beer: "4",
+      user: "1",
+      dateDrank: date
+    };
+
+    let beerDrank4: UserBeer = {
+      beer: "5",
+      user: "1",
+      dateDrank: date
+    };
+
+    /*
+    this.beerService.addBeerDrank(beerDrank);
+    this.beerService.addBeerDrank(beerDrank1);
+    this.beerService.addBeerDrank(beerDrank2);
+    this.beerService.addBeerDrank(beerDrank3);
+    this.beerService.addBeerDrank(beerDrank4);
+    */
+
+
+    let barVisited: UserBar = {
+      user: "1",
+      bar: "1",
+      dateVisited: date
+    };
+
+    let barVisited1: UserBar = {
+      user: "1",
+      bar: "2",
+      dateVisited: date
+    };
+
+    let barVisited2: UserBar = {
+      user: "1",
+      bar: "3",
+      dateVisited: date
+    };
+
+    //this.barService.addBarVisited(barVisited);
+    //this.barService.addBarVisited(barVisited1);
+    //this.barService.addBarVisited(barVisited2);
 
   }
 
   setCurrentUser(userId: string) {
     this.getUser(userId).subscribe((user) => this.currentUser = user)
   }
+
 
   /**
    * Get the beer with the id
@@ -271,7 +338,7 @@ export class BusinessService {
         const beersArr: Array<BeerModel> = new Array<BeerModel>()
         data.forEach((beer: Beer) => beersArr.push(this.mapBeerDtoToDomainModel(beer)))
         // emit the available beers
-        breweryModel.beers.next(beersArr)
+        breweryModel.beers.next(beersArr);
       })
     })
     return this.brewerySubject;
@@ -284,7 +351,7 @@ export class BusinessService {
       // map dto to viewModel
       const userModel: UserModel = this.mapUserDtoToDomainModel(user);
       // emit the loaded bar data
-      this.userSubject.next(userModel)
+      this.userSubject.next(userModel);
       // reload the favoriteBeers beers
       this.userService.getFavoriteBeersOfUser(userModel.id).subscribe((data) => {
         // map dto to viewModel
@@ -293,6 +360,10 @@ export class BusinessService {
         // emit the available beers
         userModel.favoriteBeers.next(beerArr)
       })
+
+
+      this.beerService.getDrankBeersByGroupedByDateByUserId("1").subscribe(this.getBeerBadges);
+      this.barService.getVisitedBarsGroupeByDateByUserId("1").subscribe(this.getBarBadges);
 
       this.userService.getFriendsOfUser(userModel.id).subscribe((data) => {
         // map dto to viewModel
@@ -503,6 +574,48 @@ export class BusinessService {
       console.log(model)
     }
     return model;
+  }
+
+  private getBeerBadges(beerStat: BeerStatistics): Badge[] {
+    console.log("getBeer", beerStat);
+    const badges: Badge[] = [];
+    Object.keys(beerStat.beersDrankByDate).forEach((value) => {
+      //5 different beers per day
+      let userBeer: UserBeer[] = beerStat.beersDrankByDate[value] || [];
+      const differentBeers = [];
+      userBeer.map((userBeer: UserBeer) => {
+        differentBeers[userBeer.beer] = true;
+      })
+      if(Object.keys(differentBeers).length >= 5) {
+        const badge = new Badge();
+        badges.push(badge);
+      }
+    });
+
+    if(beerStat.differentBeersTotal >= 20) {
+       const badge = new Badge();
+       badges.push(badge);
+    }
+    console.log("beer badges", badges)
+    return badges;
+  }
+
+  private getBarBadges(barStat: BarStatistics): Badge[] {
+    const badges: Badge[] = [];
+    Object.keys(barStat.barsVisitedByDate).forEach((value) => {
+      //3 different beers per day
+      const differentBars = [];
+      let userBar: UserBar[] = barStat.barsVisitedByDate[value] || [];
+      userBar.map((userBar: UserBar) => {
+        differentBars[userBar.bar] = true;
+      })
+      if(Object.keys(differentBars).length >= 3) {
+        const badge = new Badge();
+        badges.push(badge);
+      }
+    });
+    console.log("bar badges", badges)
+    return badges;
   }
 
 }

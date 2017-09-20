@@ -273,7 +273,7 @@ export class Badge {
   id: string;
   name: string;
   title: string;
-  getImage = (path: string): string =>  path + this.title + ".jpg";
+  getImage = (path: string): string =>  path + this.title + ".png";
 }
 
 

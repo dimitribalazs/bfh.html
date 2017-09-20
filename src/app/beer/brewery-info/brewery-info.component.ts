@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {BeerService} from '../beerService'
+import {MenuService} from '../../shared/services/menu.service';
 
 @Component({
   selector: 'app-brewery-info',
@@ -9,7 +10,8 @@ import {BeerService} from '../beerService'
 export class BreweryInfoComponent implements OnInit {
 
 
-  constructor(private beerService: BeerService) {
+  constructor(private beerService: BeerService, private menuService: MenuService) {
+    this.menuService.setNewState(this.beerService.getMenuState());
   }
 
   ngOnInit() {

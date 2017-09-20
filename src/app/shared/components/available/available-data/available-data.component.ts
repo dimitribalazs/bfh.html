@@ -21,6 +21,7 @@ export class AvailableDataComponent implements OnInit {
   @Output() onAdd = new EventEmitter<BeerBarModel>()
   @Output() onRemove = new EventEmitter<string>()
   @Output() onCancel = new EventEmitter()
+  @Output() onCheers = new EventEmitter<string>()
 
 
   search: boolean;
@@ -87,6 +88,12 @@ export class AvailableDataComponent implements OnInit {
 
   onBeerShow(id: string) {
     this.router.navigate(['beer', id]);
+  }
+
+
+  cheers(beerId: string) {
+    this.menuService.setNewState(this.menuState)
+    this.onCheers.emit(beerId);
   }
 
   onRemoveItem(id: string) {

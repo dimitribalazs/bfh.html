@@ -23,15 +23,15 @@ import {
 import {RatingModel} from '../components/rating/ratingModel';
 import {forEach} from '@angular/router/src/utils/collection';
 import {isNullOrUndefined} from 'util';
-import {UserBarRating} from "../dto/userBarRating";
-import {Rating, getRatingDefault} from "../dto/rating";
-import {UserBeerRating} from "../dto/userBeerRating";
-import {AroundYou} from "../dto/aroundYou";
-import {UserBeer} from "../dto/userBeer";
-import {UserBar} from "../dto/userBar";
-import {BeerStatistics} from "../dto/beerStatistics";
-import {BarStatistics} from "../dto/barStatistics";
-import {BadgeType} from "../domainModel/badgeType";
+import {UserBarRating} from '../dto/userBarRating';
+import {Rating, getRatingDefault} from '../dto/rating';
+import {UserBeerRating} from '../dto/userBeerRating';
+import {AroundYou} from '../dto/aroundYou';
+import {UserBeer} from '../dto/userBeer';
+import {UserBar} from '../dto/userBar';
+import {BeerStatistics} from '../dto/beerStatistics';
+import {BarStatistics} from '../dto/barStatistics';
+import {BadgeType} from '../domainModel/badgeType';
 
 
 @Injectable()
@@ -61,64 +61,26 @@ export class BusinessService {
     this.brewerySubject.asObservable();
     this.userSubject.asObservable();
 
-    let date = new Date(2017,5, 20).toDateString();
-
-    let beerDrank: UserBeer = {
-      beer: "1",
-      user: "1",
-      dateDrank: date
-    };
-
-    let beerDrank1: UserBeer = {
-      beer: "2",
-      user: "1",
-      dateDrank: date
-    };
-
-    let beerDrank2: UserBeer = {
-      beer: "3",
-      user: "1",
-      dateDrank: date
-    };
-
-    let beerDrank3: UserBeer = {
-      beer: "4",
-      user: "1",
-      dateDrank: date
-    };
-
-    let beerDrank4: UserBeer = {
-      beer: "5",
-      user: "1",
-      dateDrank: date
-    };
-
-    /*
-    this.beerService.addBeerDrank(beerDrank);
-    this.beerService.addBeerDrank(beerDrank1);
-    this.beerService.addBeerDrank(beerDrank2);
-    this.beerService.addBeerDrank(beerDrank3);
-    this.beerService.addBeerDrank(beerDrank4);
-    */
 
 
-    let barVisited: UserBar = {
-      user: "1",
-      bar: "1",
-      dateVisited: date
-    };
 
-    let barVisited1: UserBar = {
-      user: "1",
-      bar: "2",
-      dateVisited: date
-    };
-
-    let barVisited2: UserBar = {
-      user: "1",
-      bar: "3",
-      dateVisited: date
-    };
+    // let barVisited: UserBar = {
+    //   user: "1",
+    //   bar: "1",
+    //   dateVisited: date
+    // };
+    //
+    // let barVisited1: UserBar = {
+    //   user: "1",
+    //   bar: "2",
+    //   dateVisited: date
+    // };
+    //
+    // let barVisited2: UserBar = {
+    //   user: "1",
+    //   bar: "3",
+    //   dateVisited: date
+    // };
 
     //this.barService.addBarVisited(barVisited);
     //this.barService.addBarVisited(barVisited1);
@@ -188,6 +150,34 @@ export class BusinessService {
     return this.beerSubject;
   }
 
+  /**
+   * Drink a beer
+   * @param beerId the beer ID which is drank
+   */
+  public addBeerDrank(beerId: string) {
+
+    const beerDrank: UserBeer = {
+      beer: beerId,
+      user: this.currentUser.id,
+      dateDrank: new Date().toDateString()
+    };
+
+     this.beerService.addBeerDrank(beerDrank);
+  }
+
+  /**
+   * Visit a baar
+   * @param barId the bar ID which is visit
+   */
+  public addBarVisited(barId: string) {
+
+    const barVisited: UserBar = {
+      bar: barId,
+      user: this.currentUser.id,
+      dateVisited: new Date().toDateString()
+    };
+    this.barService.addBarVisited(barVisited)
+  }
   /**
    * add a beer to a bar
    * @param beerId

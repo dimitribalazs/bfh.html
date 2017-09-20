@@ -24,10 +24,7 @@ export class BarComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.menuService.setNewState({
-      titleText: 'Bar info',
-      visibleHomeLink: true,
-    });
+    this.menuService.setNewState(this.barService.getMenuState());
 
     this.route.params.subscribe(params => {
       this.id = params['id'];
@@ -44,4 +41,35 @@ export class BarComponent implements OnInit {
   onRatingChange(rating: RatingModel) {
     this.barService.setUserRating(rating);
   }
+
+  onCheers(beerId: string) {
+    this.barService.addBeerDrank(beerId)
+    this.menuService.setNewState({
+      titleText: 'KEEP CALM AND SAY CHEERS',
+      visibleTitle: true,
+      visibleBack: false,
+      visibleHomeLink: true,
+      visibleEdit: false
+    });
+
+    setTimeout(() => {
+      this.menuService.setNewState(this.barService.getMenuState());
+    }, 2500);
+  }
+
+  onVisit() {
+    this.barService.addBarVisited()
+    this.menuService.setNewState({
+      titleText: 'KEEP CALM AND ENJOY IT',
+      visibleTitle: true,
+      visibleBack: false,
+      visibleHomeLink: true,
+      visibleEdit: false
+    });
+
+    setTimeout(() => {
+      this.menuService.setNewState(this.barService.getMenuState());
+    }, 2500);
+  }
+
 }

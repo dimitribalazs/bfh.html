@@ -2,7 +2,7 @@ import { Injectable, OnInit } from '@angular/core';
 import {BeerModel, DropDownEntry, BeerBarModel} from '../shared/domainModel/viewModels';
 import {BusinessService} from '../shared/services/business.service';
 import {RatingModel} from '../shared/components/rating/ratingModel';
-import {MenuState} from "../shared/services/menu.service";
+import {MenuService, MenuState} from "../shared/services/menu.service";
 import {BarBeer} from "../shared/dto/barBeer";
 
 @Injectable()
@@ -11,7 +11,7 @@ export class BeerService {
   breweryDropDownList: DropDownEntry[] = [];
 
   public viewModel: BeerModel = new BeerModel();
-  constructor(private businessService: BusinessService) {
+  constructor(private businessService: BusinessService, private menuService: MenuService) {
 
 
 
@@ -34,6 +34,21 @@ export class BeerService {
     return this.breweryDropDownList;
   }
 
+
+  public addBeerDrank() {
+    this.businessService.addBeerDrank(this.viewModel.id);
+  }
+
+
+  public getMenuState(): any {
+    return {
+      titleText: 'Beer info',
+      visibleTitle: true,
+      visibleBack: true,
+      visibleHomeLink: true,
+      visibleEdit: true
+    };
+  }
 
   /**
    * set the new user rating
@@ -59,4 +74,5 @@ export class BeerService {
   removeBar(id: string) {
     this.businessService.removeBeerFromBar(this.viewModel.id, id);
   }
+
 }

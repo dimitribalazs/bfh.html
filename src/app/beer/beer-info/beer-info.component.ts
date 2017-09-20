@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Beer} from '../../shared/dto/beer';
 import {Brewery} from '../../shared/dto/brewery';
 import {BeerService} from '../beerService'
+import {MenuService} from '../../shared/services/menu.service';
 
 @Component({
   selector: 'app-beer-info',
@@ -15,7 +16,9 @@ export class BeerInfoComponent implements OnInit {
   taste: String = '';
   brewType: String = '';
 
-  constructor(private beerService: BeerService) {}
+  constructor(private beerService: BeerService, private menuService: MenuService) {
+    this.menuService.setNewState(this.beerService.getMenuState());
+  }
 
 
   ngOnInit() {}

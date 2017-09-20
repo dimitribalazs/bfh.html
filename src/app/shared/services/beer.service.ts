@@ -119,7 +119,7 @@ export class BeerDatabaseService extends DatabaseService {
   getBeerRatingsByBeerId(beerId: string): Observable<UserBeerRating[]> {
     return Observable.fromEvent(this.userBeerRatingsPath, FirebaseEvent.value.toString(), (snapshot) => {
       const ratings: UserBeerRating[] = [];
-      const dbData = snapshot.val();
+      const dbData = snapshot.val() || [];
       Object.keys(dbData).map(value => ratings.push(dbData[value] as UserBeerRating));
       return ratings.filter(rating =>  rating.beer == beerId);
     });

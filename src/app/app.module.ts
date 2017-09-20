@@ -15,7 +15,6 @@ import {BeerDatabaseService} from './shared/services/beer.service';
 import {UserDatabaseService} from './shared/services/user.service';
 import {SearchResultModule} from './shared/components/search-result/searchResult.module';
 import {UserModule} from './user/user.module';
-import {FriendsModule} from './friends/friends.module';
 import {BreweryModule} from './brewery/brewery.module';
 import {MenuService} from './shared/services/menu.service';
 import {BreweryDatabaseService} from './shared/services/brewery.service';
@@ -28,7 +27,12 @@ import { MenuBarComponent } from './shared/components/menu-bar/menu-bar.componen
 import {BusinessService} from './shared/services/business.service';
 import {AvailableModule} from './shared/components/available/available.module';
 import {RatingModule} from './shared/components/rating/rating.module';
+import {LoginComponent} from './login/login.component';
+import {AuthenticationService} from "./shared/services/authentication.service";
+import {AuthGuard} from "./shared/_guards/AuthGuard";
+import {LoginModule} from "./login/login.module";
 import { ServiceWorkerModule } from '@angular/service-worker';
+
 
 @NgModule({
   declarations: [
@@ -48,13 +52,13 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     AppRoutingModule,
     RatingModule,
     UserModule,
-    FriendsModule,
+    LoginModule,
     Angular2FontawesomeModule,
     ImageUploadModule.forRoot(),
     NgbModule.forRoot(),
     ServiceWorkerModule
   ],
-  providers: [BeerDatabaseService, BarDatabaseService, UserDatabaseService, BreweryDatabaseService, MenuService, BusinessService],
+  providers: [BeerDatabaseService, BarDatabaseService, UserDatabaseService, BreweryDatabaseService, MenuService, BusinessService, AuthenticationService, AuthGuard],
   bootstrap: [AppComponent],
 
 

@@ -5,12 +5,13 @@ import { BeerComponent } from './beer.component';
 import { BeerDetailComponent } from './beer-detail/beer-detail.component';
 import { BeerInfoComponent } from './beer-info/beer-info.component';
 import {BreweryInfoComponent} from './brewery-info/brewery-info.component';
-import {AvailableBeersComponent} from "./available-bars/available-bars.component";
+import {AvailableBeersComponent} from './available-bars/available-bars.component';
+import {AuthGuard} from '../shared/_guards/AuthGuard';
 // import {BarInfoComponent} from '../bar/bar-info/bar-info.component';
 
 const beerRoutes: Routes = [
   { path: 'beer/:id/edit',
-    component: BeerComponent,
+    component: BeerComponent  , canActivate: [AuthGuard],
     data: {
       type: 'edit'
     },
@@ -18,15 +19,13 @@ const beerRoutes: Routes = [
       {
         path: '',
         children: [
-          // { path: 'brewery', component: BarInfoComponent },
-          // { path: 'bars', component: BarInfoComponent },
-          { path: 'details', component: BeerDetailComponent },
-          { path: '', component: BeerDetailComponent }
+          { path: 'details', component: BeerDetailComponent , canActivate: [AuthGuard] },
+          { path: '', component: BeerDetailComponent , canActivate: [AuthGuard] }
         ]
       }
     ]},
   { path: 'beer/:id/:children/edit',
-    component: BeerComponent,
+    component: BeerComponent  , canActivate: [AuthGuard],
     data: {
       type: 'edit'
     },
@@ -34,15 +33,13 @@ const beerRoutes: Routes = [
       {
         path: '',
         children: [
-          // { path: 'brewery', component: BarInfoComponent },
-          // { path: 'bars', component: BarInfoComponent },
-          { path: 'details', component: BeerDetailComponent },
-          { path: '', component: BeerDetailComponent }
+          { path: 'details', component: BeerDetailComponent, canActivate: [AuthGuard] },
+          { path: '', component: BeerDetailComponent, canActivate: [AuthGuard] }
         ]
       }
     ]},
   { path: 'beer/new',
-    component: BeerComponent,
+    component: BeerComponent, canActivate: [AuthGuard],
     data: {
       type: 'new'
     },
@@ -50,13 +47,13 @@ const beerRoutes: Routes = [
       {
         path: '',
         children: [
-          { path: 'details', component: BeerDetailComponent },
-          { path: '', component: BeerDetailComponent }
+          { path: 'details', component: BeerDetailComponent, canActivate: [AuthGuard] },
+          { path: '', component: BeerDetailComponent, canActivate: [AuthGuard] }
         ]
       }
     ]},
   { path: 'beer/:id',
-    component: BeerComponent,
+    component: BeerComponent, canActivate: [AuthGuard],
     data: {
       type: 'info'
     },
@@ -64,10 +61,10 @@ const beerRoutes: Routes = [
       {
         path: '',
         children: [
-          { path: '', component: BeerInfoComponent },
-          { path: 'info', component: BeerInfoComponent },
-          { path: 'brewery', component: BreweryInfoComponent },
-          { path: 'bars', component: AvailableBeersComponent }
+          { path: '', component: BeerInfoComponent, canActivate: [AuthGuard] },
+          { path: 'info', component: BeerInfoComponent, canActivate: [AuthGuard] },
+          { path: 'brewery', component: BreweryInfoComponent, canActivate: [AuthGuard] },
+          { path: 'bars', component: AvailableBeersComponent, canActivate: [AuthGuard] }
         ]
       }
     ]},

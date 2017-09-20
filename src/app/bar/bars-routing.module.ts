@@ -7,11 +7,12 @@ import { AvailableBeersComponent } from './available-beers/available-beers.compo
 import { OpeningHoursComponent } from './opening-hours/opening-hours.component';
 import { PhotosComponent } from './photos/photos.component';
 import { MapComponent } from './map/map.component';
+import {AuthGuard} from '../shared/_guards/AuthGuard';
 
 const barsRoutes: Routes = [
   { path: 'bar/:id',
-    component: BarComponent,
-    data: {
+    component: BarComponent , canActivate: [AuthGuard],
+data: {
       type: 'info'
     },
     children: [

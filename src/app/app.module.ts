@@ -31,6 +31,7 @@ import {LoginComponent} from './login/login.component';
 import {AuthenticationService} from "./shared/services/authentication.service";
 import {AuthGuard} from "./shared/_guards/AuthGuard";
 import {LoginModule} from "./login/login.module";
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 
 @NgModule({
@@ -55,6 +56,7 @@ import {LoginModule} from "./login/login.module";
     Angular2FontawesomeModule,
     ImageUploadModule.forRoot(),
     NgbModule.forRoot(),
+    ServiceWorkerModule
   ],
   providers: [BeerDatabaseService, BarDatabaseService, UserDatabaseService, BreweryDatabaseService, MenuService, BusinessService, AuthenticationService, AuthGuard],
   bootstrap: [AppComponent],

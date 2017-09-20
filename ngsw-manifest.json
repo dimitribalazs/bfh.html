@@ -1,0 +1,68 @@
+{
+    "name": "Duff'd",
+    "short_name": "Duff'd",
+    "theme_color": "#f3d121",
+    "background_color": "rgba(0,0,0,0.88)",
+    "display": "browser",
+    "Scope": "/",
+    "start_url": "/home",
+    "icons": [
+      {
+          "src": "assets/logos/logo.png",
+          "sizes": "256x256",
+          "type": "image/png"
+      },
+      {
+          "src": "assets/logos/logo-512.png",
+          "sizes": "512x512",
+          "type": "image/png"
+      }
+    ],
+    "splash_pages": null,
+    "static.ignore": [
+        "\\.js\\.map$"
+    ],
+    "external": {
+        "urls": [
+            {"url": "https://fonts.googleapis.com/icon?family=Material+Icons"},
+            {"url": "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"},
+            {"url": "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/fonts/glyphicons-halflings-regular.woff2"},
+            {"url": "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/fonts/glyphicons-halflings-regular.woff"},
+            {"url": "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/fonts/glyphicons-halflings-regular.ttf"}
+        ]
+    },
+    "routing": {
+        "index": "/index.html",
+        "routes": {
+            "/": {
+                "match": "prefix"
+            },
+            "/home": {
+                "match": "prefix"
+            }
+        }
+    },
+    "dynamic": {
+      "group": [
+        {
+          "name": "firebase",
+          "urls": {
+            "https://duffd-83c72.firebaseio.com/": { // Our deployed app url
+              "match": "prefix"
+            }
+          },
+          "cache": {
+            "optimizeFor": "performance", // grabs data from cache only if data is stale
+            "maxAgeMs": 3600000, // cache for about an hour
+            "maxEntries": 20, // minimize cache size
+            "strategy": "lru" // tells service worker how to remove cached date (least recently used first)
+          }
+        }
+      ]
+    },
+    "gcm_sender_id": "758400835541",
+    "push": {
+      "showNotifications": true,
+      "backgroundOnly": false
+  }
+}

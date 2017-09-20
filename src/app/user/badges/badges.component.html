@@ -1,5 +1,8 @@
 <div class="container">
-  <div class="imageShow" style="position:relative;">
-    <img src="{{ '../../' + userService.viewModel.badge}}" height="226px" width="300px"/>
+  <div>
+    {{userService.viewModel.badges.length}}
+  </div>
+  <div *ngFor="let badge of userService.viewModel.badges" class="imageShow" style="position:relative;">
+    <img src="{{badge.getImage('../../assets/badges/')}}" height="226px" width="300px" title="{{badge.title}}"/>
   </div>
 </div>

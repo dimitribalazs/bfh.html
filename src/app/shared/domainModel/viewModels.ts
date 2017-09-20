@@ -193,7 +193,7 @@ export class UserModel {
   address: string;
   city: string;
   tel: string;
-  badge: string;
+  badges: Badge[];
   dateOfBirth: string;
   friends: BehaviorSubject<UserModel[]>
   //badges: Badge[];
@@ -210,7 +210,7 @@ export class UserModel {
     this.address = '';
     this.city = '';
     this.tel = '';
-    this.badge = ''
+    this.badges = [];
     this.dateOfBirth = '';
     this.friends = new BehaviorSubject<UserModel[]>(new Array<UserModel>());
   }
@@ -269,9 +269,11 @@ export class DropDownlists {
   ];
 }
 
-  export class Badge {
+export class Badge {
   id: string;
   name: string;
+  title: string;
+  getImage = (path: string): string =>  path + this.title + ".jpg";
 }
 
 

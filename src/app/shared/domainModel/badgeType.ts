@@ -1,4 +1,4 @@
-export enum Badge {
+export enum BadgeType {
   Diversity,
   NotToSteep,
   Connaisseur

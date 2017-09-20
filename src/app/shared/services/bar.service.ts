@@ -98,8 +98,9 @@ export class BarDatabaseService extends DatabaseService{
       const dbData = snapshot.val() || [];
       Object.keys(dbData).map(value => beers.push(dbData[value] as UserBeer));
       const resultsByUser: UserBeer[] = beers.filter(rating =>  rating.user == userId) as UserBeer[];
+
       const barStatistics = new BarStatistics();
-      barStatistics.barsVisitedByDate = new Map<number, UserBar[]>();
+      barStatistics.barsVisitedByDate = new Map<string, UserBar[]>();
 
       const differentBeers = [];
 

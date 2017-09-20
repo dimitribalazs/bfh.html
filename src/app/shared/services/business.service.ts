@@ -31,6 +31,7 @@ import {UserBeer} from "../dto/userBeer";
 import {UserBar} from "../dto/userBar";
 import {BeerStatistics} from "../dto/beerStatistics";
 import {BarStatistics} from "../dto/barStatistics";
+import {BadgeType} from "../domainModel/badgeType";
 
 
 @Injectable()
@@ -359,11 +360,15 @@ export class BusinessService {
         data.forEach((beer: Beer) => beerArr.push(this.mapBeerDtoToDomainModel(beer)))
         // emit the available beers
         userModel.favoriteBeers.next(beerArr)
-      })
+      });
 
+      this.beerService.getDrankBeersByGroupedByDateByUserId("1").subscribe((data: BeerStatistics) => {
+        userModel.badges = [].concat(...userModel.badges, this.getBeerBadges(data));
+      });
 
-      this.beerService.getDrankBeersByGroupedByDateByUserId("1").subscribe(this.getBeerBadges);
-      this.barService.getVisitedBarsGroupeByDateByUserId("1").subscribe(this.getBarBadges);
+      this.barService.getVisitedBarsGroupeByDateByUserId("1").subscribe((data: BarStatistics) => {
+        userModel.badges = [].concat(...userModel.badges, this.getBarBadges(data));
+      });
 
       this.userService.getFriendsOfUser(userModel.id).subscribe((data) => {
         // map dto to viewModel
@@ -482,7 +487,7 @@ export class BusinessService {
     model.address = dto.address;
     model.city = dto.city;
     model.tel = dto.tel;
-    model.badge = dto.badge;
+    //model.badge = dto.badge;
     model.dateOfBirth = dto.dateOfBirth;
     model.location = isNullOrUndefined(dto.location) ? model.location = new GeoData() : model.location = dto.location;
     if (this.debugMode) {
@@ -577,7 +582,6 @@ export class BusinessService {
   }
 
   private getBeerBadges(beerStat: BeerStatistics): Badge[] {
-    console.log("getBeer", beerStat);
     const badges: Badge[] = [];
     Object.keys(beerStat.beersDrankByDate).forEach((value) => {
       //5 different beers per day
@@ -588,15 +592,18 @@ export class BusinessService {
       })
       if(Object.keys(differentBeers).length >= 5) {
         const badge = new Badge();
+        badge.name = BadgeType[BadgeType.Diversity];
+        badge.title = BadgeType[BadgeType.Diversity];
         badges.push(badge);
       }
     });
 
     if(beerStat.differentBeersTotal >= 20) {
        const badge = new Badge();
+        badge.name = BadgeType[BadgeType.Connaisseur];
+        badge.title = BadgeType[BadgeType.Connaisseur]
        badges.push(badge);
     }
-    console.log("beer badges", badges)
     return badges;
   }
 
@@ -611,6 +618,8 @@ export class BusinessService {
       })
       if(Object.keys(differentBars).length >= 3) {
         const badge = new Badge();
+        badge.name = BadgeType[BadgeType.NotToSteep];
+        badge.title = BadgeType[BadgeType.NotToSteep]
         badges.push(badge);
       }
     });
@@ -618,4 +627,7 @@ export class BusinessService {
     return badges;
   }
 
+  // private getEnumKeyName<T>(T): string {
+  //   return T[T[]]
+  // }
 }

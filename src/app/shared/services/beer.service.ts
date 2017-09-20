@@ -137,7 +137,7 @@ export class BeerDatabaseService extends DatabaseService {
       Object.keys(dbData).map(value => beers.push(dbData[value] as UserBeer));
       const resultsByUser: UserBeer[] = beers.filter(rating =>  rating.user == userId) as UserBeer[];
       const beerStatistics = new BeerStatistics();
-      beerStatistics.beersDrankByDate = new Map<number, UserBeer[]>();
+      beerStatistics.beersDrankByDate = new Map<string, UserBeer[]>();
 
       const differentBeers = [];
 

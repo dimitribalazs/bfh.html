@@ -362,11 +362,11 @@ export class BusinessService {
         userModel.favoriteBeers.next(beerArr)
       });
 
-      this.beerService.getDrankBeersByGroupedByDateByUserId("1").subscribe((data: BeerStatistics) => {
+      this.beerService.getDrankBeersByGroupedByDateByUserId(userModel.id).subscribe((data: BeerStatistics) => {
         userModel.badges = [].concat(...userModel.badges, this.getBeerBadges(data));
       });
 
-      this.barService.getVisitedBarsGroupeByDateByUserId("1").subscribe((data: BarStatistics) => {
+      this.barService.getVisitedBarsGroupeByDateByUserId(userModel.id).subscribe((data: BarStatistics) => {
         userModel.badges = [].concat(...userModel.badges, this.getBarBadges(data));
       });
 

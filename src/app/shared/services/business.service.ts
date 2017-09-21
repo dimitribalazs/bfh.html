@@ -46,7 +46,7 @@ export class BusinessService {
   private beerSubject: Subject<BeerModel> = new BehaviorSubject<BeerModel>(new BeerModel());
   private userSubject: Subject<UserModel> = new BehaviorSubject<UserModel>(new UserModel());
   private usersSubject: Subject<UserModel[]> = new BehaviorSubject<UserModel[]>(new Array<UserModel>());
-  private aroundYouSubject:  Subject<AroundYou[]> = new BehaviorSubject<AroundYou[]>([]);
+  private aroundYouSubject: Subject<AroundYou[]> = new BehaviorSubject<AroundYou[]>([]);
   // public barAvailableBeersSubject: Subject<BeerModel[]> = new BehaviorSubject<BeerModel[]>(new Array<BeerModel>());
   // public barsSubject: Subject<BarModel[]> = new BehaviorSubject<BarModel[]>(this.bars);
 
@@ -54,8 +54,7 @@ export class BusinessService {
               private breweryService: BreweryDatabaseService,
               private barService: BarDatabaseService,
               private userService: UserDatabaseService,
-              private geoService: GeoService
-              ) {
+              private geoService: GeoService) {
     this.debugMode = true;
     this.beerSubject.asObservable();
     this.barSubject.asObservable();
@@ -78,6 +77,14 @@ export class BusinessService {
       console.log("positon gestzt");
       this.geoService.setCurrentPosition()
     }, 10000);
+
+    geoService.positionSubject.subscribe((pos: GeoData) => {
+      if (!isNullOrUndefined(pos.longitude) && !isNullOrUndefined(pos.latitude)) {
+        this.currentUser.location.latitude = pos.latitude
+        this.currentUser.location.longitude = pos.longitude;
+        this.updateUser(this.currentUser)
+      }
+    })
 
   }
 
@@ -343,6 +350,10 @@ export class BusinessService {
     )
   }
 
+  updateUser(user: UserModel) {
+    this.userService.update(user.id, this.mapUserDomainModelToDto(user))
+  }
+
   getUser(id: string): Subject<UserModel> {
     // emit the loaded Data
     this.subscription.unsubscribe()
@@ -400,9 +411,9 @@ export class BusinessService {
       this.userService.getAll().subscribe((users: User[] = []) => {
         let aroundYous: AroundYou[] = [];
         users.map((user: User) => {
-          if(isNullOrUndefined(user.location) == false) {
+          if (isNullOrUndefined(user.location) == false) {
             let distance = this.geoService.getDistance(myLocation, user.location);
-            if(this.geoService.isInRange(distance)) {
+            if (this.geoService.isInRange(distance)) {
               let aroundYou: AroundYou = {
                 name: `${user.firstname} ${user.lastname}`,
                 id: user.id,
@@ -419,12 +430,12 @@ export class BusinessService {
       })
     });
     let barObs = Observable.create((observer) => {
-       this.barService.getAll().subscribe((bars: Bar[] = []) => {
+      this.barService.getAll().subscribe((bars: Bar[] = []) => {
         let aroundYous: AroundYou[] = [];
         bars.map((bar: Bar) => {
-          if(isNullOrUndefined(bar.location) == false) {
+          if (isNullOrUndefined(bar.location) == false) {
             let distance = this.geoService.getDistance(myLocation, bar.location);
-            if(this.geoService.isInRange(distance)) {
+            if (this.geoService.isInRange(distance)) {
               let aroundYou: AroundYou = {
                 name: bar.name,
                 id: bar.id,
@@ -445,9 +456,9 @@ export class BusinessService {
       this.breweryService.getAll().subscribe((breweries: Brewery[] = []) => {
         let aroundYous: AroundYou[] = [];
         breweries.map((brewery: Brewery) => {
-          if(isNullOrUndefined(brewery.location) == false) {
+          if (isNullOrUndefined(brewery.location) == false) {
             let distance = this.geoService.getDistance(myLocation, brewery.location);
-            if(this.geoService.isInRange(distance)) {
+            if (this.geoService.isInRange(distance)) {
               let aroundYou: AroundYou = {
                 name: brewery.name,
                 id: brewery.id,
@@ -468,20 +479,17 @@ export class BusinessService {
       userObs,
       barObs,
       breweryObs,
-      (users: AroundYou[], bars: AroundYou[], breweries: AroundYou[]) =>
-      {
+      (users: AroundYou[], bars: AroundYou[], breweries: AroundYou[]) => {
         let flatData = [].concat(...users, ...bars, ...breweries);
         this.aroundYouSubject.next(flatData);
       }).subscribe();
 
 
-
     /*
      (users: AroundYou[], bars: AroundYou[], breweries: AroundYou[]) => {
-        let flatData = [].concat(...users, ...bars, ...breweries);
-        this.aroundYouSubject.next(flatData);
+     let flatData = [].concat(...users, ...bars, ...breweries);
+     this.aroundYouSubject.next(flatData);
      */
-
 
 
     return this.aroundYouSubject;
@@ -588,13 +596,37 @@ export class BusinessService {
     model.dateOfBirth = dto.dateOfBirth;
     model.location = isNullOrUndefined(dto.location) ? model.location = new GeoData() : model.location = dto.location;
     if (this.debugMode) {
-      console.log('mapBeerDtoToDomainModel')
+      console.log('mapUserDtoToDomainModel')
       console.log('dto:')
       console.log(dto)
       console.log('viewModel:')
       console.log(model)
     }
     return model;
+  }
+
+  private mapUserDomainModelToDto(model: UserModel): User {
+    const dto = new User();
+    dto.id = model.id;
+    dto.firstname = model.firstname;
+    dto.lastname = model.lastname;
+    dto.image = model.image;
+    dto.administrator = model.administrator;
+    dto.registrationDate = model.registrationDate;
+    dto.totalConsumption = model.totalConsumption;
+    dto.address = model.address;
+    dto.city = model.city;
+    dto.tel = model.tel;
+    dto.dateOfBirth = model.dateOfBirth;
+    dto.location = model.location;
+    if (this.debugMode) {
+      console.log('mapUserDomainModelToDto')
+      console.log('dto:')
+      console.log(dto)
+      console.log('viewModel:')
+      console.log(model)
+    }
+    return dto;
   }
 
   private mapBeerDtoToDomainModel(dto: Beer): BeerModel {

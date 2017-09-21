@@ -9,7 +9,7 @@ export class GeoService {
   private _earthRadius: number = 6371;
   private _radius = 80;
 
-  private positionSubject: Subject<GeoData> = new BehaviorSubject<GeoData>(new GeoData())
+  public positionSubject: Subject<GeoData> = new BehaviorSubject<GeoData>(new GeoData())
 
   private _deg2rad(point): number {
     return Math.tan(point * (Math.PI/180))

@@ -32,9 +32,10 @@ export class MapComponent implements OnInit, AfterContentInit {
 
   ngAfterContentInit() {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((pos) => this.showPosition(pos))
+      navigator.geolocation.getCurrentPosition((pos) => this.showRoute(pos))
     }else {
       console.log('GeoLocation is disabled');
+      this.showBarPosition();
     }
   }
 
@@ -57,13 +58,11 @@ export class MapComponent implements OnInit, AfterContentInit {
     directionsDisplay.setMap(map);
 
     if (this.allDataFetched) {
-      console.log('data fetched ' + this.allDataFetched);
-
       let targetDestination = { lat: this.targetDestination.latitude, lng: this.targetDestination.longitude };
 
       directionsService.route({
-        origin: currentLocation, //{lat: 41.85, lng: -87.65},
-        destination: targetDestination, //{lat: 49.3, lng: -123.12},
+        origin: currentLocation,
+        destination: targetDestination,
         optimizeWaypoints: true,
         travelMode: 'TRANSIT'
       }, function(response, status) {
@@ -78,17 +77,18 @@ export class MapComponent implements OnInit, AfterContentInit {
     }
   }
 
-  showPosition(position){
+  showBarPosition() {
     let location;
 
     if (this.allDataFetched) {
       location =  {lat: this.targetDestination.latitude, lng: this.targetDestination.longitude };
-    }else{
-      location =  {lat: position.coords.latitude, lng: position.coords.longitude };
+    }else {
+      // location => Try Adress ?
+      console.log('No Bar Geodata');
     }
 
     let map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 16,
+      zoom: 15,
       center: location
     });
     let marker = new google.maps.Marker({

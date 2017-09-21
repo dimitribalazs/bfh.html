@@ -12,6 +12,7 @@ import {BeerBarModel} from "../../shared/domainModel/viewModels";
 export class AvailableBeersComponent implements OnInit {
   filter: number
   dataIsBeerModel: boolean = true;
+  disableAddBeer: boolean = true;
   constructor(private breweryService: BreweryService, private router: Router) {
     this.dataIsBeerModel = true;
     this.filter = 3

@@ -8,6 +8,9 @@
             <button (click)="onRemoveItem(item.barId)" class="btn btn-default btn-sm pull-right">
               <i class="fa fa-times pull-right" aria-hidden="true"></i>
             </button>
+            <button (click)="OnChangePriceFromBar(item)" class="btn btn-default btn-sm pull-right">
+              <i class="fa fa-usd pull-right" aria-hidden="true"></i>
+            </button>
             <p>{{item.barName}} ,{{item.price}} CHF</p>
           </div>
 
@@ -17,6 +20,9 @@
             </button>
             <button (click)="cheers(item.beerId)" class="btn btn-default btn-sm pull-right">
               <i class="fa fa-beer pull-right" aria-hidden="true"></i>
+            </button>
+            <button (click)="OnChangePriceFromBeer(item)" class="btn btn-default btn-sm pull-right">
+              <i class="fa fa-usd pull-right" aria-hidden="true"></i>
             </button>
             <div (click)="onBeerShow(item.beerId)">
               <p>{{item.beerName}} ,{{item.price}} CHF</p>
@@ -37,13 +43,13 @@
       </ul>
     </div>
     <div class="container">
-      <div *ngIf="filter ==1">
+      <div *ngIf="filter ==1 && !itemAddDisable">
         <button class="btn btn-default btn-sm center-block" (click)="onAddItem()">
           <i class="fa fa-industry fa-2x" aria-hidden="true"></i>
           Add a Bar
         </button>
       </div>
-      <div *ngIf="filter ==3">
+      <div *ngIf="filter ==3 && !itemAddDisable">
         <a class="btn btn-default btn-sm center-block" (click)="onAddItem()">
           <i class="fa fa-beer fa-2x" aria-hidden="true"></i>
           Add a Beer
@@ -62,6 +68,7 @@
     <app-search-result
       [filter]="filterSubject"
       [search]="searchSubject"
+      [addDisable]="itemAddDisable"
       (onSearchResult)="onResult($event)"
       (onAddBeer)="onCreateBeer($event)">
     </app-search-result>

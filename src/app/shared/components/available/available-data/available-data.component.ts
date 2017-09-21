@@ -18,6 +18,7 @@ export class AvailableDataComponent implements OnInit {
   @Input() items: Observable<any>;
   @Input() filter: number;
   @Input() dataIsBeerModel: boolean;
+  @Input() itemAddDisable: boolean;
   @Output() onAdd = new EventEmitter<BeerBarModel>()
   @Output() onRemove = new EventEmitter<string>()
   @Output() onCancel = new EventEmitter()
@@ -60,6 +61,22 @@ export class AvailableDataComponent implements OnInit {
     }
   }
 
+  OnChangePriceFromBar(data: BeerBarModel) {
+    this.linkModel.beerId = data.barId;
+    this.linkModel.beerName = data.barName
+    this.linkModel.price = data.price;
+    this.linkModel.tapOrBottled = data.tapOrBottled;
+    this.linkInformation = true;
+  }
+
+  OnChangePriceFromBeer(data: BeerBarModel) {
+    this.linkModel.beerId = data.beerId;
+    this.linkModel.beerName = data.beerName;
+    this.linkModel.price = data.price;
+    this.linkModel.tapOrBottled = data.tapOrBottled;
+    this.linkInformation = true;
+  }
+
   onCreateBeer(data: AroundYou) {
     this.router.navigate(['beer/new', {name: data}]);
   }
@@ -81,6 +98,7 @@ export class AvailableDataComponent implements OnInit {
     this.menuService.setNewState(this.menuState)
     this.onAdd.emit(data);
   }
+
 
   onBarShow(id: string) {
     this.router.navigate(['bar', id]);

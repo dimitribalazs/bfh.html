@@ -23,6 +23,7 @@ export class SearchResultComponent implements OnInit {
   @Input() search: Observable<string>;
   @Input() filter: Observable<number>;
   @Input() ignorList: Array<AroundYou>;
+  @Input() addDisable: boolean;
   @Output() onSearchResult = new EventEmitter<AroundYou>()
   @Output() onAddBeer = new EventEmitter<string>()
   @Output() onAddFriend = new EventEmitter<AroundYou>()

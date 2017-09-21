@@ -33,7 +33,7 @@ export class BeerModel implements IRating {
     this.ratings[2] = 0;
     this.userRating = 0;
     this.owner = '';
-    this.image = '';
+    this.image = 'assets/logos/Default.jpg';
     this.taste = new Array<DropDownEntry>();
     this.location = new GeoData();
     this.description = '';

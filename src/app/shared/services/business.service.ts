@@ -98,7 +98,9 @@ export class BusinessService {
         })
       });
 
-      this.breweryService.get(beer.brewery).subscribe((brewery) => beerModel.brewery = this.mapBreweryDtoToDomainModel(brewery));
+      if (!isNullOrUndefined(beer.brewery) && beer.brewery.length > 0) {
+        this.breweryService.get(beer.brewery).subscribe((brewery) => beerModel.brewery = this.mapBreweryDtoToDomainModel(brewery));
+      }
       // emit the loaded bar data
       this.beerSubject.next(beerModel)
       // reload the available beers
@@ -128,6 +130,7 @@ export class BusinessService {
         })
       })
     })
+
     return this.beerSubject;
   }
 
@@ -216,7 +219,7 @@ export class BusinessService {
    * @returns {string} the id of the beer
    */
   createOrUpdateBeer(beer: BeerModel): string {
-    if (isNullOrUndefined(beer.id)) {
+    if (isNullOrUndefined(beer.id) || beer.id.length === 0) {
       beer.id = this.beerService.create(this.mapBeerDomainModeltoDto(beer))
     } else {
       this.beerService.update(beer.id, this.mapBeerDomainModeltoDto(beer));
@@ -409,7 +412,7 @@ export class BusinessService {
     model.isSmokingAllowed = dto.isSmokingAllowed;
 
     model.snacks = dto.snacks;
-    if (isNullOrUndefined(dto.image)) {
+    if (isNullOrUndefined(dto.image) || dto.image.length === 0) {
       model.image = 'assets/bars/Default.jpg';
     } else {
       model.image = dto.image;
@@ -474,7 +477,7 @@ export class BusinessService {
     model.id = dto.id;
     model.firstname = dto.firstname;
     model.lastname = dto.lastname;
-    if (isNullOrUndefined(dto.image)) {
+    if (isNullOrUndefined(dto.image) || dto.image.length === 0) {
       model.image = 'assets/users/Default.jpg';
     } else {
       model.image = dto.image;
@@ -510,7 +513,7 @@ export class BusinessService {
     model.ratings[0] = 0;
     model.ratings[1] = 0;
     model.ratings[2] = 0;
-    if (isNullOrUndefined(dto.image)) {
+    if (isNullOrUndefined(dto.image) || dto.image.length === 0) {
       model.image = 'assets/logos/Default.jpg';
     } else {
       model.image = dto.image;

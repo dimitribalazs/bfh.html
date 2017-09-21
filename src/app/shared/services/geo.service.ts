@@ -1,11 +1,15 @@
 import { Injectable, OnInit } from '@angular/core';
 import {GeoData} from '../dto/geoData';
 import {isNullOrUndefined} from "util";
+import {BehaviorSubject} from "rxjs/BehaviorSubject";
+import {Subject} from 'rxjs/Subject';
 
 @Injectable()
 export class GeoService {
   private _earthRadius: number = 6371;
   private _radius = 80;
+
+  private positionSubject: Subject<GeoData> = new BehaviorSubject<GeoData>(new GeoData())
 
   private _deg2rad(point): number {
     return Math.tan(point * (Math.PI/180))
@@ -25,6 +29,26 @@ export class GeoService {
      let d = this._earthRadius * c;
 
      return d;
+   }
+
+   public setCurrentPosition() {
+     if (navigator.geolocation) {
+       navigator.geolocation.getCurrentPosition((pos) => {
+         let geoData: GeoData = {
+           longitude: pos.coords.longitude,
+           latitude: pos.coords.latitude
+         };
+         this.positionSubject.next(geoData);
+       });
+     }
+     else {
+       console.log('GeoLocation is disabled');
+       throw Error("GeoLocation is disabled")
+     }
+   }
+
+   public getCurrentPosition(): Subject<GeoData> {
+      return this.positionSubject;
    }
 }
 

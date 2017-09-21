@@ -67,11 +67,18 @@ export class BusinessService {
     var long = 8.276876;
 
     var wohlen: GeoData = {
-      id: "11",
       longitude: long,
       latitude: lat
     };
     this.getAroundYou(wohlen, "1");
+
+    this.geoService.getCurrentPosition().subscribe(data => console.log("position", data));
+
+    setInterval(() => {
+      console.log("positon gestzt");
+      this.geoService.setCurrentPosition()
+    }, 10000);
+
   }
 
   /**

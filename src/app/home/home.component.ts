@@ -73,7 +73,6 @@ export class HomeComponent implements OnInit {
     var long = 8.276876;
 
     var wohlen: GeoData = {
-      id: "11",
       longitude: long,
       latitude: lat
     };
@@ -120,7 +119,6 @@ export class HomeComponent implements OnInit {
     var long = 8.276876;
 
     var wohlen: GeoData = {
-      id: "11",
       longitude: long,
       latitude: lat
     };
@@ -133,7 +131,6 @@ export class HomeComponent implements OnInit {
           const coords: Coordinates = pos.coords;
 
           let currentPos: GeoData = {
-            id: "10",
             longitude: coords.longitude,
             latitude: coords.latitude
           }
@@ -142,7 +139,6 @@ export class HomeComponent implements OnInit {
           var long = 8.276876;
 
           var wohlen: GeoData = {
-            id: "11",
             longitude: long,
             latitude: lat
           };
@@ -152,7 +148,6 @@ export class HomeComponent implements OnInit {
           var long1 = 8.300650;
 
           var waltenschwil: GeoData = {
-            id: "12",
             longitude: long1,
             latitude: lat1
           };
@@ -160,7 +155,6 @@ export class HomeComponent implements OnInit {
           console.log("result 1 " + foo);
 
           var lausanne: GeoData = {
-            id: "13",
             longitude: 6.632273,
             latitude: 46.519653
           };

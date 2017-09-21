@@ -40,6 +40,7 @@ export class BarService {
       titleText: 'Bar info',
       visibleTitle: true,
       visibleHomeLink: true,
+      visibleEdit: true
     };
   }
 

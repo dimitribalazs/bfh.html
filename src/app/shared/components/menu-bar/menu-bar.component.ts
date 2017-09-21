@@ -3,7 +3,8 @@ import {MenuService, MenuState} from '../../services/menu.service';
 import {Router, RouterState} from '@angular/router';
 import {AuthenticationService} from '../../services/authentication.service';
 import {BusinessService} from '../../services/business.service';
-import {AuthGuard} from "../../_guards/AuthGuard";
+import {AuthGuard} from '../../_guards/AuthGuard';
+import {Constants} from '../../constants';
 
 @Component({
   selector: 'app-menu-bar',
@@ -39,7 +40,11 @@ export class MenuBarComponent implements OnInit {
 
   onViewDetails() {
     const state: RouterState = this.router.routerState;
-    this.router.navigate([state.snapshot.url, 'edit']);
+    if (state.snapshot.url.indexOf('beer') > 0) {
+      this.router.navigate([state.snapshot.url, 'edit']);
+    } else {
+      alert(Constants.NOT_IMPLEMENTED)
+    }
   }
 
 

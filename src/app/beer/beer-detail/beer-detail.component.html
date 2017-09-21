@@ -92,7 +92,7 @@
 
 <div class="container" *ngIf="beerService.editForbidden">
   <h2>No change authorization!</h2>
-  <button class="btn btn-default menubutton-right">
+  <button class="btn btn-default menubutton-right" (click)="OnEditSuggest()">
     <i class="fa fa-pencil" aria-hidden="true"></i>
     Suggest an edit
   </button>

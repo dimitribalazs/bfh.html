@@ -7,6 +7,7 @@ import {isUndefined} from 'util';
 import {BehaviorSubject} from 'rxjs/Rx';
 import {Subject} from 'rxjs/Subject';
 import {AroundYou} from '../../shared/dto/aroundYou';
+import {Constants} from '../../shared/constants';
 
 @Component({
   selector: 'app-beer-detail',
@@ -94,4 +95,9 @@ export class BeerDetailComponent implements OnInit {
       })
     }
   }
+
+  OnEditSuggest() {
+    alert(Constants.NOT_IMPLEMENTED)
+  }
+
 }

@@ -8,6 +8,9 @@
             <button (click)="onRemoveItem(item.barId)" class="btn btn-default btn-sm pull-right">
               <i class="fa fa-times pull-right" aria-hidden="true"></i>
             </button>
+            <button (click)="OnChangePriceFromBar(item)" class="btn btn-default btn-sm pull-right">
+              <i class="fa fa-usd pull-right" aria-hidden="true"></i>
+            </button>
             <p>{{item.barName}} ,{{item.price}} CHF</p>
           </div>
 
@@ -17,6 +20,9 @@
             </button>
             <button (click)="cheers(item.beerId)" class="btn btn-default btn-sm pull-right">
               <i class="fa fa-beer pull-right" aria-hidden="true"></i>
+            </button>
+            <button (click)="OnChangePriceFromBeer(item)" class="btn btn-default btn-sm pull-right">
+              <i class="fa fa-usd pull-right" aria-hidden="true"></i>
             </button>
             <div (click)="onBeerShow(item.beerId)">
               <p>{{item.beerName}} ,{{item.price}} CHF</p>

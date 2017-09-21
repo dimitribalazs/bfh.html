@@ -4,6 +4,7 @@
     [filter]="filter"
     [items]="breweryService.viewModel.beers"
     [dataIsBeerModel] = "dataIsBeerModel"
+    [itemAddDisable]="disableAddBeer"
     (onAdd)="addBeer($event)"
     (onRemove)="removeBeer($event)">
   </app-available-data>

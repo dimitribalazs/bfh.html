@@ -18,6 +18,7 @@ export class AvailableDataComponent implements OnInit {
   @Input() items: Observable<any>;
   @Input() filter: number;
   @Input() dataIsBeerModel: boolean;
+  @Input() itemAddDisable: boolean;
   @Output() onAdd = new EventEmitter<BeerBarModel>()
   @Output() onRemove = new EventEmitter<string>()
   @Output() onCancel = new EventEmitter()

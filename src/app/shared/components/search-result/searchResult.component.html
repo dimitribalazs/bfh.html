@@ -20,21 +20,21 @@
       <h4>But cou can create a new one!</h4>
     </div>
     <div>
-      <button *ngIf="numberOfBeers === 0 && (filterNumber === 0 || filterNumber === 3)" (click)="onNewBeer()"
+      <button *ngIf="numberOfBeers === 0 && (filterNumber === 0 || filterNumber === 3 && ! addDisable)" (click)="onNewBeer()"
               class="btn btn-default btn-sm ">
         <i class="fa fa-beer" aria-hidden="true"></i>
         Add a new Beer
       </button>
     </div>
     <div>
-      <button *ngIf="numberOfBrewerys === 0 && (filterNumber === 0 || filterNumber === 2)" (click)="onNew()"
+      <button *ngIf="numberOfBrewerys === 0 && (filterNumber === 0 || filterNumber === 2) && ! addDisable" (click)="onNew()"
               class="btn btn-default btn-sm">
         <i class="fa fa-industry" aria-hidden="true"></i>
         Add new Brewery
       </button>
     </div>
     <div>
-      <button *ngIf="numberOfBars === 0 && (filterNumber === 0 || filterNumber === 1)" (click)="onNew()"
+      <button *ngIf="numberOfBars === 0 && (filterNumber === 0 || filterNumber === 1 && ! addDisable)" (click)="onNew()"
               class="btn btn-default btn-sm">
         <i class="fa fa-cutlery" aria-hidden="true"></i>
         Add new Bar

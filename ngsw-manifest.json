@@ -1,8 +1,8 @@
 {
     "name": "Duff'd",
     "short_name": "Duff'd",
-    "theme_color": "#f3d121",
-    "background_color": "rgba(0,0,0,0.88)",
+    "theme_color": "Gold",
+    "background_color": "GoldenRod",
     "display": "browser",
     "Scope": "/",
     "start_url": "/home",

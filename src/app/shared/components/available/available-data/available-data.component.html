@@ -1,6 +1,6 @@
 <div class="container">
   <div *ngIf="!search && !linkInformation">
-      <div style="overflow-y:scroll; max-height: 50vh">
+    <div style="overflow-y:scroll; max-height: 50vh">
       <ul class="list-group">
         <li *ngFor="let item of items | async" class="list-group-item">
 
@@ -11,14 +11,16 @@
             <p>{{item.barName}} ,{{item.price}} CHF</p>
           </div>
 
-          <div *ngIf="filter ==3 && !dataIsBeerModel" style="overflow: hidden;" (click)="onBeerShow(item.beerId)">
+          <div *ngIf="filter ==3 && !dataIsBeerModel" style="overflow: hidden;">
             <button (click)="onRemoveItem(item.beerId)" class="btn btn-default btn-sm pull-right">
               <i class="fa fa-times pull-right" aria-hidden="true"></i>
             </button>
             <button (click)="cheers(item.beerId)" class="btn btn-default btn-sm pull-right">
               <i class="fa fa-beer pull-right" aria-hidden="true"></i>
             </button>
-            <p>{{item.beerName}} ,{{item.price}} CHF</p>
+            <div (click)="onBeerShow(item.beerId)">
+              <p>{{item.beerName}} ,{{item.price}} CHF</p>
+            </div>
           </div>
 
           <div *ngIf="filter ==3 && dataIsBeerModel" style="overflow: hidden;" (click)="onBeerShow(item.Id)">

@@ -11,17 +11,20 @@ export class GeoService {
     return Math.tan(point * (Math.PI/180))
   }
 
-   public isInRange(currentPosition: GeoData, positionToCheck: GeoData): boolean {
-      if(isNullOrUndefined(positionToCheck)) return false;
+   public isInRange(range: number): boolean {
+     if(isNullOrUndefined(range)) return false;
+      return range <= this._radius;
+   }
 
-      let destinationLat = this._deg2rad(positionToCheck.latitude - currentPosition.latitude);
-      let destinationLon = this._deg2rad(positionToCheck.longitude - currentPosition.longitude);
+   public getDistance(currentPosition: GeoData, positionToCheck: GeoData): number {
+     let destinationLat = this._deg2rad(positionToCheck.latitude - currentPosition.latitude);
+     let destinationLon = this._deg2rad(positionToCheck.longitude - currentPosition.longitude);
 
-      let a = Math.sin(destinationLat/2) * Math.sin(destinationLat/2) + Math.cos(this._deg2rad(currentPosition.latitude)) * Math.cos(this._deg2rad(positionToCheck.latitude)) * Math.sin(destinationLon/2) * Math.sin(destinationLon/2);
-      let c = 2 * Math.asin(Math.sqrt(a));
-      let d = this._earthRadius * c;
+     let a = Math.sin(destinationLat/2) * Math.sin(destinationLat/2) + Math.cos(this._deg2rad(currentPosition.latitude)) * Math.cos(this._deg2rad(positionToCheck.latitude)) * Math.sin(destinationLon/2) * Math.sin(destinationLon/2);
+     let c = 2 * Math.asin(Math.sqrt(a));
+     let d = this._earthRadius * c;
 
-      return d <= this._radius;
+     return d;
    }
 }
 

@@ -88,6 +88,7 @@ export class UserDatabaseService extends DatabaseService{
         let flatData = [].concat(...bars, ...breweries, ...users);
          let filtered =  flatData.filter((aroundYou) => {
           let location = (<IGeoData>aroundYou).location;
+          console.log("foo", location);
           return true;
           //this.geoService.isInRange(myPosition, location);
         });

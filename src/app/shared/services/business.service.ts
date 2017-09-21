@@ -1,6 +1,3 @@
-/**
- * Created by STRI on 14.09.2017.
- */
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {BehaviorSubject} from 'rxjs/Rx';
@@ -22,7 +19,7 @@ import {
 } from '../domainModel/viewModels';
 import {RatingModel} from '../components/rating/ratingModel';
 import {forEach} from '@angular/router/src/utils/collection';
-import {isNullOrUndefined} from 'util';
+import {isNull, isNullOrUndefined} from 'util';
 import {UserBarRating} from '../dto/userBarRating';
 import {Rating, getRatingDefault} from '../dto/rating';
 import {UserBeerRating} from '../dto/userBeerRating';
@@ -32,7 +29,7 @@ import {UserBar} from '../dto/userBar';
 import {BeerStatistics} from '../dto/beerStatistics';
 import {BarStatistics} from '../dto/barStatistics';
 import {BadgeType} from '../domainModel/badgeType';
-import {IGeoData} from "../dto/IGeoData";
+import {GeoService} from  '../services/geo.service';
 
 
 @Injectable()
@@ -49,13 +46,16 @@ export class BusinessService {
   private beerSubject: Subject<BeerModel> = new BehaviorSubject<BeerModel>(new BeerModel());
   private userSubject: Subject<UserModel> = new BehaviorSubject<UserModel>(new UserModel());
   private usersSubject: Subject<UserModel[]> = new BehaviorSubject<UserModel[]>(new Array<UserModel>());
+  private aroundYouSubject:  Subject<AroundYou[]> = new BehaviorSubject<AroundYou[]>([]);
   // public barAvailableBeersSubject: Subject<BeerModel[]> = new BehaviorSubject<BeerModel[]>(new Array<BeerModel>());
   // public barsSubject: Subject<BarModel[]> = new BehaviorSubject<BarModel[]>(this.bars);
 
   constructor(private beerService: BeerDatabaseService,
               private breweryService: BreweryDatabaseService,
               private barService: BarDatabaseService,
-              private userService: UserDatabaseService) {
+              private userService: UserDatabaseService,
+              private geoService: GeoService
+              ) {
     this.debugMode = true;
     this.beerSubject.asObservable();
     this.barSubject.asObservable();
@@ -388,13 +388,98 @@ export class BusinessService {
     return this.usersSubject;
   }
 
-  getAroundYou(myLocation: GeoData, userId: string): void {
-    this.userService.getAroundYou(myLocation, userId).subscribe((data: IGeoData[]) =>  {
-      data.map((aroundYou) => {
-        //let typeName = aroundYou.getSourceTypeName();
-        //console.log("foo", typeName);
+  getAroundYou(myLocation: GeoData, userId: string): Subject<AroundYou[]> {
+    let userObs = Observable.create((observer) => {
+      this.userService.getAll().subscribe((users: User[] = []) => {
+        let aroundYous: AroundYou[] = [];
+        users.map((user: User) => {
+          if(isNullOrUndefined(user.location) == false) {
+            let distance = 99; //this.geoService.getDistance(myLocation, user.location);
+            let aroundYou: AroundYou = {
+              name: `${user.firstname} ${user.lastname}`,
+              id: user.id,
+              distance: distance,
+              icon: "/user/",
+              routerNavigate: "fa fa-user",
+              unit: "m"
+            };
+            aroundYous.push(aroundYou);
+          }
+        });
+        observer.next(aroundYous);
       })
-    })
+    });
+    let barObs = Observable.create((observer) => {
+       this.barService.getAll().subscribe((bars: Bar[] = []) => {
+        let aroundYous: AroundYou[] = [];
+        bars.map((bar: Bar) => {
+          if(isNullOrUndefined(bar.location) == false) {
+            let distance = this.geoService.getDistance(myLocation, bar.location);
+            let aroundYou: AroundYou = {
+              name: bar.name,
+              id: bar.id,
+              distance: distance,
+              icon: "fa fa-map-marker",
+              routerNavigate: "/bar/",
+              unit: "m"
+            };
+            aroundYous.push(aroundYou);
+          }
+        });
+        observer.next(aroundYous);
+      })
+    });
+
+    let breweryObs = Observable.create((observer) => {
+      this.breweryService.getAll().subscribe((breweries: Brewery[] = []) => {
+        let aroundYous: AroundYou[] = [];
+        breweries.map((brewery: Brewery) => {
+          if(isNullOrUndefined(brewery.location) == false) {
+            let distance = this.geoService.getDistance(myLocation, brewery.location);
+            let aroundYou: AroundYou = {
+              name: brewery.name,
+              id: brewery.id,
+              distance: distance,
+              icon: "fa fa-industry",
+              routerNavigate: "/brewery/",
+              unit: "m"
+            };
+            aroundYous.push(aroundYou);
+          }
+        });
+        observer.next(aroundYous);
+      })
+    });
+
+    let foo = Observable.zip(
+      userObs,
+      barObs,
+      breweryObs,
+      (users: AroundYou[], bars: AroundYou[], breweries: AroundYou[]) =>
+      {
+        let flatData = [].concat(...users, ...bars, ...breweries);
+        this.aroundYouSubject.next(flatData);
+      });
+
+    foo.subscribe(data => console.log("fuck", data));
+
+
+
+    /*
+     (users: AroundYou[], bars: AroundYou[], breweries: AroundYou[]) => {
+        let flatData = [].concat(...users, ...bars, ...breweries);
+        this.aroundYouSubject.next(flatData);
+     */
+
+
+
+    return this.aroundYouSubject;
+    // this.userService.getAroundYou(myLocation, userId).subscribe((data: IGeoData[]) =>  {
+    //   data.map((aroundYou) => {
+    //     //let typeName = aroundYou.getSourceTypeName();
+    //     //console.log("foo", typeName);
+    //   })
+    // })
   }
 
   private mapBarDtoToDomainModel(dto: Bar): BarModel {

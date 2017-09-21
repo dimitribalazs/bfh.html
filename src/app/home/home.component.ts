@@ -14,6 +14,9 @@ import {MenuService} from '../shared/services/menu.service';
 import {Brewery} from '../shared/dto/brewery';
 import {BreweryDatabaseService} from '../shared/services/brewery.service';
 import {BarDatabaseService} from '../shared/services/bar.service';
+import {Subject} from "rxjs/Subject";
+import {BehaviorSubject} from "rxjs/BehaviorSubject";
+import {BusinessService} from "../shared/services/business.service";
 
 
 @Component({
@@ -27,7 +30,8 @@ export class HomeComponent implements OnInit {
   users: Observable<User[]>;
   brewery: Observable<Brewery[]>;
   bars: Observable<Bar[]>;
-  arroundYou: AroundYou[] = new Array();
+  //arroundYou: AroundYou[] = new Array();
+  arroundYou: Observable<AroundYou[]> = new Observable<AroundYou[]>();
   distance: number = 0;
 
   private selectedId: string;
@@ -39,7 +43,9 @@ export class HomeComponent implements OnInit {
               private serviceBrewery: BreweryDatabaseService,
               private serviceBar: BarDatabaseService,
               private serviceGeo: GeoService,
-              private menuService: MenuService) {
+              private menuService: MenuService,
+              private businessService: BusinessService
+  ) {
 
   }
 
@@ -54,6 +60,14 @@ export class HomeComponent implements OnInit {
       visibleMenu: true
     });
 
+    this.beers = this.serviceBeer.getAll();
+
+    this.users = this.serviceUser.getAll()
+
+    this.brewery = this.serviceBrewery.getAll()
+
+    this.bars = this.serviceBar.getAll()
+
     //Wohlen AG
     var lat = 47.349365;
     var long = 8.276876;
@@ -65,72 +79,8 @@ export class HomeComponent implements OnInit {
     };
 
 
-    this.serviceUser.getAroundYou(wohlen, " ");
+    this.arroundYou = this.businessService.getAroundYou(wohlen, "");
 
-    this.beers = this.serviceBeer.getAll();
-
-    this.users = this.serviceUser.getAll()
-
-    this.brewery = this.serviceBrewery.getAll()
-
-    this.bars = this.serviceBar.getAll()
-
-    // this.beers.subscribe((value) => {
-    //   value.forEach((beer) => {
-    //     const a: AroundYou = new AroundYou();
-    //     a.id = beer.id;
-    //     a.name = beer.name;
-    //     a.routerNavigate = '/beer/'
-    //     if (this.arroundYou.length < 5) {
-    //       this.arroundYou.push(a)
-    //     }
-    //   })
-    // })
-
-    this.bars.subscribe((value) => {
-      value.forEach((bar) => {
-        const a: AroundYou = new AroundYou();
-        a.id = bar.id;
-        a.name = bar.name;
-        a.routerNavigate = '/bar/'
-        a.icon = 'fa fa-map-marker';
-        a.distance = this.distance++;
-        a.unit = 'm'
-        if (this.arroundYou.length < 5) {
-          this.arroundYou.push(a)
-        }
-      })
-    })
-
-    this.users.subscribe((value) => {
-      value.forEach((user) => {
-        const a: AroundYou = new AroundYou();
-        a.id = user.id;
-        a.name = user.firstname + ', ' + user.lastname;
-        a.routerNavigate = '/user/'
-        a.icon = 'fa fa-user';
-        a.distance = this.distance++;
-        a.unit = 'm'
-        if (this.arroundYou.length < 7) {
-          this.arroundYou.push(a)
-        }
-      })
-    })
-
-    this.brewery.subscribe((value) => {
-      value.forEach((brewery) => {
-        const a: AroundYou = new AroundYou();
-        a.id = brewery.id;
-        a.name = brewery.name;
-        a.routerNavigate = '/brewery/'
-        a.icon = 'fa fa-industry';
-        a.distance = this.distance++;
-        a.unit = 'm'
-        if (this.arroundYou.length < 9) {
-          this.arroundYou.push(a)
-        }
-      })
-    })
   }
 
   isSelected(around: AroundYou) {
@@ -206,7 +156,7 @@ export class HomeComponent implements OnInit {
             longitude: long1,
             latitude: lat1
           };
-          var foo = this.serviceGeo.isInRange(wohlen, waltenschwil);
+          var foo = this.serviceGeo.isInRange(12);
           console.log("result 1 " + foo);
 
           var lausanne: GeoData = {
@@ -214,7 +164,7 @@ export class HomeComponent implements OnInit {
             longitude: 6.632273,
             latitude: 46.519653
           };
-          foo = this.serviceGeo.isInRange(wohlen, lausanne);
+          foo = this.serviceGeo.isInRange(12);
           console.log("result 2 " + foo);
 
         });

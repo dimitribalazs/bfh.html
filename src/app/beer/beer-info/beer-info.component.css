@@ -1,4 +1,6 @@
-#map {
-  height: 400px;
-  width: 100%;
- }
+input {
+  background-color:transparent;
+  border: 0px solid;
+  height:30px;
+  width:260px;
+}

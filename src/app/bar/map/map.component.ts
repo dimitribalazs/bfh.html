@@ -47,7 +47,7 @@ export class MapComponent implements OnInit, AfterContentInit {
     console.log('Your current location ' + currentLocation.lat, currentLocation.lng);
 
     let map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 7,
+      zoom: 15,
       center: currentLocation
     });
     let marker = new google.maps.Marker({
@@ -91,6 +91,7 @@ export class MapComponent implements OnInit, AfterContentInit {
       zoom: 15,
       center: location
     });
+
     let marker = new google.maps.Marker({
       position: location,
       map: map

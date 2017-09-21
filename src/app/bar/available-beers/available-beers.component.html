@@ -1,6 +1,7 @@
 <app-available-data
   [filter]="filter"
   [items]="service.viewModel.beers"
+  [searchIgnorList]="service.availableBeerModel"
   (onAdd)="addBeer($event)"
   (onRemove)="removeBeer($event)"
   (onCheers)="addCheers($event)">

@@ -6,6 +6,7 @@ import {MultiNavigationModel} from '../../shared/domainModel/multiNavigationMode
 import {BeerBarModel} from '../../shared/domainModel/viewModels';
 import {AroundYou} from '../../shared/dto/aroundYou';
 import {MenuService} from "../../shared/services/menu.service";
+import {BeerService} from "../../beer/beerService";
 
 @Component({
   selector: 'app-available-beers',

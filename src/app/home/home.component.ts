@@ -5,7 +5,7 @@ import 'rxjs/add/operator/switchMap';
 import {Beer} from '../shared/dto/Beer';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {BeerDatabaseService} from '../shared/services/beer.service';
-import {AroundYou} from '../shared/dto/aroundyou';
+import {AroundYou} from '../shared/dto/aroundYou';
 import {User} from '../shared/dto/user';
 import {GeoData} from '../shared/dto/geoData';
 import {UserDatabaseService} from '../shared/services/user.service';

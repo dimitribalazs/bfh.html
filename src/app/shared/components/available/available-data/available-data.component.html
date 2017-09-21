@@ -30,10 +30,7 @@
           </div>
 
           <div *ngIf="filter ==3 && dataIsBeerModel" style="overflow: hidden;" (click)="onBeerShow(item.Id)">
-            <button (click)="onRemoveItem(item.Id)" class="btn btn-default btn-sm pull-right">
-              <i class="fa fa-times pull-right" aria-hidden="true"></i>
-            </button>
-            <button (click)="onProst(item.id)" class="btn btn-default btn-sm pull-right">
+            <button (click)="onCheers(item.id)" class="btn btn-default btn-sm pull-right">
               <i class="fa fa-beer" aria-hidden="true"></i>
             </button>
             <p>{{item.name}}</p>
@@ -69,6 +66,7 @@
       [filter]="filterSubject"
       [search]="searchSubject"
       [addDisable]="itemAddDisable"
+      [ignorList]="searchIgnorList"
       (onSearchResult)="onResult($event)"
       (onAddBeer)="onCreateBeer($event)">
     </app-search-result>

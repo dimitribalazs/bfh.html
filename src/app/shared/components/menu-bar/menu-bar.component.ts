@@ -40,7 +40,7 @@ export class MenuBarComponent implements OnInit {
 
   onViewDetails() {
     const state: RouterState = this.router.routerState;
-    if (state.snapshot.url.indexOf('beer') > 0) {
+    if (state.snapshot.url.indexOf('beer') > 0 && state.snapshot.url.indexOf('beer') < 5) {
       this.router.navigate([state.snapshot.url, 'edit']);
     } else {
       alert(Constants.NOT_IMPLEMENTED)

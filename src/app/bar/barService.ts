@@ -3,37 +3,23 @@
  */
 import {Injectable} from '@angular/core';
 import {BusinessService} from '../shared/services/business.service';
-import {BarModel, BeerBarModel} from '../shared/domainModel/viewModels';
+import {BarModel, BeerBarModel, BeerModel} from '../shared/domainModel/viewModels';
 import {RatingModel} from '../shared/components/rating/ratingModel';
 import { Subject } from 'rxjs/Subject';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import {GeoData} from '../shared/dto/geoData';
+import {AroundYou} from '../shared/dto/aroundYou';
+import {isNullOrUndefined} from 'util';
+import {Constants} from '../shared/constants';
 
 @Injectable()
 export class BarService {
 
   viewModel: BarModel = new BarModel();
+  availableBeerModel:  Subject<Array<AroundYou>> = new BehaviorSubject<Array<AroundYou>>(new Array());
   public targetLocationSubject: Subject<GeoData> = new BehaviorSubject<GeoData>(new GeoData());
 
-  constructor(private businessService: BusinessService) {
-    // this.viewModel = new BarModel();
-    // this.viewModel.openingHours = new OpeningHours();
-
-    // console.log("save bar");
-    // var bb = new BarBeer();
-    // bb.beer = "1";
-    // bb.bar = "2";
-    // bb.price = 22.2;
-    // bb.tapOrBottled = true;
-    // this.barService.addBeerToBar(bb);
-    //
-    // bb = new BarBeer();
-    // bb.beer = "2";
-    // bb.bar = "2";
-    // bb.price = 11.1;
-    // bb.tapOrBottled = false;
-    // this.barService.addBeerToBar(bb);
-  }
+  constructor(private businessService: BusinessService) {}
 
   public getMenuState(): any {
     return {
@@ -47,6 +33,18 @@ export class BarService {
   loadBar(id: string) {
     this.businessService.getBar(id).subscribe((bar: BarModel) => {
       this.viewModel = bar
+      bar.beers.subscribe((beers) => {
+        if (isNullOrUndefined(beers) || beers.length > 0) {
+          const ignorList: Array<AroundYou> = new Array()
+          Object.keys(beers).map(value => {
+            const model: AroundYou = new AroundYou();
+            model.name = beers[value].beerName;
+            model.routerNavigate = Constants.ROUTING_PARENT_BEER
+            ignorList.push(model)
+          })
+          this.availableBeerModel.next(ignorList);
+        }
+      })
       this.targetLocationSubject.next(bar.location)
     });
  }

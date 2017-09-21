@@ -2,8 +2,12 @@ import { Injectable, OnInit } from '@angular/core';
 import {BeerModel, DropDownEntry, BeerBarModel} from '../shared/domainModel/viewModels';
 import {BusinessService} from '../shared/services/business.service';
 import {RatingModel} from '../shared/components/rating/ratingModel';
-import {MenuService, MenuState} from "../shared/services/menu.service";
-import {BarBeer} from "../shared/dto/barBeer";
+import {MenuService, MenuState} from '../shared/services/menu.service';
+import { Subject } from 'rxjs/Subject';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import {AroundYou} from '../shared/dto/aroundYou';
+import {isNullOrUndefined} from 'util';
+import {Constants} from '../shared/constants';
 
 @Injectable()
 export class BeerService {
@@ -11,6 +15,7 @@ export class BeerService {
   breweryDropDownList: DropDownEntry[] = [];
   editForbidden: boolean
   public viewModel: BeerModel = new BeerModel();
+  availableBarModel:  Subject<Array<AroundYou>> = new BehaviorSubject<Array<AroundYou>>(new Array());
 
   constructor(private businessService: BusinessService,
               private menuService: MenuService) {
@@ -20,6 +25,18 @@ export class BeerService {
     this.businessService.getBeer(id).subscribe((beer: BeerModel) => {
       this.viewModel = beer
       this.editForbidden = !this.businessService.canBeerEdit(beer)
+      beer.bars.subscribe((bars) => {
+        if (isNullOrUndefined(bars) || bars.length > 0) {
+          const ignorList: Array<AroundYou> = new Array()
+          Object.keys(bars).map(value => {
+            const model: AroundYou = new AroundYou();
+            model.name = bars[value].barName;
+            model.routerNavigate = Constants.ROUTING_PARENT_BAR
+            ignorList.push(model)
+          })
+          this.availableBarModel.next(ignorList);
+        }
+      })
     });
   }
 

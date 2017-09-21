@@ -4,7 +4,7 @@ import {BehaviorSubject} from 'rxjs/Rx';
 import {Subject} from 'rxjs/Subject';
 import {BeerDatabaseService} from '../../services/beer.service'
 import {Beer} from '../../dto/beer';
-import {AroundYou} from '../../dto/aroundyou';
+import {AroundYou} from '../../dto/aroundYou';
 import {Subscription} from 'rxjs/Subscription';
 import {Brewery} from '../../dto/brewery';
 import {BreweryDatabaseService} from '../../services/brewery.service';
@@ -12,6 +12,8 @@ import {User} from '../../dto/user';
 import {UserDatabaseService} from '../../services/user.service';
 import {BarDatabaseService} from '../../services/bar.service';
 import {Bar} from '../../dto/bar';
+import {isNullOrUndefined} from "util";
+import {Constants} from "../../constants";
 
 @Component({
   selector: 'app-search-result',
@@ -22,7 +24,7 @@ export class SearchResultComponent implements OnInit {
 
   @Input() search: Observable<string>;
   @Input() filter: Observable<number>;
-  @Input() ignorList: Array<AroundYou>;
+  @Input() ignorList: Observable<Array<AroundYou>>;
   @Input() addDisable: boolean;
   @Output() onSearchResult = new EventEmitter<AroundYou>()
   @Output() onAddBeer = new EventEmitter<string>()
@@ -40,6 +42,8 @@ export class SearchResultComponent implements OnInit {
   numberOfBars: number;
   numberOfBrewerys: number;
   entriesNotFound: string;
+
+  itemIgnorlist: Array<AroundYou> = new Array();
 
   searchString: string;
 
@@ -80,6 +84,20 @@ export class SearchResultComponent implements OnInit {
 
     this.filter.subscribe((filter) => this.filterNumber = filter)
 
+    if (!isNullOrUndefined(this.ignorList)) {
+      this.ignorList.subscribe((ignoreValue) => {
+        this.itemIgnorlist = new Array();
+        if (!isNullOrUndefined(ignoreValue)) {
+          Object.keys(ignoreValue).map(value => {
+            const model: AroundYou = new AroundYou();
+            model.name = ignoreValue[value].name;
+            model.routerNavigate = ignoreValue[value].routerNavigate
+            this.itemIgnorlist.push(model)
+          })
+        }
+      })
+    }
+
     this.search.subscribe((value) => {
         // save the search string
         const s: string = value as string;
@@ -101,9 +119,9 @@ export class SearchResultComponent implements OnInit {
               a.id = beer.id;
               a.name = beer.name;
               a.icon = 'fa fa-beer';
-              a.routerNavigate = '/beer/'
+              a.routerNavigate = Constants.ROUTING_PARENT_BEER
               // if find the search string in the beer name, emit the new result to the observer
-              if (a.name.toLowerCase().indexOf(s.toLowerCase()) >= 0) {
+              if (a.name.toLowerCase().indexOf(s.toLowerCase()) >= 0 && !this.isInIgnorelist(a)) {
                 this.numberOfBeers++
                 this.arroundYou.push(a)
                 this.viewModelSubject.next(this.arroundYou)
@@ -122,9 +140,9 @@ export class SearchResultComponent implements OnInit {
               a.id = brewery.id;
               a.name = brewery.name;
               a.icon = 'fa fa-industry';
-              a.routerNavigate = '/brewery/'
+              a.routerNavigate = Constants.ROUTING_PARENT_BREWERY
               // if find the search string in the brewery name, emit the new result to the observer
-              if (a.name.toLowerCase().indexOf(s.toLowerCase()) >= 0) {
+              if (a.name.toLowerCase().indexOf(s.toLowerCase()) >= 0 && !this.isInIgnorelist(a)) {
                 this.numberOfBrewerys++
                 this.arroundYou.push(a)
                 this.viewModelSubject.next(this.arroundYou)
@@ -143,9 +161,9 @@ export class SearchResultComponent implements OnInit {
               a.id = bar.id;
               a.name = bar.name;
               a.icon = 'fa fa-cutlery';
-              a.routerNavigate = '/bar/'
+              a.routerNavigate = Constants.ROUTING_PARENT_BAR
               // if find the search string in the bar name, emit the new result to the observer
-              if (a.name.toLowerCase().indexOf(s.toLowerCase()) >= 0) {
+              if (a.name.toLowerCase().indexOf(s.toLowerCase()) >= 0 && !this.isInIgnorelist(a)) {
                 this.numberOfBars++
                 this.arroundYou.push(a)
                 this.viewModelSubject.next(this.arroundYou)
@@ -163,9 +181,9 @@ export class SearchResultComponent implements OnInit {
               a.id = user.id;
               a.name = user.firstname + ', ' + user.lastname;
               a.icon = 'fa fa-user';
-              a.routerNavigate = '/user/'
+              a.routerNavigate = Constants.ROUTING_PARENT_USER
               // if find the search string in the beer name, emit the new result to the observer
-              if (a.name.toLowerCase().indexOf(s.toLocaleLowerCase()) >= 0) {
+              if (a.name.toLowerCase().indexOf(s.toLocaleLowerCase()) >= 0 && !this.isInIgnorelist(a)) {
                 this.arroundYou.push(a)
                 this.viewModelSubject.next(this.arroundYou)
               }
@@ -175,6 +193,23 @@ export class SearchResultComponent implements OnInit {
       }
     )
   }
+
+
+  /**
+   * /**
+   * check if the entry in the ignorlist
+   *
+   * @param entry
+   * @returns {boolean} true if is in ignore list
+   */
+  isInIgnorelist(entry: AroundYou): boolean {
+    if (isNullOrUndefined(this.itemIgnorlist)) {
+      return false;
+    }
+    const ignore = this.itemIgnorlist.find((value) => value.name === entry.name && value.routerNavigate === entry.routerNavigate);
+    return !isNullOrUndefined(ignore);
+  }
+
 
   onClick(data: AroundYou) {
     this.onSearchResult.emit(data);

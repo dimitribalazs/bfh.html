@@ -394,7 +394,7 @@ export class BusinessService {
         let aroundYous: AroundYou[] = [];
         users.map((user: User) => {
           if(isNullOrUndefined(user.location) == false) {
-            let distance = 99; //this.geoService.getDistance(myLocation, user.location);
+            let distance = this.geoService.getDistance(myLocation, user.location);
             let aroundYou: AroundYou = {
               name: `${user.firstname} ${user.lastname}`,
               id: user.id,

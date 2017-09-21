@@ -8,6 +8,7 @@ import {BarBeer} from "../dto/barBeer";
 import {UserBeerRating} from "../dto/userBeerRating";
 import {UserBeer} from "../dto/userBeer";
 import {BeerStatistics} from "../dto/beerStatistics";
+import {isNullOrUndefined} from "util";
 
 @Injectable()
 export class BeerDatabaseService extends DatabaseService {
@@ -157,6 +158,20 @@ export class BeerDatabaseService extends DatabaseService {
   addBeerDrank(userBeer: UserBeer): void {
     this.userBeerDrankPath.push(userBeer);
   }
+
+  addBreweryToBeer(beerId: string, breweryId: string): void {
+    if(isNullOrUndefined(beerId)) throw Error("beerId must be set");
+    if(isNullOrUndefined(beerId)) throw Error("breweryId must be set");
+
+    this.beersPath.child(beerId).set({
+      "brewery": breweryId
+    });
+  }
+
+  removeBrewerFromBeer(beerId: string): void {
+    this.beersPath.child(beerId).child("brewery").remove();
+  }
+
 }
 
 

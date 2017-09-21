@@ -76,7 +76,7 @@ export class BusinessService {
     setInterval(() => {
       console.log("positon gestzt");
       this.geoService.setCurrentPosition()
-    }, 10000);
+    }, 120000);
 
     geoService.positionSubject.subscribe((pos: GeoData) => {
       if (!isNullOrUndefined(pos.longitude) && !isNullOrUndefined(pos.latitude)) {

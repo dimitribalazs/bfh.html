@@ -1,12 +1,54 @@
 /* You can add global styles to this file, and also import other style files */
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  padding-top: 56px;
+}
+
+h4 {
+  text-shadow: gray 2px 2px 4px;
+  margin-left: 0.5em;
+}
+
+hr.gradient {
+  height: 1px;
+  background: black;
+  background: -webkit-gradient(linear, 0 0, 100% 0, from(white), to(white), color-stop(50%, black));
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
+
+.duffd-box {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+}
+
+.duffd-box .duffd-row.duffd-header {
+  flex: 0 1 auto;
+}
+
+.duffd-box .duffd-row.duffd-content {
+  flex: 1 1 auto;
+  overflow: scroll;
+}
+
+.duffd-box .duffd-row.duffd-footer {
+  flex: 0 1 420px;
+}
+
 .horizontal-scroller-outer {
   overflow: scroll;
   width: 100vw;
-  height: 7em;
+  height: 80px;
 }
 
 .horizontal-scroller-inner {
-  width: 60em;
+  width: 850px;
 }
 
 .activeNavigation {
@@ -33,10 +75,16 @@
 .nav-pills > li + li {
   margin-left: 0;
 }
+
 .nav-justified > li {
   display: table-cell;
   width: 1%;
 }
+
 .nav-justified > li > a {
   margin-bottom: 0;
+}
+
+.list-group-item {
+  border: none;
 }

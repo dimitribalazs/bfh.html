@@ -14,6 +14,7 @@ declare var google: any;
   styleUrls: ['./map.component.css']
 })
 export class MapComponent implements OnInit, AfterContentInit {
+  private map: google.maps.Map;
   targetDestination: GeoData;
   allDataFetched: boolean = false;
 
@@ -46,16 +47,16 @@ export class MapComponent implements OnInit, AfterContentInit {
     const currentLocation =  {lat: position.coords.latitude, lng: position.coords.longitude };
     console.log('Your current location ' + currentLocation.lat, currentLocation.lng);
 
-    let map = new google.maps.Map(document.getElementById('map'), {
+    this.map = new google.maps.Map(document.getElementById('map'), {
       zoom: 15,
       center: currentLocation
     });
     let marker = new google.maps.Marker({
       position: currentLocation,
-      map: map
+      map: this.map
     });
 
-    directionsDisplay.setMap(map);
+    directionsDisplay.setMap(this.map);
 
     if (this.allDataFetched) {
       let targetDestination = { lat: this.targetDestination.latitude, lng: this.targetDestination.longitude };

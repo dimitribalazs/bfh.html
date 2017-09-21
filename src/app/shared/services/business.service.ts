@@ -181,15 +181,12 @@ export class BusinessService {
 
 
   /**
-   * add a beer to a bar
-   * @param beerId
-   * @param beerName
-   * @param breweryId
-   * @param breweryName
+   * add brewery to beer
+   * @param {string} beerId
+   * @param {string} breweryId
    */
-  addBeerToBrewery(beerId: string, beerName: string, breweryId: string, breweryName: string) {
-    // TODO
-
+  addBreweryToBeer(beerId: string, breweryId: string) {
+    this.beerService.addBreweryToBeer(beerId, breweryId);
   }
 
   /**
@@ -197,8 +194,8 @@ export class BusinessService {
    * @param beerId
    * @param breweryId
    */
-  removeBeerFromBrewery(beerId: string, breweryId: string) {
-    // TODO
+  removeBreweryFromBeer(beerId: string) {
+    this.beerService.removeBrewerFromBeer(beerId);
   }
 
   /**

@@ -1,6 +1,3 @@
-/**
- * Created by STRI on 22.08.2017.
- */
 import { Injectable, OnInit } from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {UserModel} from '../shared/domainModel/viewModels';

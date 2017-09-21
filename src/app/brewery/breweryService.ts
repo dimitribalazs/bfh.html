@@ -19,9 +19,9 @@ export class BreweryService {
   }
 
   addBeer(data: BeerBarModel) {
-    this.businessService.addBeerToBrewery(data.beerId, data.beerName, this.viewModel.id, this.viewModel.name)
+    this.businessService.addBreweryToBeer(data.beerId, this.viewModel.id);
   }
   removeBeer(id: string) {
-    this.businessService.removeBeerFromBrewery(id, this.viewModel.id)
+    this.businessService.removeBreweryFromBeer(id)
   }
 }

@@ -32,7 +32,7 @@ export class MapComponent implements OnInit, AfterContentInit {
 
   ngAfterContentInit() {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((pos) => this.showRoute(pos))
+      navigator.geolocation.getCurrentPosition((pos) => this.showPosition(pos))
     }else {
       console.log('GeoLocation is disabled');
     }
@@ -76,5 +76,24 @@ export class MapComponent implements OnInit, AfterContentInit {
     }else {
       console.log('Geolocation of bar is unknown');
     }
+  }
+
+  showPosition(position){
+    let location;
+
+    if (this.allDataFetched) {
+      location =  {lat: this.targetDestination.latitude, lng: this.targetDestination.longitude };
+    }else{
+      location =  {lat: position.coords.latitude, lng: position.coords.longitude };
+    }
+
+    let map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 16,
+      center: location
+    });
+    let marker = new google.maps.Marker({
+      position: location,
+      map: map
+    });
   }
 }

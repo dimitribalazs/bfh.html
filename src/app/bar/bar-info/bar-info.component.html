@@ -1,51 +1,62 @@
-<div class="container">
-  <div class="row">
-    <div class="col-xs-12">
-      <form #beerForm="ngForm">
-        <div class="form-group">
-          <div>
-            <label>Name</label>
+<div *ngIf="!showMap">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-6">
+        <form #beerForm="ngForm">
+          <div class="form-group">
+            <div>
+              <label>Name</label>
+            </div>
+            <p>{{barService.viewModel.name}}</p>
           </div>
-          <p>{{barService.viewModel.name}}</p>
-        </div>
 
-        <div class="form-group">
-          <div>
-            <label>Address</label>
+          <div class="form-group">
+            <div>
+              <label>Address</label>
+            </div>
+            <p>{{barService.viewModel.address}}</p>
           </div>
-          <p>{{barService.viewModel.address}}</p>
-        </div>
 
-        <div class="form-group">
-          <div>
-            <label>City</label>
+          <div class="form-group">
+            <div>
+              <label>City</label>
+            </div>
+            <p>{{barService.viewModel.city}}</p>
           </div>
-          <p>{{barService.viewModel.city}}</p>
-        </div>
 
-        <div class="form-group">
-          <div>
-            <label>Description</label>
+          <div class="form-group">
+            <div>
+              <label>Description</label>
+            </div>
+            <p>{{barService.viewModel.description}}</p>
           </div>
-          <p>{{barService.viewModel.description}}</p>
-        </div>
 
-        <div class="form-group">
-          <label>Smoking allowed: </label>
-          <p>{{barService.viewModel.isSmokingAllowed}}</p>
-        </div>
+          <div class="form-group">
+            <label>Smoking allowed: </label>
+            <p>{{barService.viewModel.isSmokingAllowed}}</p>
+          </div>
 
-        <div class="form-group">
-          <label>Snaks: </label>
-          <p>{{barService.viewModel.snacks}}</p>
-        </div>
+          <div class="form-group">
+            <label>Snaks: </label>
+            <p>{{barService.viewModel.snacks}}</p>
+          </div>
 
-        <div class="form-group">
-          <label>Size: </label>
-          <p>{{barService.viewModel.size}}</p>
-        </div>
-
-      </form>
+          <div class="form-group">
+            <label>Size: </label>
+            <p>{{barService.viewModel.size}}</p>
+          </div>
+        </form>
+      </div>
+      <div class="col-xs-6">
+          <button (click)="onShowMap()" class="btn btn-default btn-md center-block">
+              <i class="fa fa-map-marker" aria-hidden="true"></i>
+              Map
+            </button>
+      </div>
     </div>
   </div>
 </div>
+<div *ngIf="showMap">
+  <app-map></app-map>
+</div>
+

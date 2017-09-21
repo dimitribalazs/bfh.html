@@ -98,7 +98,7 @@ export class BusinessService {
         })
       });
 
-      if (!isNullOrUndefined(beer.brewery) && beer.brewery.length > 0) {
+      if (!isNullOrUndefined(beer.brewery) && beer.brewery.toString().length > 0) {
         this.breweryService.get(beer.brewery).subscribe((brewery) => beerModel.brewery = this.mapBreweryDtoToDomainModel(brewery));
       }
       // emit the loaded bar data

@@ -2,7 +2,7 @@ import {Component, Input} from '@angular/core';
 import {Beer} from '../../shared/dto/beer';
 import {Observable} from 'rxjs/Observable';
 import {logger} from 'codelyzer/util/logger';
-import { Router } from '@angular/router';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-beer-top10',

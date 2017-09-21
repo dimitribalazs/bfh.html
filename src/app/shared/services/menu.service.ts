@@ -23,7 +23,6 @@ export class MenuService {
 
   setNewState(state): void {
     // merge options
-    console.log(state);
     this.state = {...this.defaultState, ...state};
 
     this.state$.next(this.state);

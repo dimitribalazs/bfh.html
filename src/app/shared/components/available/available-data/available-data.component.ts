@@ -7,6 +7,7 @@ import {Router} from '@angular/router';
 import {MultiNavigationModel} from '../../../domainModel/multiNavigationModel';
 import {Observable} from 'rxjs/Observable';
 import {BeerBarModel} from "../../../domainModel/viewModels";
+import {BreweryService} from "../../../../brewery/breweryService";
 
 @Component({
   selector: 'app-available-data',
@@ -34,7 +35,8 @@ export class AvailableDataComponent implements OnInit {
   linkModel: BeerBarModel;
 
   constructor(private menuService: MenuService,
-              private router: Router) {
+              private router: Router,
+              private brewreyService: BreweryService) {
     this.search = false;
     this.linkInformation = false;
     this.menuState = menuService.state
@@ -120,5 +122,20 @@ export class AvailableDataComponent implements OnInit {
     this.onRemove.emit(id);
   }
 
+
+  addCheers(beerId: string) {
+    this.brewreyService.addBeerDrank(beerId)
+    this.menuService.setNewState({
+      titleText: 'KEEP CALM AND SAY CHEERS',
+      visibleTitle: true,
+      visibleBack: false,
+      visibleHomeLink: true,
+      visibleEdit: false
+    });
+
+    setTimeout(() => {
+      this.menuService.setNewState(this.brewreyService.getMenuState());
+    }, 2500);
+  }
 
 }

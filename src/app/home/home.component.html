@@ -1,6 +1,8 @@
-<div class="container">
-  <h4>Around you</h4>
-  <div style="max-height: 25vh; overflow: scroll">
+<div class="duffd-box">
+  <div class="duffd-row duffd-header">
+    <h4>Around you</h4><a class="btn btn-default" (click)="checkLocation()">test</a>
+  </div>
+  <div class="duffd-row duffd-content">
     <ul class="list-group">
       <li *ngFor="let data of arroundYou | async"
           [class.selected]="isSelected(data)"
@@ -12,11 +14,10 @@
       </li>
     </ul>
   </div>
-</div>
-<div class="container">
-  <app-beer-top10 [title]="'Your top 10 beers'" [beers]="beers"></app-beer-top10>
-  <app-beer-top10 [title]="'Your friends most drunk beers'" [beers]="beers"></app-beer-top10>
-  <app-beer-top10 [title]="'Your friends top rated beers'" [beers]="beers"></app-beer-top10>
+  <div class="duffd-row duffd-footer">
+    <app-beer-top10 [title]="'Your top 10 beers'" [beers]="beers"></app-beer-top10>
+    <app-beer-top10 [title]="'Your friends most drunk beers'" [beers]="beers"></app-beer-top10>
+    <app-beer-top10 [title]="'Your friends top rated beers'" [beers]="beers"></app-beer-top10>
+  </div>
 </div>
 
-<button (click)="checkLocation()">test</button>

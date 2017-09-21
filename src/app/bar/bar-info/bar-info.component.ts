@@ -9,6 +9,7 @@ import {BarService} from '../barService';
 })
 export class BarInfoComponent implements OnInit {
   // model: Bar = new Bar;
+  private showMap = false;
 
   constructor(private barService: BarService) {
   }
@@ -17,6 +18,10 @@ export class BarInfoComponent implements OnInit {
     // this.barService.getBar().subscribe((beer) => {
     //   this.model = this.barService.getViewModel();
     // })
+  }
+
+  onShowMap() {
+    this.showMap = true;
   }
 
 }

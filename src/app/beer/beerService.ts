@@ -9,16 +9,18 @@ import {BarBeer} from "../shared/dto/barBeer";
 export class BeerService {
 
   breweryDropDownList: DropDownEntry[] = [];
-
+  editForbidden: boolean
   public viewModel: BeerModel = new BeerModel();
-  constructor(private businessService: BusinessService, private menuService: MenuService) {
 
-
-
+  constructor(private businessService: BusinessService,
+              private menuService: MenuService) {
   }
 
   loadBeer(id: string) {
-    this.businessService.getBeer(id).subscribe((beer: BeerModel) => this.viewModel = beer);
+    this.businessService.getBeer(id).subscribe((beer: BeerModel) => {
+      this.viewModel = beer
+      this.editForbidden = !this.businessService.canBeerEdit(beer)
+    });
   }
 
   submit() {

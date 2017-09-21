@@ -6,7 +6,7 @@ import {BehaviorSubject} from 'rxjs/Rx';
 import {falseIfMissing} from "protractor/built/util";
 import {Rating} from "../dto/rating";
 
-export class BeerModel implements IRating{
+export class BeerModel implements IRating {
   id: string;
   name: string;
   description: string;
@@ -19,6 +19,7 @@ export class BeerModel implements IRating{
   image: string;
   taste: Array<DropDownEntry>;
   location: GeoData;
+  owner: string;
 
   constructor() {
     this.id = '';
@@ -31,6 +32,7 @@ export class BeerModel implements IRating{
     this.ratings[1] = 0;
     this.ratings[2] = 0;
     this.userRating = 0;
+    this.owner = '';
     this.image = '';
     this.taste = new Array<DropDownEntry>();
     this.location = new GeoData();
@@ -39,7 +41,7 @@ export class BeerModel implements IRating{
   }
 
   incrementRating(rating: Rating): void {
-    switch(rating) {
+    switch (rating) {
       case Rating.Great:
         this.ratings[2] += 1;
         break;
@@ -104,7 +106,7 @@ export class BeerBarModel {
   }
 }
 
-export class BarModel implements IRating{
+export class BarModel implements IRating {
   id: string;
   name: string;
   address: string;
@@ -144,7 +146,7 @@ export class BarModel implements IRating{
   }
 
   incrementRating(rating: Rating): void {
-    switch(rating) {
+    switch (rating) {
       case Rating.Great:
         this.ratings[2] += 1;
         break;
@@ -196,6 +198,7 @@ export class UserModel {
   badges: Badge[];
   dateOfBirth: string;
   friends: BehaviorSubject<UserModel[]>
+  administrator: boolean
   //badges: Badge[];
 
   constructor() {
@@ -213,6 +216,7 @@ export class UserModel {
     this.badges = [];
     this.dateOfBirth = '';
     this.friends = new BehaviorSubject<UserModel[]>(new Array<UserModel>());
+    this.administrator = false;
   }
 }
 
@@ -273,7 +277,7 @@ export class Badge {
   id: string;
   name: string;
   title: string;
-  getImage = (path: string): string =>  path + this.title + ".png";
+  getImage = (path: string): string => path + this.title + ".png";
 }
 
 

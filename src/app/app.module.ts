@@ -58,7 +58,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     NgbModule.forRoot(),
     ServiceWorkerModule
   ],
-  providers: [BeerDatabaseService, BarDatabaseService, UserDatabaseService, BreweryDatabaseService, MenuService, BusinessService, AuthenticationService, AuthGuard],
+  providers: [BeerDatabaseService, BarDatabaseService, UserDatabaseService, BreweryDatabaseService, MenuService, AuthenticationService, AuthGuard, BusinessService],
   bootstrap: [AppComponent],
 
 

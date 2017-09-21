@@ -35,12 +35,28 @@ export class BarService {
     // this.barService.addBeerToBar(bb);
   }
 
+  public getMenuState(): any {
+    return {
+      titleText: 'Bar info',
+      visibleTitle: true,
+      visibleHomeLink: true,
+    };
+  }
+
   loadBar(id: string) {
     this.businessService.getBar(id).subscribe((bar: BarModel) => {
       this.viewModel = bar
       this.targetLocationSubject.next(bar.location)
     });
  }
+
+  public addBeerDrank(beerId: string) {
+    this.businessService.addBeerDrank(this.viewModel.id);
+  }
+
+  public addBarVisited() {
+    this.businessService.addBarVisited(this.viewModel.id);
+  }
 
   // set the new user rating
   setUserRating(rating: RatingModel) {

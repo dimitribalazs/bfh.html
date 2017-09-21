@@ -32,6 +32,7 @@ export class BeerDetailComponent implements OnInit {
               private menuService: MenuService,
               private router: Router) {
     this.searchBrewery = false;
+
   }
 
 

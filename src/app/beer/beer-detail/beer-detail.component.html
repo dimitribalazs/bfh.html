@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="!beerService.editForbidden">
   <div class="row">
     <div class="col-xs-12">
 
@@ -90,16 +90,11 @@
   </div>
 </div>
 
-
-<!--<div class="margin-20">-->
-<!--<div>Form details:-</div>-->
-<!--<pre>Is form valid?: <br>{{beerForm.valid | json}}</pre>-->
-<!--<pre>Is name valid?: <br>{{name.valid | json}}</pre>-->
-<!--<pre>Is description valid?: <br>{{description.valid | json}}</pre>-->
-<!--<pre>Is form submitted?: <br>{{submitted | json}}</pre>-->
-<!--<pre>Is form error message?: <br>{{formErrorMessage | json}}</pre>-->
-<!--<pre>form value: <br>{{beerForm.value | json}}</pre>-->
-
-
-<!--</div>-->
+<div class="container" *ngIf="beerService.editForbidden">
+  <h2>No change authorization!</h2>
+  <button class="btn btn-default menubutton-right">
+    <i class="fa fa-pencil" aria-hidden="true"></i>
+    Suggest an edit
+  </button>
+</div>
 

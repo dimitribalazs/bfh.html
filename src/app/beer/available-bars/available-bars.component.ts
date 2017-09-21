@@ -24,20 +24,12 @@ export class AvailableBeersComponent implements OnInit {
   }
 
   setMenu() {
-    this.menuService.setNewState({
-      titleText: 'Beer info',
-      visibleBack: true,
-      visibleHomeLink: true,
-      visibleEdit: true
-    });
+    this.menuService.setNewState(this.beerService.getMenuState());
   }
 
   ngOnInit() {
     this.setMenu()
   }
-
-
-
 
   onBarShow(id: number) {
     this.router.navigate(['bar', id]);

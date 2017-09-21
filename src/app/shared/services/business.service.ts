@@ -23,15 +23,15 @@ import {
 import {RatingModel} from '../components/rating/ratingModel';
 import {forEach} from '@angular/router/src/utils/collection';
 import {isNullOrUndefined} from 'util';
-import {UserBarRating} from "../dto/userBarRating";
-import {Rating, getRatingDefault} from "../dto/rating";
-import {UserBeerRating} from "../dto/userBeerRating";
-import {AroundYou} from "../dto/aroundYou";
-import {UserBeer} from "../dto/userBeer";
-import {UserBar} from "../dto/userBar";
-import {BeerStatistics} from "../dto/beerStatistics";
-import {BarStatistics} from "../dto/barStatistics";
-import {BadgeType} from "../domainModel/badgeType";
+import {UserBarRating} from '../dto/userBarRating';
+import {Rating, getRatingDefault} from '../dto/rating';
+import {UserBeerRating} from '../dto/userBeerRating';
+import {AroundYou} from '../dto/aroundYou';
+import {UserBeer} from '../dto/userBeer';
+import {UserBar} from '../dto/userBar';
+import {BeerStatistics} from '../dto/beerStatistics';
+import {BarStatistics} from '../dto/barStatistics';
+import {BadgeType} from '../domainModel/badgeType';
 
 
 @Injectable()
@@ -60,76 +60,7 @@ export class BusinessService {
     this.barSubject.asObservable();
     this.brewerySubject.asObservable();
     this.userSubject.asObservable();
-
-    let date = new Date(2017,5, 20).toDateString();
-
-    let beerDrank: UserBeer = {
-      beer: "1",
-      user: "1",
-      dateDrank: date
-    };
-
-    let beerDrank1: UserBeer = {
-      beer: "2",
-      user: "1",
-      dateDrank: date
-    };
-
-    let beerDrank2: UserBeer = {
-      beer: "3",
-      user: "1",
-      dateDrank: date
-    };
-
-    let beerDrank3: UserBeer = {
-      beer: "4",
-      user: "1",
-      dateDrank: date
-    };
-
-    let beerDrank4: UserBeer = {
-      beer: "5",
-      user: "1",
-      dateDrank: date
-    };
-
-    /*
-    this.beerService.addBeerDrank(beerDrank);
-    this.beerService.addBeerDrank(beerDrank1);
-    this.beerService.addBeerDrank(beerDrank2);
-    this.beerService.addBeerDrank(beerDrank3);
-    this.beerService.addBeerDrank(beerDrank4);
-    */
-
-
-    let barVisited: UserBar = {
-      user: "1",
-      bar: "1",
-      dateVisited: date
-    };
-
-    let barVisited1: UserBar = {
-      user: "1",
-      bar: "2",
-      dateVisited: date
-    };
-
-    let barVisited2: UserBar = {
-      user: "1",
-      bar: "3",
-      dateVisited: date
-    };
-
-    //this.barService.addBarVisited(barVisited);
-    //this.barService.addBarVisited(barVisited1);
-    //this.barService.addBarVisited(barVisited2);
-
   }
-
-  setCurrentUser(userId: string) {
-    this.getUser(userId).subscribe((user) => this.currentUser = user)
-  }
-
 
   /**
    * Get the beer with the id
@@ -186,6 +117,35 @@ export class BusinessService {
       })
     })
     return this.beerSubject;
+  }
+
+  /**
+   * Drink a beer
+   * @param beerId the beer ID which is drank
+   */
+  public addBeerDrank(beerId: string) {
+
+    const beerDrank: UserBeer = {
+      beer: beerId,
+      user: this.currentUser.id,
+      dateDrank: new Date().toDateString()
+    };
+
+    this.beerService.addBeerDrank(beerDrank);
+  }
+
+  /**
+   * Visit a baar
+   * @param barId the bar ID which is visit
+   */
+  public addBarVisited(barId: string) {
+
+    const barVisited: UserBar = {
+      bar: barId,
+      user: this.currentUser.id,
+      dateVisited: new Date().toDateString()
+    };
+    this.barService.addBarVisited(barVisited)
   }
 
   /**
@@ -304,6 +264,16 @@ export class BusinessService {
     return this.barSubject;
   }
 
+  /**
+   * Can this user change the beer
+   *
+   * @param beer which is to be changed
+   * @returns {boolean} true if allowed
+   */
+  public canBeerEdit(beer: BeerModel): boolean {
+    return (this.currentUser.administrator || beer.owner === this.currentUser.id)
+  }
+
   setBarRating(barId: string, userRating: number) {
     const barRating: UserBarRating = {
       user: this.currentUser.id,
@@ -343,6 +313,15 @@ export class BusinessService {
       })
     })
     return this.brewerySubject;
+  }
+
+  setCurrentUser(userId: string) {
+    this.userService.get(userId).subscribe((user: User) => {
+        // map dto to viewModel
+        const userModel: UserModel = this.mapUserDtoToDomainModel(user);
+        this.currentUser = userModel
+      }
+    )
   }
 
   getUser(id: string): Subject<UserModel> {
@@ -414,7 +393,7 @@ export class BusinessService {
     model.snacks = dto.snacks;
     if (isNullOrUndefined(dto.image)) {
       model.image = 'assets/bars/Default.jpg';
-    }else {
+    } else {
       model.image = dto.image;
     }
     model.location = dto.location;
@@ -479,9 +458,10 @@ export class BusinessService {
     model.lastname = dto.lastname;
     if (isNullOrUndefined(dto.image)) {
       model.image = 'assets/users/Default.jpg';
-    }else {
+    } else {
       model.image = dto.image;
     }
+    model.administrator = dto.administrator;
     model.registrationDate = dto.registrationDate;
     model.totalConsumption = dto.totalConsumption;
     model.address = dto.address;
@@ -507,13 +487,14 @@ export class BusinessService {
     model.description = dto.description;
     model.volume = dto.volume;
     model.brewType = dto.brewType;
+    model.owner = dto.owner;
     model.userRating = getRatingDefault();
     model.ratings[0] = 0;
     model.ratings[1] = 0;
     model.ratings[2] = 0;
     if (isNullOrUndefined(dto.image)) {
       model.image = 'assets/logos/Default.jpg';
-    }else {
+    } else {
       model.image = dto.image;
     }
     model.taste = dto.taste;
@@ -548,6 +529,7 @@ export class BusinessService {
     dto.taste = new Array<DropDownEntry>();
     dto.taste = model.taste;
     dto.location = model.location;
+    dto.owner = model.owner;
     if (this.debugMode) {
       console.log('mapBeerDtoToDomainModel')
       console.log('dto:')
@@ -590,7 +572,7 @@ export class BusinessService {
       userBeer.map((userBeer: UserBeer) => {
         differentBeers[userBeer.beer] = true;
       })
-      if(Object.keys(differentBeers).length >= 5) {
+      if (Object.keys(differentBeers).length >= 5) {
         const badge = new Badge();
         badge.name = BadgeType[BadgeType.Diversity];
         badge.title = BadgeType[BadgeType.Diversity];
@@ -598,11 +580,11 @@ export class BusinessService {
       }
     });
 
-    if(beerStat.differentBeersTotal >= 20) {
-       const badge = new Badge();
-        badge.name = BadgeType[BadgeType.Connaisseur];
-        badge.title = BadgeType[BadgeType.Connaisseur]
-       badges.push(badge);
+    if (beerStat.differentBeersTotal >= 20) {
+      const badge = new Badge();
+      badge.name = BadgeType[BadgeType.Connaisseur];
+      badge.title = BadgeType[BadgeType.Connaisseur]
+      badges.push(badge);
     }
     return badges;
   }
@@ -616,7 +598,7 @@ export class BusinessService {
       userBar.map((userBar: UserBar) => {
         differentBars[userBar.bar] = true;
       })
-      if(Object.keys(differentBars).length >= 3) {
+      if (Object.keys(differentBars).length >= 3) {
         const badge = new Badge();
         badge.name = BadgeType[BadgeType.NotToSteep];
         badge.title = BadgeType[BadgeType.NotToSteep]

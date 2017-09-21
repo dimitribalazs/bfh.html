@@ -5,6 +5,7 @@ import {BehaviorSubject} from 'rxjs/Rx';
 import {MultiNavigationModel} from '../../shared/domainModel/multiNavigationModel';
 import {BeerBarModel} from '../../shared/domainModel/viewModels';
 import {AroundYou} from '../../shared/dto/aroundYou';
+import {MenuService} from "../../shared/services/menu.service";
 
 @Component({
   selector: 'app-available-beers',
@@ -17,7 +18,9 @@ export class AvailableBeersComponent implements OnInit {
   filter: number
   service: BarService
 
-  constructor(private barService: BarService, private router: Router) {
+  constructor(private barService: BarService,
+              private router: Router,
+              private menuService: MenuService) {
     this.service = barService;
     this.filter = 3
   }
@@ -25,7 +28,20 @@ export class AvailableBeersComponent implements OnInit {
   ngOnInit() {
   }
 
+  addCheers(beerId: string) {
+    this.barService.addBeerDrank(beerId)
+    this.menuService.setNewState({
+      titleText: 'KEEP CALM AND SAY CHEERS',
+      visibleTitle: true,
+      visibleBack: false,
+      visibleHomeLink: true,
+      visibleEdit: false
+    });
 
+    setTimeout(() => {
+      this.menuService.setNewState(this.barService.getMenuState());
+    }, 2500);
+  }
   onShowBeer(id: string) {
     this.router.navigate(['beer', id]);
   }

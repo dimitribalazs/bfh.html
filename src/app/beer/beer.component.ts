@@ -27,12 +27,7 @@ export class BeerComponent implements OnInit {
               private route: ActivatedRoute,
               private router: Router,
               private menuService: MenuService) {
-    this.menuService.setNewState({
-      titleText: 'Beer info',
-      visibleBack: true,
-      visibleHomeLink: true,
-      visibleEdit: true
-    });
+    this.menuService.setNewState(this.beerService.getMenuState());
     this.activeNavigation = 0;
   }
 
@@ -92,4 +87,22 @@ export class BeerComponent implements OnInit {
     // this.menuService.visibleEdit = false;
     this.imageUploadShow = true;
   }
+
+  onCheers() {
+    this.beerService.addBeerDrank()
+    this.menuService.setNewState({
+      titleText: 'KEEP CALM AND SAY CHEERS',
+      visibleTitle: true,
+      visibleBack: false,
+      visibleHomeLink: true,
+      visibleEdit: false
+    });
+
+    setTimeout(() => {
+      this.menuService.setNewState(this.beerService.getMenuState());
+    }, 2500);
+  }
+
+
+
 }

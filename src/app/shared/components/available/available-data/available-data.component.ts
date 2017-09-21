@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import {BehaviorSubject} from 'rxjs/Rx';
 import {Subject} from 'rxjs/Subject';
-import {AroundYou} from '../../../dto/aroundYou';
+import {AroundYou} from '../../../dto/AroundYou';
 import {MenuService, MenuState} from '../../../services/menu.service';
 import {Router} from '@angular/router';
 import {MultiNavigationModel} from '../../../domainModel/multiNavigationModel';
@@ -19,6 +19,7 @@ export class AvailableDataComponent implements OnInit {
   @Input() filter: number;
   @Input() dataIsBeerModel: boolean;
   @Input() itemAddDisable: boolean;
+  @Input() searchIgnorList: Observable<Array<AroundYou>>;
   @Output() onAdd = new EventEmitter<BeerBarModel>()
   @Output() onRemove = new EventEmitter<string>()
   @Output() onCancel = new EventEmitter()

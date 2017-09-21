@@ -6,8 +6,4 @@ export class AroundYou extends MultiNavigationModel {
     unit: string;
 }
 
-export interface IAroundYou {
-  getSourceTypeName(): string;
-}
-
 

@@ -1,6 +1,5 @@
 import {GeoData} from './geoData';
-import {IAroundYou} from "./aroundYou";
 
-export interface IGeoData extends IAroundYou {
+export interface IGeoData  {
   location: GeoData;
 }

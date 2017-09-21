@@ -10,7 +10,7 @@ import {User} from '../dto/user';
 import {Beer} from '../dto/beer';
 import {Bar} from '../dto/bar';
 import {GeoData} from '../dto/geoData';
-import {AroundYou, IAroundYou} from '../dto/aroundYou'
+import {AroundYou} from '../dto/aroundYou'
 import {getDatabase} from './firebase';
 import {GeoService} from './geo.service';
 import {IGeoData} from "../dto/IGeoData";
@@ -79,7 +79,7 @@ export class UserDatabaseService extends DatabaseService{
 
     //todo statt any müssen wirr hier noch eine klasse definiere oder verwenden wir hier aroundYou.ts?
     //todo in riccos service
-  getAroundYou(myPosition: GeoData, userId: string): Observable<IAroundYou[]> {
+  getAroundYou(myPosition: GeoData, userId: string): Observable<IGeoData[]> {
     return Observable.zip(
       this.barService.getAll(),
       this.breweryService.getAll(),

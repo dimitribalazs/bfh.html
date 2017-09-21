@@ -3,7 +3,6 @@ import {Beer} from './beer';
 import {BarBeer} from './barBeer';
 import {IGeoData} from './IGeoData';
 import {Time} from "../domainModel/viewModels";
-import {IAroundYou} from "./aroundYou";
 
 export class Bar implements IGeoData {
   id: string;
@@ -19,11 +18,7 @@ export class Bar implements IGeoData {
   location: GeoData;
   description: String;
   image: string;
-  beers: string[]
-
-  getSourceTypeName(): string {
-    return Bar.name;
-  }
+  beers: string[];
 }
 
 export class OpeningHours {

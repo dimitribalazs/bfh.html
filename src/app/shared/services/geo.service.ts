@@ -5,7 +5,7 @@ import {isNullOrUndefined} from "util";
 @Injectable()
 export class GeoService {
   private _earthRadius: number = 6371;
-  private _radius = 30
+  private _radius = 80;
 
   private _deg2rad(point): number {
     return Math.tan(point * (Math.PI/180))

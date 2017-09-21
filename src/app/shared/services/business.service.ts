@@ -23,7 +23,7 @@ import {isNull, isNullOrUndefined} from 'util';
 import {UserBarRating} from '../dto/userBarRating';
 import {Rating, getRatingDefault} from '../dto/rating';
 import {UserBeerRating} from '../dto/userBeerRating';
-import {AroundYou, IAroundYou} from '../dto/aroundYou';
+import {AroundYou} from '../dto/aroundYou';
 import {UserBeer} from '../dto/userBeer';
 import {UserBar} from '../dto/userBar';
 import {BeerStatistics} from '../dto/beerStatistics';
@@ -395,15 +395,17 @@ export class BusinessService {
         users.map((user: User) => {
           if(isNullOrUndefined(user.location) == false) {
             let distance = this.geoService.getDistance(myLocation, user.location);
-            let aroundYou: AroundYou = {
-              name: `${user.firstname} ${user.lastname}`,
-              id: user.id,
-              distance: distance,
-              icon: "/user/",
-              routerNavigate: "fa fa-user",
-              unit: "m"
-            };
-            aroundYous.push(aroundYou);
+            if(this.geoService.isInRange(distance)) {
+              let aroundYou: AroundYou = {
+                name: `${user.firstname} ${user.lastname}`,
+                id: user.id,
+                distance: distance,
+                icon: "/user/",
+                routerNavigate: "fa fa-user",
+                unit: "m"
+              };
+              aroundYous.push(aroundYou);
+            }
           }
         });
         observer.next(aroundYous);
@@ -415,15 +417,17 @@ export class BusinessService {
         bars.map((bar: Bar) => {
           if(isNullOrUndefined(bar.location) == false) {
             let distance = this.geoService.getDistance(myLocation, bar.location);
-            let aroundYou: AroundYou = {
-              name: bar.name,
-              id: bar.id,
-              distance: distance,
-              icon: "fa fa-map-marker",
-              routerNavigate: "/bar/",
-              unit: "m"
-            };
-            aroundYous.push(aroundYou);
+            if(this.geoService.isInRange(distance)) {
+              let aroundYou: AroundYou = {
+                name: bar.name,
+                id: bar.id,
+                distance: distance,
+                icon: "fa fa-map-marker",
+                routerNavigate: "/bar/",
+                unit: "m"
+              };
+              aroundYous.push(aroundYou);
+            }
           }
         });
         observer.next(aroundYous);
@@ -436,22 +440,24 @@ export class BusinessService {
         breweries.map((brewery: Brewery) => {
           if(isNullOrUndefined(brewery.location) == false) {
             let distance = this.geoService.getDistance(myLocation, brewery.location);
-            let aroundYou: AroundYou = {
-              name: brewery.name,
-              id: brewery.id,
-              distance: distance,
-              icon: "fa fa-industry",
-              routerNavigate: "/brewery/",
-              unit: "m"
-            };
-            aroundYous.push(aroundYou);
+            if(this.geoService.isInRange(distance)) {
+              let aroundYou: AroundYou = {
+                name: brewery.name,
+                id: brewery.id,
+                distance: distance,
+                icon: "fa fa-industry",
+                routerNavigate: "/brewery/",
+                unit: "m"
+              };
+              aroundYous.push(aroundYou);
+            }
           }
         });
         observer.next(aroundYous);
       })
     });
 
-    let foo = Observable.zip(
+    Observable.zip(
       userObs,
       barObs,
       breweryObs,
@@ -459,9 +465,7 @@ export class BusinessService {
       {
         let flatData = [].concat(...users, ...bars, ...breweries);
         this.aroundYouSubject.next(flatData);
-      });
-
-    foo.subscribe(data => console.log("fuck", data));
+      }).subscribe();
 
 
 

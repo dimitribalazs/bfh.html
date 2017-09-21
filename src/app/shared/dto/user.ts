@@ -2,9 +2,8 @@ import {GeoData} from './geoData';
 import {Beer} from './beer';
 import {IGeoData} from './IGeoData';
 import {BadgeType} from "../domainModel/badgeType";
-import {IAroundYou} from "./aroundYou";
 
-export class User implements IAroundYou {
+export class User implements IGeoData{
   id: string;
   firstname: string;
   lastname: string;
@@ -21,10 +20,6 @@ export class User implements IAroundYou {
   friends: string[]
   badges: BadgeType[];
   administrator: boolean;
-
-  getSourceTypeName(): string {
-    return User.name;
-  }
 }
 
 export class UserFriends {

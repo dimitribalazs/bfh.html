@@ -16,11 +16,15 @@ export class BeerInfoComponent implements OnInit {
   taste: String = '';
   brewType: String = '';
 
+  private showMap = false;
+
   constructor(private beerService: BeerService, private menuService: MenuService) {
     this.menuService.setNewState(this.beerService.getMenuState());
   }
 
-
   ngOnInit() {}
 
+  onShowMap() {
+    this.showMap = true;
+  }
 }

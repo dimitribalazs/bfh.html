@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {Beer} from '../../shared/dto/beer';
 import {Observable} from 'rxjs/Observable';
 import {logger} from 'codelyzer/util/logger';
@@ -9,17 +9,13 @@ import {Router} from '@angular/router';
   templateUrl: './beer-top10.component.html',
   styleUrls: ['./beer-top10.component.css']
 })
-export class BeerTop10Component implements OnInit {
+export class BeerTop10Component {
 
   @Input() title: String;
   @Input() beers: Observable<Beer>;
 
 
   constructor(private router: Router) {
-  }
-
-  ngOnInit(): void {
-    console.log(this.beers);
   }
 
   onSelect(beer: Beer) {

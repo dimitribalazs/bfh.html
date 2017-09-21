@@ -65,7 +65,7 @@ export class BeerMapComponent implements OnInit, AfterContentInit {
   }
 
   showPosition(position) {
-    let bounds = new google.maps.LatLngBounds();
+    const bounds = new google.maps.LatLngBounds();
     const currentLocation =  {lat: position.coords.latitude, lng: position.coords.longitude };
     console.log('Your current location ' + currentLocation.lat, currentLocation.lng);
 
@@ -73,10 +73,6 @@ export class BeerMapComponent implements OnInit, AfterContentInit {
       zoom: 15,
       center: currentLocation
     });
-    // let marker = new google.maps.Marker({
-    //   position: currentLocation,
-    //   map: this.map
-    // });
 
     let  infowindow = new google.maps.InfoWindow();
 
@@ -100,21 +96,14 @@ export class BeerMapComponent implements OnInit, AfterContentInit {
     }
     this.map.fitBounds(bounds);
 
-       // Override our map zoom level once our fitBounds function runs (Make sure it only runs once)
-      // let boundsListener = google.maps.event.addListener((this.map), 'bounds_changed', function(event) {
-      //     this.setZoom(14);
-      //     google.maps.event.removeListener(boundsListener);
-      // });
   }
 
   showBarPosition() {
 
   }
 
-  
-
   createMarkerData() {
-    // Test
+    // Testdata
     const geo1 = {id: '1', longitude: 7.452865, latitude: 46.95612};
     const geo2 = {id: '2', longitude: 7.536155, latitude: 47.206227};
 

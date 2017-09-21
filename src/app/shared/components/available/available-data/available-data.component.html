@@ -30,10 +30,12 @@
           </div>
 
           <div *ngIf="filter ==3 && dataIsBeerModel" style="overflow: hidden;" (click)="onBeerShow(item.Id)">
-            <button (click)="onCheers(item.id)" class="btn btn-default btn-sm pull-right">
+            <button (click)="cheers(item.id)" class="btn btn-default btn-sm pull-right">
               <i class="fa fa-beer" aria-hidden="true"></i>
             </button>
+            <div (click)="onBeerShow(item.id)">
             <p>{{item.name}}</p>
+            </div>
           </div>
 
         </li>

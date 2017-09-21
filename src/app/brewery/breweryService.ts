@@ -13,6 +13,15 @@ export class BreweryService {
 
   constructor(private businessService: BusinessService) {}
 
+  public getMenuState(): any {
+    return {
+      titleText: 'Brewery info',
+      visibleTitle: true,
+      visibleBack: true,
+      visibleHomeLink: true,
+      visibleEdit: true
+    };
+  }
 
   loadBrewery(id: string) {
     this.businessService.getBrewery(id).subscribe((brewery: BreweryModel) => this.viewModel = brewery);
@@ -23,5 +32,9 @@ export class BreweryService {
   }
   removeBeer(id: string) {
     this.businessService.removeBreweryFromBeer(id)
+  }
+
+  public addBeerDrank(beerId: string) {
+    this.businessService.addBeerDrank(beerId);
   }
 }

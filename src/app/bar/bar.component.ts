@@ -71,5 +71,4 @@ export class BarComponent implements OnInit {
       this.menuService.setNewState(this.barService.getMenuState());
     }, 2500);
   }
-
 }

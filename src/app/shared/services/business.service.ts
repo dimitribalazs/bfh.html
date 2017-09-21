@@ -26,12 +26,13 @@ import {isNullOrUndefined} from 'util';
 import {UserBarRating} from '../dto/userBarRating';
 import {Rating, getRatingDefault} from '../dto/rating';
 import {UserBeerRating} from '../dto/userBeerRating';
-import {AroundYou} from '../dto/aroundYou';
+import {AroundYou, IAroundYou} from '../dto/aroundYou';
 import {UserBeer} from '../dto/userBeer';
 import {UserBar} from '../dto/userBar';
 import {BeerStatistics} from '../dto/beerStatistics';
 import {BarStatistics} from '../dto/barStatistics';
 import {BadgeType} from '../domainModel/badgeType';
+import {IGeoData} from "../dto/IGeoData";
 
 
 @Injectable()
@@ -60,6 +61,17 @@ export class BusinessService {
     this.barSubject.asObservable();
     this.brewerySubject.asObservable();
     this.userSubject.asObservable();
+
+    //Wohlen AG
+    var lat = 47.349365;
+    var long = 8.276876;
+
+    var wohlen: GeoData = {
+      id: "11",
+      longitude: long,
+      latitude: lat
+    };
+    this.getAroundYou(wohlen, "1");
   }
 
   /**
@@ -373,6 +385,15 @@ export class BusinessService {
     return this.usersSubject;
   }
 
+  getAroundYou(myLocation: GeoData, userId: string): void {
+    this.userService.getAroundYou(myLocation, userId).subscribe((data: IGeoData[]) =>  {
+      data.map((aroundYou) => {
+        //let typeName = aroundYou.getSourceTypeName();
+        //console.log("foo", typeName);
+      })
+    })
+  }
+
   private mapBarDtoToDomainModel(dto: Bar): BarModel {
     const model = new BarModel();
     model.id = dto.id;
@@ -547,7 +568,7 @@ export class BusinessService {
     model.email = dto.email;
     model.homepage = dto.homepage;
     model.tel = dto.tel;
-    model.geoLocation = dto.geoLocation;
+    model.geoLocation = dto.location;
     model.description = dto.description;
     model.image = dto.image;
     if (this.debugMode) {

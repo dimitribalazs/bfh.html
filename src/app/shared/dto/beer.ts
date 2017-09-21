@@ -16,6 +16,10 @@ export class Beer implements IGeoData {
     taste: DropDownEntry[];
     location: GeoData;
     owner: string;
+
+  getSourceTypeName(): string {
+    return Beer.name;
+  }
 }
 
 // export enum BrewType {

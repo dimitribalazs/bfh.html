@@ -21,9 +21,3 @@ export abstract class DatabaseService {
         });
     }
 }
-
-
-
-
-//https://github.com/firebase/quickstart-js/blob/master/database/scripts/main.js
-//var newPostKey = firebase.database().ref().child('posts').push().key;

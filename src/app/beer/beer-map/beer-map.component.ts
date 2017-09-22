@@ -25,7 +25,6 @@ export class BeerMapComponent implements OnInit, AfterContentInit {
 
   constructor(private beerService: BeerService,
               private barService: BarService) {
-
     this.targetDestinations = new Array<GeoData>();
     this.barsAndGeoData = new Array<[string, GeoData]>();
   }

@@ -16,14 +16,16 @@ declare var google: any;
 })
 export class BeerMapComponent implements OnInit, AfterContentInit {
   private map: google.maps.Map;
+
   targetDestinations: Array<GeoData>;
   allDataFetched: boolean = false;
-  beerBars: any [];
+  beerBars: BeerBarModel [];
   barsAndGeoData: Array<[string, GeoData]>;
 
 
   constructor(private beerService: BeerService,
               private barService: BarService) {
+
     this.targetDestinations = new Array<GeoData>();
     this.barsAndGeoData = new Array<[string, GeoData]>();
   }
@@ -34,21 +36,23 @@ export class BeerMapComponent implements OnInit, AfterContentInit {
         this.beerBars = beerBars;
     };
 
-    for(let entry of this.beerBars){
-      console.log(entry.barId, entry.barName);
+    for (let beerBar of this.beerBars){
+      console.log(beerBar.barId, beerBar.barName);
 
-      this.barService.loadBar(entry.barId);
-      console.log('Bar found ' + entry.barName);
+      this.barService.loadBar(beerBar.barId);
+      console.log('Bar found ' + beerBar.barName);
 
-      this.barService.targetLocationSubject.subscribe((location) => {
+      this.barService.targetLocationSubject.distinct().subscribe((location) => {
         if (!isNullOrUndefined(location.longitude)) {
-           this.targetDestinations.push(location);
+               this.targetDestinations.push(location);
         }
       });
+
     }
 
-    for(let target of this.targetDestinations){
-      console.log(target.latitude + ' : ' + target.longitude);
+    // Create barsAndGeoData
+    for (let i = 0; i < this.beerBars.length; i++) {
+      this.barsAndGeoData.push([this.beerBars[i].barName, this.targetDestinations[i]]);
     }
 
     this.allDataFetched = true;
@@ -57,32 +61,37 @@ export class BeerMapComponent implements OnInit, AfterContentInit {
 
   ngAfterContentInit() {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((pos) => this.showPosition(pos))
+      navigator.geolocation.getCurrentPosition((pos) => this.showPosition(null))
     }else {
       console.log('GeoLocation is disabled');
-      this.showBarPosition();
+      this.showPosition(null);
     }
   }
 
   showPosition(position) {
     const bounds = new google.maps.LatLngBounds();
-    const currentLocation =  {lat: position.coords.latitude, lng: position.coords.longitude };
-    console.log('Your current location ' + currentLocation.lat, currentLocation.lng);
+    let firstLocation;
+
+    if (position) {
+      firstLocation =  {lat: position.coords.latitude, lng: position.coords.longitude };
+    }else {
+      firstLocation =  this.barsAndGeoData[0][1];
+    }
 
     this.map = new google.maps.Map(document.getElementById('map'), {
       zoom: 15,
-      center: currentLocation
+      center: {lat: firstLocation.latitude, lng: firstLocation.longitude }
     });
 
-    let  infowindow = new google.maps.InfoWindow();
+    const  infowindow = new google.maps.InfoWindow();
 
-    for(let markerData of this.createMarkerData()){
-        let markerPos = {lat: markerData[1].latitude, lng: markerData[1].longitude };
-        bounds.extend(markerPos);
+    for (let markerData of this.barsAndGeoData){
+      let markerPos = {lat: markerData[1].latitude, lng: markerData[1].longitude };
+      bounds.extend(markerPos);
 
-        let marker = new google.maps.Marker({
-        position: markerPos,
-        map: this.map
+      let marker = new google.maps.Marker({
+      position: markerPos,
+      map: this.map
       });
 
       // Info Fenster
@@ -94,26 +103,8 @@ export class BeerMapComponent implements OnInit, AfterContentInit {
       })(marker));
 
     }
+
     this.map.fitBounds(bounds);
 
-  }
-
-  showBarPosition() {
-
-  }
-
-  createMarkerData() {
-    // Testdata
-    const geo1 = {id: '1', longitude: 7.452865, latitude: 46.95612};
-    const geo2 = {id: '2', longitude: 7.536155, latitude: 47.206227};
-
-    this.barsAndGeoData.push(['Barbièr', geo1]);
-    this.barsAndGeoData.push(['Oufi', geo2]);
-
-    for(let entry of this.barsAndGeoData){
-      console.log(entry[1]);
-    }
-
-    return this.barsAndGeoData;
   }
 }

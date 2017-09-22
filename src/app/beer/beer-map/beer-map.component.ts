@@ -61,7 +61,7 @@ export class BeerMapComponent implements OnInit, AfterContentInit {
 
   ngAfterContentInit() {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((pos) => this.showPosition(null))
+      navigator.geolocation.getCurrentPosition((pos) => this.showPosition(pos))
     }else {
       console.log('GeoLocation is disabled');
       this.showPosition(null);
@@ -70,31 +70,31 @@ export class BeerMapComponent implements OnInit, AfterContentInit {
 
   showPosition(position) {
     const bounds = new google.maps.LatLngBounds();
-    let firstLocation;
+    let firstLocation: google.maps.LatLng;
 
     if (position) {
-      firstLocation =  {lat: position.coords.latitude, lng: position.coords.longitude };
+      firstLocation =  new google.maps.LatLng(parseFloat(position.coords.latitude), parseFloat(position.coords.longitude));
     }else {
-      firstLocation =  this.barsAndGeoData[0][1];
+      firstLocation =  new google.maps.LatLng(this.barsAndGeoData[0][1].latitude, this.barsAndGeoData[0][1].longitude);
     }
 
     this.map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 15,
-      center: {lat: firstLocation.latitude, lng: firstLocation.longitude }
+      zoom: 13,
+      center: firstLocation
     });
 
     const  infowindow = new google.maps.InfoWindow();
 
     for (let markerData of this.barsAndGeoData){
       let markerPos = {lat: markerData[1].latitude, lng: markerData[1].longitude };
-      bounds.extend(markerPos);
+      // bounds.extend(markerPos);
 
       let marker = new google.maps.Marker({
       position: markerPos,
       map: this.map
       });
 
-      // Info Fenster
+      // Info Fenster für jeden Marker
       google.maps.event.addListener(marker, 'click', (function(marker) {
         return function() {
           infowindow.setContent(markerData[0]);
@@ -104,7 +104,6 @@ export class BeerMapComponent implements OnInit, AfterContentInit {
 
     }
 
-    this.map.fitBounds(bounds);
-
+    // this.map.fitBounds(bounds);
   }
 }

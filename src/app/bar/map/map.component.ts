@@ -35,7 +35,7 @@ export class MapComponent implements OnInit, AfterContentInit {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((pos) => this.showRoute(pos))
     }else {
-      console.log('GeoLocation is disabled');
+      // console.log('GeoLocation is disabled');
       this.showBarPosition();
     }
   }
@@ -85,7 +85,7 @@ export class MapComponent implements OnInit, AfterContentInit {
       location =  {lat: this.targetDestination.latitude, lng: this.targetDestination.longitude };
     }else {
       // location => Try Adress ?
-      console.log('No Bar Geodata');
+      // console.log('No Bar Geodata');
     }
 
     let map = new google.maps.Map(document.getElementById('map'), {

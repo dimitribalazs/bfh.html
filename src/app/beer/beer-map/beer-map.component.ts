@@ -16,9 +16,7 @@ declare var google: any;
 })
 export class BeerMapComponent implements OnInit, AfterContentInit {
   private map: google.maps.Map;
-
   targetDestinations: Array<GeoData>;
-  allDataFetched: boolean = false;
   beerBars: BeerBarModel [];
   barsAndGeoData: Array<[string, GeoData]>;
 
@@ -38,10 +36,10 @@ export class BeerMapComponent implements OnInit, AfterContentInit {
     let locationsResultArray = new Array<GeoData>();
 
     for (let beerBar of this.beerBars){
-      console.log(beerBar.barId, beerBar.barName);
+      // console.log(beerBar.barId, beerBar.barName);
 
       this.barService.loadBar(beerBar.barId);
-      console.log('Bar found ' + beerBar.barName);
+      // console.log('Bar found ' + beerBar.barName);
 
       this.barService.targetLocationSubject.distinct().subscribe((location) => {
         if (!isNullOrUndefined(location.longitude)) {
@@ -55,12 +53,10 @@ export class BeerMapComponent implements OnInit, AfterContentInit {
       return index === self.indexOf(elem);
     });
 
-    // Create barsAndGeoData
+    // Create barsAndGeoData [barName, GeoData[]]
     for (let i = 0; i < this.beerBars.length; i++) {
       this.barsAndGeoData.push([this.beerBars[i].barName, this.targetDestinations[i]]);
     }
-
-    this.allDataFetched = true;
   });
   }
 
@@ -68,13 +64,12 @@ export class BeerMapComponent implements OnInit, AfterContentInit {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((pos) => this.showPosition(pos))
     }else {
-      console.log('GeoLocation is disabled');
+      // console.log('GeoLocation is disabled');
       this.showPosition(null);
     }
   }
 
   showPosition(position) {
-    const bounds = new google.maps.LatLngBounds();
     let firstLocation: google.maps.LatLng;
 
     if (position) {
@@ -92,7 +87,6 @@ export class BeerMapComponent implements OnInit, AfterContentInit {
 
     for (let markerData of this.barsAndGeoData){
       let markerPos = {lat: markerData[1].latitude, lng: markerData[1].longitude };
-      // bounds.extend(markerPos);
 
       let marker = new google.maps.Marker({
       position: markerPos,
@@ -106,9 +100,6 @@ export class BeerMapComponent implements OnInit, AfterContentInit {
           infowindow.open(this.map, marker);
         }
       })(marker));
-
     }
-
-    // this.map.fitBounds(bounds);
   }
 }

@@ -123,8 +123,8 @@ export class AvailableDataComponent implements OnInit {
   }
 
 
-  addCheers(beerId: string, beerName: string) {
-    this.brewreyService.addBeerDrank(beerId, beerName);
+  addCheers(beerIdAndName) {
+    this.brewreyService.addBeerDrank(beerIdAndName);
     this.menuService.setNewState({
       titleText: 'KEEP CALM AND SAY CHEERS',
       visibleTitle: true,

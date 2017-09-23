@@ -31,8 +31,8 @@ export class AvailableBeersComponent implements OnInit {
     this.breweryService.removeBeer(id)
   }
 
-  addCheers(beerId: string, beerName: string) {
-    this.breweryService.addBeerDrank(beerId, beerName);
+  addCheers(beerIdAndName) {
+    this.breweryService.addBeerDrank(beerIdAndName);
     this.menuService.setNewState({
       titleText: 'KEEP CALM AND SAY CHEERS',
       visibleTitle: true,

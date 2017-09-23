@@ -45,12 +45,12 @@
           </span>
         </span>
 
-      <span *ngIf="filter ==3 && dataIsBeerModel" style="overflow: hidden;" (click)="onBeerShow(item.Id)">
+      <span *ngIf="filter ==3 && dataIsBeerModel" style="overflow: hidden;" (click)="onBeerShow(item.id)">
           <span (click)="onBeerShow(item.id)">
             {{item.name}}
           </span>
           <a (click)="cheers(item.id, item.name)" class="btn btn-default btn-sm pull-right">
-            <i class="fa fa-beer " aria-hidden="true"></i>
+            <i class="fa fa-beer" aria-hidden="true"></i>
           </a>
         </span>
 

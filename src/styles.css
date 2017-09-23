@@ -41,6 +41,10 @@ hr.gradient {
   flex: 0 1 420px;
 }
 
+§.duffd-box .duffd-row.duffd-buttonfooter {
+  flex: 0 1 60px;
+}
+
 .horizontal-scroller-outer {
   overflow: scroll;
   width: 100vw;
@@ -87,4 +91,5 @@ hr.gradient {
 
 .list-group-item {
   border: none;
+  overflow: hidden;
 }

@@ -26,7 +26,8 @@ export class BarService {
       titleText: 'Bar info',
       visibleTitle: true,
       visibleHomeLink: true,
-      visibleEdit: true
+      visibleEdit: true,
+      visibleBack: true
     };
   }
 

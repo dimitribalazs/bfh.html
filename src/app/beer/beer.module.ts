@@ -20,6 +20,7 @@ import {BreweryInfoComponent} from './brewery-info/brewery-info.component';
 import {AvailableBeersComponent} from './available-bars/available-bars.component';
 import {AvailableModule} from '../shared/components/available/available.module';
 import {RatingModule} from '../shared/components/rating/rating.module';
+import { BeerMapComponent } from './beer-map/beer-map.component';
 
 @NgModule({
   imports: [
@@ -41,7 +42,8 @@ import {RatingModule} from '../shared/components/rating/rating.module';
     BreweryInfoComponent,
     AvailableBeersComponent,
     ImageUploaderComponent,
-    TasteMultiSelectComponent
+    TasteMultiSelectComponent,
+    BeerMapComponent
   ],
   providers: [BeerService]
 })

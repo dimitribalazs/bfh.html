@@ -14,6 +14,7 @@ declare var google: any;
   styleUrls: ['./map.component.css']
 })
 export class MapComponent implements OnInit, AfterContentInit {
+  private map: google.maps.Map;
   targetDestination: GeoData;
   allDataFetched: boolean = false;
 
@@ -35,6 +36,7 @@ export class MapComponent implements OnInit, AfterContentInit {
       navigator.geolocation.getCurrentPosition((pos) => this.showRoute(pos))
     }else {
       console.log('GeoLocation is disabled');
+      this.showBarPosition();
     }
   }
 
@@ -45,25 +47,23 @@ export class MapComponent implements OnInit, AfterContentInit {
     const currentLocation =  {lat: position.coords.latitude, lng: position.coords.longitude };
     console.log('Your current location ' + currentLocation.lat, currentLocation.lng);
 
-    let map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 7,
+    this.map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 15,
       center: currentLocation
     });
     let marker = new google.maps.Marker({
       position: currentLocation,
-      map: map
+      map: this.map
     });
 
-    directionsDisplay.setMap(map);
+    directionsDisplay.setMap(this.map);
 
     if (this.allDataFetched) {
-      console.log('data fetched ' + this.allDataFetched);
-
       let targetDestination = { lat: this.targetDestination.latitude, lng: this.targetDestination.longitude };
 
       directionsService.route({
-        origin: currentLocation, //{lat: 41.85, lng: -87.65},
-        destination: targetDestination, //{lat: 49.3, lng: -123.12},
+        origin: currentLocation,
+        destination: targetDestination,
         optimizeWaypoints: true,
         travelMode: 'TRANSIT'
       }, function(response, status) {
@@ -76,5 +76,26 @@ export class MapComponent implements OnInit, AfterContentInit {
     }else {
       console.log('Geolocation of bar is unknown');
     }
+  }
+
+  showBarPosition() {
+    let location;
+
+    if (this.allDataFetched) {
+      location =  {lat: this.targetDestination.latitude, lng: this.targetDestination.longitude };
+    }else {
+      // location => Try Adress ?
+      console.log('No Bar Geodata');
+    }
+
+    let map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 15,
+      center: location
+    });
+
+    let marker = new google.maps.Marker({
+      position: location,
+      map: map
+    });
   }
 }

@@ -1,5 +1,5 @@
 
-import {MultiNavigationModel} from '../domainModel/multiNavigationModel';
+import {MultiNavigationModel} from './multiNavigationModel';
 
 export class AroundYou extends MultiNavigationModel {
     distance: number;

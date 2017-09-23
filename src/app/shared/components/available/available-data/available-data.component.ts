@@ -1,13 +1,12 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import {BehaviorSubject} from 'rxjs/Rx';
 import {Subject} from 'rxjs/Subject';
-import {AroundYou} from '../../../dto/AroundYou';
 import {MenuService, MenuState} from '../../../services/menu.service';
 import {Router} from '@angular/router';
 import {MultiNavigationModel} from '../../../domainModel/multiNavigationModel';
 import {Observable} from 'rxjs/Observable';
-import {BeerBarModel} from "../../../domainModel/viewModels";
-import {BreweryService} from "../../../../brewery/breweryService";
+import {BeerBarModel} from '../../../domainModel/viewModels';
+import {BreweryService} from '../../../../brewery/breweryService';
 
 @Component({
   selector: 'app-available-data',
@@ -20,7 +19,7 @@ export class AvailableDataComponent implements OnInit {
   @Input() filter: number;
   @Input() dataIsBeerModel: boolean;
   @Input() itemAddDisable: boolean;
-  @Input() searchIgnorList: Observable<Array<AroundYou>>;
+  @Input() searchIgnorList: Observable<Array<MultiNavigationModel>>;
   @Output() onAdd = new EventEmitter<BeerBarModel>()
   @Output() onRemove = new EventEmitter<string>()
   @Output() onCancel = new EventEmitter()
@@ -80,11 +79,11 @@ export class AvailableDataComponent implements OnInit {
     this.linkInformation = true;
   }
 
-  onCreateBeer(data: AroundYou) {
+  onCreateBeer(data: MultiNavigationModel) {
     this.router.navigate(['beer/new', {name: data}]);
   }
 
-  onResult(data: AroundYou) {
+  onResult(data: MultiNavigationModel) {
     this.search = false;
     this.linkModel.beerId = data.id;
     this.linkModel.beerName = data.name;

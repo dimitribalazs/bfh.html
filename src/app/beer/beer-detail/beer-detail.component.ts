@@ -6,8 +6,8 @@ import {MenuService, MenuState} from '../../shared/services/menu.service';
 import {isUndefined} from 'util';
 import {BehaviorSubject} from 'rxjs/Rx';
 import {Subject} from 'rxjs/Subject';
-import {AroundYou} from '../../shared/dto/aroundYou';
 import {Constants} from '../../shared/constants';
+import {MultiNavigationModel} from '../../shared/domainModel/multiNavigationModel';
 
 @Component({
   selector: 'app-beer-detail',
@@ -72,7 +72,7 @@ export class BeerDetailComponent implements OnInit {
     this.beerService.viewModel.brewType = item;
   }
 
-  onResult(data: AroundYou) {
+  onResult(data: MultiNavigationModel) {
     this.beerService.viewModel.brewery.id = data.id
     this.beerService.viewModel.brewery.name = data.name
     this.searchBrewery = false;

@@ -23,7 +23,7 @@ import {isNull, isNullOrUndefined} from 'util';
 import {UserBarRating} from '../dto/userBarRating';
 import {Rating, getRatingDefault} from '../dto/rating';
 import {UserBeerRating} from '../dto/userBeerRating';
-import {AroundYou} from '../dto/aroundYou';
+import {AroundYou} from '../domainModel/aroundYou';
 import {UserBeer} from '../dto/userBeer';
 import {UserBar} from '../dto/userBar';
 import {BeerStatistics} from '../dto/beerStatistics';
@@ -60,16 +60,6 @@ export class BusinessService {
     this.barSubject.asObservable();
     this.brewerySubject.asObservable();
     this.userSubject.asObservable();
-
-    //Wohlen AG
-    var lat = 47.349365;
-    var long = 8.276876;
-
-    var wohlen: GeoData = {
-      longitude: long,
-      latitude: lat
-    };
-    this.getAroundYou(wohlen, "1");
 
     this.geoService.getCurrentPosition().subscribe(data => console.log("position", data));
 
@@ -592,7 +582,6 @@ export class BusinessService {
     model.address = dto.address;
     model.city = dto.city;
     model.tel = dto.tel;
-    //model.badge = dto.badge;
     model.dateOfBirth = dto.dateOfBirth;
     model.location = isNullOrUndefined(dto.location) ? model.location = new GeoData() : model.location = dto.location;
     if (this.debugMode) {
@@ -715,7 +704,7 @@ export class BusinessService {
   private getBeerBadges(beerStat: BeerStatistics): Badge[] {
     const badges: Badge[] = [];
     Object.keys(beerStat.beersDrankByDate).forEach((value) => {
-      //5 different beers per day
+      // 5 different beers per day
       let userBeer: UserBeer[] = beerStat.beersDrankByDate[value] || [];
       const differentBeers = [];
       userBeer.map((userBeer: UserBeer) => {
@@ -758,7 +747,4 @@ export class BusinessService {
     return badges;
   }
 
-  // private getEnumKeyName<T>(T): string {
-  //   return T[T[]]
-  // }
 }

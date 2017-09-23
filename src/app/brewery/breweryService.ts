@@ -4,7 +4,6 @@
 import { Injectable } from '@angular/core';
 import {BusinessService} from '../shared/services/business.service';
 import {BeerBarModel, BreweryModel} from '../shared/domainModel/viewModels';
-import {AroundYou} from "../shared/dto/aroundYou";
 
 @Injectable()
 export class BreweryService {

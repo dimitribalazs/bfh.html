@@ -33,10 +33,6 @@
       <a (click)="onClick('photos',3)" [class.activeNavigation]="activeNavigation===3"
          [class.inactiveNavigation]="activeNavigation !== 3">Photos</a>
     </li>
-    <li role="presentation">
-      <a (click)="onClick('map',4)" [class.activeNavigation]="activeNavigation===4"
-         [class.inactiveNavigation]="activeNavigation !== 4">Map</a>
-    </li>
   </ul>
   <div class="duffd-row duffd-content">
     <router-outlet></router-outlet>

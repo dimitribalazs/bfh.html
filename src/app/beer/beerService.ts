@@ -5,9 +5,9 @@ import {RatingModel} from '../shared/components/rating/ratingModel';
 import {MenuService, MenuState} from '../shared/services/menu.service';
 import { Subject } from 'rxjs/Subject';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import {AroundYou} from '../shared/dto/aroundYou';
 import {isNullOrUndefined} from 'util';
 import {Constants} from '../shared/constants';
+import {MultiNavigationModel} from '../shared/domainModel/multiNavigationModel';
 
 @Injectable()
 export class BeerService {
@@ -15,7 +15,7 @@ export class BeerService {
   breweryDropDownList: DropDownEntry[] = [];
   editForbidden: boolean
   public viewModel: BeerModel = new BeerModel();
-  availableBarModel:  Subject<Array<AroundYou>> = new BehaviorSubject<Array<AroundYou>>(new Array());
+  availableBarModel:  Subject<Array<MultiNavigationModel>> = new BehaviorSubject<Array<MultiNavigationModel>>(new Array());
 
   constructor(private businessService: BusinessService,
               private menuService: MenuService) {
@@ -27,9 +27,9 @@ export class BeerService {
       this.editForbidden = !this.businessService.canBeerEdit(beer)
       beer.bars.subscribe((bars) => {
         if (isNullOrUndefined(bars) || bars.length > 0) {
-          const ignorList: Array<AroundYou> = new Array()
+          const ignorList: Array<MultiNavigationModel> = new Array()
           Object.keys(bars).map(value => {
-            const model: AroundYou = new AroundYou();
+            const model: MultiNavigationModel = new MultiNavigationModel();
             model.name = bars[value].barName;
             model.routerNavigate = Constants.ROUTING_PARENT_BAR
             ignorList.push(model)

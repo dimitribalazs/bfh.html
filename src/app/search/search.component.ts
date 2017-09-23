@@ -2,8 +2,8 @@ import {Component, OnChanges, OnInit} from '@angular/core';
 import {MenuService} from '../shared/services/menu.service';
 import {BehaviorSubject} from 'rxjs/Rx';
 import {Subject} from 'rxjs/Subject';
-import {AroundYou} from '../shared/dto/aroundYou';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import {MultiNavigationModel} from '../shared/domainModel/multiNavigationModel';
 
 
 @Component({
@@ -54,11 +54,11 @@ export class SearchComponent implements OnInit {
     this.searchSubject.next(this.activeSearchString)
   }
 
-  onResult(data: AroundYou) {
+  onResult(data: MultiNavigationModel) {
     this.router.navigate([data.routerNavigate, data.id]);
   }
 
-  onAddBeer(data: AroundYou) {
+  onAddBeer(data: MultiNavigationModel) {
     console.log(data)
     this.router.navigate(['beer/new', {name : data}]);
   }

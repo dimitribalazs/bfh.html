@@ -10,7 +10,7 @@ import {User} from '../dto/user';
 import {Beer} from '../dto/beer';
 import {Bar} from '../dto/bar';
 import {GeoData} from '../dto/geoData';
-import {AroundYou} from '../dto/aroundYou'
+import {AroundYou} from '../domainModel/aroundYou'
 import {getDatabase} from './firebase';
 import {GeoService} from './geo.service';
 import {IGeoData} from "../dto/IGeoData";

@@ -4,7 +4,6 @@ import {Router} from '@angular/router';
 import {BehaviorSubject} from 'rxjs/Rx';
 import {Subject} from 'rxjs/Subject';
 import {MenuService, MenuState} from '../../shared/services/menu.service';
-import {AroundYou} from '../../shared/dto/aroundYou';
 import {BeerBarModel} from '../../shared/domainModel/viewModels';
 
 @Component({

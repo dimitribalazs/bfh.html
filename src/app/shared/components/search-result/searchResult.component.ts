@@ -4,16 +4,13 @@ import {BehaviorSubject} from 'rxjs/Rx';
 import {Subject} from 'rxjs/Subject';
 import {BeerDatabaseService} from '../../services/beer.service'
 import {Beer} from '../../dto/beer';
-import {AroundYou} from '../../dto/aroundYou';
 import {Subscription} from 'rxjs/Subscription';
-import {Brewery} from '../../dto/brewery';
 import {BreweryDatabaseService} from '../../services/brewery.service';
-import {User} from '../../dto/user';
 import {UserDatabaseService} from '../../services/user.service';
 import {BarDatabaseService} from '../../services/bar.service';
-import {Bar} from '../../dto/bar';
-import {isNullOrUndefined} from "util";
-import {Constants} from "../../constants";
+import {isNullOrUndefined} from 'util';
+import {Constants} from '../../constants';
+import {MultiNavigationModel} from '../../domainModel/multiNavigationModel';
 
 @Component({
   selector: 'app-search-result',
@@ -24,32 +21,31 @@ export class SearchResultComponent implements OnInit {
 
   @Input() search: Observable<string>;
   @Input() filter: Observable<number>;
-  @Input() ignorList: Observable<Array<AroundYou>>;
+  @Input() ignorList: Observable<Array<MultiNavigationModel>>;
   @Input() addDisable: boolean;
-  @Output() onSearchResult = new EventEmitter<AroundYou>()
+  @Output() onSearchResult = new EventEmitter<MultiNavigationModel>()
   @Output() onAddBeer = new EventEmitter<string>()
-  @Output() onAddFriend = new EventEmitter<AroundYou>()
-  @Output() onRemoveFriend = new EventEmitter<AroundYou>()
+  @Output() onAddFriend = new EventEmitter<MultiNavigationModel>()
+  @Output() onRemoveFriend = new EventEmitter<MultiNavigationModel>()
 
 
   result: Array<String>
   beer: Beer[] = [];
   beers: Observable<Beer[]>;
-  arroundYou: AroundYou[] = new Array();
-  aYou: AroundYou = new AroundYou();
+  arroundYou: MultiNavigationModel[] = new Array();
   filterNumber: number;
   numberOfBeers: number;
   numberOfBars: number;
   numberOfBrewerys: number;
   entriesNotFound: string;
 
-  itemIgnorlist: Array<AroundYou> = new Array();
+  itemIgnorlist: Array<MultiNavigationModel> = new Array();
 
   searchString: string;
 
   subscription: Subscription = new Subscription()
 
-  public viewModelSubject: Subject<AroundYou[]> = new BehaviorSubject<AroundYou[]>(this.arroundYou);
+  public viewModelSubject: Subject<MultiNavigationModel[]> = new BehaviorSubject<MultiNavigationModel[]>(this.arroundYou);
 
   constructor(private beerService: BeerDatabaseService,
               private breweryService: BreweryDatabaseService,
@@ -60,7 +56,8 @@ export class SearchResultComponent implements OnInit {
     this.viewModelSubject.asObservable();
 
     // sort the search result and set the entriesNotFound string
-    this.viewModelSubject.map(arr => arr.sort((a: AroundYou, b: AroundYou) => a.name.localeCompare(b.name))).subscribe(() => {
+    this.viewModelSubject.map(arr => arr.sort(
+      (a: MultiNavigationModel, b: MultiNavigationModel) => a.name.localeCompare(b.name))).subscribe(() => {
       this.entriesNotFound = ''
       if (this.numberOfBars === 0 && this.filterNumber === 0 || this.filterNumber === 1) {
         this.entriesNotFound = 'bar'
@@ -89,7 +86,7 @@ export class SearchResultComponent implements OnInit {
         this.itemIgnorlist = new Array();
         if (!isNullOrUndefined(ignoreValue)) {
           Object.keys(ignoreValue).map(value => {
-            const model: AroundYou = new AroundYou();
+            const model: MultiNavigationModel = new MultiNavigationModel();
             model.name = ignoreValue[value].name;
             model.routerNavigate = ignoreValue[value].routerNavigate
             this.itemIgnorlist.push(model)
@@ -115,7 +112,7 @@ export class SearchResultComponent implements OnInit {
           this.subscription = this.beerService.getAll().subscribe((value1) => {
             value1.forEach((beer) => {
               // create a new object
-              const a: AroundYou = new AroundYou();
+              const a: MultiNavigationModel = new MultiNavigationModel();
               a.id = beer.id;
               a.name = beer.name;
               a.icon = 'fa fa-beer';
@@ -136,7 +133,7 @@ export class SearchResultComponent implements OnInit {
           this.subscription = this.breweryService.getAll().subscribe((value1) => {
             value1.forEach((brewery) => {
               // create a new object
-              const a: AroundYou = new AroundYou();
+              const a: MultiNavigationModel = new MultiNavigationModel();
               a.id = brewery.id;
               a.name = brewery.name;
               a.icon = 'fa fa-industry';
@@ -157,7 +154,7 @@ export class SearchResultComponent implements OnInit {
           this.subscription = this.barService.getAll().subscribe((value1) => {
             value1.forEach((bar) => {
               // create a new object
-              const a: AroundYou = new AroundYou();
+              const a: MultiNavigationModel = new MultiNavigationModel();
               a.id = bar.id;
               a.name = bar.name;
               a.icon = 'fa fa-cutlery';
@@ -177,7 +174,7 @@ export class SearchResultComponent implements OnInit {
           this.subscription = this.userService.getAll().subscribe((value1) => {
             value1.forEach((user) => {
               // create a new object
-              const a: AroundYou = new AroundYou();
+              const a: MultiNavigationModel = new MultiNavigationModel();
               a.id = user.id;
               a.name = user.firstname + ', ' + user.lastname;
               a.icon = 'fa fa-user';
@@ -202,7 +199,7 @@ export class SearchResultComponent implements OnInit {
    * @param entry
    * @returns {boolean} true if is in ignore list
    */
-  isInIgnorelist(entry: AroundYou): boolean {
+  isInIgnorelist(entry: MultiNavigationModel): boolean {
     if (isNullOrUndefined(this.itemIgnorlist)) {
       return false;
     }
@@ -211,7 +208,7 @@ export class SearchResultComponent implements OnInit {
   }
 
 
-  onClick(data: AroundYou) {
+  onClick(data: MultiNavigationModel) {
     this.onSearchResult.emit(data);
   }
 

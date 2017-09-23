@@ -1,12 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {BarService} from '../barService';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
-import {BehaviorSubject} from 'rxjs/Rx';
-import {MultiNavigationModel} from '../../shared/domainModel/multiNavigationModel';
 import {BeerBarModel} from '../../shared/domainModel/viewModels';
-import {AroundYou} from '../../shared/dto/aroundYou';
-import {MenuService} from "../../shared/services/menu.service";
-import {BeerService} from "../../beer/beerService";
+import {MenuService} from '../../shared/services/menu.service';
 
 @Component({
   selector: 'app-available-beers',

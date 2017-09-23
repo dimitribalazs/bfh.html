@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {BreweryService} from '../breweryService';
 import {Router} from '@angular/router';
-import {AroundYou} from '../../shared/dto/aroundYou';
 import {BeerBarModel} from "../../shared/domainModel/viewModels";
 import {MenuService} from "../../shared/services/menu.service";
 

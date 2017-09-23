@@ -8,15 +8,15 @@ import {RatingModel} from '../shared/components/rating/ratingModel';
 import { Subject } from 'rxjs/Subject';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import {GeoData} from '../shared/dto/geoData';
-import {AroundYou} from '../shared/dto/aroundYou';
 import {isNullOrUndefined} from 'util';
 import {Constants} from '../shared/constants';
+import {MultiNavigationModel} from '../shared/domainModel/multiNavigationModel';
 
 @Injectable()
 export class BarService {
 
   viewModel: BarModel = new BarModel();
-  availableBeerModel:  Subject<Array<AroundYou>> = new BehaviorSubject<Array<AroundYou>>(new Array());
+  availableBeerModel:  Subject<Array<MultiNavigationModel>> = new BehaviorSubject<Array<MultiNavigationModel>>(new Array());
   public targetLocationSubject: Subject<GeoData> = new BehaviorSubject<GeoData>(new GeoData());
 
   constructor(private businessService: BusinessService) {}
@@ -35,9 +35,9 @@ export class BarService {
       this.viewModel = bar
       bar.beers.subscribe((beers) => {
         if (isNullOrUndefined(beers) || beers.length > 0) {
-          const ignorList: Array<AroundYou> = new Array()
+          const ignorList: Array<MultiNavigationModel> = new Array()
           Object.keys(beers).map(value => {
-            const model: AroundYou = new AroundYou();
+            const model: MultiNavigationModel = new MultiNavigationModel();
             model.name = beers[value].beerName;
             model.routerNavigate = Constants.ROUTING_PARENT_BEER
             ignorList.push(model)

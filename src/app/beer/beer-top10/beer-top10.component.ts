@@ -18,7 +18,7 @@ export class BeerTop10Component {
   constructor(private router: Router) {
   }
 
-  onSelect(beer: Beer) {
+  onOpen(beer: Beer) {
     this.router.navigate(['beer', beer.id]);
   }
 }

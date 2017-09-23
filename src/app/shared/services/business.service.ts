@@ -404,7 +404,7 @@ export class BusinessService {
       this.userService.getAll().subscribe((users: User[] = []) => {
         let aroundYous: AroundYou[] = [];
         users.map((user: User) => {
-          if (isNullOrUndefined(user.location) == false) {
+          if (user.id != this.currentUser.id && isNullOrUndefined(user.location) == false) {
             let distance = this.geoService.getDistance(this.currentUser.location, user.location);
             if (this.geoService.isInRange(distance)) {
               let aroundYou: AroundYou = {

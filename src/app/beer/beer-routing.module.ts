@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { BeerComponent } from './beer.component';
 import { BeerDetailComponent } from './beer-detail/beer-detail.component';
 import { BeerInfoComponent } from './beer-info/beer-info.component';
+import { BeerMapComponent } from './beer-map/beer-map.component';
 import {BreweryInfoComponent} from './brewery-info/brewery-info.component';
 import {AvailableBeersComponent} from './available-bars/available-bars.component';
 import {AuthGuard} from '../shared/_guards/AuthGuard';
@@ -64,7 +65,8 @@ const beerRoutes: Routes = [
           { path: '', component: BeerInfoComponent, canActivate: [AuthGuard] },
           { path: 'info', component: BeerInfoComponent, canActivate: [AuthGuard] },
           { path: 'brewery', component: BreweryInfoComponent, canActivate: [AuthGuard] },
-          { path: 'bars', component: AvailableBeersComponent, canActivate: [AuthGuard] }
+          { path: 'bars', component: AvailableBeersComponent, canActivate: [AuthGuard] },
+          { path : 'map', component: BeerMapComponent, canActivate: [AuthGuard] }
         ]
       }
     ]},

@@ -3,6 +3,7 @@ import {Beer} from '../../shared/dto/beer';
 import {Brewery} from '../../shared/dto/brewery';
 import {BeerService} from '../beerService'
 import {MenuService} from '../../shared/services/menu.service';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-beer-info',
@@ -15,16 +16,24 @@ export class BeerInfoComponent implements OnInit {
   model: Beer = new Beer;
   taste: String = '';
   brewType: String = '';
+  id: string;
 
   private showMap = false;
 
-  constructor(private beerService: BeerService, private menuService: MenuService) {
+  constructor(private beerService: BeerService,
+              private menuService: MenuService,
+              private router: Router,
+              private route: ActivatedRoute) {
     this.menuService.setNewState(this.beerService.getMenuState());
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.route.params.subscribe(params => {
+      this.id = params['id'];
+    });
+  }
 
-  onShowMap() {
-    this.showMap = true;
+  onClick(childView: string, activateNavigation: number) {
+    this.router.navigate(['beer', this.id, childView]);
   }
 }

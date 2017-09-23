@@ -9,7 +9,6 @@ import {ActivatedRoute, Router} from '@angular/router';
   styleUrls: ['./bar-info.component.css']
 })
 export class BarInfoComponent implements OnInit {
-  // model: Bar = new Bar;
   private showMap = false;
   id: string;
 

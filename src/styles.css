@@ -14,12 +14,20 @@ h4 {
   margin-left: 0.5em;
 }
 
-hr.gradient {
+.hr-gradient-thick {
   height: 1px;
   background: black;
   background: -webkit-gradient(linear, 0 0, 100% 0, from(white), to(white), color-stop(50%, black));
   margin-top: 15px;
   margin-bottom: 5px;
+}
+
+.hr-gradient-slim {
+  height: 1px;
+  background: black;
+  background: -webkit-gradient(linear, 0 0, 100% 0, from(white), to(white), color-stop(50%, black));
+  margin-top: 3px;
+  margin-bottom: 3px;
 }
 
 .duffd-box {
@@ -103,4 +111,5 @@ hr.gradient {
 
 .section-h4-container {
   margin-bottom: 0.5em;
+  margin-top: 0.5em;
 }

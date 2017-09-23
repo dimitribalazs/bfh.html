@@ -15,9 +15,9 @@
     </ul>
   </div>
   <div class="duffd-row duffd-footer">
-    <app-beer-top10 [title]="'Your top 10 beers'" [beers]="beers"></app-beer-top10>
-    <app-beer-top10 [title]="'Your friends most drunk beers'" [beers]="beers"></app-beer-top10>
-    <app-beer-top10 [title]="'Your friends top rated beers'" [beers]="beers"></app-beer-top10>
+    <app-beer-top10 [title]="'Your top 10 beers'" [beers]="businessService.userTopBeersSubject"></app-beer-top10>
+    <app-beer-top10 [title]="'Your friends most drunk beers'" [beers]="businessService.mostBeerSubject"></app-beer-top10>
+    <app-beer-top10 [title]="'Your friends top rated beers'" [beers]="businessService.popularBeerSubject"></app-beer-top10>
   </div>
 </div>
 

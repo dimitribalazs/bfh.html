@@ -35,6 +35,8 @@ export class BeerMapComponent implements OnInit, AfterContentInit {
         this.beerBars = beerBars;
     };
 
+    let locationsResultArray = new Array<GeoData>();
+
     for (let beerBar of this.beerBars){
       console.log(beerBar.barId, beerBar.barName);
 
@@ -43,11 +45,15 @@ export class BeerMapComponent implements OnInit, AfterContentInit {
 
       this.barService.targetLocationSubject.distinct().subscribe((location) => {
         if (!isNullOrUndefined(location.longitude)) {
-               this.targetDestinations.push(location);
+              locationsResultArray.push(location);
         }
       });
-
     }
+
+    // Filter duplicates -> better way ?
+    this.targetDestinations = locationsResultArray.filter(function(elem, index, self) {
+      return index === self.indexOf(elem);
+    });
 
     // Create barsAndGeoData
     for (let i = 0; i < this.beerBars.length; i++) {

@@ -1,8 +1,11 @@
-<div *ngIf="!imageUploadShow">
-  <div class="container">
-    <div class="imageShow" style="position:relative;" >
-    <img src="{{ '../../' + beerService.viewModel.image}}" height="150px" width="150px"/>
-      <button *ngIf="edit" class="btn btn-default btn-sm" style="position:absolute;left:115.49px;top:120px;" (click)="onImageEdit()">
+<div class="duffd-box" *ngIf="!imageUploadShow">
+
+  <div class="duffd-row duffd-header">
+
+    <div class="imageShow" style="position:relative;">
+      <img src="{{ '../../' + beerService.viewModel.image}}" height="150px" width="150px"/>
+      <button *ngIf="edit" class="btn btn-default btn-sm" style="position:absolute;left:115.49px;top:120px;"
+              (click)="onImageEdit()">
         <i class="fa fa-pencil" aria-hidden="true"></i>
       </button>
     </div>
@@ -19,32 +22,34 @@
   <br>
   <ul class="nav nav-pills nav-justified" *ngIf="!edit">
     <li role="presentation">
-      <a (click)="onClick('info', 0)" [class.activeNavigation]="activeNavigation===0" [class.inactiveNavigation]="activeNavigation !== 0">
+      <a (click)="onClick('info', 0)" [class.activeNavigation]="activeNavigation===0"
+         [class.inactiveNavigation]="activeNavigation !== 0">
         Info
       </a>
     </li>
     <li role="presentation">
-      <a (click)="onClick('brewery', 1)" [class.activeNavigation]="activeNavigation===1" [class.inactiveNavigation]="activeNavigation !== 1">
+      <a (click)="onClick('brewery', 1)" [class.activeNavigation]="activeNavigation===1"
+         [class.inactiveNavigation]="activeNavigation !== 1">
         Brewery
       </a>
     </li>
     <li role="presentation">
-      <a (click)="onClick('bars', 2)" [class.activeNavigation]="activeNavigation===2" [class.inactiveNavigation]="activeNavigation !== 2">
+      <a (click)="onClick('bars', 2)" [class.activeNavigation]="activeNavigation===2"
+         [class.inactiveNavigation]="activeNavigation !== 2">
         Bars
       </a>
     </li>
   </ul>
-  <br>
-  <div>
+  <div class="duffd-row duffd-content">
     <router-outlet></router-outlet>
+  </div>
+  <div class="duffd-row duff-buttonfooter">
+    <a (click)="onCheers()" class="btn btn-default btn-lg btn-bottom">
+      <i class="fa fa-beer" aria-hidden="true"></i>
+      Cheers
+    </a>
   </div>
 </div>
 
-<app-image-uploader titleDetail={{beerService.viewModel.name}} *ngIf="imageUploadShow"></app-image-uploader>
 
-<div class="col-md-4 text-center">
-  <button (click)="onCheers()" class="btn btn-default btn-lg">
-    <i class="fa fa-beer" aria-hidden="true"></i>
-    Cheers
-  </button>
-</div>
+<app-image-uploader titleDetail={{beerService.viewModel.name}} *ngIf="imageUploadShow"></app-image-uploader>

@@ -23,19 +23,22 @@
   <ul class="list-group">
     <li *ngFor="let item of items | async" class="list-group-item">
       <hr class="hr-gradient-slim">
-      <span *ngIf="filter ==1" (click)="onBarShow(item.barId)">
+      <span *ngIf="filter ==1">
+        <span (click)="onBarShow(item.barId)">
           {{item.barName}}, {{item.price}} CHF
-          <a (click)="onRemoveItem(item.barId)" class="btn btn-default btn-sm pull-right">
-            <i class="fa fa-times fa-2x" aria-hidden="true"></i>
-          </a>
-          <a (click)="OnChangePriceFromBar(item)" class="btn btn-default btn-sm pull-right">
-            <i class="fa fa-usd fa-2x" aria-hidden="true"></i>
-          </a>
         </span>
+        <a (click)="onRemoveItem(item.barId)" class="btn btn-default btn-sm pull-right">
+          <i class="fa fa-times fa-2x" aria-hidden="true"></i>
+        </a>
+        <a (click)="OnChangePriceFromBar(item)" class="btn btn-default btn-sm pull-right">
+          <i class="fa fa-usd fa-2x" aria-hidden="true"></i>
+        </a>
+      </span>
 
       <span *ngIf="filter ==3 && !dataIsBeerModel" style="overflow: hidden;">
           <span (click)="onBeerShow(item.beerId)">
             {{item.beerName}}, {{item.price}} CHF
+          </span>
           <a (click)="onRemoveItem(item.beerId)" class="btn btn-default btn-sm pull-right">
             <i class="fa fa-times fa-2x" aria-hidden="true"></i>
           </a>
@@ -45,10 +48,9 @@
           <a (click)="OnChangePriceFromBeer(item)" class="btn btn-default btn-sm pull-right">
             <i class="fa fa-usd fa-2x" aria-hidden="true"></i>
           </a>
-          </span>
         </span>
 
-      <span *ngIf="filter ==3 && dataIsBeerModel" style="overflow: hidden;" (click)="onBeerShow(item.Id)">
+      <span *ngIf="filter ==3 && dataIsBeerModel" style="overflow: hidden;">
           <span (click)="onBeerShow(item.id)">
             {{item.name}}
           </span>

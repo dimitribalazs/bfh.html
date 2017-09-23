@@ -406,14 +406,14 @@ export class BusinessService {
         users.map((user: User) => {
           if (isNullOrUndefined(user.location) == false) {
             let distance = this.geoService.getDistance(this.currentUser.location, user.location);
-            if (this.geoService.isInRange(distance)) {
+            if (this.geoService.isInRange(distance) && user.id !== this.currentUser.id) {
               let aroundYou: AroundYou = {
                 name: `${user.firstname} ${user.lastname}`,
                 id: user.id,
-                distance: distance,
+                distance: this.formattingDistance(distance),
                 routerNavigate: "/user/",
                 icon: "fa fa-user",
-                unit: "m"
+                unit: "Km"
               };
               aroundYous.push(aroundYou);
             }
@@ -432,10 +432,10 @@ export class BusinessService {
               let aroundYou: AroundYou = {
                 name: bar.name,
                 id: bar.id,
-                distance: distance,
+                distance: this.formattingDistance(distance),
                 icon: "fa fa-map-marker",
                 routerNavigate: "/bar/",
-                unit: "m"
+                unit: "Km"
               };
               aroundYous.push(aroundYou);
             }
@@ -455,10 +455,10 @@ export class BusinessService {
               let aroundYou: AroundYou = {
                 name: brewery.name,
                 id: brewery.id,
-                distance: distance,
+                distance: this.formattingDistance(distance),
                 icon: "fa fa-industry",
                 routerNavigate: "/brewery/",
-                unit: "m"
+                unit: "Km"
               };
               aroundYous.push(aroundYou);
             }
@@ -474,6 +474,7 @@ export class BusinessService {
       breweryObs,
       (users: AroundYou[], bars: AroundYou[], breweries: AroundYou[]) => {
         let flatData = [].concat(...users, ...bars, ...breweries);
+        flatData.sort((a: AroundYou, b: AroundYou) => a.distance - b.distance)
         this.aroundYouSubject.next(flatData);
       }).subscribe();
 
@@ -492,6 +493,11 @@ export class BusinessService {
     //     //console.log("foo", typeName);
     //   })
     // })
+  }
+
+  private formattingDistance(distance: number): number {
+    const distFix: number = +distance.toFixed(3)
+    return distance > 100 ? +distFix.toPrecision(4) : +distFix.toPrecision(3)
   }
 
   /**

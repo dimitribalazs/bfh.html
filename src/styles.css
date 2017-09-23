@@ -93,3 +93,14 @@ hr.gradient {
   border: none;
   overflow: hidden;
 }
+
+.section-h4 {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.1;
+  text-shadow: gray 2px 2px 4px;
+}
+
+.section-h4-container {
+  margin-bottom: 0.5em;
+}

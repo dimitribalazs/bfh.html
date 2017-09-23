@@ -1,19 +1,22 @@
 <div class="container-fluid section-h4-container">
-  <span class="section-h4">
-    Served chilled here:
-  </span>
   <span *ngIf="filter ==1 && !itemAddDisable">
+    <span class="section-h4">
+      Served chilled here:
+    </span>
         <a class="btn btn-default btn-sm pull-right" (click)="onAddItem()">
           <i class="fa fa-cutlery fa-2x" aria-hidden="true"></i>
           Add bar
         </a>
       </span>
   <span *ngIf="filter ==3 && !itemAddDisable">
-        <a class="btn btn-default btn-sm pull-right" (click)="onAddItem()">
-          <i class="fa fa-beer fa-2x" aria-hidden="true"></i>
-          Add beer
-        </a>
-      </span>
+    <span class="section-h4">
+      We serve:
+    </span>
+    <a class="btn btn-default btn-sm pull-right" (click)="onAddItem()">
+      <i class="fa fa-beer fa-2x" aria-hidden="true"></i>
+      Add beer
+    </a>
+  </span>
 </div>
 
 <div *ngIf="!search && !linkInformation">

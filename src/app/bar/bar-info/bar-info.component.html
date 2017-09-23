@@ -1,7 +1,6 @@
-<div *ngIf="!showMap">
-  <div class="container">
+<div class="container">
     <div class="row">
-      <div class="col-xs-6">
+      <div class="col-xs-12">
         <form #beerForm="ngForm">
           <div class="form-group">
             <div>
@@ -14,7 +13,10 @@
             <div>
               <label>Address</label>
             </div>
-            <p>{{barService.viewModel.address}}</p>
+            <p>
+              {{barService.viewModel.address}}
+            <a class="btn btn-default pull-right" (click)="onClick('map',4)"><i class="fa fa-map" aria-hidden="true"></i></a>
+            </p>
           </div>
 
           <div class="form-group">
@@ -32,31 +34,24 @@
           </div>
 
           <div class="form-group">
-            <label>Smoking allowed: </label>
-            <p>{{barService.viewModel.isSmokingAllowed}}</p>
-          </div>
-
-          <div class="form-group">
-            <label>Snaks: </label>
-            <p>{{barService.viewModel.snacks}}</p>
+            <label>Services:</label><br>
+            <span *ngIf="barService.viewModel.snacks">
+              <i class="vs vs-drumstick fa-2x" aria-hidden="true"></i>
+            </span>
+            <span *ngIf="barService.viewModel.isSmokingAllowed === true">
+              <i class="vs vs-smoking-alt fa-2x" aria-hidden="true"></i>
+            </span>
+            <span *ngIf="barService.viewModel.isSmokingAllowed === false">
+              <i class="vs vs-no-smoking-alt fa-2x" aria-hidden="true"></i>
+            </span>
           </div>
 
           <div class="form-group">
             <label>Size: </label>
             <p>{{barService.viewModel.size}}</p>
           </div>
+
         </form>
-      </div>
-      <div class="col-xs-6">
-          <button (click)="onShowMap()" class="btn btn-default btn-md center-block">
-              <i class="fa fa-map-marker" aria-hidden="true"></i>
-              Map
-            </button>
       </div>
     </div>
   </div>
-</div>
-<div *ngIf="showMap">
-  <app-map></app-map>
-</div>
-

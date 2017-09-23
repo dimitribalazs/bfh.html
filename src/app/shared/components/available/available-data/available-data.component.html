@@ -36,7 +36,7 @@
           <a (click)="onRemoveItem(item.beerId)" class="btn btn-default btn-sm pull-right">
             <i class="fa fa-times fa-2x" aria-hidden="true"></i>
           </a>
-          <a (click)="cheers(item.beerId)" class="btn btn-default btn-sm pull-right">
+          <a (click)="cheers(item.beerId, item.name)" class="btn btn-default btn-sm pull-right">
             <i class="fa fa-beer fa-2x" aria-hidden="true"></i>
           </a>
           <a (click)="OnChangePriceFromBeer(item)" class="btn btn-default btn-sm pull-right">
@@ -49,8 +49,8 @@
           <span (click)="onBeerShow(item.id)">
             {{item.name}}
           </span>
-          <a (click)="cheers(item.id)" class="btn btn-default btn-sm pull-right">
-            <i class="fa fa-beer" aria-hidden="true"></i>
+          <a (click)="cheers(item.id, item.name)" class="btn btn-default btn-sm pull-right">
+            <i class="fa fa-beer " aria-hidden="true"></i>
           </a>
         </span>
 

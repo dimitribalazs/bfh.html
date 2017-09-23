@@ -138,19 +138,36 @@ export class BeerDatabaseService extends DatabaseService {
       Object.keys(dbData).map(value => beers.push(dbData[value] as UserBeer));
       const resultsByUser: UserBeer[] = beers.filter(rating =>  rating.user == userId) as UserBeer[];
       const beerStatistics = new BeerStatistics();
+
       beerStatistics.beersDrankByDate = new Map<string, UserBeer[]>();
 
       const differentBeers = [];
 
-      resultsByUser.map((result: UserBeer) => {
+      function groupByDate(result: UserBeer) {
         if(beerStatistics.beersDrankByDate[result.dateDrank] == undefined) {
           beerStatistics.beersDrankByDate[result.dateDrank] = [];
         }
         beerStatistics.beersDrankByDate[result.dateDrank].push(result);
         differentBeers[result.beer] = true;
+      }
+
+      function groupByBeer(result: UserBeer) {
+        let key: string = result.beer + "_" + result.beerName;
+        if(beerStatistics.totalDrankBeersByBeer[key] == undefined) {
+          beerStatistics.totalDrankBeersByBeer[key] = 0;
+        }
+        beerStatistics.totalDrankBeersByBeer[key] += 1;
+      }
+
+      resultsByUser.map((result: UserBeer) => {
+        groupByDate(result);
+        groupByBeer(result);
       });
 
       beerStatistics.differentBeersTotal = Object.keys(differentBeers).length;
+
+      beerStatistics.totalDrankBeers = resultsByUser ? resultsByUser.length : 0;
+
       return beerStatistics;
     });
   }

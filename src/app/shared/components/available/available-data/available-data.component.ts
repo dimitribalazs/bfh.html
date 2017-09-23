@@ -23,7 +23,7 @@ export class AvailableDataComponent implements OnInit {
   @Output() onAdd = new EventEmitter<BeerBarModel>()
   @Output() onRemove = new EventEmitter<string>()
   @Output() onCancel = new EventEmitter()
-  @Output() onCheers = new EventEmitter<string>()
+  @Output() onCheers = new EventEmitter<{beerId: string, beerName: string}>()
 
 
   search: boolean;
@@ -112,9 +112,9 @@ export class AvailableDataComponent implements OnInit {
   }
 
 
-  cheers(beerId: string) {
+  cheers(beerId: string, beerName: string) {
     this.menuService.setNewState(this.menuState)
-    this.onCheers.emit(beerId);
+    this.onCheers.emit({beerId: beerId, beerName: beerName});
   }
 
   onRemoveItem(id: string) {
@@ -123,8 +123,8 @@ export class AvailableDataComponent implements OnInit {
   }
 
 
-  addCheers(beerId: string) {
-    this.brewreyService.addBeerDrank(beerId)
+  addCheers(beerId: string, beerName: string) {
+    this.brewreyService.addBeerDrank(beerId, beerName);
     this.menuService.setNewState({
       titleText: 'KEEP CALM AND SAY CHEERS',
       visibleTitle: true,

@@ -50,7 +50,7 @@ export class BarService {
  }
 
   public addBeerDrank(beerId: string) {
-    this.businessService.addBeerDrank(this.viewModel.id);
+    this.businessService.addBeerDrank(this.viewModel.id, this.viewModel.name);
   }
 
   public addBarVisited() {

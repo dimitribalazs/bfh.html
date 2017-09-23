@@ -15,7 +15,7 @@ import {BarDatabaseService} from '../services/bar.service';
 import {UserDatabaseService} from '../services/user.service';
 import {
   BarModel, BeerModel, BreweryModel, BeerBarModel, Time, DropDownEntry,
-  UserModel, Badge
+  UserModel, Badge, BeerTotalStatistics
 } from '../domainModel/viewModels';
 import {RatingModel} from '../components/rating/ratingModel';
 import {forEach} from '@angular/router/src/utils/collection';
@@ -144,11 +144,13 @@ export class BusinessService {
   /**
    * Drink a beer
    * @param beerId the beer ID which is drank
+   * @param beerName the name of the beer
    */
-  public addBeerDrank(beerId: string) {
+  public addBeerDrank(beerId: string, beerName: string) {
 
     const beerDrank: UserBeer = {
       beer: beerId,
+      beerName: beerName,
       user: this.currentUser.id,
       dateDrank: new Date().toDateString()
     };
@@ -365,6 +367,8 @@ export class BusinessService {
       });
 
       this.beerService.getDrankBeersByGroupedByDateByUserId(userModel.id).subscribe((data: BeerStatistics) => {
+        userModel.totalConsumption = data.totalDrankBeers;
+        userModel.totalConsumptionPerBeer = this.getBeerConsumption(data);
         userModel.badges = [].concat(...userModel.badges, this.getBeerBadges(data));
       });
 
@@ -762,8 +766,20 @@ export class BusinessService {
         badges.push(badge);
       }
     });
-    console.log("bar badges", badges)
     return badges;
+  }
+
+  private getBeerConsumption(beerStat: BeerStatistics): BeerTotalStatistics[]
+  {
+    const stat: BeerTotalStatistics[] = [];
+    Object.keys(beerStat.totalDrankBeersByBeer).forEach((value: string) => {
+      let result: BeerTotalStatistics = {
+        name: value.split("_")[1],
+        total: beerStat.totalDrankBeersByBeer[value]
+      };
+      stat.push(result);
+    })
+    return stat;
   }
 
 }

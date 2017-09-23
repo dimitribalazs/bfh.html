@@ -33,7 +33,7 @@ export class BreweryService {
     this.businessService.removeBreweryFromBeer(id)
   }
 
-  public addBeerDrank(beerId: string) {
-    this.businessService.addBeerDrank(beerId);
+  public addBeerDrank(beerIdAndName) {
+    this.businessService.addBeerDrank(beerIdAndName["beerId"], beerIdAndName["beerName"]);
   }
 }

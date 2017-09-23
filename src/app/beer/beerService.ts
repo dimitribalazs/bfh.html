@@ -55,7 +55,7 @@ export class BeerService {
 
 
   public addBeerDrank() {
-    this.businessService.addBeerDrank(this.viewModel.id);
+    this.businessService.addBeerDrank(this.viewModel.id, this.viewModel.name);
   }
 
 

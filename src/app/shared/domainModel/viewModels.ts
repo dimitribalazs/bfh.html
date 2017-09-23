@@ -183,6 +183,11 @@ export class OpeningHours {
   }
 }
 
+export class BeerTotalStatistics {
+  name: string;
+  total: number;
+}
+
 export class UserModel {
   id: string;
   firstname: string;
@@ -199,6 +204,7 @@ export class UserModel {
   dateOfBirth: string;
   friends: BehaviorSubject<UserModel[]>
   administrator: boolean
+  totalConsumptionPerBeer: BeerTotalStatistics[]
   //badges: Badge[];
 
   constructor() {
@@ -210,6 +216,7 @@ export class UserModel {
     this.location = new GeoData();
     this.favoriteBeers = new BehaviorSubject<BeerModel[]>(new Array<BeerModel>());
     this.totalConsumption = 0;
+    this.totalConsumptionPerBeer = [];
     this.address = '';
     this.city = '';
     this.tel = '';

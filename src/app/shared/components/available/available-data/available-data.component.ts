@@ -55,6 +55,7 @@ export class AvailableDataComponent implements OnInit {
       this.search = true;
       this.menuService.setNewState({
         visibleSearchInput: true,
+        visibleBack: true,
         visibleTitle: false,
         onInput: (e: string) => {
           this.searchSubject.next(e)

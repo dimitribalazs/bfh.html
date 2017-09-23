@@ -47,8 +47,10 @@ export class BusinessService {
   private userSubject: Subject<UserModel> = new BehaviorSubject<UserModel>(new UserModel());
   private usersSubject: Subject<UserModel[]> = new BehaviorSubject<UserModel[]>(new Array<UserModel>());
   private aroundYouSubject: Subject<AroundYou[]> = new BehaviorSubject<AroundYou[]>([]);
-  // public barAvailableBeersSubject: Subject<BeerModel[]> = new BehaviorSubject<BeerModel[]>(new Array<BeerModel>());
-  // public barsSubject: Subject<BarModel[]> = new BehaviorSubject<BarModel[]>(this.bars);
+  public userTopBeersSubject: Subject<Array<BeerModel>> = new BehaviorSubject<Array<BeerModel>>(new Array<BeerModel>());
+  public mostBeerSubject: Subject<Array<BeerModel>> = new BehaviorSubject<Array<BeerModel>>(new Array<BeerModel>());
+  public popularBeerSubject: Subject<Array<BeerModel>> = new BehaviorSubject<Array<BeerModel>>(new Array<BeerModel>());
+
 
   constructor(private beerService: BeerDatabaseService,
               private breweryService: BreweryDatabaseService,
@@ -60,6 +62,7 @@ export class BusinessService {
     this.barSubject.asObservable();
     this.brewerySubject.asObservable();
     this.userSubject.asObservable();
+    this.topBeer();
 
     this.geoService.getCurrentPosition().subscribe(data => console.log("position", data));
 
@@ -396,20 +399,20 @@ export class BusinessService {
     return this.usersSubject;
   }
 
-  getAroundYou(myLocation: GeoData, userId: string): Subject<AroundYou[]> {
+  getAroundYou(): Subject<AroundYou[]> {
     let userObs = Observable.create((observer) => {
       this.userService.getAll().subscribe((users: User[] = []) => {
         let aroundYous: AroundYou[] = [];
         users.map((user: User) => {
           if (isNullOrUndefined(user.location) == false) {
-            let distance = this.geoService.getDistance(myLocation, user.location);
+            let distance = this.geoService.getDistance(this.currentUser.location, user.location);
             if (this.geoService.isInRange(distance)) {
               let aroundYou: AroundYou = {
                 name: `${user.firstname} ${user.lastname}`,
                 id: user.id,
                 distance: distance,
-                icon: "/user/",
-                routerNavigate: "fa fa-user",
+                routerNavigate: "/user/",
+                icon: "fa fa-user",
                 unit: "m"
               };
               aroundYous.push(aroundYou);
@@ -424,7 +427,7 @@ export class BusinessService {
         let aroundYous: AroundYou[] = [];
         bars.map((bar: Bar) => {
           if (isNullOrUndefined(bar.location) == false) {
-            let distance = this.geoService.getDistance(myLocation, bar.location);
+            let distance = this.geoService.getDistance(this.currentUser.location, bar.location);
             if (this.geoService.isInRange(distance)) {
               let aroundYou: AroundYou = {
                 name: bar.name,
@@ -447,7 +450,7 @@ export class BusinessService {
         let aroundYous: AroundYou[] = [];
         breweries.map((brewery: Brewery) => {
           if (isNullOrUndefined(brewery.location) == false) {
-            let distance = this.geoService.getDistance(myLocation, brewery.location);
+            let distance = this.geoService.getDistance(this.currentUser.location, brewery.location);
             if (this.geoService.isInRange(distance)) {
               let aroundYou: AroundYou = {
                 name: brewery.name,
@@ -490,6 +493,22 @@ export class BusinessService {
     //   })
     // })
   }
+
+  /**
+   * load the top beers
+   *
+   * @returns {Subject<BeerModel>}
+   */
+  public topBeer() {
+    const beerList: Array<BeerModel> = new Array()
+    this.beerService.getAll().subscribe((beers) => {
+      beers.map((beer) => beerList.push(this.mapBeerDtoToDomainModel(beer)))
+      this.userTopBeersSubject.next(beerList);
+      this.mostBeerSubject.next(beerList);
+      this.popularBeerSubject.next(beerList);
+    })
+  }
+
 
   private mapBarDtoToDomainModel(dto: Bar): BarModel {
     const model = new BarModel();

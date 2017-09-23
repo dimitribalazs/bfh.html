@@ -14,12 +14,20 @@ h4 {
   margin-left: 0.5em;
 }
 
-hr.gradient {
+.hr-gradient-thick {
   height: 1px;
   background: black;
   background: -webkit-gradient(linear, 0 0, 100% 0, from(white), to(white), color-stop(50%, black));
   margin-top: 15px;
   margin-bottom: 5px;
+}
+
+.hr-gradient-slim {
+  height: 1px;
+  background: black;
+  background: -webkit-gradient(linear, 0 0, 100% 0, from(white), to(white), color-stop(50%, black));
+  margin-top: 3px;
+  margin-bottom: 3px;
 }
 
 .duffd-box {
@@ -39,6 +47,10 @@ hr.gradient {
 
 .duffd-box .duffd-row.duffd-footer {
   flex: 0 1 420px;
+}
+
+§.duffd-box .duffd-row.duffd-buttonfooter {
+  flex: 0 1 60px;
 }
 
 .horizontal-scroller-outer {
@@ -87,4 +99,21 @@ hr.gradient {
 
 .list-group-item {
   border: none;
+  overflow: hidden;
+}
+
+.section-h4 {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.1;
+  text-shadow: gray 2px 2px 4px;
+}
+
+.section-h4-container {
+  margin-bottom: 0.5em;
+  margin-top: 0.5em;
+}
+
+.btn-bottom {
+  width: 100%;
 }

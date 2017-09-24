@@ -1,7 +1,3 @@
-/**
- * Created by STRI on 24.08.2017.
- */
-
 import * as firebase from 'firebase';
 
 const config = {
@@ -22,3 +18,20 @@ export function getDatabase(): firebase.database.Database {
   }
   return database;
 }
+
+export function getFirebaseRef(firebaseRef: FirebaseRefs): firebase.database.Reference {
+  return getDatabase().ref(firebaseRef);
+}
+
+export enum FirebaseRefs {
+  Bars = "bars",
+  BarBeers = "barBeers",
+  Beers = "beers",
+  Breweries = "breweries",
+  UserBarRatings = "userBarRatings",
+  UserBarVisited = "userBarVisited",
+  UserBeerRatings = "userBeerRatings",
+  UserBeerDrank = "userBeerDrank",
+  Users = "users"
+}
+

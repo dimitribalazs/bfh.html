@@ -3,24 +3,39 @@ import { Observable } from 'rxjs/Rx';
 import * as firebase from 'firebase';
 import {DatabaseService, FirebaseEvent} from './database.service';
 import {Brewery} from '../dto/brewery';
-import {getDatabase} from './firebase';
+import {FirebaseRefs, getDatabase, getFirebaseRef} from './firebase';
+import {isNullOrUndefined} from "util";
 
 @Injectable()
 export class BreweryDatabaseService extends DatabaseService{
     private breweriesPath: firebase.database.Reference;
     constructor() {
         super();
-        this.breweriesPath = getDatabase().ref("breweries");
+        this.breweriesPath = getFirebaseRef(FirebaseRefs.Breweries);
     }
 
-    create(entity: Brewery): void {
+  /**
+   * Create a new brewery
+   * @param {Brewery} entity
+   */
+  create(entity: Brewery): void {
+        if(isNullOrUndefined(entity)) throw new Error("entity must be defined");
+
          const newKey: string = this.breweriesPath.push().key;
          this.breweriesPath.child(newKey).set(entity);
     }
 
+  /**
+   * Update an existing brewery
+   * @param {string} id
+   * @param {Brewery} entity
+   */
     update(id: string, entity: Brewery): void {
+      if(isNullOrUndefined(id)) throw new Error("id must be defined");
+      if(isNullOrUndefined(entity)) throw new Error("entity must be defined");
+
         const apiPath = this.breweriesPath.child(id);
-        apiPath.once(FirebaseEvent.value.toString())
+        apiPath.once(FirebaseEvent.value)
         .then((snapshot: firebase.database.DataSnapshot) => {
             let dbBrewery = snapshot.val() as Brewery;
             super.copyData(entity, dbBrewery);
@@ -31,8 +46,12 @@ export class BreweryDatabaseService extends DatabaseService{
         });
     }
 
-    getAll(): Observable<Brewery[]> {
-        return Observable.fromEvent(this.breweriesPath, FirebaseEvent.value.toString(), (snapshot) => {
+  /**
+   * Get all breweries
+   * @returns {Observable<Brewery[]>}
+   */
+  getAll(): Observable<Brewery[]> {
+        return Observable.fromEvent(this.breweriesPath, FirebaseEvent.value, (snapshot) => {
             const result = snapshot.val();
             const brewery: Brewery[] = [];
             Object.keys(result).map((value:string) => {
@@ -43,8 +62,15 @@ export class BreweryDatabaseService extends DatabaseService{
         });
     }
 
+  /**
+   * Get a brewery by its id
+   * @param {string} id
+   * @returns {Observable<Brewery>}
+   */
     get(id: string): Observable<Brewery> {
-        return Observable.fromEvent(this.breweriesPath.child(id), FirebaseEvent.value.toString(), (snapshot) => {
+      if(isNullOrUndefined(id)) throw new Error("id must be defined");
+
+        return Observable.fromEvent(this.breweriesPath.child(id), FirebaseEvent.value, (snapshot) => {
             const result = snapshot.val();
             return result as Brewery;
         });

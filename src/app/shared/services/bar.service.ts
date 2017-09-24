@@ -2,13 +2,14 @@ import { Injectable, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import * as firebase from 'firebase';
 import {DatabaseService, FirebaseEvent} from './database.service';
-import {getDatabase} from './firebase';
+import {FirebaseRefs, getDatabase, getFirebaseRef} from './firebase';
 import {Bar} from '../dto/bar';
 import {BarBeer} from '../dto/barBeer';
 import {UserBarRating} from '../dto/userBarRating';
 import {UserBeer} from "../dto/userBeer";
 import {BarStatistics} from "../dto/barStatistics";
 import {UserBar} from "../dto/userBar";
+import {isNullOrUndefined} from "util";
 
 
 @Injectable()
@@ -21,21 +22,35 @@ export class BarDatabaseService extends DatabaseService{
 
     constructor() {
         super();
-        this.barsPath = getDatabase().ref("bars");
-        this.beersPath = getDatabase().ref("beers");
-        this.barBeersPath = getDatabase().ref("barBeers");
-        this.userBarRatingsPath = getDatabase().ref("userBarRatings");
-        this.userBarVisitedPath = getDatabase().ref("userBarVisited");
+        this.barsPath = getFirebaseRef(FirebaseRefs.Bars);
+        this.beersPath = getFirebaseRef(FirebaseRefs.Beers);
+        this.barBeersPath = getFirebaseRef(FirebaseRefs.BarBeers);
+        this.userBarRatingsPath = getFirebaseRef(FirebaseRefs.UserBeerRatings);
+        this.userBarVisitedPath = getFirebaseRef(FirebaseRefs.UserBarVisited);
     }
 
-    create(entity: Bar): void {
+  /**
+   * Create new bar
+   * @param {Bar} entity
+   */
+  create(entity: Bar): void {
+        if(isNullOrUndefined(entity)) throw new Error("bar entity must be defined");
+
          const newKey: string = this.barsPath.push().key;
          this.barsPath.child(newKey).set(entity);
     }
 
+  /**
+   * Update existing bar
+   * @param {string} id
+   * @param {Bar} entity
+   */
     update(id: string, entity: Bar): void {
+      if(isNullOrUndefined(id)) throw new Error("id must be defined");
+      if(isNullOrUndefined(entity)) throw new Error("bar entity must be defined");
+
         const apiPath = this.barsPath.child(id);
-        apiPath.once(FirebaseEvent.value.toString())
+        apiPath.once(FirebaseEvent.value)
         .then((snapshot: firebase.database.DataSnapshot) => {
             let dbBar = snapshot.val() as Bar;
             super.copyData(entity, dbBar);
@@ -46,9 +61,13 @@ export class BarDatabaseService extends DatabaseService{
         });
     }
 
-    getAll(): Observable<Bar[]> {
-        return Observable.fromEvent(this.barsPath, FirebaseEvent.value.toString(), (snapshot) => {
-            var result = snapshot.val();
+  /**
+   * Get all bar as observable
+   * @returns {Observable<Bar[]>}
+   */
+  getAll(): Observable<Bar[]> {
+        return Observable.fromEvent(this.barsPath, FirebaseEvent.value, (snapshot) => {
+            let  result = snapshot.val();
             const bars: Bar[] = [];
             Object.keys(result).map((value:string) => {
                 bars.push(result[value] as Bar);
@@ -58,28 +77,54 @@ export class BarDatabaseService extends DatabaseService{
         });
     }
 
+  /**
+   * Get a bar by its id
+   * @param {string} id
+   * @returns {Observable<Bar>}
+   */
     get(id: string): Observable<Bar> {
-        return Observable.fromEvent(this.barsPath.child(id), FirebaseEvent.value.toString(), (snapshot) => {
+      if(isNullOrUndefined(id)) throw new Error("id must be defined");
+
+        return Observable.fromEvent(this.barsPath.child(id), FirebaseEvent.value, (snapshot) => {
             var result = snapshot.val();
             const bar: Bar = result;
             return bar;
         });
     }
 
-    addBeerToBar(barBeer: BarBeer): void {
+  /**
+   * Add a beer to bar
+   * @param {BarBeer} barBeer
+   */
+  addBeerToBar(barBeer: BarBeer): void {
+        if(isNullOrUndefined(barBeer)) throw new Error("barBeer must be defined");
+
         const newKey: string = barBeer.bar + "_" + barBeer.beer;
         this.barBeersPath.child(newKey).set(barBeer);
         this.barsPath.child(barBeer.bar + "/beers/" + newKey).set(true);
         this.beersPath.child(barBeer.beer + "/bars/" + newKey).set(true);
     }
 
-    removeBeerFromBar(barBeer: BarBeer): void {
+  /**
+   * Remove a beer from a bar
+   * @param {BarBeer} barBeer
+   */
+  removeBeerFromBar(barBeer: BarBeer): void {
+      if(isNullOrUndefined(barBeer)) throw new Error("barBeer must be defined");
+
       const newKey: string = barBeer.bar + "_" + barBeer.beer;
       this.barBeersPath.child(newKey).remove();
     }
 
+  /**
+   * Get bar ratings by bar id
+   * @param {string} barId
+   * @returns {Observable<UserBarRating[]>}
+   */
     getBarRatingsByBarId(barId: string): Observable<UserBarRating[]> {
-      return Observable.fromEvent(this.userBarRatingsPath, FirebaseEvent.value.toString(), (snapshot) => {
+      if(isNullOrUndefined(barId)) throw new Error("barId must be defined");
+
+      return Observable.fromEvent(this.userBarRatingsPath, FirebaseEvent.value, (snapshot) => {
         const ratings: UserBarRating[] = [];
         const dbData = snapshot.val() || [];
         Object.keys(dbData).map(value => ratings.push(dbData[value] as UserBarRating));
@@ -87,13 +132,26 @@ export class BarDatabaseService extends DatabaseService{
       });
     }
 
-    addBarRating(barRating: UserBarRating) {
+  /**
+   * Add a rating to a bar
+   * @param {UserBarRating} barRating
+   */
+  addBarRating(barRating: UserBarRating) {
+      if(isNullOrUndefined(barRating)) throw new Error("barRating must be defined");
+
       const newKey: string = barRating.user + "_" + barRating.bar;
       this.userBarRatingsPath.child(newKey).set(barRating);
     }
 
-  getVisitedBarsGroupeByDateByUserId(userId: string): Observable<BarStatistics> {
-    return Observable.fromEvent(this.userBarVisitedPath, FirebaseEvent.value.toString(), (snapshot) => {
+  /**
+   * Get visited bars from a user grouped by date
+   * @param {string} userId
+   * @returns {Observable<BarStatistics>}
+   */
+  getVisitedBarsGroupedByDateByUserId(userId: string): Observable<BarStatistics> {
+    if(isNullOrUndefined(userId)) throw new Error("userId must be defined");
+
+    return Observable.fromEvent(this.userBarVisitedPath, FirebaseEvent.value, (snapshot) => {
       const beers: UserBeer[] = [];
       const dbData = snapshot.val() || [];
       Object.keys(dbData).map(value => beers.push(dbData[value] as UserBeer));
@@ -116,8 +174,13 @@ export class BarDatabaseService extends DatabaseService{
     });
   }
 
+  /**
+   * Add bar visited
+   * @param {UserBar} userBar
+   */
   addBarVisited(userBar: UserBar): void {
+    if(isNullOrUndefined(userBar)) throw new Error("userBar must be defined");
+
     this.userBarVisitedPath.push(userBar);
   }
-
 }

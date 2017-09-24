@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Rx';
 import * as firebase from 'firebase';
 import {DatabaseService, FirebaseEvent} from './database.service';
-import {getDatabase} from './firebase';
+import {FirebaseRefs, getFirebaseRef} from './firebase';
 import {Beer} from '../dto/beer';
 import {BarBeer} from "../dto/barBeer";
 import {UserBeerRating} from "../dto/userBeerRating";
@@ -19,15 +19,22 @@ export class BeerDatabaseService extends DatabaseService {
 
   constructor() {
     super();
-    this.beersPath = getDatabase().ref("beers");
-    this.barBeersPath = getDatabase().ref("barBeers");
-    this.userBeerRatingsPath = getDatabase().ref("userBeerRatings");
-    this.userBeerDrankPath = getDatabase().ref("userBeerDrank");
+    this.beersPath = getFirebaseRef(FirebaseRefs.Beers);
+    this.barBeersPath = getFirebaseRef(FirebaseRefs.BarBeers);
+    this.userBeerRatingsPath = getFirebaseRef(FirebaseRefs.UserBeerRatings);
+    this.userBeerDrankPath = getFirebaseRef(FirebaseRefs.UserBeerDrank);
   }
 
+  /**
+   * Checks if beer already exists
+   * @param {Beer} entity
+   * @returns {Promise<boolean>}
+   */
   exists(entity: Beer): Promise<boolean> {
+    if(isNullOrUndefined(entity)) throw new Error("entity must be defined");
+
     return new Promise<boolean>((resolve, reject) => {
-      this.beersPath.orderByChild("name").equalTo(entity.name).once("value").then((snapshot) => {
+      this.beersPath.orderByChild("name").equalTo(entity.name).once(FirebaseEvent.value).then((snapshot) => {
         const beers = snapshot.val(); //as Beer[];
         //if (!isNullOrUndefined(beers)) {
         beers.forEach((beer) => {
@@ -44,17 +51,32 @@ export class BeerDatabaseService extends DatabaseService {
   }
 
 
+  /**
+   * Create new beer
+   * @param {Beer} entity
+   * @returns {string}
+   */
   create(entity: Beer): string {
+    if(isNullOrUndefined(entity)) throw new Error("entity must be defined");
+
     const newKey: string = this.beersPath.push().key;
     entity.id = newKey
     this.beersPath.child(newKey).set(entity);
     return newKey;
   }
 
+  /**
+   * Update existing beer
+   * @param {string} id
+   * @param {Beer} entity
+   */
   update(id: string, entity: Beer): void {
+    if(isNullOrUndefined(id)) throw new Error("id must be defined");
+    if(isNullOrUndefined(entity)) throw new Error("entity must be defined");
+
     //https://firebase.google.com/docs/database/web/lists-of-data
     const resultFromApi = this.beersPath.child(id);
-    resultFromApi.once(FirebaseEvent.value.toString())
+    resultFromApi.once(FirebaseEvent.value)
       .then((snapshot: firebase.database.DataSnapshot) => {
         let dbBeer = snapshot.val() as Beer;
         super.copyData(entity, dbBeer);
@@ -65,8 +87,12 @@ export class BeerDatabaseService extends DatabaseService {
       });
   }
 
+  /**
+   * Get all beers
+   * @returns {Observable<Beer[]>}
+   */
   getAll(): Observable<Beer[]> {
-    return Observable.fromEvent(this.beersPath, FirebaseEvent.value.toString(), (snapshot) => {
+    return Observable.fromEvent(this.beersPath, FirebaseEvent.value, (snapshot) => {
       const result = snapshot.val();
       const beers: Beer[] = [];
       Object.keys(result).map((value: string) => {
@@ -77,8 +103,15 @@ export class BeerDatabaseService extends DatabaseService {
     });
   }
 
+  /**
+   * Get all beers from a bar
+   * @param {string} barId
+   * @returns {Observable<BarBeer[]>}
+   */
   getAllBarBeersByBarId(barId: string): Observable<BarBeer[]> {
-    return Observable.fromEvent(this.barBeersPath, FirebaseEvent.value.toString(), (barBeerSnapshot) => {
+    if(isNullOrUndefined(barId)) throw new Error("barId must be defined");
+
+    return Observable.fromEvent(this.barBeersPath, FirebaseEvent.value, (barBeerSnapshot) => {
       const barBeers: BarBeer[] = [];
       const dbData = barBeerSnapshot.val();
       if(dbData) {
@@ -88,8 +121,15 @@ export class BeerDatabaseService extends DatabaseService {
     });
   }
 
+  /**
+   * Get all BarBeers from a beer
+   * @param {string} beerId
+   * @returns {Observable<BarBeer[]>}
+   */
   getAllBarBeersByBeerId(beerId: string): Observable<BarBeer[]> {
-    return Observable.fromEvent(this.barBeersPath, FirebaseEvent.value.toString(), (barBeerSnapshot) => {
+    if(isNullOrUndefined(beerId)) throw new Error("beerId must be defined");
+
+    return Observable.fromEvent(this.barBeersPath, FirebaseEvent.value, (barBeerSnapshot) => {
       const barBeers: BarBeer[] = [];
       const dbData = barBeerSnapshot.val();
       if(dbData) {
@@ -99,8 +139,15 @@ export class BeerDatabaseService extends DatabaseService {
     });
   }
 
+  /**
+   * Get all beers from a brewery
+   * @param {string} breweryId
+   * @returns {Observable<Beer[]>}
+   */
   getAllBeersByBreweryId(breweryId: string): Observable<Beer[]> {
-    return Observable.fromEvent(this.beersPath, FirebaseEvent.value.toString(), (beerSnapshot) => {
+    if(isNullOrUndefined(breweryId)) throw new Error("breweryId must be defined");
+
+    return Observable.fromEvent(this.beersPath, FirebaseEvent.value, (beerSnapshot) => {
       const beers: Beer[] = [];
       const dbData = beerSnapshot.val();
       if(dbData) {
@@ -110,15 +157,29 @@ export class BeerDatabaseService extends DatabaseService {
     });
   }
 
+  /**
+   * Get a beer from an id
+   * @param {string} id
+   * @returns {Observable<Beer>}
+   */
   get(id: string): Observable<Beer> {
-    return Observable.fromEvent(this.beersPath.child(id), FirebaseEvent.value.toString(), (snapshot) => {
+    if(isNullOrUndefined(id)) throw new Error("id must be defined");
+
+    return Observable.fromEvent(this.beersPath.child(id), FirebaseEvent.value, (snapshot) => {
       const result = snapshot.val();
       return result as Beer;
     });
   }
 
+  /**
+   * Get the ratings of a beer
+   * @param {string} beerId
+   * @returns {Observable<UserBeerRating[]>}
+   */
   getBeerRatingsByBeerId(beerId: string): Observable<UserBeerRating[]> {
-    return Observable.fromEvent(this.userBeerRatingsPath, FirebaseEvent.value.toString(), (snapshot) => {
+    if(isNullOrUndefined(beerId)) throw new Error("beerId must be defined");
+
+    return Observable.fromEvent(this.userBeerRatingsPath, FirebaseEvent.value, (snapshot) => {
       const ratings: UserBeerRating[] = [];
       const dbData = snapshot.val() || [];
       Object.keys(dbData).map(value => ratings.push(dbData[value] as UserBeerRating));
@@ -126,13 +187,26 @@ export class BeerDatabaseService extends DatabaseService {
     });
   }
 
+  /**
+   * Add a beer rating
+   * @param {UserBeerRating} beerRating
+   */
   addBeerRating(beerRating: UserBeerRating) {
+    if(isNullOrUndefined(beerRating)) throw new Error("beerRating must be defined");
+
     const newKey: string = beerRating.user + "_" + beerRating.beer;
     this.userBeerRatingsPath.child(newKey).set(beerRating);
   }
 
+  /**
+   * Get drank beer from a user, grouped by date
+   * @param {string} userId
+   * @returns {Observable<BeerStatistics>}
+   */
   getDrankBeersByGroupedByDateByUserId(userId: string): Observable<BeerStatistics> {
-    return Observable.fromEvent(this.userBeerDrankPath, FirebaseEvent.value.toString(), (snapshot) => {
+    if(isNullOrUndefined(userId)) throw new Error("userId must be defined");
+
+    return Observable.fromEvent(this.userBeerDrankPath, FirebaseEvent.value, (snapshot) => {
       const beers: UserBeer[] = [];
       const dbData = snapshot.val() || [];
       Object.keys(dbData).map(value => beers.push(dbData[value] as UserBeer));
@@ -172,20 +246,37 @@ export class BeerDatabaseService extends DatabaseService {
     });
   }
 
+  /**
+   * Add a drank beer
+   * @param {UserBeer} userBeer
+   */
   addBeerDrank(userBeer: UserBeer): void {
+    if(isNullOrUndefined(userBeer)) throw new Error("userBeer must be defined");
+
     this.userBeerDrankPath.push(userBeer);
   }
 
+  /**
+   * Update brewery from a beer
+   * @param {string} beerId
+   * @param {string} breweryId
+   */
   addBreweryToBeer(beerId: string, breweryId: string): void {
-    if(isNullOrUndefined(beerId)) throw Error("beerId must be set");
-    if(isNullOrUndefined(beerId)) throw Error("breweryId must be set");
+    if(isNullOrUndefined(beerId)) throw Error("beerId must be defined");
+    if(isNullOrUndefined(beerId)) throw Error("breweryId must be defined");
 
     this.beersPath.child(beerId).set({
       "brewery": breweryId
     });
   }
 
-  removeBrewerFromBeer(beerId: string): void {
+  /**
+   * Remove brewery from a beer
+   * @param {string} beerId
+   */
+  removeBreweryFromBeer(beerId: string): void {
+    if(isNullOrUndefined(beerId)) throw new Error("beerId must be defined");
+
     this.beersPath.child(beerId).child("brewery").remove();
   }
 

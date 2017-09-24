@@ -11,7 +11,7 @@ import {Beer} from '../dto/beer';
 import {Bar} from '../dto/bar';
 import {GeoData} from '../dto/geoData';
 import {AroundYou} from '../domainModel/aroundYou'
-import {getDatabase} from './firebase';
+import {getDatabase, getFirebaseRef, FirebaseRefs} from './firebase';
 import {GeoService} from './geo.service';
 import {IGeoData} from "../dto/IGeoData";
 import {UserBeerRating} from "../dto/userBeerRating";
@@ -19,6 +19,7 @@ import {UserBarRating} from "../dto/userBarRating";
 import {Rating} from '../dto/rating';
 import {BreweryDatabaseService} from "./brewery.service";
 import {Brewery} from "../dto/brewery";
+import {isNullOrUndefined} from "util";
 
 
 @Injectable()
@@ -34,20 +35,34 @@ export class UserDatabaseService extends DatabaseService{
         private geoService: GeoService
     ) {
         super();
-        this.usersPath = getDatabase().ref("users");
-        this.beersPath = getDatabase().ref("beers");
-        this.userBeerRatingsPath = getDatabase().ref("userBeerRatings");
-        this.userBarRatingsPath = getDatabase().ref("userBarRatings");
+        this.usersPath = getFirebaseRef(FirebaseRefs.Users);
+        this.beersPath = getFirebaseRef(FirebaseRefs.Beers);
+        this.userBeerRatingsPath = getFirebaseRef(FirebaseRefs.UserBeerRatings);
+        this.userBarRatingsPath = getFirebaseRef(FirebaseRefs.UserBarRatings);
     }
 
-    create(entity: User): void {
+  /**
+   * Create new user
+   * @param {User} entity
+   */
+  create(entity: User): void {
+      if(isNullOrUndefined(entity)) throw new Error("entity must be defined");
+
          const newKey: string = this.usersPath.push().key;
          this.usersPath.child(newKey).set(entity);
     }
 
+  /**
+   * Update an existing user
+   * @param {string} id
+   * @param {User} entity
+   */
     update(id: string, entity: User): void {
+      if(isNullOrUndefined(id)) throw new Error("id must be defined");
+      if(isNullOrUndefined(entity)) throw new Error("entity must be defined");
+
         const apiPath = this.usersPath.child(id);
-        apiPath.once("value")
+        apiPath.once(FirebaseEvent.value)
         .then((snapshot: firebase.database.DataSnapshot) => {
             let dbUser = snapshot.val() as User;
             super.copyData(entity, dbUser);
@@ -58,8 +73,12 @@ export class UserDatabaseService extends DatabaseService{
         });
     }
 
-    getAll(): Observable<User[]> {
-        return Observable.fromEvent(this.usersPath, FirebaseEvent.value.toString(), (snapshot) => {
+  /**
+   * Get all users
+   * @returns {Observable<User[]>}
+   */
+  getAll(): Observable<User[]> {
+        return Observable.fromEvent(this.usersPath, FirebaseEvent.value, (snapshot) => {
             var result = snapshot.val();
             const users: User[] = [];
             Object.keys(result).map((value:string) => {
@@ -70,41 +89,34 @@ export class UserDatabaseService extends DatabaseService{
         });
     }
 
+  /**
+   * Get an user by its id
+   * @param {string} id
+   * @returns {Observable<User>}
+   */
     get(id: string): Observable<User> {
-        return Observable.fromEvent(this.usersPath.child(id), FirebaseEvent.value.toString(), (snapshot) => {
+      if(isNullOrUndefined(id)) throw new Error("id must be defined");
+
+        return Observable.fromEvent(this.usersPath.child(id), FirebaseEvent.value, (snapshot) => {
             var result = snapshot.val();
             return result as User;
         });
     }
 
-    //todo statt any müssen wirr hier noch eine klasse definiere oder verwenden wir hier aroundYou.ts?
-    //todo in riccos service
-  getAroundYou(myPosition: GeoData, userId: string): Observable<IGeoData[]> {
-    return Observable.zip(
-      this.barService.getAll(),
-      this.breweryService.getAll(),
-      this.getAll(),
-      (bars: Bar[], breweries: Brewery[], users: User[]) => {
-        let flatData = [].concat(...bars, ...breweries, ...users);
-         let filtered =  flatData.filter((aroundYou) => {
-          let location = (<IGeoData>aroundYou).location;
-          console.log("foo", location);
-          return true;
-          //this.geoService.isInRange(myPosition, location);
-        });
-
-         return filtered;
-         //return filtered.map(data => data as IAroundYou);
-      });
-  }
-
+  /**
+   * Get friends of an user
+   * @param {string} userId
+   * @returns {Observable<User[]>}
+   */
     getFriendsOfUser(userId: string): Observable<User[]> {
-      return Observable.fromEvent(this.usersPath.child(userId).child("friends"), FirebaseEvent.value.toString(), (snapshot) => {
+      if(isNullOrUndefined(userId)) throw new Error("userId must be defined");
+
+      return Observable.fromEvent(this.usersPath.child(userId).child("friends"), FirebaseEvent.value, (snapshot) => {
         const friends: User[] = [];
         const  friendIds = snapshot.val();
         if(friendIds) {
           friendIds.map((value, friendId) => {
-            this.usersPath.child(friendId).once("value").then((friendSnapshot) => {
+            this.usersPath.child(friendId).once(FirebaseEvent.value).then((friendSnapshot) => {
               const friendUser = friendSnapshot.val() as User;
               if(friendUser != null) {
                 friends.push(friendUser);
@@ -116,13 +128,20 @@ export class UserDatabaseService extends DatabaseService{
       });
     }
 
+  /**
+   * Get favorites beers from an user
+   * @param {string} userId
+   * @returns {Observable<Beer[]>}
+   */
   getFavoriteBeersOfUser(userId: string): Observable<Beer[]> {
-    return Observable.fromEvent(this.usersPath.child(userId).child("favoriteBeers"), FirebaseEvent.value.toString(), (snapshot) => {
+    if(isNullOrUndefined(userId)) throw new Error("userId must be defined");
+
+    return Observable.fromEvent(this.usersPath.child(userId).child("favoriteBeers"), FirebaseEvent.value, (snapshot) => {
       const beers: Beer[] = [];
       const  beerIds = snapshot.val();
       if(beerIds) {
         beerIds.map((value, beerId) => {
-          this.beersPath.child(beerId).once("value").then((beerSnapshot) => {
+          this.beersPath.child(beerId).once(FirebaseEvent.value).then((beerSnapshot) => {
             const favoriteBeer = beerSnapshot.val() as Beer;
             if(favoriteBeer != null) {
               beers.push(favoriteBeer);
@@ -133,8 +152,16 @@ export class UserDatabaseService extends DatabaseService{
       return beers;
     });
   }
+
+  /**
+   * Get beer ratings from an user
+   * @param {string} userId
+   * @returns {Observable<UserBeerRating[]>}
+   */
   getBeerRatingsByUserId(userId: string): Observable<UserBeerRating[]> {
-    return Observable.fromEvent(this.userBeerRatingsPath, FirebaseEvent.value.toString(), (snapshot) => {
+    if(isNullOrUndefined(userId)) throw new Error("userId must be defined");
+
+    return Observable.fromEvent(this.userBeerRatingsPath, FirebaseEvent.value, (snapshot) => {
       const ratings: UserBeerRating[] = [];
       const dbData = snapshot.val() || [];
       Object.keys(dbData).map(value => ratings.push(dbData[value] as UserBeerRating));

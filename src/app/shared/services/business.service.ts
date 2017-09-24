@@ -219,7 +219,7 @@ export class BusinessService {
    * @param breweryId
    */
   removeBreweryFromBeer(beerId: string) {
-    this.beerService.removeBrewerFromBeer(beerId);
+    this.beerService.removeBreweryFromBeer(beerId);
   }
 
   /**
@@ -372,7 +372,7 @@ export class BusinessService {
         userModel.badges = [].concat(...userModel.badges, this.getBeerBadges(data));
       });
 
-      this.barService.getVisitedBarsGroupeByDateByUserId(userModel.id).subscribe((data: BarStatistics) => {
+      this.barService.getVisitedBarsGroupedByDateByUserId(userModel.id).subscribe((data: BarStatistics) => {
         userModel.badges = [].concat(...userModel.badges, this.getBarBadges(data));
       });
 
@@ -410,7 +410,7 @@ export class BusinessService {
         users.map((user: User) => {
           if (user.id != this.currentUser.id && isNullOrUndefined(user.location) == false) {
             let distance = this.geoService.getDistance(this.currentUser.location, user.location);
-            if (this.geoService.isInRange(distance) && user.id !== this.currentUser.id) {
+            if (this.geoService.isInAroundYouRange(distance) && user.id !== this.currentUser.id) {
               let aroundYou: AroundYou = {
                 name: `${user.firstname} ${user.lastname}`,
                 id: user.id,
@@ -432,7 +432,7 @@ export class BusinessService {
         bars.map((bar: Bar) => {
           if (isNullOrUndefined(bar.location) == false) {
             let distance = this.geoService.getDistance(this.currentUser.location, bar.location);
-            if (this.geoService.isInRange(distance)) {
+            if (this.geoService.isInAroundYouRange(distance)) {
               let aroundYou: AroundYou = {
                 name: bar.name,
                 id: bar.id,
@@ -455,7 +455,7 @@ export class BusinessService {
         breweries.map((brewery: Brewery) => {
           if (isNullOrUndefined(brewery.location) == false) {
             let distance = this.geoService.getDistance(this.currentUser.location, brewery.location);
-            if (this.geoService.isInRange(distance)) {
+            if (this.geoService.isInAroundYouRange(distance)) {
               let aroundYou: AroundYou = {
                 name: brewery.name,
                 id: brewery.id,

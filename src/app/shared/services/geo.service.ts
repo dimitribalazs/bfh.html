@@ -11,15 +11,22 @@ export class GeoService {
 
   public positionSubject: Subject<GeoData> = new BehaviorSubject<GeoData>(new GeoData())
 
-  private _deg2rad(point): number {
-    return Math.tan(point * (Math.PI/180))
-  }
-
-   public isInRange(range: number): boolean {
+  /**
+   * Check if distance is in around you range
+   * @param {number} range
+   * @returns {boolean}
+   */
+   public isInAroundYouRange(range: number): boolean {
      if(isNullOrUndefined(range)) return false;
       return range <= this._radius;
    }
 
+  /**
+   * Calculate between to distances
+   * @param {GeoData} currentPosition
+   * @param {GeoData} positionToCheck
+   * @returns {number}
+   */
    public getDistance(currentPosition: GeoData, positionToCheck: GeoData): number {
      let destinationLat = this._deg2rad(positionToCheck.latitude - currentPosition.latitude);
      let destinationLon = this._deg2rad(positionToCheck.longitude - currentPosition.longitude);
@@ -31,7 +38,10 @@ export class GeoService {
      return d;
    }
 
-   public setCurrentPosition() {
+  /**
+   * Update current position
+   */
+  public setCurrentPosition() {
      if (navigator.geolocation) {
        navigator.geolocation.getCurrentPosition((pos) => {
          let geoData: GeoData = {
@@ -43,13 +53,22 @@ export class GeoService {
      }
      else {
        console.log('GeoLocation is disabled');
-       throw Error("GeoLocation is disabled")
+       throw new Error("GeoLocation is disabled")
      }
    }
 
-   public getCurrentPosition(): Subject<GeoData> {
+  /**
+   * Get current position from user
+   * @returns {Subject<GeoData>}
+   */
+  public getCurrentPosition(): Subject<GeoData> {
       return this.positionSubject;
    }
+
+
+  private _deg2rad(point): number {
+    return Math.tan(point * (Math.PI/180))
+  }
 }
 
 /*

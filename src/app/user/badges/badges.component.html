@@ -1,27 +1,11 @@
-
-<div class="container">
-  <div class="row">
-    <div class="col-xs-12">
-      <label>Total Beers drank</label>
-      <p>{{userService.viewModel.totalConsumption}}</p>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-xs-12">
-      <label> drank / Beer</label>
-      <ul *ngFor="let consumption of userService.viewModel.totalConsumptionPerBeer">
-        <li>{{consumption.name}}: {{consumption.total}}</li>
-      </ul>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-xs-12">
-      <label>Earned Badges</label>
-      <ul *ngFor="let badge of userService.viewModel.badges" class="imageShow">
-        <li>
-          <img src="{{badge.getImage('../../assets/badges/')}}" height="244px" width="200px" title="{{badge.title}}"/>
-        </li>
-      </ul>
-    </div>
-  </div>
-</div>
+<h4>Total Beers enjoyed<span class="badge pull-right">{{userService.viewModel.totalConsumption}}</span> </h4>
+<h4>Enjoyed brews</h4>
+<ul class="list-group stats-list">
+  <li *ngFor="let consumption of userService.viewModel.totalConsumptionPerBeer"  class="list-group-item">
+    {{consumption.name}} <span class="badge">{{consumption.total}}</span>
+  </li>
+</ul>
+<h4>Earned Badges</h4>
+<span *ngFor="let badge of userService.viewModel.badges">
+  <img src="{{badge.getImage('../../assets/badges/')}}" class="badge-image" title="{{badge.title}}"/>
+</span>

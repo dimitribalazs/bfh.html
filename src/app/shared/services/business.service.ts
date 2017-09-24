@@ -37,6 +37,7 @@ export class BusinessService {
 
   currentUser: UserModel = new UserModel();
   debugMode: boolean;
+  appError: any;
 
   subscription: Subscription = new Subscription()
 
@@ -78,9 +79,6 @@ export class BusinessService {
         this.updateUser(this.currentUser)
       }
     });
-
-    throw Error("yolo swag");
-
   }
 
   /**
@@ -519,6 +517,11 @@ export class BusinessService {
       this.mostBeerSubject.next(beerList);
       this.popularBeerSubject.next(beerList);
     })
+  }
+
+
+  public setError(error: any) {
+    this.appError = error;
   }
 
 

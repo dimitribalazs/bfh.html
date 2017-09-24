@@ -17,7 +17,7 @@ export class AppComponent {
   constructor(private menuService: MenuService,
     private route: ActivatedRoute,
     private router: Router,
-    private businessService: BusinessService,
+    businessService: BusinessService,
     private sw: NgServiceWorker) {
       this.menu = menuService;
 

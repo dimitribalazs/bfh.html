@@ -1,15 +1,20 @@
-import {ErrorHandler, Injectable} from "@angular/core";
+import {ErrorHandler, Injectable, Injector} from "@angular/core";
+import {BusinessService} from "../../services/business.service";
 import {Router} from "@angular/router";
 
 @Injectable()
 export class DuffdErrorHandler extends ErrorHandler {
-  constructor(private router: Router) {
+  router: Router;
+  constructor(private injector: Injector,
+              private businessService: BusinessService)
+  {
     super();
   }
 
   handleError(error) {
     super.handleError(error);
     alert(`Error occurred:${error.message}`);
-    //this.router.navigate(['error'])
+    this.businessService.setError(error);
+    this.injector.get(Router).navigate(['/error']);
   }
 }

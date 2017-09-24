@@ -20,7 +20,7 @@ export class BeerInfoComponent implements OnInit {
 
   private showMap = false;
 
-  constructor(private beerService: BeerService,
+  constructor(public beerService: BeerService,
               private menuService: MenuService,
               private router: Router,
               private route: ActivatedRoute) {

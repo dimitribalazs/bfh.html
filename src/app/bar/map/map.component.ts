@@ -45,7 +45,7 @@ export class MapComponent implements OnInit, AfterContentInit {
     const directionsDisplay = new google.maps.DirectionsRenderer;
 
     const currentLocation =  {lat: position.coords.latitude, lng: position.coords.longitude };
-    console.log('Your current location ' + currentLocation.lat, currentLocation.lng);
+    // console.log('Your current location ' + currentLocation.lat, currentLocation.lng);
 
     this.map = new google.maps.Map(document.getElementById('map'), {
       zoom: 15,
@@ -70,11 +70,11 @@ export class MapComponent implements OnInit, AfterContentInit {
         if (status === 'OK') {
           directionsDisplay.setDirections(response);
         } else {
-          console.log('Directions request failed due to ' + status);
+          // console.log('Directions request failed due to ' + status);
         }
       });
     }else {
-      console.log('Geolocation of bar is unknown');
+      // console.log('Geolocation of bar is unknown');
     }
   }
 

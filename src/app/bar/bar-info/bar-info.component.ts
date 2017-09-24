@@ -12,7 +12,7 @@ export class BarInfoComponent implements OnInit {
   private showMap = false;
   id: string;
 
-  constructor(private barService: BarService,
+  constructor(public barService: BarService,
               private router: Router,
               private route: ActivatedRoute) {
   }

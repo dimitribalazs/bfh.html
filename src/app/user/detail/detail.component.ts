@@ -8,7 +8,7 @@ import {UserService} from '../userService';
 })
 export class DetailComponent implements OnInit {
 
-  constructor(private userService: UserService) {}
+  constructor(public userService: UserService) {}
 
   ngOnInit() {}
 }

@@ -18,9 +18,9 @@ import {isUndefined} from "util";
 export class BeerComponent implements OnInit {
 
   id: string;
-  edit: boolean;
-  new: boolean;
-  imageUploadShow: boolean = false;
+  public edit: boolean;
+  public isNew: boolean;
+  public imageUploadShow: boolean = false;
   activeNavigation: number;
 
   constructor(private beerService: BeerService,
@@ -46,16 +46,16 @@ export class BeerComponent implements OnInit {
 
     if (type === 'edit') {
       this.edit = true;
-      this.new = false;
+      this.isNew = false;
     } else if (type === 'new') {
       this.edit = true;
-      this.new = true;
+      this.isNew = true;
     } else {
       this.edit = false;
-      this.new = false;
+      this.isNew = false;
     }
 
-    if (this.new) {
+    if (this.isNew) {
       const name: string = this.route.snapshot.data['name'];
       this.route.params.subscribe(params => {
         this.beerService.createNewBeer(params['name'])

@@ -12,6 +12,7 @@ body {
 h4 {
   text-shadow: gray 2px 2px 4px;
   margin-left: 0.5em;
+  margin-right: 15px;
 }
 
 .hr-gradient-thick {
@@ -118,4 +119,19 @@ h4 {
 
 .btn-bottom {
   width: 100%;
+}
+
+.icon-small {
+  width: 16px;
+  height: 16px;
+}
+
+.icon-medium {
+  width: 24px;
+  height: 24px;
+}
+
+.icon-large {
+  width: 32px;
+  height: 32px;
 }

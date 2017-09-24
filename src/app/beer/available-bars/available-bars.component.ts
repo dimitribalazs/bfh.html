@@ -15,7 +15,7 @@ export class AvailableBeersComponent implements OnInit {
 
   filter: number
 
-  constructor(private beerService: BeerService,
+  constructor(public beerService: BeerService,
               private menuService: MenuService,
               private router: Router) {
 

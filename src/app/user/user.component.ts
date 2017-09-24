@@ -2,10 +2,11 @@ import { Component, OnInit, OnChanges } from '@angular/core';
 import {UserService} from './userService';
 import {User} from '../shared/dto/user';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
-import {MenuService} from '../shared/services/menu.service';
+import {MenuService, MenuState} from '../shared/services/menu.service';
 import {Observable} from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import {FriendsComponent} from "./friends/friends.component";
+import {BusinessService} from '../shared/services/business.service';
 
 @Component({
   selector: 'app-user',
@@ -18,10 +19,11 @@ export class UserComponent implements OnInit {
   activeNavigation: number;
   user: Observable<User>;
 
-  constructor(private userService: UserService,
+  constructor(public userService: UserService,
               private route: ActivatedRoute,
               private router: Router,
-              private menuService: MenuService) {
+              private menuService: MenuService,
+              private businessService: BusinessService) {
     // this.menuService.setDefault();
     // this.menuService.TitleText = 'User info';
     // this.menuService.visibleHomeLink = true;
@@ -33,16 +35,17 @@ export class UserComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.menuService.setNewState({
-      titleText: 'User info',
-      visibleHomeLink: true
-    });
 
     this.route.params.subscribe(params => {
       this.id = params['id'];
       this.userService.loadUser(params['id']);
     });
 
+    this.menuService.setNewState({
+      titleText: 'User info',
+      visibleHomeLink: true,
+      visibleEdit: this.businessService.currentUser.id === this.id
+    });
     const child: String = this.route.snapshot.firstChild.firstChild.url.toString();
 
     if (child === 'favourites') {

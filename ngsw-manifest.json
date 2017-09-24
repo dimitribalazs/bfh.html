@@ -47,15 +47,15 @@
         {
           "name": "firebase",
           "urls": {
-            "https://duffd-83c72.firebaseio.com/": { // Our deployed app url
+            "https://duffd-83c72.firebaseio.com/": {
               "match": "prefix"
             }
           },
           "cache": {
-            "optimizeFor": "performance", // grabs data from cache only if data is stale
-            "maxAgeMs": 3600000, // cache for about an hour
-            "maxEntries": 20, // minimize cache size
-            "strategy": "lru" // tells service worker how to remove cached date (least recently used first)
+            "optimizeFor": "performance",
+            "maxAgeMs": 3600000,
+            "maxEntries": 20,
+            "strategy": "lru"
           }
         }
       ]

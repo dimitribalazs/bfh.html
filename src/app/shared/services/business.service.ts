@@ -37,6 +37,7 @@ export class BusinessService {
 
   currentUser: UserModel = new UserModel();
   debugMode: boolean;
+  appError: any;
 
   subscription: Subscription = new Subscription()
 
@@ -77,8 +78,7 @@ export class BusinessService {
         this.currentUser.location.longitude = pos.longitude;
         this.updateUser(this.currentUser)
       }
-    })
-
+    });
   }
 
   /**
@@ -517,6 +517,11 @@ export class BusinessService {
       this.mostBeerSubject.next(beerList);
       this.popularBeerSubject.next(beerList);
     })
+  }
+
+
+  public setError(error: any) {
+    this.appError = error;
   }
 
 

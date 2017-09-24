@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {ErrorHandler, Injectable, NgModule} from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
@@ -11,6 +11,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {BarsModule} from './bar/bars.module';
 import {HomeModule} from './home/home.module';
 import {BeerModule} from './beer/beer.module';
+import {ErrorComponent} from './shared/components/error/error.component';
 import {BeerDatabaseService} from './shared/services/beer.service';
 import {UserDatabaseService} from './shared/services/user.service';
 import {SearchResultModule} from './shared/components/search-result/searchResult.module';
@@ -23,7 +24,7 @@ import { ImageUploadModule } from '../../node_modules/angular2-image-upload/lib/
 import {BarInfoComponent} from './bar/bar-info/bar-info.component';
 import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome';
 import {SearchModule} from './search/search.module';
-import { MenuBarComponent } from './shared/components/menu-bar/menu-bar.component'
+import {MenuBarComponent } from './shared/components/menu-bar/menu-bar.component'
 import {BusinessService} from './shared/services/business.service';
 import {AvailableModule} from './shared/components/available/available.module';
 import {RatingModule} from './shared/components/rating/rating.module';
@@ -32,12 +33,13 @@ import {AuthenticationService} from "./shared/services/authentication.service";
 import {AuthGuard} from "./shared/_guards/AuthGuard";
 import {LoginModule} from "./login/login.module";
 import { ServiceWorkerModule } from '@angular/service-worker';
-
+import {DuffdErrorHandler} from './shared/components/error/duffdErrorHandler'
 
 @NgModule({
   declarations: [
     AppComponent,
-    MenuBarComponent
+    MenuBarComponent,
+    ErrorComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,9 +58,15 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     Angular2FontawesomeModule,
     ImageUploadModule.forRoot(),
     NgbModule.forRoot(),
-    ServiceWorkerModule
+    ServiceWorkerModule,
   ],
-  providers: [BeerDatabaseService, BarDatabaseService, UserDatabaseService, BreweryDatabaseService, MenuService, AuthenticationService, AuthGuard, BusinessService],
+  providers: [
+    BeerDatabaseService, BarDatabaseService, UserDatabaseService, BreweryDatabaseService, MenuService, AuthenticationService, AuthGuard, BusinessService,
+    {
+      provide: ErrorHandler,
+      useClass: DuffdErrorHandler
+    }
+  ],
   bootstrap: [AppComponent],
 
 

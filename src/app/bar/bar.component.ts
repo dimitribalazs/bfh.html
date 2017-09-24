@@ -17,7 +17,7 @@ export class BarComponent implements OnInit {
   activeNavigation: number;
 
 
-  constructor(private barService: BarService,
+  constructor(public barService: BarService,
               private route: ActivatedRoute,
               private router: Router,
               private menuService: MenuService) {

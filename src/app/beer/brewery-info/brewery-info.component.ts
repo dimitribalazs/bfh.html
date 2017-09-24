@@ -10,10 +10,11 @@ import {MenuService} from '../../shared/services/menu.service';
 export class BreweryInfoComponent implements OnInit {
 
 
-  constructor(private beerService: BeerService, private menuService: MenuService) {
+  constructor(public beerService: BeerService, private menuService: MenuService) {
     this.menuService.setNewState(this.beerService.getMenuState());
   }
 
   ngOnInit() {
   }
 }
+

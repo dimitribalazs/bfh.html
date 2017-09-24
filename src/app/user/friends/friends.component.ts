@@ -11,7 +11,7 @@ import {Router, ActivatedRoute} from '@angular/router';
 })
 export class FriendsComponent implements OnInit {
 
-  constructor(private userService: UserService,
+  constructor(public userService: UserService,
               private router: Router,
               private route: ActivatedRoute) {
   }

@@ -9,7 +9,7 @@ import {UserService} from '../userService';
 })
 export class BadgesComponent implements OnInit {
 
-  constructor(private userService: UserService) {}
+  constructor(public userService: UserService) {}
 
   ngOnInit() {}
 }

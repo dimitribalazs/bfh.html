@@ -31,7 +31,7 @@ export class HomeComponent implements OnInit {
 
   constructor(private router: Router,
               private menuService: MenuService,
-              private businessService: BusinessService
+              public businessService: BusinessService
   ) {
 
   }

@@ -13,7 +13,7 @@ export class FavouritesComponent implements OnInit {
 
   private selectedId: string;
 
-  constructor(private userService: UserService,
+  constructor(public userService: UserService,
               private router: Router,
               private route: ActivatedRoute) { }
 

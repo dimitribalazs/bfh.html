@@ -14,7 +14,7 @@ export class BreweryComponent implements OnInit {
   activeNavigation: number;
 
 
-  constructor(private breweryService: BreweryService,
+  constructor(public breweryService: BreweryService,
               private route: ActivatedRoute,
               private router: Router,
               private menuService: MenuService) {

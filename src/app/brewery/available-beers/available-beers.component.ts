@@ -13,7 +13,10 @@ export class AvailableBeersComponent implements OnInit {
   filter: number
   dataIsBeerModel: boolean = true;
   disableAddBeer: boolean = true;
-  constructor(private breweryService: BreweryService, private router: Router, private menuService: MenuService) {
+
+  constructor(public breweryService: BreweryService,
+              private router: Router,
+              private menuService: MenuService) {
     this.dataIsBeerModel = true;
     this.filter = 3
   }

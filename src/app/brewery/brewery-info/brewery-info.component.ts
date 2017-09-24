@@ -9,7 +9,7 @@ import {BreweryService} from '../breweryService';
 export class BreweryInfoComponent implements OnInit {
 
 
-  constructor(private breweryService: BreweryService) {
+  constructor(public breweryService: BreweryService) {
   }
 
   ngOnInit() {

@@ -22,7 +22,7 @@ export class MenuBarComponent implements OnInit {
               private router: Router,
               private authentication: AuthenticationService,
               private businessService: BusinessService,
-              private authGuard: AuthGuard) {
+              public authGuard: AuthGuard) {
     this.menuState = this.menuService.state;
   }
 

@@ -80,10 +80,12 @@ export class BeerDatabaseService extends DatabaseService {
       .then((snapshot: firebase.database.DataSnapshot) => {
         let dbBeer = snapshot.val() as Beer;
         super.copyData(entity, dbBeer);
-        resultFromApi.set(dbBeer).catch((error) => console.log("Error while updating beer", error));
+        resultFromApi.set(dbBeer).catch((error) => {
+          // console.log("Error while updating beer", error)
+        });
       })
       .catch((error) => {
-         console.log("Error while getting beer", error);
+         // console.log("Error while getting beer", error);
       });
   }
 

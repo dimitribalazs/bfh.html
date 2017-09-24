@@ -59,7 +59,7 @@ export class SearchComponent implements OnInit {
   }
 
   onAddBeer(data: MultiNavigationModel) {
-    console.log(data)
+    // console.log(data)
     this.router.navigate(['beer/new', {name : data}]);
   }
 }

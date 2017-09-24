@@ -66,7 +66,9 @@ export class UserDatabaseService extends DatabaseService{
         .then((snapshot: firebase.database.DataSnapshot) => {
             let dbUser = snapshot.val() as User;
             super.copyData(entity, dbUser);
-            apiPath.set(dbUser).catch((error) => console.log("Error while updating user", error));
+            apiPath.set(dbUser).catch((error) => {
+              // console.log("Error while updating user", error)
+            });
         })
         .catch((error) => {
             // console.log("Error while getting user", error);

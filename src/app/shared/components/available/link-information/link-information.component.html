@@ -1,33 +1,33 @@
-<div class="container">
-  <div class="row">
-    <div class="col-xs-12">
-
-      <form (ngSubmit)="onSubmit()" #linkForm="ngForm">
-        <div class="form-group">
-          <div>
-            <label for="price">Price</label>
-          </div>
-          <input type="number" class="form-control" id="price" required placeholder="price is required"
-                 [(ngModel)]="model.price" name="name" #price="ngModel">
-          <div [hidden]="price.valid" class="alert alert-danger">
-            <small class="text-danger">
-              Price is required .
-            </small>
-          </div>
-        </div>
-
-
-        <div class="form-group">
-          <div>
-            <label for="serving">Serving bottled</label>
-          </div>
-          <input type="checkbox" class="form-control" id="serving"
-                 [(ngModel)]="model.tapOrBottled" name="serving" #serving="ngModel">
-        </div>
-
-        <button type="submit" class="btn btn-default btn-sm" [disabled]="!linkForm.form.valid">Add</button>
-
-      </form>
+<form (ngSubmit)="onSubmit()" #linkForm="ngForm" style="margin: 15px">
+  <div class="form-group">
+    <div>
+      <label for="price">Price</label>
+    </div>
+    <input type="number" class="form-control" id="price" required placeholder="price is required"
+           [(ngModel)]="model.price" name="name" #price="ngModel">
+    <div [hidden]="price.valid" class="alert alert-danger">
+      <small class="text-danger">
+        Price is required .
+      </small>
     </div>
   </div>
-</div>
+  <div>
+    <label>Serving style</label>
+  </div>
+  <div class="input-group">
+    <label>
+      <input type="radio" aria-label="bottled" name="servingstyle" [(ngModel)]="model.tapOrBottled" #serving="ngModel" value="true">
+      <img src="assets/icons/png/beer-bottle.png" class="icon-large">
+    </label>
+    <label>
+      <input type="radio" aria-label="draft" name="servingstyle">
+      <img src="assets/icons/png/beer-glass.png" class="icon-large">
+    </label>
+    <label>
+      <input type="radio" aria-label="canned" name="servingstyle">
+      <img src="assets/icons/png/beer-can.png" class="icon-large">
+    </label>
+  </div>
+  <button type="submit" class="btn btn-default btn-sm pull-right" [disabled]="!linkForm.form.valid"><i class="fa fa-check fa-2x" aria-hidden="true"></i></button>
+</form>
+

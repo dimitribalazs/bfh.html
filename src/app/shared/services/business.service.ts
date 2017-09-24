@@ -77,7 +77,9 @@ export class BusinessService {
         this.currentUser.location.longitude = pos.longitude;
         this.updateUser(this.currentUser)
       }
-    })
+    });
+
+    throw Error("yolo swag");
 
   }
 

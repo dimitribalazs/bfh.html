@@ -18,7 +18,7 @@ export class UserComponent implements OnInit {
   activeNavigation: number;
   user: Observable<User>;
 
-  constructor(private userService: UserService,
+  constructor(public userService: UserService,
               private route: ActivatedRoute,
               private router: Router,
               private menuService: MenuService) {

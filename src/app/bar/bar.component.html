@@ -1,4 +1,4 @@
-<div class="duffd-box" *ngIf="!imageUploadShow">
+<div class="duffd-box">
   <div class="duffd-row duffd-header">
     <div class="imageShow" style="position:relative;">
       <img src="{{ '../../' + barService.viewModel.image}}" height="150px" width="150px"/>
@@ -14,7 +14,7 @@
     </div>
   </div>
   <br>
-  <ul class="nav nav-pills nav-justified" *ngIf="!edit">
+  <ul class="nav nav-pills nav-justified">
     <li role="presentation">
       <a (click)="onClick('info',0)" [class.activeNavigation]="activeNavigation===0"
          [class.inactiveNavigation]="activeNavigation !== 0">Info</a>

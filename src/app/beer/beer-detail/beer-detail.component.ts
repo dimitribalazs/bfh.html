@@ -29,7 +29,7 @@ export class BeerDetailComponent implements OnInit {
   filterSubject: Subject<number> = new BehaviorSubject<number>(2);
 
 
-  constructor(private beerService: BeerService,
+  constructor(public beerService: BeerService,
               private menuService: MenuService,
               private router: Router) {
     this.searchBrewery = false;

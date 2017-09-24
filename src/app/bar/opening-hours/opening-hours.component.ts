@@ -11,7 +11,7 @@ export class OpeningHoursComponent implements OnInit {
 
   // model: Bar = new Bar();
 
-  constructor(private barService: BarService) {
+  constructor(public barService: BarService) {
     // this.model.openingHours = new OpeningHours();
   }
 

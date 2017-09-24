@@ -27,7 +27,9 @@
 
       <span *ngIf="filter ==3 && !dataIsBeerModel" style="overflow: hidden;">
           <span (click)="onBeerShow(item.beerId)">
-            {{item.beerName}}, {{item.price}} CHF
+           {{item.tapOrBottled}} {{item.beerName}}, {{item.price}} CHF
+            <span *ngIf="item.tapOrBottled === false">&nbsp;&nbsp;<img src="assets/icons/png/beer-bottle.png" class="icon-medium"></span>
+            <span *ngIf="item.tapOrBottled === true">&nbsp;&nbsp;<img src="assets/icons/png/beer-glass.png" class="icon-medium"></span>
           <a (click)="onRemoveItem(item.beerId)" class="btn btn-default btn-sm pull-right">
             <i class="fa fa-times fa-2x" aria-hidden="true"></i>
           </a>

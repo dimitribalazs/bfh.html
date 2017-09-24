@@ -1,0 +1,27 @@
+
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <label>Total Beers drank</label>
+      <p>{{userService.viewModel.totalConsumption}}</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <label> drank / Beer</label>
+      <ul *ngFor="let consumption of userService.viewModel.totalConsumptionPerBeer">
+        <li>{{consumption.name}}: {{consumption.total}}</li>
+      </ul>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <label>Earned Badges</label>
+      <ul *ngFor="let badge of userService.viewModel.badges" class="imageShow">
+        <li>
+          <img src="{{badge.getImage('../../assets/badges/')}}" height="244px" width="200px" title="{{badge.title}}"/>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+    <div class="imageShow" style="position:relative;">
+      <img src="{{ '../../' + breweryService.viewModel.image}}" height="150px" width="300px"/>
+    </div>
+  <br>
+  <ul class="nav nav-pills nav-justified">
+    <li role="presentation">
+    <a (click)="onClick('info',0)" [class.activeNavigation]="activeNavigation===0" [class.inactiveNavigation]="activeNavigation !== 0">Info</a>
+    </li>
+    <li role="presentation">
+    <a (click)="onClick('beers',1)" [class.activeNavigation]="activeNavigation===1" [class.inactiveNavigation]="activeNavigation !== 1">Beers</a>
+    </li>
+  </ul>
+    <router-outlet></router-outlet>
+
+

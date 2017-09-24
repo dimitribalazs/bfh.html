@@ -1,0 +1,11 @@
+<hr class="hr-gradient-thick">
+<h4>{{title}}</h4>
+<div class="horizontal-scroller-outer">
+  <div class="horizontal-scroller-inner">
+    <span *ngFor="let beer of beers | async">
+      <a>
+        <img src="{{ '../../' +beer.image }}" (click)="onOpen(beer)" height="80px" width="80px" />
+      </a>
+    </span>
+  </div>
+</div>

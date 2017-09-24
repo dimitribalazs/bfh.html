@@ -1,0 +1,50 @@
+.toggleMenuStyle {
+  display: block;
+}
+
+.menubutton-left {
+  margin-left: 0.5em;
+  margin-top: 8px;
+  margin-right: 15px;
+  margin-bottom: 8px;
+}
+
+.menubutton-right {
+  margin-right: 0.5em;
+  margin-top: 8px;
+  margin-left: 15px;
+  margin-bottom: 8px;
+}
+
+.menuitem-first {
+  margin-top: 50px;
+}
+
+@media (min-width:0px) and (max-width:767px) {
+  .navbar {
+    display: table;
+    width: 100%;
+  }
+  .navbar-brand,
+  .navbar-search,
+  .navbar-toggle { display: table-cell }
+  .navbar-search {
+    padding: 8px 10px 1px 10px;
+    width: 1%;
+  }
+}
+@media (max-width:350px) {
+  .navbar-search {
+    padding: 7.5px 7.5px;
+    float: left;
+    clear: both;
+    width: 100%;
+  }
+}
+@media (min-width:768px) {
+  .navbar-search {
+    float: left;
+    margin: 7.5px 0;
+    width: 20em;
+  }
+}

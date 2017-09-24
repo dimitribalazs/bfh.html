@@ -1,0 +1,11 @@
+<span class="section-h4">
+  Served chilled here:
+</span>
+<app-available-data
+  [filter]="filter"
+  [items]="beerService.viewModel.bars"
+  [searchIgnorList]="beerService.availableBarModel"
+  (onAdd)="addBeer($event)"
+  (onRemove)="removeBeer($event)">
+</app-available-data>
+

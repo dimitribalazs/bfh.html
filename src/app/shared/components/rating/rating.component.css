@@ -1,0 +1,8 @@
+.btn-group {
+  margin: 1em;
+}
+
+.activeRating {
+  background: #eeeeee;
+  color: #337ab7;
+}

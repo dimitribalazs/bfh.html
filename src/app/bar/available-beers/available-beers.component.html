@@ -1,0 +1,12 @@
+<span class="section-h4">
+  We serve:
+</span>
+<app-available-data
+  [filter]="filter"
+  [items]="service.viewModel.beers"
+  [searchIgnorList]="service.availableBeerModel"
+  (onAdd)="addBeer($event)"
+  (onRemove)="removeBeer($event)"
+  (onCheers)="addCheers($event)">
+</app-available-data>
+

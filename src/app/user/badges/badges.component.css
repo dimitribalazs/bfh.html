@@ -1,0 +1,8 @@
+.imageShow {
+  list-style: none;
+  margin: 0
+}
+
+.imageShow > li {
+  float: left;
+}

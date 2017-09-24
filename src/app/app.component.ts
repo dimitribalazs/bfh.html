@@ -1,23 +1,42 @@
-import { Component } from '@angular/core';
-import { DatabaseService } from './database.service'
+import { Component, OnInit } from '@angular/core';
+import { MenuService } from './shared/services/menu.service';
+import { ActivatedRoute, ParamMap, Router, RouterState  } from '@angular/router';
+import {BusinessService} from './shared/services/business.service';
+import { NgServiceWorker } from '@angular/service-worker';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [DatabaseService]
+  providers: [MenuService]
 })
-
 export class AppComponent {
-  title = 'app';
 
-  constructor(private databaseService: DatabaseService) { 
-    //this.databaseService.listen();
+  menu: MenuService;
 
-  }
+  constructor(private menuService: MenuService,
+    private route: ActivatedRoute,
+    private router: Router,
+    businessService: BusinessService,
+    private sw: NgServiceWorker) {
+      this.menu = menuService;
 
-  test(woot): void {
-    console.log(woot);
-    this.databaseService.saveTest();
+    // ServiceWorker log
+    sw.log().subscribe(log => console.debug('log', log));
+
+    sw.updates.subscribe(u => {
+      console.debug('update event', u);
+
+      // Immediately activate pending update
+      if (u.type == 'pending') {
+        sw.activateUpdate(u.version).subscribe(e => {
+          console.debug('updated', e);
+          // alert("App updated! Reload App!");
+          location.reload();
+        });
+      }
+    });
+
+    sw.checkForUpdate();
   }
 }

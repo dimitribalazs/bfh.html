@@ -1,0 +1,57 @@
+<div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <form #beerForm="ngForm">
+          <div class="form-group">
+            <div>
+              <label>Name</label>
+            </div>
+            <p>{{barService.viewModel.name}}</p>
+          </div>
+
+          <div class="form-group">
+            <div>
+              <label>Address</label>
+            </div>
+            <p>
+              {{barService.viewModel.address}}
+            <a class="btn btn-default pull-right" (click)="onClick('map',4)"><i class="fa fa-map" aria-hidden="true"></i></a>
+            </p>
+          </div>
+
+          <div class="form-group">
+            <div>
+              <label>City</label>
+            </div>
+            <p>{{barService.viewModel.city}}</p>
+          </div>
+
+          <div class="form-group">
+            <div>
+              <label>Description</label>
+            </div>
+            <p>{{barService.viewModel.description}}</p>
+          </div>
+
+          <div class="form-group">
+            <label>Services:</label><br>
+            <span *ngIf="barService.viewModel.snacks">
+              <i class="vs vs-drumstick fa-2x" aria-hidden="true"></i>
+            </span>
+            <span *ngIf="barService.viewModel.isSmokingAllowed === true">
+              <i class="vs vs-smoking-alt fa-2x" aria-hidden="true"></i>
+            </span>
+            <span *ngIf="barService.viewModel.isSmokingAllowed === false">
+              <i class="vs vs-no-smoking-alt fa-2x" aria-hidden="true"></i>
+            </span>
+          </div>
+
+          <div class="form-group">
+            <label>Size: </label>
+            <p>{{barService.viewModel.size}}</p>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>

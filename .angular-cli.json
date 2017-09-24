@@ -10,7 +10,8 @@
       "assets": [
         "assets",
         "favicon.ico",
-        "serviceworker.js"
+        "service-worker.js",
+        "manifest.json"
       ],
       "index": "index.html",
       "main": "main.ts",
@@ -19,8 +20,11 @@
       "tsconfig": "tsconfig.app.json",
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
+      "serviceWorker": true,
       "styles": [
-        "styles.css"
+        "styles.css",
+        "../node_modules/font-awesome/css/font-awesome.css",
+        "../node_modules/vesper-icons/css/vesper-icons.css"
       ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",
@@ -53,6 +57,7 @@
   },
   "defaults": {
     "styleExt": "css",
-    "component": {}
+    "component": {
+    }
   }
 }

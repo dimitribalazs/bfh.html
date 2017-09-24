@@ -9,6 +9,7 @@
 /node_modules
 
 # IDEs and editors
+.vscode
 /.idea
 .project
 .classpath
@@ -28,7 +29,7 @@
 /.sass-cache
 /connect.lock
 /coverage
-/libpeerconnection.log
+*.log
 npm-debug.log
 testem.log
 /typings
@@ -40,3 +41,4 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+/pushTestServer

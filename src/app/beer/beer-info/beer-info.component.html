@@ -1,0 +1,47 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <form #beerForm="ngForm">
+        <div class="form-group">
+          <div>
+            <label>Name</label>
+          </div>
+          <p>{{beerService.viewModel.name}}</p>
+          <a class="btn btn-default pull-right" (click)="onClick('map',3)"><i class="fa fa-map" aria-hidden="true"></i></a>
+        </div>
+
+        <div class="form-group">
+          <div>
+            <label>Alcohol in %</label>
+          </div>
+          <p>{{beerService.viewModel.volume}}</p>
+        </div>
+
+        <div class="form-group">
+          <div>
+            <label>Taste</label>
+          </div>
+          <p *ngFor="let data of beerService.viewModel.taste">
+            {{data.itemName}}
+          </p>
+        </div>
+
+        <div class="form-group">
+          <div>
+            <label>Brew type</label>
+          </div>
+          <p *ngFor="let data of beerService.viewModel.brewType">
+            {{data.itemName}}
+          </p>
+        </div>
+
+        <div class="form-group">
+          <div>
+            <label >Description</label>
+          </div>
+          <p>{{beerService.viewModel.description}}</p>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,23 @@
+<div class="duffd-box">
+  <div class="duffd-row duffd-header">
+    <h4>Around you</h4>
+  </div>
+  <div class="duffd-row duffd-content">
+    <ul class="list-group">
+      <li *ngFor="let data of arroundYou | async"
+          [class.selected]="isSelected(data)"
+          (click)="onSelect(data)"
+          class="list-group-item">
+        <i class={{data.icon}} aria-hidden="true"></i>
+        <span class="badge">{{ data.distance }} {{data.unit}}</span>
+        {{ data.name }}
+      </li>
+    </ul>
+  </div>
+  <div class="duffd-row duffd-footer">
+    <app-beer-top10 [title]="'Your top 10 beers'" [beers]="businessService.userTopBeersSubject"></app-beer-top10>
+    <app-beer-top10 [title]="'Your friends most drunk beers'" [beers]="businessService.mostBeerSubject"></app-beer-top10>
+    <app-beer-top10 [title]="'Your friends top rated beers'" [beers]="businessService.popularBeerSubject"></app-beer-top10>
+  </div>
+</div>
+

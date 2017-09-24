@@ -1,0 +1,58 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="form-group">
+        <div>
+          <label>Name</label>
+        </div>
+        <p>{{breweryService.viewModel.name}}</p>
+      </div>
+
+      <div *ngIf="breweryService.viewModel.address" class="form-group">
+        <div>
+          <label>Address</label>
+        </div>
+        <p>{{breweryService.viewModel.address}}</p>
+      </div>
+
+      <div  *ngIf="breweryService.viewModel.city" class="form-group">
+        <div>
+          <label>City</label>
+        </div>
+        <p>{{breweryService.viewModel.city}}</p>
+      </div>
+
+      <div  *ngIf="breweryService.viewModel.country" class="form-group">
+        <div>
+          <label>Country</label>
+        </div>
+        <p>{{breweryService.viewModel.country}}</p>
+      </div>
+
+      <div  *ngIf="breweryService.viewModel.tel" class="form-group">
+        <div>
+          <label>Telephone number</label>
+        </div>
+        <p>{{breweryService.viewModel.tel}}</p>
+      </div>
+
+      <div  *ngIf="breweryService.viewModel.email" class="form-group">
+        <a href="mailto:{{breweryService.viewModel.email}}">{{breweryService.viewModel.email}}</a>
+      </div>
+
+      <div  *ngIf="breweryService.viewModel.homepage" class="form-group">
+        <a href={{breweryService.viewModel.homepage}}>{{breweryService.viewModel.homepage}}</a>
+      </div>
+
+      <div  *ngIf="breweryService.viewModel.description" class="form-group">
+        <div>
+          <label>Description</label>
+        </div>
+        <p>
+          {{breweryService.viewModel.description}}
+        </p>
+      </div>
+
+    </div>
+  </div>
+</div>

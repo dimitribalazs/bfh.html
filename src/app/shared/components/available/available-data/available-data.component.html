@@ -1,22 +1,17 @@
-<div class="container-fluid section-h4-container">
-  <span class="section-h4">
-    Served chilled here:
-  </span>
-  <span *ngIf="filter ==1 && !itemAddDisable">
-        <a class="btn btn-default btn-sm pull-right" (click)="onAddItem()">
-          <i class="fa fa-cutlery fa-2x" aria-hidden="true"></i>
-          Add bar
-        </a>
-      </span>
-  <span *ngIf="filter ==3 && !itemAddDisable">
-        <a class="btn btn-default btn-sm pull-right" (click)="onAddItem()">
-          <i class="fa fa-beer fa-2x" aria-hidden="true"></i>
-          Add beer
-        </a>
-      </span>
-</div>
+<span *ngIf="filter ==1 && !itemAddDisable">
+      <a class="btn btn-default btn-sm pull-right btn-addstuff" (click)="onAddItem()">
+        <i class="fa fa-cutlery fa-2x" aria-hidden="true"></i>
+        Add bar
+      </a>
+    </span>
+<span *ngIf="filter ==3 && !itemAddDisable">
+  <a class="btn btn-default btn-sm pull-right btn-addstuff" (click)="onAddItem()">
+    <i class="fa fa-beer fa-2x" aria-hidden="true"></i>
+    Add beer
+  </a>
+</span>
 
-<div *ngIf="!search && !linkInformation">
+<div *ngIf="!search && !linkInformation" style="margin-top: 1.2em">
   <ul class="list-group">
     <li *ngFor="let item of items | async" class="list-group-item">
       <hr class="hr-gradient-slim">

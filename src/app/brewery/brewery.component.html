@@ -1,9 +1,6 @@
-<div>
-  <div class="container">
     <div class="imageShow" style="position:relative;">
       <img src="{{ '../../' + breweryService.viewModel.image}}" height="150px" width="300px"/>
     </div>
-  </div>
   <br>
   <ul class="nav nav-pills nav-justified" *ngIf="!edit">
     <li role="presentation">
@@ -13,10 +10,6 @@
     <a (click)="onClick('beers',1)" [class.activeNavigation]="activeNavigation===1" [class.inactiveNavigation]="activeNavigation !== 1">Beers</a>
     </li>
   </ul>
-  <br>
-  <div>
     <router-outlet></router-outlet>
-  </div>
-</div>
 
 

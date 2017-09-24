@@ -1,5 +1,7 @@
-<div class="container">
+<span class="section-h4">
   Avaliable Beers
+</span>
+
   <app-available-data
     [filter]="filter"
     [items]="breweryService.viewModel.beers"
@@ -9,4 +11,3 @@
     (onRemove)="removeBeer($event)"
     (onCheers)="addCheers($event)">
   </app-available-data>
-</div>

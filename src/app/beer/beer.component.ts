@@ -18,9 +18,9 @@ import {isUndefined} from "util";
 export class BeerComponent implements OnInit {
 
   id: string;
-  edit: boolean;
-  new: boolean;
-  imageUploadShow: boolean = false;
+  public edit: boolean;
+  public new: boolean;
+  public imageUploadShow: boolean = false;
   activeNavigation: number;
 
   constructor(private beerService: BeerService,

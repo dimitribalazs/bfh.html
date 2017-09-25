@@ -4,7 +4,7 @@
   <div class="horizontal-scroller-inner">
     <span *ngFor="let beer of beers | async">
       <a>
-        <img src="{{ '../../' +beer.image }}" (click)="onOpen(beer)" height="80px" width="80px" />
+        <img src="{{ '../../' +beer.image }}" (click)="onOpen(beer)" width="55vh" />
       </a>
     </span>
   </div>

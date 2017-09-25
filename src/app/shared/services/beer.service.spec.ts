@@ -1,16 +1,18 @@
 import { TestBed, inject, async } from '@angular/core/testing';
 import { BaseRequestOptions, Http, RequestMethod, ResponseOptions, Response } from '@angular/http';
 
-import { AuthenticationService } from './authentication.service';
+import { BeerDatabaseService } from './beer.service';
+import { Beer } from '../dto/beer';
 
-describe('AuthenticationService', () => {
+
+describe('BreweryDatabaseService ', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [AuthenticationService]
+      providers: [ BeerDatabaseService ]
     });
   });
 
-  it('should be created', inject([AuthenticationService], (service: AuthenticationService) => {
+  it('should be created', inject([BeerDatabaseService], (service: BeerDatabaseService) => {
     expect(service).toBeTruthy();
   }));
 });

@@ -12,6 +12,7 @@ body {
 h4 {
   text-shadow: gray 2px 2px 4px;
   margin-left: 0.5em;
+  margin-right: 15px;
 }
 
 .hr-gradient-thick {
@@ -56,11 +57,10 @@ h4 {
 .horizontal-scroller-outer {
   overflow: scroll;
   width: 100vw;
-  height: 80px;
 }
 
 .horizontal-scroller-inner {
-  width: 850px;
+  width: 65vh;
 }
 
 .activeNavigation {
@@ -119,3 +119,54 @@ h4 {
 .btn-bottom {
   width: 100%;
 }
+
+.icon-small {
+  width: 16px;
+  height: 16px;
+}
+
+.icon-medium {
+  width: 24px;
+  height: 24px;
+}
+
+.icon-large {
+  width: 32px;
+  height: 32px;
+}
+
+/* iPhone 5 */
+@media (min-width: 320px) {
+  .horizontal-scroller-inner {
+    width: 85vh;
+  }
+}
+
+/* Galaxy S5 */
+@media (min-width: 360px) {
+  .horizontal-scroller-inner {
+    width: 75vh;
+  }
+}
+
+/* Nexus 5x */
+@media (min-width: 412px) {
+  .horizontal-scroller-inner {
+    width: 74vh;
+  }
+}
+
+/* iPhone 6plus */
+@media (min-width: 414px) {
+  .horizontal-scroller-inner {
+    width: 68vh;
+  }
+}
+
+/* Nexus 6 */
+@media (min-width: 420px) and (min-resolution: 560dpi) {
+  .horizontal-scroller-inner {
+    width: 100vh;
+  }
+}
+

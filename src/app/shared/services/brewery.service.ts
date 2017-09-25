@@ -39,7 +39,9 @@ export class BreweryDatabaseService extends DatabaseService{
         .then((snapshot: firebase.database.DataSnapshot) => {
             let dbBrewery = snapshot.val() as Brewery;
             super.copyData(entity, dbBrewery);
-            apiPath.set(dbBrewery).catch((error) => console.log("Error while updating brewery", error));
+            apiPath.set(dbBrewery).catch((error) => {
+              // console.log("Error while updating brewery", error)
+            });
         })
         .catch((error) => {
             // console.log("Error while getting brewery", error);

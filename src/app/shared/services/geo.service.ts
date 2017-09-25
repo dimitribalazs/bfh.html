@@ -52,7 +52,7 @@ export class GeoService {
        });
      }
      else {
-       console.log('GeoLocation is disabled');
+       // console.log('GeoLocation is disabled');
        throw new Error("GeoLocation is disabled")
      }
    }

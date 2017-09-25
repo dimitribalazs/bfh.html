@@ -65,10 +65,12 @@ export class BusinessService {
     this.userSubject.asObservable();
     this.topBeer();
 
-    this.geoService.getCurrentPosition().subscribe(data => console.log("position", data));
+    this.geoService.getCurrentPosition().subscribe(data => {
+      // console.log("position", data)
+    });
 
     setInterval(() => {
-      console.log("positon gestzt");
+      // console.log("positon gestzt");
       this.geoService.setCurrentPosition()
     }, 120000);
 
@@ -178,7 +180,7 @@ export class BusinessService {
    * @param barId
    */
   addBeerToBar(barBeerModel: BeerBarModel) {
-    console.log('beerId: ' + barBeerModel.beerId + ', barId: ' + barBeerModel.barId)
+    // console.log('beerId: ' + barBeerModel.beerId + ', barId: ' + barBeerModel.barId)
     const barBeer: BarBeer = {
       price: parseFloat(barBeerModel.price),
       tapOrBottled: barBeerModel.tapOrBottled,
@@ -196,7 +198,7 @@ export class BusinessService {
    * @param barId
    */
   removeBeerFromBar(beerId: string, barId: string) {
-    console.log('beerId: ' + beerId + ', barId: ' + barId);
+    // console.log('beerId: ' + beerId + ', barId: ' + barId);
     const barBeer: BarBeer = new BarBeer();
     barBeer.beer = beerId;
     barBeer.bar = barId;
@@ -589,11 +591,11 @@ export class BusinessService {
       }
     }
     if (this.debugMode) {
-      console.log('mapBeerDtoToDomainModel')
-      console.log('dto:')
-      console.log(dto)
-      console.log('viewModel:')
-      console.log(model)
+      // console.log('mapBeerDtoToDomainModel')
+      // console.log('dto:')
+      // console.log(dto)
+      // console.log('viewModel:')
+      // console.log(model)
     }
 
     return model;
@@ -619,11 +621,11 @@ export class BusinessService {
     model.dateOfBirth = dto.dateOfBirth;
     model.location = isNullOrUndefined(dto.location) ? model.location = new GeoData() : model.location = dto.location;
     if (this.debugMode) {
-      console.log('mapUserDtoToDomainModel')
-      console.log('dto:')
-      console.log(dto)
-      console.log('viewModel:')
-      console.log(model)
+      // console.log('mapUserDtoToDomainModel')
+      // console.log('dto:')
+      // console.log(dto)
+      // console.log('viewModel:')
+      // console.log(model)
     }
     return model;
   }
@@ -643,11 +645,11 @@ export class BusinessService {
     dto.dateOfBirth = model.dateOfBirth;
     dto.location = model.location;
     if (this.debugMode) {
-      console.log('mapUserDomainModelToDto')
-      console.log('dto:')
-      console.log(dto)
-      console.log('viewModel:')
-      console.log(model)
+      // console.log('mapUserDomainModelToDto')
+      // console.log('dto:')
+      // console.log(dto)
+      // console.log('viewModel:')
+      // console.log(model)
     }
     return dto;
   }
@@ -672,11 +674,11 @@ export class BusinessService {
     model.taste = dto.taste;
     model.location = isNullOrUndefined(dto.location) ? model.location = new GeoData() : model.location = dto.location;
     if (this.debugMode) {
-      console.log('mapBeerDtoToDomainModel')
-      console.log('dto:')
-      console.log(dto)
-      console.log('viewModel:')
-      console.log(model)
+      // console.log('mapBeerDtoToDomainModel')
+      // console.log('dto:')
+      // console.log(dto)
+      // console.log('viewModel:')
+      // console.log(model)
     }
     return model;
   }
@@ -703,11 +705,11 @@ export class BusinessService {
     dto.location = model.location;
     dto.owner = model.owner;
     if (this.debugMode) {
-      console.log('mapBeerDtoToDomainModel')
-      console.log('dto:')
-      console.log(dto)
-      console.log('viewModel:')
-      console.log(model)
+      // console.log('mapBeerDtoToDomainModel')
+      // console.log('dto:')
+      // console.log(dto)
+      // console.log('viewModel:')
+      // console.log(model)
     }
     return dto;
   }
@@ -726,11 +728,11 @@ export class BusinessService {
     model.description = dto.description;
     model.image = dto.image;
     if (this.debugMode) {
-      console.log('mapBeerDtoToDomainModel')
-      console.log('dto:')
-      console.log(dto)
-      console.log('viewModel:')
-      console.log(model)
+      // console.log('mapBeerDtoToDomainModel')
+      // console.log('dto:')
+      // console.log(dto)
+      // console.log('viewModel:')
+      // console.log(model)
     }
     return model;
   }

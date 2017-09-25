@@ -1,5 +1,9 @@
 import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
-import { FormsModule } from '@angular/forms'; // needed when NgForm is used
+// Import all AngularModules needed
+import { FormsModule } from '@angular/forms';
+// import { Router, ActivatedRoute } from '@angular/router';
+// import { RouterStub } from '../bar.component.spec';
+import { RouterTestingModule } from '@angular/router/testing';
 
 // Provide ALL Services, and their dependencies
 import { BarService } from '../barService';
@@ -19,7 +23,7 @@ describe('BarInfoComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ FormsModule ],
+      imports: [ FormsModule, RouterTestingModule ],
       declarations: [ BarInfoComponent ],
       providers: [ BarService,
         BusinessService,
@@ -27,7 +31,9 @@ describe('BarInfoComponent', () => {
         BreweryDatabaseService,
         BarDatabaseService,
         UserDatabaseService,
-        GeoService ]
+        GeoService]
+        // { provide: Router, useClass: RouterStub  }]
+        // { provide: ActivatedRoute, useClass: class { params = jasmine.createSpy('id'); } } ]
     })
     .compileComponents();
   }));

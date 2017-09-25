@@ -54,10 +54,12 @@ export class BarDatabaseService extends DatabaseService{
         .then((snapshot: firebase.database.DataSnapshot) => {
             let dbBar = snapshot.val() as Bar;
             super.copyData(entity, dbBar);
-            apiPath.set(dbBar).catch((error) => console.log("Error while updating bar", error));
+            apiPath.set(dbBar).catch((error) => {
+              // console.log("Error while updating bar", error)
+            });
         })
         .catch((error) => {
-             console.log("Error while getting bar", error);
+             // console.log("Error while getting bar", error);
         });
     }
 

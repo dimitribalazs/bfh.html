@@ -159,7 +159,7 @@ h4 {
 /* iPhone 6plus */
 @media (min-width: 414px) {
   .horizontal-scroller-inner {
-    width: 68vh;
+    width: 65vh;
   }
 }
 

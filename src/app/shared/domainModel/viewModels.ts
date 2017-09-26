@@ -94,7 +94,7 @@ export class BeerBarModel {
   barId: string;
   barName: string;
   price: string;
-  tapOrBottled: boolean;
+  servingStyle: number;
 
   constructor() {
     this.beerId = '';
@@ -102,7 +102,7 @@ export class BeerBarModel {
     this.barId = '';
     this.barName = '';
     this.price = '';
-    this.tapOrBottled = false
+    this.servingStyle = 0
   }
 }
 

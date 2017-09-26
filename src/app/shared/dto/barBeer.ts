@@ -7,5 +7,5 @@ export class BarBeer {
     bar: string;
     barName: string;
     price: number;
-    tapOrBottled: boolean;
+    servingStyle: number;
 }

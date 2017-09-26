@@ -58,7 +58,7 @@ export class BusinessService {
               private barService: BarDatabaseService,
               private userService: UserDatabaseService,
               private geoService: GeoService) {
-    this.debugMode = true;
+    this.debugMode = false;
     this.beerSubject.asObservable();
     this.barSubject.asObservable();
     this.brewerySubject.asObservable();
@@ -124,13 +124,7 @@ export class BusinessService {
             // beers.forEach((beer: Beer) => beersArr.push(this.mapBeerDtoToDomainModel(beer)))
             Object.keys(barBeers).map((value: string) => {
               const barBeer: BarBeer = barBeers[value] as BarBeer;
-              const model = new BeerBarModel();
-              model.barName = barBeer.barName;
-              model.barId = barBeer.bar;
-              model.beerName = barBeer.beerName;
-              model.beerId = barBeer.beer;
-              model.price = barBeer.price.toString();
-              beersArr.push(model);
+              beersArr.push(this.mapBarBeerDtoToDomainModel(barBeer));
             });
           }
           // emit the available beers
@@ -183,7 +177,7 @@ export class BusinessService {
     // console.log('beerId: ' + barBeerModel.beerId + ', barId: ' + barBeerModel.barId)
     const barBeer: BarBeer = {
       price: parseFloat(barBeerModel.price),
-      tapOrBottled: barBeerModel.tapOrBottled,
+      servingStyle: barBeerModel.servingStyle,
       beerName: barBeerModel.beerName,
       beer: barBeerModel.beerId,
       barName: barBeerModel.barName,
@@ -271,13 +265,7 @@ export class BusinessService {
         if (barBeers) {
           Object.keys(barBeers).map((value: string) => {
             const barBeer: BarBeer = barBeers[value] as BarBeer;
-            const model = new BeerBarModel();
-            model.barName = barBeer.barName;
-            model.barId = barBeer.bar;
-            model.beerName = barBeer.beerName;
-            model.beerId = barBeer.beer;
-            model.price = barBeer.price.toString();
-            beersArr.push(model);
+            beersArr.push(this.mapBarBeerDtoToDomainModel(barBeer));
           });
         }
         // emit the available beers
@@ -527,6 +515,27 @@ export class BusinessService {
   }
 
 
+  private mapBarBeerDtoToDomainModel(dto: BarBeer): BeerBarModel {
+    const model = new BeerBarModel();
+    model.barName = dto.barName;
+    model.barId = dto.bar;
+    model.beerName = dto.beerName;
+    model.beerId = dto.beer;
+    model.price = dto.price.toString();
+    model.servingStyle = dto.servingStyle;
+
+    if (this.debugMode) {
+      console.log('mapBarBeerDtoToDomainModel')
+      console.log('dto:')
+      console.log(dto)
+      console.log('viewModel:')
+      console.log(model)
+    }
+
+    return model;
+  }
+
+
   private mapBarDtoToDomainModel(dto: Bar): BarModel {
     const model = new BarModel();
     model.id = dto.id;
@@ -591,11 +600,11 @@ export class BusinessService {
       }
     }
     if (this.debugMode) {
-      // console.log('mapBeerDtoToDomainModel')
-      // console.log('dto:')
-      // console.log(dto)
-      // console.log('viewModel:')
-      // console.log(model)
+      console.log('mapBeerDtoToDomainModel')
+      console.log('dto:')
+      console.log(dto)
+      console.log('viewModel:')
+      console.log(model)
     }
 
     return model;
@@ -621,11 +630,11 @@ export class BusinessService {
     model.dateOfBirth = dto.dateOfBirth;
     model.location = isNullOrUndefined(dto.location) ? model.location = new GeoData() : model.location = dto.location;
     if (this.debugMode) {
-      // console.log('mapUserDtoToDomainModel')
-      // console.log('dto:')
-      // console.log(dto)
-      // console.log('viewModel:')
-      // console.log(model)
+      console.log('mapUserDtoToDomainModel')
+      console.log('dto:')
+      console.log(dto)
+      console.log('viewModel:')
+      console.log(model)
     }
     return model;
   }
@@ -645,11 +654,11 @@ export class BusinessService {
     dto.dateOfBirth = model.dateOfBirth;
     dto.location = model.location;
     if (this.debugMode) {
-      // console.log('mapUserDomainModelToDto')
-      // console.log('dto:')
-      // console.log(dto)
-      // console.log('viewModel:')
-      // console.log(model)
+      console.log('mapUserDomainModelToDto')
+      console.log('dto:')
+      console.log(dto)
+      console.log('viewModel:')
+      console.log(model)
     }
     return dto;
   }
@@ -674,11 +683,11 @@ export class BusinessService {
     model.taste = dto.taste;
     model.location = isNullOrUndefined(dto.location) ? model.location = new GeoData() : model.location = dto.location;
     if (this.debugMode) {
-      // console.log('mapBeerDtoToDomainModel')
-      // console.log('dto:')
-      // console.log(dto)
-      // console.log('viewModel:')
-      // console.log(model)
+      console.log('mapBeerDtoToDomainModel')
+      console.log('dto:')
+      console.log(dto)
+      console.log('viewModel:')
+      console.log(model)
     }
     return model;
   }
@@ -705,11 +714,11 @@ export class BusinessService {
     dto.location = model.location;
     dto.owner = model.owner;
     if (this.debugMode) {
-      // console.log('mapBeerDtoToDomainModel')
-      // console.log('dto:')
-      // console.log(dto)
-      // console.log('viewModel:')
-      // console.log(model)
+      console.log('mapBeerDtoToDomainModel')
+      console.log('dto:')
+      console.log(dto)
+      console.log('viewModel:')
+      console.log(model)
     }
     return dto;
   }
@@ -728,11 +737,11 @@ export class BusinessService {
     model.description = dto.description;
     model.image = dto.image;
     if (this.debugMode) {
-      // console.log('mapBeerDtoToDomainModel')
-      // console.log('dto:')
-      // console.log(dto)
-      // console.log('viewModel:')
-      // console.log(model)
+      console.log('mapBeerDtoToDomainModel')
+      console.log('dto:')
+      console.log(dto)
+      console.log('viewModel:')
+      console.log(model)
     }
     return model;
   }

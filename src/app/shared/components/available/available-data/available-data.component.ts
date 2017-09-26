@@ -68,7 +68,7 @@ export class AvailableDataComponent implements OnInit {
     this.linkModel.beerId = data.barId;
     this.linkModel.beerName = data.barName
     this.linkModel.price = data.price;
-    this.linkModel.tapOrBottled = data.tapOrBottled;
+    this.linkModel.servingStyle = data.servingStyle;
     this.linkInformation = true;
   }
 
@@ -76,7 +76,7 @@ export class AvailableDataComponent implements OnInit {
     this.linkModel.beerId = data.beerId;
     this.linkModel.beerName = data.beerName;
     this.linkModel.price = data.price;
-    this.linkModel.tapOrBottled = data.tapOrBottled;
+    this.linkModel.servingStyle = data.servingStyle;
     this.linkInformation = true;
   }
 

@@ -16,15 +16,16 @@
   </div>
   <div class="input-group">
     <label>
-      <input type="radio" aria-label="bottled" name="servingstyle" [(ngModel)]="model.tapOrBottled" #serving="ngModel" value="true">
+      <!--<input type="radio" aria-label="bottled" name="servingstyle" [(ngModel)]="model.tapOrBottled" #serving="ngModel" value="true">-->
+      <input type="radio" aria-label="bottled" name="servingstyle" [(ngModel)]="model.servingStyle" [value]="1" [checked]="model.servingStyle === 1">
       <img src="assets/icons/png/beer-bottle.png" class="icon-large">
     </label>
     <label>
-      <input type="radio" aria-label="draft" name="servingstyle">
+      <input type="radio" aria-label="draft" name="servingstyle" [(ngModel)]="model.servingStyle" [value]="2" [checked]="model.servingStyle === 2">
       <img src="assets/icons/png/beer-glass.png" class="icon-large">
     </label>
     <label>
-      <input type="radio" aria-label="canned" name="servingstyle">
+      <input type="radio" aria-label="canned" name="servingstyle" [(ngModel)]="model.servingStyle" [value]="3" [checked]="model.servingStyle === 3">
       <img src="assets/icons/png/beer-can.png" class="icon-large">
     </label>
   </div>

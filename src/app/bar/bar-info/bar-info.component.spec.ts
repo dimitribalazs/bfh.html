@@ -1,8 +1,8 @@
 import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+
 // Import all AngularModules needed
 import { FormsModule } from '@angular/forms';
-// import { Router, ActivatedRoute } from '@angular/router';
-// import { RouterStub } from '../bar.component.spec';
+
 import { RouterTestingModule } from '@angular/router/testing';
 
 // Provide ALL Services, and their dependencies
@@ -32,8 +32,6 @@ describe('BarInfoComponent', () => {
         BarDatabaseService,
         UserDatabaseService,
         GeoService]
-        // { provide: Router, useClass: RouterStub  }]
-        // { provide: ActivatedRoute, useClass: class { params = jasmine.createSpy('id'); } } ]
     })
     .compileComponents();
   }));

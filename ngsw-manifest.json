@@ -3,7 +3,7 @@
     "short_name": "Duff'd",
     "theme_color": "Gold",
     "background_color": "GoldenRod",
-    "display": "browser",
+    "display": "standalone",
     "Scope": "/",
     "start_url": "/home",
     "icons": [
@@ -30,39 +30,5 @@
             {"url": "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/fonts/glyphicons-halflings-regular.woff"},
             {"url": "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/fonts/glyphicons-halflings-regular.ttf"}
         ]
-    },
-    "routing": {
-        "index": "/index.html",
-        "routes": {
-            "/": {
-                "match": "prefix"
-            },
-            "/home": {
-                "match": "prefix"
-            }
-        }
-    },
-    "dynamic": {
-      "group": [
-        {
-          "name": "firebase",
-          "urls": {
-            "https://duffd-83c72.firebaseio.com/": {
-              "match": "prefix"
-            }
-          },
-          "cache": {
-            "optimizeFor": "performance",
-            "maxAgeMs": 3600000,
-            "maxEntries": 20,
-            "strategy": "lru"
-          }
-        }
-      ]
-    },
-    "gcm_sender_id": "758400835541",
-    "push": {
-      "showNotifications": true,
-      "backgroundOnly": false
-  }
+    }
 }

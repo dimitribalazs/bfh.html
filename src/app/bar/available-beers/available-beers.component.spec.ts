@@ -21,7 +21,7 @@ import { AvailableDataComponent } from '../../shared/components/available/availa
 import { SearchResultComponent } from '../../shared/components/search-result/searchResult.component';
 import { LinkInformationComponent } from '../../shared/components/available/link-information/link-information.component';
 
-describe('AvailableBeersComponent', () => {
+describe('AvailableBeers in BarComponent', () => {
   let component: AvailableBeersComponent;
   let fixture: ComponentFixture<AvailableBeersComponent>;
 

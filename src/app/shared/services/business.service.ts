@@ -31,9 +31,14 @@ import {BarStatistics} from '../dto/barStatistics';
 import {BadgeType} from '../domainModel/badgeType';
 import {GeoService} from  '../services/geo.service';
 
+const OPEN_TEXT_SMALL = 'Open';
+const OPEN_TEXT_LARGE = 'Open now';
+const CLOSED_TEXT_SMALL = 'Closed';
+const CLOSED_TEXT_LARGE = 'Closed now';
 
 @Injectable()
 export class BusinessService {
+
 
   currentUser: UserModel = new UserModel();
   debugMode: boolean;
@@ -585,8 +590,15 @@ export class BusinessService {
         model.openingHours[day.day] = day.openHoure + ':' + day.openMin + ' - ' + day.closeHoure + ':' + day.closeMin
       })
 
+
+      // open or closed?
+      let isLargeScreen = false;
+      if (window.innerWidth > 375) {
+        isLargeScreen = true;
+      }
+
       const currentTime = new Date()
-      model.openNowText = 'Cloesed now'
+      model.openNowText = isLargeScreen ? CLOSED_TEXT_LARGE : CLOSED_TEXT_SMALL;
       if (!isNullOrUndefined(ArrayOpen[currentTime.getDay()]) && !isNullOrUndefined(ArrayClose[currentTime.getDay()])) {
         const openFrom = new Date();
         openFrom.setHours(ArrayOpen[currentTime.getDay()].houre, ArrayOpen[currentTime.getDay()].min, ArrayOpen[currentTime.getDay()].sec)
@@ -595,9 +607,11 @@ export class BusinessService {
         openTo.setHours(ArrayClose[currentTime.getDay()].houre, ArrayClose[currentTime.getDay()].min, ArrayClose[currentTime.getDay()].sec)
 
         if (currentTime > openFrom && currentTime < openTo) {
-          model.openNowText = 'Open now'
+          model.openNowText = isLargeScreen ? OPEN_TEXT_LARGE : OPEN_TEXT_SMALL;
         }
       }
+
+      console.log(window.innerWidth);
     }
     if (this.debugMode) {
       console.log('mapBeerDtoToDomainModel')

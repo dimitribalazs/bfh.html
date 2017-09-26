@@ -28,6 +28,13 @@ export class BeerTop10Component implements OnInit {
   ngOnInit(): void {
     this.beers.subscribe(
       (beer: Beer) => {
+        // Now, this is just random....
+        // Beer is kind of an array. or a Beer instance. Or a mix of both.
+        // You get all the Beer properties, but have to use them like beer[0].name
+        // So, one would use beer.length to get how many beers there are. Easy.
+        // Using length property will not compile, though, because it does not exist on type Beer :-P
+        //
+        // This, dear Mr. Bandi, is why you are presented with this beautiful hack:
         let beerCount = 0;
         for (let i = 0; ; i++) {
           if (isUndefined(beer[i])) {
@@ -38,6 +45,7 @@ export class BeerTop10Component implements OnInit {
         }
 
         this.width = (beerCount * SINGLE_SPAN_WIDTH) + 'px';
+        // btw, this is used to calculate the horizontal scroller width on the main page.
       }
     );
   }

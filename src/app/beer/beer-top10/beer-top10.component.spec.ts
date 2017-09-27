@@ -1,5 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+// Import all AngularModules needed
+import { FormsModule } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
+
 import { BeerTop10Component } from './beer-top10.component';
 
 describe('BeerTop10Component', () => {
@@ -8,6 +12,7 @@ describe('BeerTop10Component', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [ FormsModule, RouterTestingModule ],
       declarations: [ BeerTop10Component ]
     })
     .compileComponents();

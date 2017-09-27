@@ -1,5 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+// Import all AngularModules needed
+import { FormsModule } from '@angular/forms';
+
+import { RouterTestingModule } from '@angular/router/testing';
+
+// Provide ALL Services, and their dependencies
+import {BeerService} from '../beerService'
+import { BusinessService } from '../../shared/services/business.service';
+import {BeerDatabaseService} from '../../shared/services/beer.service';
+import {BreweryDatabaseService} from '../../shared/services/brewery.service';
+import {BarDatabaseService} from '../../shared/services/bar.service';
+import {UserDatabaseService} from '../../shared/services/user.service';
+import {GeoService} from '../../shared/services/geo.service';
+import {MenuService} from '../../shared/services/menu.service';
+
 import { BeerInfoComponent } from './beer-info.component';
 
 describe('BeerInfoComponent', () => {
@@ -8,7 +23,15 @@ describe('BeerInfoComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BeerInfoComponent ]
+      imports: [ FormsModule, RouterTestingModule ],
+      declarations: [ BeerInfoComponent ],
+      providers: [ BeerService, MenuService,
+        BusinessService,
+        BeerDatabaseService,
+        BreweryDatabaseService,
+        BarDatabaseService,
+        UserDatabaseService,
+        GeoService]
     })
     .compileComponents();
   }));

@@ -7,5 +7,12 @@ export class BarBeer {
     bar: string;
     barName: string;
     price: number;
-    tapOrBottled: boolean;
+    servingStyle: number;
+}
+
+export enum ServingStyle {
+  UNDEFINED,
+  BOTTLE,
+  GLASS,
+  CAN
 }

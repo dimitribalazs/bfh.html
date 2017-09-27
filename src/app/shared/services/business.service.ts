@@ -31,9 +31,14 @@ import {BarStatistics} from '../dto/barStatistics';
 import {BadgeType} from '../domainModel/badgeType';
 import {GeoService} from  '../services/geo.service';
 
+const OPEN_TEXT_SMALL = 'Open';
+const OPEN_TEXT_LARGE = 'Open now';
+const CLOSED_TEXT_SMALL = 'Closed';
+const CLOSED_TEXT_LARGE = 'Closed now';
 
 @Injectable()
 export class BusinessService {
+
 
   currentUser: UserModel = new UserModel();
   debugMode: boolean;
@@ -58,7 +63,7 @@ export class BusinessService {
               private barService: BarDatabaseService,
               private userService: UserDatabaseService,
               private geoService: GeoService) {
-    this.debugMode = true;
+    this.debugMode = false;
     this.beerSubject.asObservable();
     this.barSubject.asObservable();
     this.brewerySubject.asObservable();
@@ -124,13 +129,7 @@ export class BusinessService {
             // beers.forEach((beer: Beer) => beersArr.push(this.mapBeerDtoToDomainModel(beer)))
             Object.keys(barBeers).map((value: string) => {
               const barBeer: BarBeer = barBeers[value] as BarBeer;
-              const model = new BeerBarModel();
-              model.barName = barBeer.barName;
-              model.barId = barBeer.bar;
-              model.beerName = barBeer.beerName;
-              model.beerId = barBeer.beer;
-              model.price = barBeer.price.toString();
-              beersArr.push(model);
+              beersArr.push(this.mapBarBeerDtoToDomainModel(barBeer));
             });
           }
           // emit the available beers
@@ -183,7 +182,7 @@ export class BusinessService {
     // console.log('beerId: ' + barBeerModel.beerId + ', barId: ' + barBeerModel.barId)
     const barBeer: BarBeer = {
       price: parseFloat(barBeerModel.price),
-      tapOrBottled: barBeerModel.tapOrBottled,
+      servingStyle: barBeerModel.servingStyle,
       beerName: barBeerModel.beerName,
       beer: barBeerModel.beerId,
       barName: barBeerModel.barName,
@@ -271,13 +270,7 @@ export class BusinessService {
         if (barBeers) {
           Object.keys(barBeers).map((value: string) => {
             const barBeer: BarBeer = barBeers[value] as BarBeer;
-            const model = new BeerBarModel();
-            model.barName = barBeer.barName;
-            model.barId = barBeer.bar;
-            model.beerName = barBeer.beerName;
-            model.beerId = barBeer.beer;
-            model.price = barBeer.price.toString();
-            beersArr.push(model);
+            beersArr.push(this.mapBarBeerDtoToDomainModel(barBeer));
           });
         }
         // emit the available beers
@@ -527,6 +520,27 @@ export class BusinessService {
   }
 
 
+  private mapBarBeerDtoToDomainModel(dto: BarBeer): BeerBarModel {
+    const model = new BeerBarModel();
+    model.barName = dto.barName;
+    model.barId = dto.bar;
+    model.beerName = dto.beerName;
+    model.beerId = dto.beer;
+    model.price = dto.price.toString();
+    model.servingStyle = dto.servingStyle;
+
+    if (this.debugMode) {
+      console.log('mapBarBeerDtoToDomainModel')
+      console.log('dto:')
+      console.log(dto)
+      console.log('viewModel:')
+      console.log(model)
+    }
+
+    return model;
+  }
+
+
   private mapBarDtoToDomainModel(dto: Bar): BarModel {
     const model = new BarModel();
     model.id = dto.id;
@@ -576,8 +590,15 @@ export class BusinessService {
         model.openingHours[day.day] = day.openHoure + ':' + day.openMin + ' - ' + day.closeHoure + ':' + day.closeMin
       })
 
+
+      // open or closed?
+      let isLargeScreen = false;
+      if (window.innerWidth > 375) {
+        isLargeScreen = true;
+      }
+
       const currentTime = new Date()
-      model.openNowText = 'Cloesed now'
+      model.openNowText = isLargeScreen ? CLOSED_TEXT_LARGE : CLOSED_TEXT_SMALL;
       if (!isNullOrUndefined(ArrayOpen[currentTime.getDay()]) && !isNullOrUndefined(ArrayClose[currentTime.getDay()])) {
         const openFrom = new Date();
         openFrom.setHours(ArrayOpen[currentTime.getDay()].houre, ArrayOpen[currentTime.getDay()].min, ArrayOpen[currentTime.getDay()].sec)
@@ -586,16 +607,18 @@ export class BusinessService {
         openTo.setHours(ArrayClose[currentTime.getDay()].houre, ArrayClose[currentTime.getDay()].min, ArrayClose[currentTime.getDay()].sec)
 
         if (currentTime > openFrom && currentTime < openTo) {
-          model.openNowText = 'Open now'
+          model.openNowText = isLargeScreen ? OPEN_TEXT_LARGE : OPEN_TEXT_SMALL;
         }
       }
+
+      console.log(window.innerWidth);
     }
     if (this.debugMode) {
-      // console.log('mapBeerDtoToDomainModel')
-      // console.log('dto:')
-      // console.log(dto)
-      // console.log('viewModel:')
-      // console.log(model)
+      console.log('mapBeerDtoToDomainModel')
+      console.log('dto:')
+      console.log(dto)
+      console.log('viewModel:')
+      console.log(model)
     }
 
     return model;
@@ -621,11 +644,11 @@ export class BusinessService {
     model.dateOfBirth = dto.dateOfBirth;
     model.location = isNullOrUndefined(dto.location) ? model.location = new GeoData() : model.location = dto.location;
     if (this.debugMode) {
-      // console.log('mapUserDtoToDomainModel')
-      // console.log('dto:')
-      // console.log(dto)
-      // console.log('viewModel:')
-      // console.log(model)
+      console.log('mapUserDtoToDomainModel')
+      console.log('dto:')
+      console.log(dto)
+      console.log('viewModel:')
+      console.log(model)
     }
     return model;
   }
@@ -645,11 +668,11 @@ export class BusinessService {
     dto.dateOfBirth = model.dateOfBirth;
     dto.location = model.location;
     if (this.debugMode) {
-      // console.log('mapUserDomainModelToDto')
-      // console.log('dto:')
-      // console.log(dto)
-      // console.log('viewModel:')
-      // console.log(model)
+      console.log('mapUserDomainModelToDto')
+      console.log('dto:')
+      console.log(dto)
+      console.log('viewModel:')
+      console.log(model)
     }
     return dto;
   }
@@ -674,11 +697,11 @@ export class BusinessService {
     model.taste = dto.taste;
     model.location = isNullOrUndefined(dto.location) ? model.location = new GeoData() : model.location = dto.location;
     if (this.debugMode) {
-      // console.log('mapBeerDtoToDomainModel')
-      // console.log('dto:')
-      // console.log(dto)
-      // console.log('viewModel:')
-      // console.log(model)
+      console.log('mapBeerDtoToDomainModel')
+      console.log('dto:')
+      console.log(dto)
+      console.log('viewModel:')
+      console.log(model)
     }
     return model;
   }
@@ -705,11 +728,11 @@ export class BusinessService {
     dto.location = model.location;
     dto.owner = model.owner;
     if (this.debugMode) {
-      // console.log('mapBeerDtoToDomainModel')
-      // console.log('dto:')
-      // console.log(dto)
-      // console.log('viewModel:')
-      // console.log(model)
+      console.log('mapBeerDtoToDomainModel')
+      console.log('dto:')
+      console.log(dto)
+      console.log('viewModel:')
+      console.log(model)
     }
     return dto;
   }
@@ -728,11 +751,11 @@ export class BusinessService {
     model.description = dto.description;
     model.image = dto.image;
     if (this.debugMode) {
-      // console.log('mapBeerDtoToDomainModel')
-      // console.log('dto:')
-      // console.log(dto)
-      // console.log('viewModel:')
-      // console.log(model)
+      console.log('mapBeerDtoToDomainModel')
+      console.log('dto:')
+      console.log(dto)
+      console.log('viewModel:')
+      console.log(model)
     }
     return model;
   }

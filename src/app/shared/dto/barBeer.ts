@@ -9,3 +9,10 @@ export class BarBeer {
     price: number;
     servingStyle: number;
 }
+
+export enum ServingStyle {
+  UNDEFINED,
+  BOTTLE,
+  GLASS,
+  CAN
+}

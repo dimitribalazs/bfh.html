@@ -7,12 +7,15 @@ import {MultiNavigationModel} from '../../../domainModel/multiNavigationModel';
 import {Observable} from 'rxjs/Observable';
 import {BeerBarModel} from '../../../domainModel/viewModels';
 import {BreweryService} from '../../../../brewery/breweryService';
+import {ServingStyle} from '../../../dto/barBeer';
+
 
 @Component({
   selector: 'app-available-data',
   templateUrl: './available-data.component.html',
   styleUrls: ['./available-data.component.css']
 })
+
 export class AvailableDataComponent implements OnInit {
 
   @Input() items: Observable<any>;
@@ -32,6 +35,7 @@ export class AvailableDataComponent implements OnInit {
   menuState
   linkInformation: boolean
   linkModel: BeerBarModel;
+  servingStyle = ServingStyle;
 
   constructor(private menuService: MenuService,
               private router: Router,
@@ -137,5 +141,4 @@ export class AvailableDataComponent implements OnInit {
       this.menuService.setNewState(this.brewreyService.getMenuState());
     }, 2500);
   }
-
 }

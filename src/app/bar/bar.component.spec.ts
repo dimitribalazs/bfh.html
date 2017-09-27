@@ -1,9 +1,6 @@
 import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 
-import {RatingModel} from '../shared/components/rating/ratingModel';
-import {ActivatedRoute, ParamMap, Router} from '@angular/router';
-
 // Provide ALL Services, and their dependencies
 import { MenuService } from '../shared/services/menu.service';
 import { BarService } from './barService';
@@ -21,11 +18,10 @@ import { RatingComponent } from '../shared/components/rating/rating.component';
 
 import { BarComponent } from './bar.component';
 
-let MockBar: BarComponent = <BarComponent>{id: '1', activeNavigation: 1}
-
 describe('BarComponent', () => {
   let component: BarComponent;
   let fixture: ComponentFixture<BarComponent>;
+  let barService: BarService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -46,6 +42,10 @@ describe('BarComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(BarComponent);
     component = fixture.componentInstance;
+
+    barService = fixture.debugElement.injector.get(BarService);
+    let spy = spyOn(barService, 'loadBar').and.returnValue(Promise.resolve(BarComponent));
+
     fixture.detectChanges();
   });
 
@@ -53,9 +53,3 @@ describe('BarComponent', () => {
     expect(component).toBeTruthy();
   });
 });
-
-export class RouterStub {
-  navigateByUrl(url: string) {
-    return url;
-  }
-}

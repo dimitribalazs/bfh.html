@@ -1,6 +1,7 @@
 import { TestBed, inject, async } from '@angular/core/testing';
 import { BaseRequestOptions, Http, RequestMethod, ResponseOptions, Response } from '@angular/http';
 
+import { Observable } from 'rxjs/Rx';
 import { BarDatabaseService } from './bar.service';
 import {Bar} from '../dto/bar';
 
@@ -17,11 +18,11 @@ describe('BarDatabaseService ', () => {
   }));
 
   it('retrieves all bars', async(inject( [BarDatabaseService], ( service ) => {
-    service.getAll().delay(1000).subscribe(result => expect(result.length).toBeGreaterThan(0));
+    service.getAll().delay(500).subscribe(result => expect(result.length).toBeGreaterThan(0));
   })));
 
   it('retrieves one bar', async(inject( [BarDatabaseService], ( service ) => {
-    service.get('1').delay(1000).subscribe(result => expect(result.length).toBe(1));
+    service.get('1').delay(1000).subscribe(result => expect(result).toEqual(jasmine.any(Bar)));
   })));
 
 });

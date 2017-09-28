@@ -17,6 +17,7 @@ export class FriendsComponent implements OnInit {
   }
 
   ngOnInit() {
+
   }
 
   onSelect(user: User) {

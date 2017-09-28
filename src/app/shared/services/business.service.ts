@@ -372,6 +372,7 @@ export class BusinessService {
       });
 
       this.userService.getFriendsOfUser(userModel.id).subscribe((data) => {
+        console.log("friends", data);
         // map dto to viewModel
         const friendsArr: Array<UserModel> = new Array<UserModel>()
         data.forEach((friends: User) => friendsArr.push(this.mapUserDtoToDomainModel(friends)))

@@ -12,6 +12,12 @@ export enum FirebaseEvent  {
 
 export abstract class DatabaseService {
 
+  /**
+   * Copy data
+   *
+   * @param {TSource} source
+   * @param {TDestination} destination
+   */
     copyData<TSource, TDestination>(source: TSource, destination: TDestination): void {
         Object.keys(source).map((value: string, index: number) => {
             //update

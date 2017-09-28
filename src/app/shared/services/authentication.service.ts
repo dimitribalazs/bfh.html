@@ -7,6 +7,7 @@ export class AuthenticationService {
 
   /**
    * Login user
+   *
    * @param {string} username
    */
   login(username: string) {

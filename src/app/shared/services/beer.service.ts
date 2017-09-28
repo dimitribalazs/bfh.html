@@ -27,6 +27,7 @@ export class BeerDatabaseService extends DatabaseService {
 
   /**
    * Checks if beer already exists
+   *
    * @param {Beer} entity
    * @returns {Promise<boolean>}
    */
@@ -53,6 +54,7 @@ export class BeerDatabaseService extends DatabaseService {
 
   /**
    * Create new beer
+   *
    * @param {Beer} entity
    * @returns {string}
    */
@@ -67,6 +69,7 @@ export class BeerDatabaseService extends DatabaseService {
 
   /**
    * Update existing beer
+   *
    * @param {string} id
    * @param {Beer} entity
    */
@@ -91,6 +94,7 @@ export class BeerDatabaseService extends DatabaseService {
 
   /**
    * Get all beers
+   *
    * @returns {Observable<Beer[]>}
    */
   getAll(): Observable<Beer[]> {
@@ -107,6 +111,7 @@ export class BeerDatabaseService extends DatabaseService {
 
   /**
    * Get all beers from a bar
+   *
    * @param {string} barId
    * @returns {Observable<BarBeer[]>}
    */
@@ -125,6 +130,7 @@ export class BeerDatabaseService extends DatabaseService {
 
   /**
    * Get all BarBeers from a beer
+   *
    * @param {string} beerId
    * @returns {Observable<BarBeer[]>}
    */
@@ -143,6 +149,7 @@ export class BeerDatabaseService extends DatabaseService {
 
   /**
    * Get all beers from a brewery
+   *
    * @param {string} breweryId
    * @returns {Observable<Beer[]>}
    */
@@ -161,6 +168,7 @@ export class BeerDatabaseService extends DatabaseService {
 
   /**
    * Get a beer from an id
+   *
    * @param {string} id
    * @returns {Observable<Beer>}
    */
@@ -175,6 +183,7 @@ export class BeerDatabaseService extends DatabaseService {
 
   /**
    * Get the ratings of a beer
+   *
    * @param {string} beerId
    * @returns {Observable<UserBeerRating[]>}
    */
@@ -191,6 +200,7 @@ export class BeerDatabaseService extends DatabaseService {
 
   /**
    * Add a beer rating
+   *
    * @param {UserBeerRating} beerRating
    */
   addBeerRating(beerRating: UserBeerRating) {
@@ -202,6 +212,7 @@ export class BeerDatabaseService extends DatabaseService {
 
   /**
    * Get drank beer from a user, grouped by date
+   *
    * @param {string} userId
    * @returns {Observable<BeerStatistics>}
    */
@@ -250,6 +261,7 @@ export class BeerDatabaseService extends DatabaseService {
 
   /**
    * Add a drank beer
+   *
    * @param {UserBeer} userBeer
    */
   addBeerDrank(userBeer: UserBeer): void {
@@ -260,6 +272,7 @@ export class BeerDatabaseService extends DatabaseService {
 
   /**
    * Update brewery from a beer
+   *
    * @param {string} beerId
    * @param {string} breweryId
    */
@@ -274,6 +287,7 @@ export class BeerDatabaseService extends DatabaseService {
 
   /**
    * Remove brewery from a beer
+   *
    * @param {string} beerId
    */
   removeBreweryFromBeer(beerId: string): void {

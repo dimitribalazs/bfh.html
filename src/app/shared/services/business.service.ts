@@ -121,10 +121,6 @@ export class BusinessService {
       }
       // emit the loaded bar data
       this.beerSubject.next(beerModel)
-      // reload the available beers
-      // TODO: getBarByBeer funktion fehlt
-      this.barService.getAll().subscribe((data) => {
-        // map dto to viewModel
         // reload the available bars
         this.beerService.getAllBarBeersByBeerId(beer.id).subscribe((barBeers: BarBeer[]) => {
           // map dto to viewModel
@@ -140,7 +136,6 @@ export class BusinessService {
           beerModel.bars.next(beersArr)
 
         })
-      })
     })
 
     return this.beerSubject;

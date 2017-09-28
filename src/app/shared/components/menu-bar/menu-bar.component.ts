@@ -12,7 +12,10 @@ import {Constants} from '../../constants';
   styleUrls: ['./menu-bar.component.css'],
 })
 
-
+/**
+ * This is the main menu bar displayed on top of the application.
+ * It subscribes to the [[MenuService]] in order to update itself upon state changes.
+ */
 export class MenuBarComponent implements OnInit {
   @Input() menuState: MenuState;
 

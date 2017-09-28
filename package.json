@@ -11,7 +11,8 @@
     "e2e": "ng e2e",
     "watch": "ng serve -o -w",
     "static-serve": "cd dist && live-server --port=4200 --host=localhost --entry-file=/index.html",
-    "push-server": "node pushTestServer/index.js"
+    "push-server": "node pushTestServer/index.js",
+    "doc": "typedoc --name \"Duff'd\" --mode modules --module commonjs --exclude \"**/e2e/*.ts\" --out doc src"
   },
   "private": true,
   "dependencies": {
@@ -57,6 +58,7 @@
     "protractor": "~5.1.2",
     "ts-node": "~3.0.4",
     "tslint": "~5.3.2",
+    "typedoc": "^0.8.0",
     "typescript": "~2.4.2"
   }
 }

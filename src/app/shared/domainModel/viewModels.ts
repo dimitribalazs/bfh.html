@@ -5,6 +5,7 @@ import {Observable} from 'rxjs/Observable';
 import {BehaviorSubject} from 'rxjs/Rx';
 import {falseIfMissing} from "protractor/built/util";
 import {Rating} from "../dto/rating";
+import {ServingStyle} from '../dto/barBeer';
 
 export class BeerModel implements IRating {
   id: string;
@@ -102,7 +103,7 @@ export class BeerBarModel {
     this.barId = '';
     this.barName = '';
     this.price = '';
-    this.servingStyle = 0
+    this.servingStyle = ServingStyle.UNDEFINED;
   }
 }
 

@@ -31,8 +31,6 @@ export class SearchResultComponent implements OnInit {
   @Input() addDisable: boolean;
   @Output() onSearchResult = new EventEmitter<MultiNavigationModel>()
   @Output() onAddBeer = new EventEmitter<string>()
-  @Output() onAddFriend = new EventEmitter<MultiNavigationModel>()
-  @Output() onRemoveFriend = new EventEmitter<MultiNavigationModel>()
 
 
   result: Array<String>

@@ -113,6 +113,8 @@ export class UserDatabaseService extends DatabaseService{
    * @returns {Observable<User[]>}
    */
   getFriendsOfUser(userId: string): Observable<User[]> {
+    if(isNullOrUndefined(userId)) throw new Error("userId must be defined");
+
     return Observable.fromEvent(this.userFriendsPath.orderByChild("user").equalTo(userId), FirebaseEvent.value, (snapshot) => {
       const friends: User[] = [];
       const dbData = snapshot.val() || [];

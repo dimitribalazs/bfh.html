@@ -16,6 +16,7 @@ export class BreweryDatabaseService extends DatabaseService{
 
   /**
    * Create a new brewery
+   *
    * @param {Brewery} entity
    */
   create(entity: Brewery): void {
@@ -27,6 +28,7 @@ export class BreweryDatabaseService extends DatabaseService{
 
   /**
    * Update an existing brewery
+   *
    * @param {string} id
    * @param {Brewery} entity
    */
@@ -50,6 +52,7 @@ export class BreweryDatabaseService extends DatabaseService{
 
   /**
    * Get all breweries
+   *
    * @returns {Observable<Brewery[]>}
    */
   getAll(): Observable<Brewery[]> {
@@ -66,6 +69,7 @@ export class BreweryDatabaseService extends DatabaseService{
 
   /**
    * Get a brewery by its id
+   *
    * @param {string} id
    * @returns {Observable<Brewery>}
    */

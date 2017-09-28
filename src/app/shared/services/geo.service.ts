@@ -13,6 +13,7 @@ export class GeoService {
 
   /**
    * Check if distance is in around you range
+   *
    * @param {number} range
    * @returns {boolean}
    */
@@ -23,6 +24,7 @@ export class GeoService {
 
   /**
    * Calculate between to distances
+   *
    * @param {GeoData} currentPosition
    * @param {GeoData} positionToCheck
    * @returns {number}
@@ -59,6 +61,7 @@ export class GeoService {
 
   /**
    * Get current position from user
+   *
    * @returns {Subject<GeoData>}
    */
   public getCurrentPosition(): Subject<GeoData> {

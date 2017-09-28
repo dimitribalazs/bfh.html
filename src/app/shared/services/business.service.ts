@@ -468,7 +468,7 @@ export class BusinessService {
                 name: bar.name,
                 id: bar.id,
                 distance: this.formattingDistance(distance),
-                icon: "fa fa-map-marker",
+                icon: "fa fa-cutlery",
                 routerNavigate: "/bar/",
                 unit: "Km"
               };

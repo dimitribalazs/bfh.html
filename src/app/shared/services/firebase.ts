@@ -32,6 +32,7 @@ export enum FirebaseRefs {
   UserBarVisited = "userBarVisited",
   UserBeerRatings = "userBeerRatings",
   UserBeerDrank = "userBeerDrank",
-  Users = "users"
+  Users = "users",
+  UserFriends = "userFriends"
 }
 

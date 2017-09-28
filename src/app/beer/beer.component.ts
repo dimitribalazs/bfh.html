@@ -57,6 +57,7 @@ export class BeerComponent implements OnInit {
 
     if (this.isNew) {
       const name: string = this.route.snapshot.data['name'];
+      this.beerService.editForbidden = false;
       this.route.params.subscribe(params => {
         this.beerService.createNewBeer(params['name'])
       });

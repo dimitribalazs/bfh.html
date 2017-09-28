@@ -230,6 +230,7 @@ export class BusinessService {
    */
   createOrUpdateBeer(beer: BeerModel): string {
     if (isNullOrUndefined(beer.id) || beer.id.length === 0) {
+      beer.owner = this.currentUser.id
       beer.id = this.beerService.create(this.mapBeerDomainModeltoDto(beer))
     } else {
       this.beerService.update(beer.id, this.mapBeerDomainModeltoDto(beer));

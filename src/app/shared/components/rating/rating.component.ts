@@ -7,6 +7,12 @@ import {forEach} from '@angular/router/src/utils/collection';
   templateUrl: './rating.component.html',
   styleUrls: ['./rating.component.css']
 })
+
+/**
+ * Displays rating buttons on bars and beers.
+ *
+ * Changes are delegated to [[RatingModel]]
+ */
 export class RatingComponent implements OnInit {
 
   @Input() ratingBad: number;

@@ -17,6 +17,12 @@ import {MultiNavigationModel} from '../../domainModel/multiNavigationModel';
   templateUrl: './searchResult.component.html',
   styleUrls: ['./searchResult.component.css']
 })
+
+/**
+ * Displays search resuls.
+ *
+ * In case nothing could be found, this component provides features to create new entries based on search input.
+ */
 export class SearchResultComponent implements OnInit {
 
   @Input() search: Observable<string>;
@@ -193,8 +199,7 @@ export class SearchResultComponent implements OnInit {
 
 
   /**
-   * /**
-   * check if the entry in the ignorlist
+   * Check if the entry in the ignorelist
    *
    * @param entry
    * @returns {boolean} true if is in ignore list

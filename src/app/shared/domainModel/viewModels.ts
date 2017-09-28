@@ -6,6 +6,7 @@ import {BehaviorSubject} from 'rxjs/Rx';
 import {falseIfMissing} from "protractor/built/util";
 import {Rating} from "../dto/rating";
 import {ServingStyle} from '../dto/barBeer';
+import {BarState, BusinessService} from '../services/business.service';
 
 export class BeerModel implements IRating {
   id: string;
@@ -139,7 +140,7 @@ export class BarModel implements IRating {
     this.userRating = 0;
     this.isSmokingAllowed = false;
     this.openingHours = new Array<string>();
-    this.openNowText = 'closed now'
+    this.openNowText = BarState.UNDEFINED;
     this.snacks = '';
     this.location = new GeoData();
     this.description = '';

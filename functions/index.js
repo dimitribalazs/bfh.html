@@ -107,3 +107,45 @@ function calculateFavorites(root) {
       });
 
 }
+
+
+exports.updateSearchTableUser = functions.database.ref("users").onWrite((event) => {
+  //users
+  let eventSnapshot = event.data.val() || [];
+
+  eventSnapshot.map((user) => {
+    let id = user.id;
+    let searchWord = (user.firstname + ', ' + user.lastname).toLowerCase();
+    let searchDisplay = user.firstname + ', ' + user.lastname
+
+    event.data.ref.parent.child("searchResults/user_" + id).set({"id": id, "searchWord": searchWord, "searchDisplay": searchDisplay});
+  })
+});
+
+exports.updateSearchTableBar = functions.database.ref("bars").onWrite((event) => {
+  //bars
+  let eventSnapshot = event.data.val() || [];
+
+  eventSnapshot.map((bar) => {
+    let id = bar.id;
+    let searchWord = bar.name.toLowerCase();
+    let searchDisplay = bar.name;
+
+  event.data.ref.parent.child("searchResults/bar" + id).set({"id": id, "searchWord": searchWord, "searchDisplay": searchDisplay});
+  })
+});
+
+exports.updateSearchTableBrewery = functions.database.ref("breweries").onWrite((event) => {
+  //bars
+  let eventSnapshot = event.data.val() || [];
+
+  eventSnapshot.map((brewery) => {
+    let id = brewery.id;
+    let searchWord = brewery.name.toLowerCase();
+    let searchDisplay = brewery.name;
+
+    event.data.ref.parent.child("searchResults/brewery" + id).set({"id": id, "searchWord": searchWord, "searchDisplay": searchDisplay});
+    })
+});
+
+

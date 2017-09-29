@@ -29,6 +29,8 @@ export class UserDatabaseService extends DatabaseService{
     private userBeerRatingsPath: firebase.database.Reference;
     private userBarRatingsPath: firebase.database.Reference;
     private userFriendsPath: firebase.database.Reference;
+    private searchResultsPath: firebase.database.Reference;
+
 
     constructor(
         private barService: BarDatabaseService,
@@ -41,6 +43,7 @@ export class UserDatabaseService extends DatabaseService{
         this.userBeerRatingsPath = getFirebaseRef(FirebaseRefs.UserBeerRatings);
         this.userBarRatingsPath = getFirebaseRef(FirebaseRefs.UserBarRatings);
         this.userFriendsPath = getFirebaseRef(FirebaseRefs.UserFriends);
+        this.searchResultsPath = getFirebaseRef(FirebaseRefs.SearchResults);
     }
 
   /**
@@ -167,5 +170,10 @@ export class UserDatabaseService extends DatabaseService{
   }
 
 
-
+  searchResults(word: string): Observable<any> {
+    let searchWord = word.toLowerCase();
+    return Observable.fromEvent(this.searchResultsPath.orderByChild("searchWord").startAt(searchWord).endAt(searchWord + "\uf8ff"), FirebaseEvent.value, (snapshot) => {
+      return snapshot.val();
+    });
+  }
 }

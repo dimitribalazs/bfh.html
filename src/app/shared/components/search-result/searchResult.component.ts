@@ -99,6 +99,9 @@ export class SearchResultComponent implements OnInit {
         // save the search string
         const s: string = value as string;
         this.searchString = value as string;
+
+        this.userService.searchResults(s).subscribe(data => console.log("data" ,data));
+
         // reset the model
         this.arroundYou = [];
         this.viewModelSubject.next(this.arroundYou)

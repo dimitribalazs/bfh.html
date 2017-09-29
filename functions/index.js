@@ -116,7 +116,7 @@ exports.updateSearchTableUser = functions.database.ref("users").onWrite((event) 
   eventSnapshot.map((user) => {
     let id = user.id;
     let searchWord = (user.firstname + ', ' + user.lastname).toLowerCase();
-    let searchDisplay = user.firstname + ', ' + user.lastname
+    let searchDisplay = user.firstname + ', ' + user.lastname;
 
     event.data.ref.parent.child("searchResults/user_" + id).set({"id": id, "searchWord": searchWord, "searchDisplay": searchDisplay});
   })

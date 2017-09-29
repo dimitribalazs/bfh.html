@@ -172,6 +172,8 @@ export class UserDatabaseService extends DatabaseService{
 
   searchResults(word: string): Observable<any> {
     let searchWord = word.toLowerCase();
+    // \uf8ff
+    //https://stackoverflow.com/questions/38618953/how-to-do-a-simple-search-in-string-in-firebase-database
     return Observable.fromEvent(this.searchResultsPath.orderByChild("searchWord").startAt(searchWord).endAt(searchWord + "\uf8ff"), FirebaseEvent.value, (snapshot) => {
       return snapshot.val();
     });

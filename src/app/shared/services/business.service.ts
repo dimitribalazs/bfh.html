@@ -86,9 +86,6 @@ export class BusinessService {
         this.updateUser(this.currentUser)
       }
     });
-
-
-    this.userService.searchResults("dimi").subscribe(data => console.log("data" ,data));
   }
 
   /**

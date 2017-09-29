@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { By } from '@angular/platform-browser';
 // Import all AngularModules needed
 import { FormsModule } from '@angular/forms';
 
@@ -21,6 +21,7 @@ import { BeerMapComponent } from './beer-map.component';
 describe('BeerMapComponent', () => {
   let component: BeerMapComponent;
   let fixture: ComponentFixture<BeerMapComponent>;
+  let map: any;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -40,10 +41,15 @@ describe('BeerMapComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(BeerMapComponent);
     component = fixture.componentInstance;
+    map = fixture.debugElement.query(By.css('#map'));
     fixture.detectChanges();
   });
 
   it('should be created', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should show a map', () => {
+    expect(map).toBeTruthy();
   });
 });

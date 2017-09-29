@@ -12,6 +12,11 @@ const config = {
 
 let database: firebase.database.Database ;
 
+/**
+ * Get a reference to the Firebase database
+ *
+ * @returns {firebase.database.Database} Reference
+ */
 export function getDatabase(): firebase.database.Database {
   if (database === undefined) {
     database = firebase.initializeApp(config).database();
@@ -19,10 +24,19 @@ export function getDatabase(): firebase.database.Database {
   return database;
 }
 
+/**
+ * Get Firebase collection mapping
+ *
+ * @param {FirebaseRefs} firebaseRef      Local collection
+ * @returns {firebase.database.Reference} Remote collection
+ */
 export function getFirebaseRef(firebaseRef: FirebaseRefs): firebase.database.Reference {
   return getDatabase().ref(firebaseRef);
 }
 
+/**
+ * Provides mapping to Firebase data collections
+ */
 export enum FirebaseRefs {
   Bars = "bars",
   BarBeers = "barBeers",

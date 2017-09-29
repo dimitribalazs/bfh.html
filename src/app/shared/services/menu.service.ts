@@ -1,6 +1,9 @@
 import {Injectable} from '@angular/core';
 import {Subject} from 'rxjs/Subject';
 
+/**
+ * Holds current state of the main menu bar as well as callback functions
+ */
 @Injectable()
 export class MenuService {
   defaultState = {
@@ -21,6 +24,12 @@ export class MenuService {
   state = {...this.defaultState};
   state$: Subject<MenuState> = new Subject();
 
+  /**
+   * Sets a new state
+   *
+   * Expects an Object containing any of the fields in [[MenuState]]
+   * @param state
+   */
   setNewState(state): void {
     // merge options
     this.state = {...this.defaultState, ...state};
@@ -28,17 +37,31 @@ export class MenuService {
     this.state$.next(this.state);
   }
 
+  /**
+   * Executes callback
+   *
+   * @param a any params
+   */
   onInput(...a): void {
     return this.state.onInput(...a);
   }
 
+  /**
+   * Executes callback
+   *
+   * @param a any params
+   */
   onSubmit(...a): void {
     return this.state.onSubmit(...a);
   }
 }
 
 export class MenuState {
+  /**
+   * Text to be displayed
+   */
   titleText: string;
+
   visibleHomeLink: boolean;
   visibleSearchLink: boolean;
   visibleSearchInput: boolean;
@@ -47,6 +70,14 @@ export class MenuState {
   visibleSave: boolean;
   visibleMenu: boolean;
   visibleBack: boolean;
+
+  /**
+   * Input event callback
+   */
   onInput: any;
+
+  /**
+   * Submit event callback
+   */
   onSubmit: any;
 }

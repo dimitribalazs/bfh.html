@@ -16,6 +16,11 @@ import {ServingStyle} from '../../../dto/barBeer';
   styleUrls: ['./available-data.component.css']
 })
 
+/**
+ * Displays which beer is available in a given bar and vice versa.
+ * This class hold a series of callback methods that are called whenever an event data on this page changes.
+ * It is also state aware in terms of on which page (beer, bar or brewery) this component is used.
+ */
 export class AvailableDataComponent implements OnInit {
 
   @Input() items: Observable<any>;

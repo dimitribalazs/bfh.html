@@ -7,7 +7,9 @@ import {BusinessService} from "../../services/business.service";
   styleUrls: ['./error.component.css'],
 })
 
-
+/**
+ * Display error messages
+ */
 export class ErrorComponent {
   error: string;
   stack: string;

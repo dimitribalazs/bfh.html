@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms'; // needed when NgForm is used
+import { By } from '@angular/platform-browser';
 
 // Provide ALL Services, and their dependencies
 import { BarService } from '../barService';
@@ -15,6 +16,7 @@ import { MapComponent } from './map.component';
 describe('MapComponent', () => {
   let component: MapComponent;
   let fixture: ComponentFixture<MapComponent>;
+  let map: any;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -34,10 +36,15 @@ describe('MapComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(MapComponent);
     component = fixture.componentInstance;
+    map = fixture.debugElement.query(By.css('#map'));
     fixture.detectChanges();
   });
 
   it('should be created', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should show a map', () => {
+    expect(map).toBeTruthy();
   });
 });

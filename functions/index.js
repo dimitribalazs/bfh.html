@@ -131,8 +131,8 @@ exports.updateSearchTableBar = functions.database.ref("bars").onWrite((event) =>
     let searchWord = bar.name.toLowerCase();
     let searchDisplay = bar.name;
 
-  event.data.ref.parent.child("searchResults/bar" + id).set({"id": id, "searchWord": searchWord, "searchDisplay": searchDisplay});
-  })
+  event.data.ref.parent.child("searchResults/bar_" + id).set({"id": id, "searchWord": searchWord, "searchDisplay": searchDisplay});
+  });
 });
 
 exports.updateSearchTableBrewery = functions.database.ref("breweries").onWrite((event) => {
@@ -144,8 +144,30 @@ exports.updateSearchTableBrewery = functions.database.ref("breweries").onWrite((
     let searchWord = brewery.name.toLowerCase();
     let searchDisplay = brewery.name;
 
-    event.data.ref.parent.child("searchResults/brewery" + id).set({"id": id, "searchWord": searchWord, "searchDisplay": searchDisplay});
-    })
+    event.data.ref.parent.child("searchResults/brewery_" + id).set({"id": id, "searchWord": searchWord, "searchDisplay": searchDisplay});
+    });
+});
+
+exports.updateSearchTableBeer = functions.database.ref("beers").onWrite((event) => {
+  //beers
+  let eventSnapshot = event.data.val() || [];
+  Object.keys(eventSnapshot).map((value) => {
+    let beer = eventSnapshot[value];
+    let id = beer.id;
+    let searchWord = beer.name.toLowerCase();
+    let searchDisplay = beer.name;
+    event.data.ref.parent.child("searchResults/beer_" + id).set({"id": id, "searchWord": searchWord, "searchDisplay": searchDisplay});
+  });
+    //eventSnapshot.map((beer) => {
+      //console.log("beer", beer);
+      /*
+      let id = beer.id;
+      let searchWord = beer.name.toLowerCase();
+      let searchDisplay = beer.name;
+
+      event.data.ref.parent.child("searchResults/beer_" + id).set({"id": id, "searchWord": searchWord, "searchDisplay": searchDisplay});
+      */
+    //});
 });
 
 

@@ -269,4 +269,8 @@ export class SearchResultComponent implements OnInit {
   onNew() {
     alert('In prototype not implemented!')
   }
+
+  onAddFriend() {
+    alert('In prototype not implemented!')
+  }
 }

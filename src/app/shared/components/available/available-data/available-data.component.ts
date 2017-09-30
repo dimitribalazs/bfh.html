@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import {BehaviorSubject} from 'rxjs/Rx';
 import {Subject} from 'rxjs/Subject';
 import {MenuService, MenuState} from '../../../services/menu.service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {MultiNavigationModel} from '../../../domainModel/multiNavigationModel';
 import {Observable} from 'rxjs/Observable';
 import {BeerBarModel} from '../../../domainModel/viewModels';
@@ -42,9 +42,12 @@ export class AvailableDataComponent implements OnInit {
   linkModel: BeerBarModel;
   servingStyle = ServingStyle;
 
+  private id: string;
+
   constructor(private menuService: MenuService,
               private router: Router,
-              private brewreyService: BreweryService) {
+              private brewreyService: BreweryService,
+              private route: ActivatedRoute) {
     this.search = false;
     this.linkInformation = false;
     this.menuState = menuService.state
@@ -53,6 +56,9 @@ export class AvailableDataComponent implements OnInit {
 
   ngOnInit() {
     this.filterSubject.next(this.filter);
+    this.route.params.subscribe(params => {
+      this.id = params['id'];
+    });
   }
 
   onAddItem() {
@@ -145,5 +151,9 @@ export class AvailableDataComponent implements OnInit {
     setTimeout(() => {
       this.menuService.setNewState(this.brewreyService.getMenuState());
     }, 2500);
+  }
+
+  onMapClick(childView: string, activateNavigation: number) {
+    this.router.navigate(['beer', this.id, childView]);
   }
 }

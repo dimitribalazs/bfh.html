@@ -57,11 +57,13 @@ export class BarDatabaseService extends DatabaseService{
             let dbBar = snapshot.val() as Bar;
             super.copyData(entity, dbBar);
             apiPath.set(dbBar).catch((error) => {
-              // console.log("Error while updating bar", error)
+              console.log("Error while updating bar", error)
+              throw new Error("Error while updating bar");
             });
         })
         .catch((error) => {
-             // console.log("Error while getting bar", error);
+          console.log("Error while updating bar", error)
+          throw new Error("Error while updating bar");
         });
     }
 

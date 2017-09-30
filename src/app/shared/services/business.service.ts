@@ -789,14 +789,12 @@ export class BusinessService {
     dto.name = model.name;
     dto.description = model.description;
     dto.volume = model.volume;
-    dto.brewType = new Array<DropDownEntry>();
-    dto.brewType = model.brewType;
+    dto.brewType = model.brewType || new Array<DropDownEntry>();;
+    console.log("brauerei", model.brewery);
     dto.brewery = model.brewery.id
-    // TODO save in db
     // dto.ratings[] = model.ratings[];
     dto.image = model.image;
-    dto.taste = new Array<DropDownEntry>();
-    dto.taste = model.taste;
+    dto.taste = model.taste || new Array<DropDownEntry>();;
     dto.location = model.location;
     dto.owner = model.owner;
     if (this.debugMode) {

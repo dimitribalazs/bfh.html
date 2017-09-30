@@ -42,11 +42,13 @@ export class BreweryDatabaseService extends DatabaseService{
             let dbBrewery = snapshot.val() as Brewery;
             super.copyData(entity, dbBrewery);
             apiPath.set(dbBrewery).catch((error) => {
-              // console.log("Error while updating brewery", error)
+              console.log("Error while updating brewery", error)
+              throw new Error("Error while updating brewery");
             });
         })
         .catch((error) => {
-            // console.log("Error while getting brewery", error);
+          console.log("Error while updating brewery", error)
+          throw new Error("Error while updating brewery");
         });
     }
 

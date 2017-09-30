@@ -72,11 +72,13 @@ export class UserDatabaseService extends DatabaseService{
             let dbUser = snapshot.val() as User;
             super.copyData(entity, dbUser);
             apiPath.set(dbUser).catch((error) => {
-              // console.log("Error while updating user", error)
+              console.log("Error while updating user", error)
+              throw new Error("Error while updating user");
             });
         })
         .catch((error) => {
-            // console.log("Error while getting user", error);
+          console.log("Error while updating user", error)
+          throw new Error("Error while updating user");
         });
     }
 

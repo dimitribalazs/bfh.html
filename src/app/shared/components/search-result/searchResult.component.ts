@@ -17,6 +17,12 @@ import {MultiNavigationModel} from '../../domainModel/multiNavigationModel';
   templateUrl: './searchResult.component.html',
   styleUrls: ['./searchResult.component.css']
 })
+
+/**
+ * Displays search resuls.
+ *
+ * In case nothing could be found, this component provides features to create new entries based on search input.
+ */
 export class SearchResultComponent implements OnInit {
 
   @Input() search: Observable<string>;
@@ -25,8 +31,6 @@ export class SearchResultComponent implements OnInit {
   @Input() addDisable: boolean;
   @Output() onSearchResult = new EventEmitter<MultiNavigationModel>()
   @Output() onAddBeer = new EventEmitter<string>()
-  @Output() onAddFriend = new EventEmitter<MultiNavigationModel>()
-  @Output() onRemoveFriend = new EventEmitter<MultiNavigationModel>()
 
 
   result: Array<String>
@@ -99,9 +103,55 @@ export class SearchResultComponent implements OnInit {
         // save the search string
         const s: string = value as string;
         this.searchString = value as string;
-        // reset the model
-        this.arroundYou = [];
-        this.viewModelSubject.next(this.arroundYou)
+
+        this.userService.searchResults(s).subscribe(data => {
+          // reset the model
+          this.arroundYou = [];
+          this.viewModelSubject.next(this.arroundYou);
+          let searchResults = data || [];
+          Object.keys(searchResults).map((resultKey) => {
+            this.numberOfBeers = 0;
+            this.numberOfBars = 0;
+            this.numberOfBrewerys = 0;
+
+            let isBar = resultKey.indexOf("bar") !== -1 && (this.filterNumber === 0 || this.filterNumber === 1);
+            let isBrewery = resultKey.indexOf("brewery") !== -1 && (this.filterNumber === 0 || this.filterNumber === 2);
+            let isBeer = resultKey.indexOf("beer") !== -1 && (this.filterNumber === 0 || this.filterNumber === 3);
+            let isUser = resultKey.indexOf("user") !== -1 && (this.filterNumber === 0 || this.filterNumber === 4);
+
+              var searchData = searchResults[resultKey];
+              const a: MultiNavigationModel = new MultiNavigationModel();
+              a.id = searchData.id;
+              a.name = searchData.searchDisplay;
+              if(isUser) {
+                a.icon = 'fa fa-user';
+                a.routerNavigate = Constants.ROUTING_PARENT_USER
+                this.arroundYou.push(a);
+              } else if(isBeer) {
+                this.numberOfBeers++
+                a.icon = 'fa fa-beer';
+                a.routerNavigate = Constants.ROUTING_PARENT_BEER
+                this.arroundYou.push(a);
+              } else if(isBar) {
+                this.numberOfBars++
+                a.icon = 'fa fa-cutlery';
+                a.routerNavigate = Constants.ROUTING_PARENT_BAR
+                this.arroundYou.push(a);
+              } else if(isBrewery) {
+                this.numberOfBrewerys++
+                a.icon = 'fa fa-industry';
+                a.routerNavigate = Constants.ROUTING_PARENT_BREWERY
+                this.arroundYou.push(a);
+              }
+
+
+              //this.viewModelSubject.next(this.arroundYou)
+          })
+          this.viewModelSubject.next(this.arroundYou)
+        });
+
+
+        /*
         // unsubscribe the old search subscription
         this.subscription.unsubscribe()
 
@@ -187,14 +237,14 @@ export class SearchResultComponent implements OnInit {
             })
           })
         }
+        */
       }
     )
   }
 
 
   /**
-   * /**
-   * check if the entry in the ignorlist
+   * Check if the entry in the ignorelist
    *
    * @param entry
    * @returns {boolean} true if is in ignore list
@@ -217,6 +267,10 @@ export class SearchResultComponent implements OnInit {
   }
 
   onNew() {
+    alert('In prototype not implemented!')
+  }
+
+  onAddFriend() {
     alert('In prototype not implemented!')
   }
 }

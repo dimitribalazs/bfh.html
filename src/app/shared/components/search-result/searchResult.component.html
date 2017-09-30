@@ -2,11 +2,12 @@
   <div style="overflow-y:hidden;">
     <ul class="list-group">
       <li *ngFor="let data of viewModelSubject | async"
-          (click)="onClick(data)"
           class="list-group-item">
+        <span (click)="onClick(data)">
         <span class={{data.icon}}></span>
         {{ data.name }}
-        <button *ngIf="data.routerNavigate === '/user/'" class="btn btn-default btn-sm pull-right">
+        </span>
+        <button *ngIf="data.routerNavigate === '/user/'" class="btn btn-default btn-sm pull-right" (click)="onAddFriend()">
           <i class="fa fa-user-plus" aria-hidden="true"></i>
         </button>
       </li>

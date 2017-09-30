@@ -16,6 +16,7 @@ export class BreweryDatabaseService extends DatabaseService{
 
   /**
    * Create a new brewery
+   *
    * @param {Brewery} entity
    */
   create(entity: Brewery): void {
@@ -27,6 +28,7 @@ export class BreweryDatabaseService extends DatabaseService{
 
   /**
    * Update an existing brewery
+   *
    * @param {string} id
    * @param {Brewery} entity
    */
@@ -40,16 +42,19 @@ export class BreweryDatabaseService extends DatabaseService{
             let dbBrewery = snapshot.val() as Brewery;
             super.copyData(entity, dbBrewery);
             apiPath.set(dbBrewery).catch((error) => {
-              // console.log("Error while updating brewery", error)
+              console.log("Error while updating brewery", error)
+              throw new Error("Error while updating brewery");
             });
         })
         .catch((error) => {
-            // console.log("Error while getting brewery", error);
+          console.log("Error while updating brewery", error)
+          throw new Error("Error while updating brewery");
         });
     }
 
   /**
    * Get all breweries
+   *
    * @returns {Observable<Brewery[]>}
    */
   getAll(): Observable<Brewery[]> {
@@ -66,6 +71,7 @@ export class BreweryDatabaseService extends DatabaseService{
 
   /**
    * Get a brewery by its id
+   *
    * @param {string} id
    * @returns {Observable<Brewery>}
    */

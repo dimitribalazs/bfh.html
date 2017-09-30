@@ -23,8 +23,7 @@ import {UserDatabaseService} from '../shared/services/user.service';
     HomeComponent,
     BeerTop10Component
   ],
-  providers: [  GeoService, BarDatabaseService, BeerDatabaseService, UserDatabaseService ]
+  providers: [  GeoService ]
    // providers: [ HomeService ]
 })
 export class HomeModule { }
- 

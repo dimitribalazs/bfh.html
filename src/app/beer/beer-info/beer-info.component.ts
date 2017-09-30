@@ -32,8 +32,4 @@ export class BeerInfoComponent implements OnInit {
       this.id = params['id'];
     });
   }
-
-  onClick(childView: string, activateNavigation: number) {
-    this.router.navigate(['beer', this.id, childView]);
-  }
 }

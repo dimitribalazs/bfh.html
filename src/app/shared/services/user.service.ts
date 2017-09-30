@@ -28,6 +28,9 @@ export class UserDatabaseService extends DatabaseService{
     private beersPath: firebase.database.Reference;
     private userBeerRatingsPath: firebase.database.Reference;
     private userBarRatingsPath: firebase.database.Reference;
+    private userFriendsPath: firebase.database.Reference;
+    private searchResultsPath: firebase.database.Reference;
+
 
     constructor(
         private barService: BarDatabaseService,
@@ -39,6 +42,8 @@ export class UserDatabaseService extends DatabaseService{
         this.beersPath = getFirebaseRef(FirebaseRefs.Beers);
         this.userBeerRatingsPath = getFirebaseRef(FirebaseRefs.UserBeerRatings);
         this.userBarRatingsPath = getFirebaseRef(FirebaseRefs.UserBarRatings);
+        this.userFriendsPath = getFirebaseRef(FirebaseRefs.UserFriends);
+        this.searchResultsPath = getFirebaseRef(FirebaseRefs.SearchResults);
     }
 
   /**
@@ -67,11 +72,13 @@ export class UserDatabaseService extends DatabaseService{
             let dbUser = snapshot.val() as User;
             super.copyData(entity, dbUser);
             apiPath.set(dbUser).catch((error) => {
-              // console.log("Error while updating user", error)
+              console.log("Error while updating user", error)
+              throw new Error("Error while updating user");
             });
         })
         .catch((error) => {
-            // console.log("Error while getting user", error);
+          console.log("Error while updating user", error)
+          throw new Error("Error while updating user");
         });
     }
 
@@ -110,25 +117,18 @@ export class UserDatabaseService extends DatabaseService{
    * @param {string} userId
    * @returns {Observable<User[]>}
    */
-    getFriendsOfUser(userId: string): Observable<User[]> {
-      if(isNullOrUndefined(userId)) throw new Error("userId must be defined");
+  getFriendsOfUser(userId: string): Observable<User[]> {
+    if(isNullOrUndefined(userId)) throw new Error("userId must be defined");
 
-      return Observable.fromEvent(this.usersPath.child(userId).child("friends"), FirebaseEvent.value, (snapshot) => {
-        const friends: User[] = [];
-        const  friendIds = snapshot.val();
-        if(friendIds) {
-          friendIds.map((value, friendId) => {
-            this.usersPath.child(friendId).once(FirebaseEvent.value).then((friendSnapshot) => {
-              const friendUser = friendSnapshot.val() as User;
-              if(friendUser != null) {
-                friends.push(friendUser);
-              }
-            })
-          })
-        }
-        return friends;
-      });
-    }
+    return Observable.fromEvent(this.userFriendsPath.orderByChild("user").equalTo(userId), FirebaseEvent.value, (snapshot) => {
+      const friends: User[] = [];
+      const dbData = snapshot.val() || [];
+      Object.keys(dbData).map(value => friends.push(dbData[value] as User));
+      return friends;
+    });
+  };
+
+
 
   /**
    * Get favorites beers from an user
@@ -172,5 +172,12 @@ export class UserDatabaseService extends DatabaseService{
   }
 
 
-
+  searchResults(word: string): Observable<any> {
+    let searchWord = word.toLowerCase();
+    // \uf8ff
+    //https://stackoverflow.com/questions/38618953/how-to-do-a-simple-search-in-string-in-firebase-database
+    return Observable.fromEvent(this.searchResultsPath.orderByChild("searchWord").startAt(searchWord).endAt(searchWord + "\uf8ff"), FirebaseEvent.value, (snapshot) => {
+      return snapshot.val();
+    });
+  }
 }

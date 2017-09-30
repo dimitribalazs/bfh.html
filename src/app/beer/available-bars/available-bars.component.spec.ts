@@ -3,8 +3,6 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 // Import all AngularModules needed
 import { FormsModule } from '@angular/forms';
 
-
-
 // Provide ALL Services, and their dependencies
 import {BeerService} from '../beerService'
 import { BusinessService } from '../../shared/services/business.service';
@@ -21,7 +19,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { AvailableDataComponent } from '../../shared/components/available/available-data/available-data.component';
 import { SearchResultComponent } from '../../shared/components/search-result/searchResult.component';
 import { LinkInformationComponent } from '../../shared/components/available/link-information/link-information.component';
-
 
 import { AvailableBeersComponent } from './available-bars.component';
 

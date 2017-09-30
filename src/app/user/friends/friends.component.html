@@ -1,9 +1,13 @@
-<div class="container">
-  <div style="overflow-y:scroll; height:300px; background:gray">
-    <ul class="list-group">
-      <li *ngFor="let friend of userService.viewModel.friends | async" class="list-group-item" (click)="onSelect(friend)">
-        {{friend.firstname}} {{friend.lastname}}
-      </li>
-    </ul>
-  </div>
+<div class="duffd-row duffd-content">
+<div *ngIf="this.hasFriends === true">
+  <ul class="list-group">
+    <li *ngFor="let friend of userService.viewModel.friends | async" class="list-group-item" (click)="onSelect(friend)">
+      {{friend.firstname}} {{friend.lastname}}
+    </li>
+  </ul>
+</div>
+<div *ngIf="this.hasFriends === false">
+  <h4>{{this.txtNoFriends}}</h4>
+  <div class="alert alert-warning" role="alert">{{this.txtGetOut}}</div>
+</div>
 </div>

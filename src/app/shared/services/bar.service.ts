@@ -31,6 +31,7 @@ export class BarDatabaseService extends DatabaseService{
 
   /**
    * Create new bar
+   *
    * @param {Bar} entity
    */
   create(entity: Bar): void {
@@ -42,6 +43,7 @@ export class BarDatabaseService extends DatabaseService{
 
   /**
    * Update existing bar
+   *
    * @param {string} id
    * @param {Bar} entity
    */
@@ -55,16 +57,19 @@ export class BarDatabaseService extends DatabaseService{
             let dbBar = snapshot.val() as Bar;
             super.copyData(entity, dbBar);
             apiPath.set(dbBar).catch((error) => {
-              // console.log("Error while updating bar", error)
+              console.log("Error while updating bar", error)
+              throw new Error("Error while updating bar");
             });
         })
         .catch((error) => {
-             // console.log("Error while getting bar", error);
+          console.log("Error while updating bar", error)
+          throw new Error("Error while updating bar");
         });
     }
 
   /**
    * Get all bar as observable
+   *
    * @returns {Observable<Bar[]>}
    */
   getAll(): Observable<Bar[]> {
@@ -81,6 +86,7 @@ export class BarDatabaseService extends DatabaseService{
 
   /**
    * Get a bar by its id
+   *
    * @param {string} id
    * @returns {Observable<Bar>}
    */
@@ -96,6 +102,7 @@ export class BarDatabaseService extends DatabaseService{
 
   /**
    * Add a beer to bar
+   *
    * @param {BarBeer} barBeer
    */
   addBeerToBar(barBeer: BarBeer): void {
@@ -109,6 +116,7 @@ export class BarDatabaseService extends DatabaseService{
 
   /**
    * Remove a beer from a bar
+   *
    * @param {BarBeer} barBeer
    */
   removeBeerFromBar(barBeer: BarBeer): void {
@@ -120,6 +128,7 @@ export class BarDatabaseService extends DatabaseService{
 
   /**
    * Get bar ratings by bar id
+   *
    * @param {string} barId
    * @returns {Observable<UserBarRating[]>}
    */
@@ -136,6 +145,7 @@ export class BarDatabaseService extends DatabaseService{
 
   /**
    * Add a rating to a bar
+   *
    * @param {UserBarRating} barRating
    */
   addBarRating(barRating: UserBarRating) {
@@ -147,6 +157,7 @@ export class BarDatabaseService extends DatabaseService{
 
   /**
    * Get visited bars from a user grouped by date
+   *
    * @param {string} userId
    * @returns {Observable<BarStatistics>}
    */
@@ -178,6 +189,7 @@ export class BarDatabaseService extends DatabaseService{
 
   /**
    * Add bar visited
+   *
    * @param {UserBar} userBar
    */
   addBarVisited(userBar: UserBar): void {

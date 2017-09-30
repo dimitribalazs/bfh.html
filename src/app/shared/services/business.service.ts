@@ -31,15 +31,18 @@ import {BarStatistics} from '../dto/barStatistics';
 import {BadgeType} from '../domainModel/badgeType';
 import {GeoService} from  '../services/geo.service';
 
-const OPEN_TEXT_SMALL = 'Open';
-const OPEN_TEXT_LARGE = 'Open now';
-const CLOSED_TEXT_SMALL = 'Closed';
-const CLOSED_TEXT_LARGE = 'Closed now';
+export enum BarState {
+  UNDEFINED = 'Hours',
+  OPEN_TEXT_SMALL = 'Open',
+  OPEN_TEXT_LARGE = 'Open now',
+  CLOSED_TEXT_SMALL = 'Closed',
+  CLOSED_TEXT_LARGE = 'Closed now'
+}
 
 @Injectable()
 export class BusinessService {
 
-
+  barState = BarState;
   currentUser: UserModel = new UserModel();
   debugMode: boolean;
   appError: any;
@@ -90,6 +93,7 @@ export class BusinessService {
 
   /**
    * Get the beer with the id
+   *
    * @param id the id of the beer
    * @returns {Subject<BeerModel>} A beer subject
    */
@@ -117,10 +121,6 @@ export class BusinessService {
       }
       // emit the loaded bar data
       this.beerSubject.next(beerModel)
-      // reload the available beers
-      // TODO: getBarByBeer funktion fehlt
-      this.barService.getAll().subscribe((data) => {
-        // map dto to viewModel
         // reload the available bars
         this.beerService.getAllBarBeersByBeerId(beer.id).subscribe((barBeers: BarBeer[]) => {
           // map dto to viewModel
@@ -136,7 +136,6 @@ export class BusinessService {
           beerModel.bars.next(beersArr)
 
         })
-      })
     })
 
     return this.beerSubject;
@@ -144,6 +143,7 @@ export class BusinessService {
 
   /**
    * Drink a beer
+   *
    * @param beerId the beer ID which is drank
    * @param beerName the name of the beer
    */
@@ -160,7 +160,8 @@ export class BusinessService {
   }
 
   /**
-   * Visit a baar
+   * Visit a bar
+   *
    * @param barId the bar ID which is visit
    */
   public addBarVisited(barId: string) {
@@ -174,7 +175,8 @@ export class BusinessService {
   }
 
   /**
-   * add a beer to a bar
+   * Add a beer to a bar
+   *
    * @param beerId
    * @param barId
    */
@@ -192,7 +194,8 @@ export class BusinessService {
   }
 
   /**
-   * remove a beer from the bar
+   * Remove a beer from the bar
+   *
    * @param beerId
    * @param barId
    */
@@ -206,7 +209,8 @@ export class BusinessService {
 
 
   /**
-   * add brewery to beer
+   * Add brewery to beer
+   *
    * @param {string} beerId
    * @param {string} breweryId
    */
@@ -215,21 +219,23 @@ export class BusinessService {
   }
 
   /**
-   * remove a beer from the brewery
+   * Remove a beer from the brewery
+   *
    * @param beerId
-   * @param breweryId
    */
   removeBreweryFromBeer(beerId: string) {
     this.beerService.removeBreweryFromBeer(beerId);
   }
 
   /**
-   * create or update a beer
+   * Create or update a beer
+   *
    * @param beer the beer
    * @returns {string} the id of the beer
    */
   createOrUpdateBeer(beer: BeerModel): string {
     if (isNullOrUndefined(beer.id) || beer.id.length === 0) {
+      beer.owner = this.currentUser.id
       beer.id = this.beerService.create(this.mapBeerDomainModeltoDto(beer))
     } else {
       this.beerService.update(beer.id, this.mapBeerDomainModeltoDto(beer));
@@ -238,7 +244,8 @@ export class BusinessService {
   }
 
   /**
-   * load a bar with id
+   * Load a bar with id
+   *
    * @param id the id of the bar
    * @returns {Subject<BarModel>} A bar subject
    */
@@ -281,7 +288,7 @@ export class BusinessService {
   }
 
   /**
-   * Can this user change the beer
+   * Indicated the currently logged in user can edit a given beer
    *
    * @param beer which is to be changed
    * @returns {boolean} true if allowed
@@ -300,6 +307,12 @@ export class BusinessService {
     this.barService.addBarRating(barRating);
   }
 
+  /**
+   * Rates a given beer with a given rating
+   *
+   * @param {string} beerId
+   * @param {number} userRating
+   */
   setBeerRating(beerId: string, userRating: number) {
     const beerRating: UserBeerRating = {
       user: this.currentUser.id,
@@ -310,7 +323,12 @@ export class BusinessService {
     this.beerService.addBeerRating(beerRating);
   }
 
-
+  /**
+   * Returns a reference to a brewery
+   *
+   * @param {string} id
+   * @returns {Subject<BreweryModel>}
+   */
   getBrewery(id: string): Subject<BreweryModel> {
     // emit the loaded Data
     this.subscription.unsubscribe()
@@ -331,6 +349,11 @@ export class BusinessService {
     return this.brewerySubject;
   }
 
+  /**
+   * Sets the currently logged in user
+   *
+   * @param {string} userId
+   */
   setCurrentUser(userId: string) {
     this.userService.get(userId).subscribe((user: User) => {
         // map dto to viewModel
@@ -340,6 +363,11 @@ export class BusinessService {
     )
   }
 
+  /**
+   * Updates a given user with new data
+   *
+   * @param {UserModel} user
+   */
   updateUser(user: UserModel) {
     this.userService.update(user.id, this.mapUserDomainModelToDto(user))
   }
@@ -372,6 +400,7 @@ export class BusinessService {
       });
 
       this.userService.getFriendsOfUser(userModel.id).subscribe((data) => {
+        console.log("friends", data);
         // map dto to viewModel
         const friendsArr: Array<UserModel> = new Array<UserModel>()
         data.forEach((friends: User) => friendsArr.push(this.mapUserDtoToDomainModel(friends)))
@@ -398,6 +427,11 @@ export class BusinessService {
     return this.usersSubject;
   }
 
+  /**
+   * Returns data used in the AroundYou control on the main page
+   *
+   * @returns {Subject<AroundYou[]>}
+   */
   getAroundYou(): Subject<AroundYou[]> {
     let userObs = Observable.create((observer) => {
       this.userService.getAll().subscribe((users: User[] = []) => {
@@ -432,7 +466,7 @@ export class BusinessService {
                 name: bar.name,
                 id: bar.id,
                 distance: this.formattingDistance(distance),
-                icon: "fa fa-map-marker",
+                icon: "fa fa-cutlery",
                 routerNavigate: "/bar/",
                 unit: "Km"
               };
@@ -494,6 +528,12 @@ export class BusinessService {
     // })
   }
 
+  /**
+   * Formatting helper for distance information
+   *
+   * @param {number} distance
+   * @returns {number}
+   */
   private formattingDistance(distance: number): number {
     const distFix: number = +distance.toFixed(3)
     return distance > 100 ? +distFix.toPrecision(4) : +distFix.toPrecision(3)
@@ -514,12 +554,21 @@ export class BusinessService {
     })
   }
 
-
+  /**
+   * Set an error message that will be displayed on the error page
+   *
+   * @param error
+   */
   public setError(error: any) {
     this.appError = error;
   }
 
-
+  /**
+   * Mapping helper for beer
+   *
+   * @param {BarBeer} dto
+   * @returns {BeerBarModel}
+   */
   private mapBarBeerDtoToDomainModel(dto: BarBeer): BeerBarModel {
     const model = new BeerBarModel();
     model.barName = dto.barName;
@@ -540,7 +589,12 @@ export class BusinessService {
     return model;
   }
 
-
+  /**
+   * Mapping helper for bar
+   *
+   * @param {Bar} dto
+   * @returns {BarModel}
+   */
   private mapBarDtoToDomainModel(dto: Bar): BarModel {
     const model = new BarModel();
     model.id = dto.id;
@@ -598,7 +652,7 @@ export class BusinessService {
       }
 
       const currentTime = new Date()
-      model.openNowText = isLargeScreen ? CLOSED_TEXT_LARGE : CLOSED_TEXT_SMALL;
+      model.openNowText = isLargeScreen ? this.barState.CLOSED_TEXT_LARGE : this.barState.CLOSED_TEXT_SMALL;
       if (!isNullOrUndefined(ArrayOpen[currentTime.getDay()]) && !isNullOrUndefined(ArrayClose[currentTime.getDay()])) {
         const openFrom = new Date();
         openFrom.setHours(ArrayOpen[currentTime.getDay()].houre, ArrayOpen[currentTime.getDay()].min, ArrayOpen[currentTime.getDay()].sec)
@@ -607,7 +661,7 @@ export class BusinessService {
         openTo.setHours(ArrayClose[currentTime.getDay()].houre, ArrayClose[currentTime.getDay()].min, ArrayClose[currentTime.getDay()].sec)
 
         if (currentTime > openFrom && currentTime < openTo) {
-          model.openNowText = isLargeScreen ? OPEN_TEXT_LARGE : OPEN_TEXT_SMALL;
+          model.openNowText = isLargeScreen ? this.barState.OPEN_TEXT_LARGE : this.barState.OPEN_TEXT_SMALL;
         }
       }
 
@@ -624,7 +678,12 @@ export class BusinessService {
     return model;
   }
 
-
+  /**
+   * Mapping helper for user
+   *
+   * @param {User} dto
+   * @returns {UserModel}
+   */
   private mapUserDtoToDomainModel(dto: User): UserModel {
     const model = new UserModel();
     model.id = dto.id;
@@ -653,6 +712,12 @@ export class BusinessService {
     return model;
   }
 
+  /**
+   * Mapping helper for user domain
+   *
+   * @param {UserModel} model
+   * @returns {User}
+   */
   private mapUserDomainModelToDto(model: UserModel): User {
     const dto = new User();
     dto.id = model.id;
@@ -677,6 +742,12 @@ export class BusinessService {
     return dto;
   }
 
+  /**
+   * Mapping helper for beer
+   *
+   * @param {Beer} dto
+   * @returns {BeerModel}
+   */
   private mapBeerDtoToDomainModel(dto: Beer): BeerModel {
     const model = new BeerModel();
     model.id = dto.id;
@@ -707,7 +778,8 @@ export class BusinessService {
   }
 
   /**
-   * map the beer domain model to a beer dto
+   * Mapping helper for beer domain
+   *
    * @param model
    * @returns {Beer} dto
    */
@@ -717,14 +789,12 @@ export class BusinessService {
     dto.name = model.name;
     dto.description = model.description;
     dto.volume = model.volume;
-    dto.brewType = new Array<DropDownEntry>();
-    dto.brewType = model.brewType;
+    dto.brewType = model.brewType || new Array<DropDownEntry>();;
+    console.log("brauerei", model.brewery);
     dto.brewery = model.brewery.id
-    // TODO save in db
     // dto.ratings[] = model.ratings[];
     dto.image = model.image;
-    dto.taste = new Array<DropDownEntry>();
-    dto.taste = model.taste;
+    dto.taste = model.taste || new Array<DropDownEntry>();;
     dto.location = model.location;
     dto.owner = model.owner;
     if (this.debugMode) {
@@ -737,6 +807,12 @@ export class BusinessService {
     return dto;
   }
 
+  /**
+   * Mapping helper for brewery domain
+   *
+   * @param {Brewery} dto
+   * @returns {BreweryModel}
+   */
   private mapBreweryDtoToDomainModel(dto: Brewery): BreweryModel {
     const model = new BreweryModel();
     model.id = dto.id;
@@ -760,7 +836,16 @@ export class BusinessService {
     return model;
   }
 
+  /**
+   * Return beer badges based on user statistics
+   *
+   * @param {BeerStatistics} beerStat
+   * @returns {Badge[]}
+   */
   private getBeerBadges(beerStat: BeerStatistics): Badge[] {
+    // ********
+    // This needs to be refactored to a more flexible pattern once more badges are available.
+    // ********
     const badges: Badge[] = [];
     Object.keys(beerStat.beersDrankByDate).forEach((value) => {
       // 5 different beers per day
@@ -786,7 +871,16 @@ export class BusinessService {
     return badges;
   }
 
+  /**
+   * Return bar badges based on user statistics
+   *
+   * @param {BarStatistics} barStat
+   * @returns {Badge[]}
+   */
   private getBarBadges(barStat: BarStatistics): Badge[] {
+    // ********
+    // This needs to be refactored to a more flexible pattern once more badges are available.
+    // ********
     const badges: Badge[] = [];
     Object.keys(barStat.barsVisitedByDate).forEach((value) => {
       //3 different beers per day
@@ -805,6 +899,12 @@ export class BusinessService {
     return badges;
   }
 
+  /**
+   * Return how many beers have been consumed
+   *
+   * @param {BeerStatistics} beerStat
+   * @returns {BeerTotalStatistics[]}
+   */
   private getBeerConsumption(beerStat: BeerStatistics): BeerTotalStatistics[]
   {
     const stat: BeerTotalStatistics[] = [];

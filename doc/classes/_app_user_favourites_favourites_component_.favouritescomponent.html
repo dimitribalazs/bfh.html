@@ -96,9 +96,12 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_app_user_favourites_favourites_component_.favouritescomponent.html#route" class="tsd-kind-icon">route</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_app_user_favourites_favourites_component_.favouritescomponent.html#businessservice" class="tsd-kind-icon">business<wbr>Service</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_app_user_favourites_favourites_component_.favouritescomponent.html#hasfavourites" class="tsd-kind-icon">has<wbr>Favourites</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_app_user_favourites_favourites_component_.favouritescomponent.html#router" class="tsd-kind-icon">router</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_app_user_favourites_favourites_component_.favouritescomponent.html#selectedid" class="tsd-kind-icon">selected<wbr>Id</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_app_user_favourites_favourites_component_.favouritescomponent.html#txtgetout" class="tsd-kind-icon">txt<wbr>Get<wbr>Out</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_app_user_favourites_favourites_component_.favouritescomponent.html#txtnofavourites" class="tsd-kind-icon">txt<wbr>NoFavourites</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_app_user_favourites_favourites_component_.favouritescomponent.html#userservice" class="tsd-kind-icon">user<wbr>Service</a></li>
 							</ul>
 						</section>
@@ -119,13 +122,13 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Favourites<wbr>Component<span class="tsd-signature-symbol">(</span>userService<span class="tsd-signature-symbol">: </span><a href="_app_user_userservice_.userservice.html" class="tsd-signature-type">UserService</a>, router<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Router</span>, route<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ActivatedRoute</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_app_user_favourites_favourites_component_.favouritescomponent.html" class="tsd-signature-type">FavouritesComponent</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Favourites<wbr>Component<span class="tsd-signature-symbol">(</span>userService<span class="tsd-signature-symbol">: </span><a href="_app_user_userservice_.userservice.html" class="tsd-signature-type">UserService</a>, router<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Router</span>, businessService<span class="tsd-signature-symbol">: </span><a href="_app_shared_services_business_service_.businessservice.html" class="tsd-signature-type">BusinessService</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_app_user_favourites_favourites_component_.favouritescomponent.html" class="tsd-signature-type">FavouritesComponent</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/dimitribalazs/bfh.html/blob/b6a058b/src/app/user/favourites/favourites.component.ts#L14">app/user/favourites/favourites.component.ts:14</a></li>
+									<li>Defined in <a href="https://github.com/dimitribalazs/bfh.html/blob/de364b0/src/app/user/favourites/favourites.component.ts#L24">app/user/favourites/favourites.component.ts:24</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -137,7 +140,7 @@
 									<h5>router: <span class="tsd-signature-type">Router</span></h5>
 								</li>
 								<li>
-									<h5>route: <span class="tsd-signature-type">ActivatedRoute</span></h5>
+									<h5>businessService: <a href="_app_shared_services_business_service_.businessservice.html" class="tsd-signature-type">BusinessService</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_app_user_favourites_favourites_component_.favouritescomponent.html" class="tsd-signature-type">FavouritesComponent</a></h4>
@@ -148,12 +151,22 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="route" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> route</h3>
-					<div class="tsd-signature tsd-kind-icon">route<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">ActivatedRoute</span></div>
+					<a name="businessservice" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> business<wbr>Service</h3>
+					<div class="tsd-signature tsd-kind-icon">business<wbr>Service<span class="tsd-signature-symbol">:</span> <a href="_app_shared_services_business_service_.businessservice.html" class="tsd-signature-type">BusinessService</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/dimitribalazs/bfh.html/blob/b6a058b/src/app/user/favourites/favourites.component.ts#L18">app/user/favourites/favourites.component.ts:18</a></li>
+							<li>Defined in <a href="https://github.com/dimitribalazs/bfh.html/blob/de364b0/src/app/user/favourites/favourites.component.ts#L28">app/user/favourites/favourites.component.ts:28</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="hasfavourites" class="tsd-anchor"></a>
+					<h3>has<wbr>Favourites</h3>
+					<div class="tsd-signature tsd-kind-icon">has<wbr>Favourites<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;true</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/dimitribalazs/bfh.html/blob/de364b0/src/app/user/favourites/favourites.component.ts#L22">app/user/favourites/favourites.component.ts:22</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -163,7 +176,7 @@
 					<div class="tsd-signature tsd-kind-icon">router<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Router</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/dimitribalazs/bfh.html/blob/b6a058b/src/app/user/favourites/favourites.component.ts#L17">app/user/favourites/favourites.component.ts:17</a></li>
+							<li>Defined in <a href="https://github.com/dimitribalazs/bfh.html/blob/de364b0/src/app/user/favourites/favourites.component.ts#L27">app/user/favourites/favourites.component.ts:27</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -173,7 +186,27 @@
 					<div class="tsd-signature tsd-kind-icon">selected<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/dimitribalazs/bfh.html/blob/b6a058b/src/app/user/favourites/favourites.component.ts#L14">app/user/favourites/favourites.component.ts:14</a></li>
+							<li>Defined in <a href="https://github.com/dimitribalazs/bfh.html/blob/de364b0/src/app/user/favourites/favourites.component.ts#L24">app/user/favourites/favourites.component.ts:24</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="txtgetout" class="tsd-anchor"></a>
+					<h3>txt<wbr>Get<wbr>Out</h3>
+					<div class="tsd-signature tsd-kind-icon">txt<wbr>Get<wbr>Out<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;USER_FOREIGN_GET_OUT</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/dimitribalazs/bfh.html/blob/de364b0/src/app/user/favourites/favourites.component.ts#L21">app/user/favourites/favourites.component.ts:21</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="txtnofavourites" class="tsd-anchor"></a>
+					<h3>txt<wbr>NoFavourites</h3>
+					<div class="tsd-signature tsd-kind-icon">txt<wbr>NoFavourites<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;USER_FOREIGN_NO_FAVOURITES</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/dimitribalazs/bfh.html/blob/de364b0/src/app/user/favourites/favourites.component.ts#L20">app/user/favourites/favourites.component.ts:20</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -183,7 +216,7 @@
 					<div class="tsd-signature tsd-kind-icon">user<wbr>Service<span class="tsd-signature-symbol">:</span> <a href="_app_user_userservice_.userservice.html" class="tsd-signature-type">UserService</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/dimitribalazs/bfh.html/blob/b6a058b/src/app/user/favourites/favourites.component.ts#L16">app/user/favourites/favourites.component.ts:16</a></li>
+							<li>Defined in <a href="https://github.com/dimitribalazs/bfh.html/blob/de364b0/src/app/user/favourites/favourites.component.ts#L26">app/user/favourites/favourites.component.ts:26</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -200,7 +233,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/dimitribalazs/bfh.html/blob/b6a058b/src/app/user/favourites/favourites.component.ts#L28">app/user/favourites/favourites.component.ts:28</a></li>
+									<li>Defined in <a href="https://github.com/dimitribalazs/bfh.html/blob/de364b0/src/app/user/favourites/favourites.component.ts#L42">app/user/favourites/favourites.component.ts:42</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -223,7 +256,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/dimitribalazs/bfh.html/blob/b6a058b/src/app/user/favourites/favourites.component.ts#L20">app/user/favourites/favourites.component.ts:20</a></li>
+									<li>Defined in <a href="https://github.com/dimitribalazs/bfh.html/blob/de364b0/src/app/user/favourites/favourites.component.ts#L31">app/user/favourites/favourites.component.ts:31</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -240,7 +273,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/dimitribalazs/bfh.html/blob/b6a058b/src/app/user/favourites/favourites.component.ts#L30">app/user/favourites/favourites.component.ts:30</a></li>
+									<li>Defined in <a href="https://github.com/dimitribalazs/bfh.html/blob/de364b0/src/app/user/favourites/favourites.component.ts#L46">app/user/favourites/favourites.component.ts:46</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -277,13 +310,22 @@
 								<a href="_app_user_favourites_favourites_component_.favouritescomponent.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="_app_user_favourites_favourites_component_.favouritescomponent.html#route" class="tsd-kind-icon">route</a>
+								<a href="_app_user_favourites_favourites_component_.favouritescomponent.html#businessservice" class="tsd-kind-icon">business<wbr>Service</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_app_user_favourites_favourites_component_.favouritescomponent.html#hasfavourites" class="tsd-kind-icon">has<wbr>Favourites</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
 								<a href="_app_user_favourites_favourites_component_.favouritescomponent.html#router" class="tsd-kind-icon">router</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
 								<a href="_app_user_favourites_favourites_component_.favouritescomponent.html#selectedid" class="tsd-kind-icon">selected<wbr>Id</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_app_user_favourites_favourites_component_.favouritescomponent.html#txtgetout" class="tsd-kind-icon">txt<wbr>Get<wbr>Out</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_app_user_favourites_favourites_component_.favouritescomponent.html#txtnofavourites" class="tsd-kind-icon">txt<wbr>NoFavourites</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="_app_user_favourites_favourites_component_.favouritescomponent.html#userservice" class="tsd-kind-icon">user<wbr>Service</a>
@@ -301,6 +343,18 @@
 					</li>
 				</ul>
 				<ul class="after-current">
+					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="../modules/_app_user_favourites_favourites_component_.html#user_current_get_out" class="tsd-kind-icon">USER_<wbr>CURRENT_<wbr>GET_<wbr>OUT</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="../modules/_app_user_favourites_favourites_component_.html#user_current_no_favourites" class="tsd-kind-icon">USER_<wbr>CURRENT_<wbr>NO_<wbr>FAVOURITES</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="../modules/_app_user_favourites_favourites_component_.html#user_foreign_get_out" class="tsd-kind-icon">USER_<wbr>FOREIGN_<wbr>GET_<wbr>OUT</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="../modules/_app_user_favourites_favourites_component_.html#user_foreign_no_favourites" class="tsd-kind-icon">USER_<wbr>FOREIGN_<wbr>NO_<wbr>FAVOURITES</a>
+					</li>
 				</ul>
 			</nav>
 		</div>

@@ -133,24 +133,20 @@ export class UserDatabaseService extends DatabaseService{
     if(isNullOrUndefined(userId)) throw new Error("userId must be defined");
 
     let drank = Observable.fromEvent(this.userBeerDrankPath.orderByChild("user").equalTo(1), FirebaseEvent.value, (snapshot) => {
-        console.log("dataDrank", snapshot.val());
         let returnData = [];
         let dbData = snapshot.val() || [];
         Object.keys(dbData).map((value) => {
           returnData.push(dbData[value]);
         });
-
         return returnData;
     });
 
     let ratings = Observable.fromEvent(this.userBeerRatingsPath.orderByChild("user").equalTo(userId), FirebaseEvent.value, (snapshot) => {
-      console.log("dataRatings", snapshot.val());
       let returnData = [];
       let dbData = snapshot.val() || [];
       Object.keys(dbData).map((value) => {
         returnData.push(dbData[value]);
       });
-
       return returnData;
     });
 
@@ -159,15 +155,13 @@ export class UserDatabaseService extends DatabaseService{
       drank,
       ratings,
       (beersDrank, beerRating) => {
-        console.log("beerr", beerRating);
           let sorted = [];
           let counted = [];
 
-        //increment for favorites
+          //increment for favorites
           beersDrank.map((beer)=> {
             if(isNullOrUndefined(beer.beer) == false) {
               if(isNullOrUndefined(counted[beer.beer])) {
-                console.log("setze null")
                 counted[beer.beer] = 0;
               }
               counted[beer.beer] += 1;
@@ -238,27 +232,10 @@ export class UserDatabaseService extends DatabaseService{
              final.push(data);
            }
          });
-
-         console.log("final", final);
+         console.log("sorted", sorted)
         return sorted;
       }
     );
-
-    // return Observable.fromEvent(this.usersPath.child(userId).child("favoriteBeers"), FirebaseEvent.value, (snapshot) => {
-    //   const beers: Beer[] = [];
-    //   const  beerIds = snapshot.val();
-    //   if(beerIds) {
-    //     beerIds.map((value, beerId) => {
-    //       this.beersPath.child(beerId).once(FirebaseEvent.value).then((beerSnapshot) => {
-    //         const favoriteBeer = beerSnapshot.val() as Beer;
-    //         if(favoriteBeer != null) {
-    //           beers.push(favoriteBeer);
-    //         }
-    //       })
-    //     })
-    //   }
-    //   return beers;
-    // });
   }
 
   /**

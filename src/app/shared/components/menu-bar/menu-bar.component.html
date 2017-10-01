@@ -45,7 +45,7 @@
          [ngClass]="{ 'toggleMenuStyle' : toggleMenu === true }">
       <ul class="nav navbar-nav">
         <li *ngIf="authGuard.isLoggedOn" [ngClass]="{ 'menuitem-first': toggleMenu === true }">
-          <a href="user/{{businessService.currentUser.id}}">
+          <a (click)="onUserClick()">
             <i class="fa fa-user" aria-hidden="true"></i>&nbsp;{{businessService.currentUser.firstname}}, {{businessService.currentUser.lastname}}
           </a>
         </li>

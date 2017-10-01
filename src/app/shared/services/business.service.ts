@@ -89,8 +89,6 @@ export class BusinessService {
         this.updateUser(this.currentUser)
       }
     });
-
-    //this.userService.getFavoriteBeersOfUser(this.currentUser.id).subscribe();
   }
 
   /**
@@ -385,9 +383,7 @@ export class BusinessService {
       // reload the favoriteBeers beers
        this.userService.getFavoriteBeersOfUser(userModel.id).subscribe((favorites) => {
          const beerArr: Array<BeerModel> = new Array<BeerModel>()
-         console.log("blabli", favorites);
          this.beerService.getAll().subscribe((beers: Beer[] ) => {
-           console.log("blabli", beers);
            beers.map((beer: Beer) => {
              favorites.map((favorite) => {
                if (beer.id === favorite.beerId) {
@@ -565,10 +561,19 @@ export class BusinessService {
       this.popularBeerSubject.next(beerList);
     });
     const top10: Array<BeerModel> = new Array();
-    this.userService.getFavoriteBeersOfUser(this.currentUser.id).subscribe((beers) => {
-        beers.map((beer) => top10.push(this.mapBeerDtoToDomainModel(beer)))
+    this.userService.getFavoriteBeersOfUser(this.currentUser.id).subscribe((favorites) => {
+        favorites.map((favorite) => {
+          this.beerService.getAll().subscribe(beers => {
+            beers.map(beer => {
+              if (beer.id === favorite.beerId) {
+                top10.push(this.mapBeerDtoToDomainModel(beer))
+              }
+            })
+          })
+        });
         this.userTopBeersSubject.next(top10);
     });
+
   }
 
   /**

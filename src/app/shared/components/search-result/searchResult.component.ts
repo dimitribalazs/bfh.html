@@ -143,9 +143,6 @@ export class SearchResultComponent implements OnInit {
                 a.routerNavigate = Constants.ROUTING_PARENT_BREWERY
                 this.arroundYou.push(a);
               }
-
-
-              //this.viewModelSubject.next(this.arroundYou)
           })
           this.viewModelSubject.next(this.arroundYou)
         });

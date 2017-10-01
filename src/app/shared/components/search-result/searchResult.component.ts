@@ -103,6 +103,9 @@ export class SearchResultComponent implements OnInit {
         // save the search string
         const s: string = value as string;
         this.searchString = value as string;
+        this.numberOfBeers = 0;
+        this.numberOfBars = 0;
+        this.numberOfBrewerys = 0;
 
         this.userService.searchResults(s).subscribe(data => {
           // reset the model
@@ -110,10 +113,6 @@ export class SearchResultComponent implements OnInit {
           this.viewModelSubject.next(this.arroundYou);
           let searchResults = data || [];
           Object.keys(searchResults).map((resultKey) => {
-            this.numberOfBeers = 0;
-            this.numberOfBars = 0;
-            this.numberOfBrewerys = 0;
-
             let isBar = resultKey.indexOf("bar") !== -1 && (this.filterNumber === 0 || this.filterNumber === 1);
             let isBrewery = resultKey.indexOf("brewery") !== -1 && (this.filterNumber === 0 || this.filterNumber === 2);
             let isBeer = resultKey.indexOf("beer") !== -1 && (this.filterNumber === 0 || this.filterNumber === 3);

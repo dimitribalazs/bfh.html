@@ -50,6 +50,9 @@ export class MenuBarComponent implements OnInit {
     }
   }
 
+  onUserClick() {
+    this.router.navigate(['user', this.businessService.currentUser.firstname]);
+  }
 
   historyBack() {
     history.back();

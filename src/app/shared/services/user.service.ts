@@ -20,6 +20,7 @@ import {Rating} from '../dto/rating';
 import {BreweryDatabaseService} from "./brewery.service";
 import {Brewery} from "../dto/brewery";
 import {isNullOrUndefined} from "util";
+import {SearchResult} from "../dto/searchResult";
 
 
 @Injectable()
@@ -171,13 +172,17 @@ export class UserDatabaseService extends DatabaseService{
     });
   }
 
-
-  searchResults(word: string): Observable<any> {
+  /**
+   * Get search results
+   * @param {string} word
+   * @returns {Observable<SearchResult[]>}
+   */
+  searchResults(word: string): Observable<SearchResult[]> {
     let searchWord = word.toLowerCase();
     // \uf8ff
     //https://stackoverflow.com/questions/38618953/how-to-do-a-simple-search-in-string-in-firebase-database
     return Observable.fromEvent(this.searchResultsPath.orderByChild("searchWord").startAt(searchWord).endAt(searchWord + "\uf8ff"), FirebaseEvent.value, (snapshot) => {
-      return snapshot.val();
+      return snapshot.val() as SearchResult[];
     });
   }
 }

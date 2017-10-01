@@ -1,0 +1,36 @@
+{
+  "manifest_version": 2,
+  "version": "0.5",
+  "name": "Duff'd",
+  "short_name": "Duff'd",
+  "theme_color": "Gold",
+  "background_color": "GoldenRod",
+  "display": "standalone",
+  "Scope": "/",
+  "start_url": "/home",
+  "icons": [
+    {
+        "src": "assets/logos/logo.png",
+        "sizes": "256x256",
+        "type": "image/png"
+    },
+    {
+        "src": "assets/logos/logo-512.png",
+        "sizes": "512x512",
+        "type": "image/png"
+    }
+  ],
+  "splash_pages": null,
+  "static.ignore": [
+      "\\.js\\.map$"
+  ],
+  "external": {
+      "urls": [
+          {"url": "https://fonts.googleapis.com/icon?family=Material+Icons"},
+          {"url": "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"},
+          {"url": "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/fonts/glyphicons-halflings-regular.woff2"},
+          {"url": "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/fonts/glyphicons-halflings-regular.woff"},
+          {"url": "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/fonts/glyphicons-halflings-regular.ttf"}
+      ]
+  }
+}

@@ -385,10 +385,13 @@ export class BusinessService {
       // reload the favoriteBeers beers
        this.userService.getFavoriteBeersOfUser(userModel.id).subscribe((favorites) => {
          const beerArr: Array<BeerModel> = new Array<BeerModel>()
+         console.log("blabli", favorites);
          this.beerService.getAll().subscribe((beers: Beer[] ) => {
+           console.log("blabli", beers);
            beers.map((beer: Beer) => {
              favorites.map((favorite) => {
                if (beer.id === favorite.beerId) {
+
                   beerArr.push(this.mapBeerDtoToDomainModel(beer));
                  //favorite.forEach((beer: Beer) => beerArr.push(this.mapBeerDtoToDomainModel(beer)))
                  // emit the available beers
@@ -557,11 +560,15 @@ export class BusinessService {
   public topBeer() {
     const beerList: Array<BeerModel> = new Array()
     this.beerService.getAll().subscribe((beers) => {
-      beers.map((beer) => beerList.push(this.mapBeerDtoToDomainModel(beer)))
-      this.userTopBeersSubject.next(beerList);
+      beers.map((beer) => beerList.push(this.mapBeerDtoToDomainModel(beer)));
       this.mostBeerSubject.next(beerList);
       this.popularBeerSubject.next(beerList);
-    })
+    });
+    const top10: Array<BeerModel> = new Array();
+    this.userService.getFavoriteBeersOfUser(this.currentUser.id).subscribe((beers) => {
+        beers.map((beer) => top10.push(this.mapBeerDtoToDomainModel(beer)))
+        this.userTopBeersSubject.next(top10);
+    });
   }
 
   /**

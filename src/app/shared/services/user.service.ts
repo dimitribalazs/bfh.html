@@ -1,27 +1,18 @@
 import { Injectable, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/observable/combineLatest';
-import 'rxjs/add/observable/zip';
 import * as firebase from 'firebase';
 import {DatabaseService, FirebaseEvent} from './database.service';
 import {BarDatabaseService} from './bar.service';
-import {BeerDatabaseService} from './beer.service';
 import {User} from '../dto/user';
 import {Beer} from '../dto/beer';
-import {Bar} from '../dto/bar';
-import {GeoData} from '../dto/geoData';
-import {AroundYou} from '../domainModel/aroundYou'
-import {getDatabase, getFirebaseRef, FirebaseRefs} from './firebase';
+import {getFirebaseRef, FirebaseRefs} from './firebase';
 import {GeoService} from './geo.service';
-import {IGeoData} from "../dto/IGeoData";
 import {UserBeerRating} from "../dto/userBeerRating";
-import {UserBarRating} from "../dto/userBarRating";
-import {Rating} from '../dto/rating';
 import {BreweryDatabaseService} from "./brewery.service";
-import {Brewery} from "../dto/brewery";
 import {isNullOrUndefined} from "util";
 import {SearchResult} from "../dto/searchResult";
-
+import {count} from "rxjs/operator/count";
 
 @Injectable()
 export class UserDatabaseService extends DatabaseService{
@@ -30,6 +21,7 @@ export class UserDatabaseService extends DatabaseService{
     private userBeerRatingsPath: firebase.database.Reference;
     private userBarRatingsPath: firebase.database.Reference;
     private userFriendsPath: firebase.database.Reference;
+    private userBeerDrankPath: firebase.database.Reference;
     private searchResultsPath: firebase.database.Reference;
 
 
@@ -44,6 +36,7 @@ export class UserDatabaseService extends DatabaseService{
         this.userBeerRatingsPath = getFirebaseRef(FirebaseRefs.UserBeerRatings);
         this.userBarRatingsPath = getFirebaseRef(FirebaseRefs.UserBarRatings);
         this.userFriendsPath = getFirebaseRef(FirebaseRefs.UserFriends);
+        this.userBeerDrankPath = getFirebaseRef(FirebaseRefs.UserBeerDrank);
         this.searchResultsPath = getFirebaseRef(FirebaseRefs.SearchResults);
     }
 
@@ -136,24 +129,136 @@ export class UserDatabaseService extends DatabaseService{
    * @param {string} userId
    * @returns {Observable<Beer[]>}
    */
-  getFavoriteBeersOfUser(userId: string): Observable<Beer[]> {
+  getFavoriteBeersOfUser(userId: string): Observable<any> {
     if(isNullOrUndefined(userId)) throw new Error("userId must be defined");
 
-    return Observable.fromEvent(this.usersPath.child(userId).child("favoriteBeers"), FirebaseEvent.value, (snapshot) => {
-      const beers: Beer[] = [];
-      const  beerIds = snapshot.val();
-      if(beerIds) {
-        beerIds.map((value, beerId) => {
-          this.beersPath.child(beerId).once(FirebaseEvent.value).then((beerSnapshot) => {
-            const favoriteBeer = beerSnapshot.val() as Beer;
-            if(favoriteBeer != null) {
-              beers.push(favoriteBeer);
-            }
-          })
-        })
-      }
-      return beers;
+    let drank = Observable.fromEvent(this.userBeerDrankPath.orderByChild("user").equalTo(1), FirebaseEvent.value, (snapshot) => {
+        console.log("dataDrank", snapshot.val());
+        let returnData = [];
+        let dbData = snapshot.val() || [];
+        Object.keys(dbData).map((value) => {
+          returnData.push(dbData[value]);
+        });
+
+        return returnData;
     });
+
+    let ratings = Observable.fromEvent(this.userBeerRatingsPath.orderByChild("user").equalTo(userId), FirebaseEvent.value, (snapshot) => {
+      console.log("dataRatings", snapshot.val());
+      let returnData = [];
+      let dbData = snapshot.val() || [];
+      Object.keys(dbData).map((value) => {
+        returnData.push(dbData[value]);
+      });
+
+      return returnData;
+    });
+
+
+    return Observable.zip(
+      drank,
+      ratings,
+      (beersDrank, beerRating) => {
+        console.log("beerr", beerRating);
+          let sorted = [];
+          let counted = [];
+
+        //increment for favorites
+          beersDrank.map((beer)=> {
+            if(isNullOrUndefined(beer.beer) == false) {
+              if(isNullOrUndefined(counted[beer.beer])) {
+                console.log("setze null")
+                counted[beer.beer] = 0;
+              }
+              counted[beer.beer] += 1;
+            }
+          });
+
+          counted.map((data, key) => {
+            sorted.push({
+              beerId: key,
+              count: data
+            })
+          });
+
+         let sameAmount = [];
+         sorted.sort(function(a, b) {
+           if (a.count > b.count) {
+             return -1;
+           }
+           if (a.count < b.count) {
+             return 1;
+           }
+           else {
+             sameAmount.push(a.beerId);
+            return 0;
+           }
+         });
+
+         let newSorted = [];
+         sameAmount.map(same => {
+           beerRating.map(rating => {
+             if(rating.beer == same.beerId) {
+               if(isNullOrUndefined(newSorted[same.count])) {
+                 newSorted[same.count] = [];
+               }
+               newSorted[same.count].push({
+                 rating: rating.rating,
+                 beer: rating.beer,
+                 count: same.count
+               });
+             }
+           });
+         });
+
+         newSorted.map(sortData => {
+           sortData.sort(function(a, b) {
+             if (a.rating > b.rating) {
+               return -1;
+             }
+             if (a.rating < b.rating) {
+               return 1;
+             }
+             else {
+               return 0;
+             }
+           });
+         });
+
+         let final = [];
+         sorted.map(data => {
+           if(isNullOrUndefined(newSorted[data.count]) == false) {
+               newSorted[data.count].map(foo => {
+                 final.push({
+                   beerId: foo.beer,
+                   count: foo.count,
+                 });
+               })
+           } else {
+             final.push(data);
+           }
+         });
+
+         console.log("final", final);
+        return sorted;
+      }
+    );
+
+    // return Observable.fromEvent(this.usersPath.child(userId).child("favoriteBeers"), FirebaseEvent.value, (snapshot) => {
+    //   const beers: Beer[] = [];
+    //   const  beerIds = snapshot.val();
+    //   if(beerIds) {
+    //     beerIds.map((value, beerId) => {
+    //       this.beersPath.child(beerId).once(FirebaseEvent.value).then((beerSnapshot) => {
+    //         const favoriteBeer = beerSnapshot.val() as Beer;
+    //         if(favoriteBeer != null) {
+    //           beers.push(favoriteBeer);
+    //         }
+    //       })
+    //     })
+    //   }
+    //   return beers;
+    // });
   }
 
   /**

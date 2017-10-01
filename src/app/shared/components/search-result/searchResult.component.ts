@@ -119,7 +119,7 @@ export class SearchResultComponent implements OnInit {
             let isBeer = resultKey.indexOf("beer") !== -1 && (this.filterNumber === 0 || this.filterNumber === 3);
             let isUser = resultKey.indexOf("user") !== -1 && (this.filterNumber === 0 || this.filterNumber === 4);
 
-              var searchData = searchResults[resultKey];
+              let searchData = searchResults[resultKey];
               const a: MultiNavigationModel = new MultiNavigationModel();
               a.id = searchData.id;
               a.name = searchData.searchDisplay;

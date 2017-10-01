@@ -51,7 +51,8 @@ export class MenuBarComponent implements OnInit {
   }
 
   onUserClick() {
-    this.router.navigate(['user', this.businessService.currentUser.firstname]);
+    this.onToggleMenu();
+    this.router.navigate(['user', this.businessService.currentUser.id]);
   }
 
   historyBack() {

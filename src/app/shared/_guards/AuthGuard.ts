@@ -18,6 +18,8 @@ export class AuthGuard implements CanActivate {
       const userId: string = JSON.parse(localStorage.getItem('currentUser')).toString()
       if (userId !== this.businessService.currentUser.id.toString()) {
         this.businessService.setCurrentUser(userId);
+      }else {
+        this.businessService.updatePosition()
       }
       return true;
     }

@@ -44,9 +44,14 @@ export class HomeComponent implements OnInit {
       visibleTitle: true,
       visibleMenu: true
     });
+
+
     this.arroundYou = this.businessService.getAroundYou();
     this.businessService.topBeer();
 
+    this.businessService.positionSubject.subscribe(() => {
+      this.arroundYou = this.businessService.getAroundYou();
+    })
   }
 
   isSelected(around: AroundYou) {

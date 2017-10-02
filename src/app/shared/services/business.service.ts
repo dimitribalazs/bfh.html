@@ -61,6 +61,8 @@ export class BusinessService {
   public popularBeerSubject: Subject<Array<BeerModel>> = new BehaviorSubject<Array<BeerModel>>(new Array<BeerModel>());
 
 
+  public positionSubject: Subject<GeoData> = new BehaviorSubject<GeoData>(new GeoData())
+
   constructor(private beerService: BeerDatabaseService,
               private breweryService: BreweryDatabaseService,
               private barService: BarDatabaseService,
@@ -87,6 +89,7 @@ export class BusinessService {
         this.currentUser.location.latitude = pos.latitude
         this.currentUser.location.longitude = pos.longitude;
         this.updateUser(this.currentUser)
+        this.positionSubject.next(pos);
       }
     });
   }
@@ -359,8 +362,13 @@ export class BusinessService {
         // map dto to viewModel
         const userModel: UserModel = this.mapUserDtoToDomainModel(user);
         this.currentUser = userModel
+      this.geoService.setCurrentPosition()
       }
     )
+  }
+
+  updatePosition() {
+    this.geoService.setCurrentPosition()
   }
 
   /**

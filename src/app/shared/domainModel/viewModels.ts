@@ -197,7 +197,7 @@ export class UserModel {
   image: string;
   registrationDate: string;
   location: GeoData;
-  favoriteBeers: BehaviorSubject<BeerModel[]>
+  favoriteBeers: BehaviorSubject<BeerModel[]>;
   totalConsumption: number;
   address: string;
   city: string;

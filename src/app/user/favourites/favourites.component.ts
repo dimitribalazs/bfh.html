@@ -31,7 +31,6 @@ export class FavouritesComponent implements OnInit {
   ngOnInit() {
     this.userService.viewModel.favoriteBeers.subscribe(favs => {
       this.hasFavourites = favs.length > 0;
-
       if (this.businessService.currentUser.id === this.userService.viewModel.id) {
         this.txtNoFavourites = USER_CURRENT_NO_FAVOURITES;
         this.txtGetOut = USER_CURRENT_GET_OUT;

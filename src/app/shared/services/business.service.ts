@@ -381,13 +381,22 @@ export class BusinessService {
       // emit the loaded bar data
       this.userSubject.next(userModel);
       // reload the favoriteBeers beers
-      this.userService.getFavoriteBeersOfUser(userModel.id).subscribe((data) => {
-        // map dto to viewModel
-        const beerArr: Array<BeerModel> = new Array<BeerModel>()
-        data.forEach((beer: Beer) => beerArr.push(this.mapBeerDtoToDomainModel(beer)))
-        // emit the available beers
-        userModel.favoriteBeers.next(beerArr)
-      });
+       this.userService.getFavoriteBeersOfUser(userModel.id).subscribe((favorites) => {
+         const beerArr: Array<BeerModel> = new Array<BeerModel>()
+         this.beerService.getAll().subscribe((beers: Beer[] ) => {
+           beers.map((beer: Beer) => {
+             favorites.map((favorite) => {
+               if (beer.id === favorite.beerId) {
+
+                  beerArr.push(this.mapBeerDtoToDomainModel(beer));
+                 //favorite.forEach((beer: Beer) => beerArr.push(this.mapBeerDtoToDomainModel(beer)))
+                 // emit the available beers
+               }
+             })
+           })
+         })
+        userModel.favoriteBeers.next(beerArr);
+       });
 
       this.beerService.getDrankBeersByGroupedByDateByUserId(userModel.id).subscribe((data: BeerStatistics) => {
         userModel.totalConsumption = data.totalDrankBeers;
@@ -547,11 +556,24 @@ export class BusinessService {
   public topBeer() {
     const beerList: Array<BeerModel> = new Array()
     this.beerService.getAll().subscribe((beers) => {
-      beers.map((beer) => beerList.push(this.mapBeerDtoToDomainModel(beer)))
-      this.userTopBeersSubject.next(beerList);
+      beers.map((beer) => beerList.push(this.mapBeerDtoToDomainModel(beer)));
       this.mostBeerSubject.next(beerList);
       this.popularBeerSubject.next(beerList);
-    })
+    });
+    const top10: Array<BeerModel> = new Array();
+    this.userService.getFavoriteBeersOfUser(this.currentUser.id).subscribe((favorites) => {
+        favorites.map((favorite) => {
+          this.beerService.getAll().subscribe(beers => {
+            beers.map(beer => {
+              if (beer.id === favorite.beerId) {
+                top10.push(this.mapBeerDtoToDomainModel(beer))
+              }
+            })
+          })
+        });
+        this.userTopBeersSubject.next(top10);
+    });
+
   }
 
   /**

@@ -56,8 +56,4 @@ export class HomeComponent implements OnInit {
   onSelect(around: AroundYou) {
     this.router.navigate([around.routerNavigate, around.id]);
   }
-
-  crash() {
-    throw new Error("yolo swag");
-  }
 }

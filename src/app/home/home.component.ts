@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {Bar} from '../shared/dto/Bar';
+import {Bar} from '../shared/dto/bar';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/switchMap';
-import {Beer} from '../shared/dto/Beer';
+import {Beer} from '../shared/dto/beer';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {BeerDatabaseService} from '../shared/services/beer.service';
 import {AroundYou} from '../shared/domainModel/aroundYou';

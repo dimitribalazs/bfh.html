@@ -1,4 +1,4 @@
-import {Beer} from './Beer';
+import {Beer} from './beer';
 import {GeoData} from './geoData';
 import {IGeoData} from "./IGeoData";
 

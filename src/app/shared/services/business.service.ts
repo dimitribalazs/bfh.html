@@ -420,7 +420,14 @@ export class BusinessService {
         console.log("friends", data);
         // map dto to viewModel
         const friendsArr: Array<UserModel> = new Array<UserModel>()
-        data.forEach((friends: User) => friendsArr.push(this.mapUserDtoToDomainModel(friends)))
+        data.forEach((friends: any) => {
+          const friendModel: UserModel = new UserModel();
+          friendModel.id = friends.friend;
+          friendModel.firstname = friends.firstname;
+          friendModel.lastname = friends.lastname;
+          friendsArr.push(friendModel)
+        })
+        // emit the available beers
         // emit the available beers
         userModel.friends.next(friendsArr)
       })

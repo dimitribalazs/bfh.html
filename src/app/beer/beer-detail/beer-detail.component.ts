@@ -1,13 +1,13 @@
-import {Component, OnInit, Output, EventEmitter, Input} from '@angular/core';
-import {DropDownEntry, DropDownlists} from '../../shared/domainModel/viewModels';
-import {Router, ActivatedRoute, ParamMap} from '@angular/router';
-import {BeerService} from '../beerService'
-import {MenuService, MenuState} from '../../shared/services/menu.service';
-import {isUndefined} from 'util';
-import {BehaviorSubject} from 'rxjs/Rx';
-import {Subject} from 'rxjs/Subject';
-import {Constants} from '../../shared/constants';
-import {MultiNavigationModel} from '../../shared/domainModel/multiNavigationModel';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { DropDownEntry, DropDownlists } from '../../shared/domainModel/viewModels';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { BeerService } from '../beerService'
+import { MenuService, MenuState } from '../../shared/services/menu.service';
+import { isUndefined } from 'util';
+import { BehaviorSubject } from 'rxjs/Rx';
+import { Subject } from 'rxjs/Subject';
+import { Constants } from '../../shared/constants';
+import { MultiNavigationModel } from '../../shared/domainModel/multiNavigationModel';
 
 @Component({
   selector: 'app-beer-detail',
@@ -15,14 +15,11 @@ import {MultiNavigationModel} from '../../shared/domainModel/multiNavigationMode
   styleUrls: ['../beer.component.css']
 })
 export class BeerDetailComponent implements OnInit {
-
-  // model: Beer = new Beer;
   public submitted: boolean = false;
   public formErrorMessage: boolean = false;
   dropDownlists = new DropDownlists()
   breweryDropDownList: DropDownEntry[];
-  brewerySelectedItem: DropDownEntry[] = new Array;
-
+  brewerySelectedItem: DropDownEntry[] = new Array();
   searchBrewery: boolean
 
   searchSubject: Subject<String> = new BehaviorSubject<String>('');
@@ -30,12 +27,11 @@ export class BeerDetailComponent implements OnInit {
 
 
   constructor(public beerService: BeerService,
-              private menuService: MenuService,
-              private router: Router) {
+    private menuService: MenuService,
+    private router: Router) {
     this.searchBrewery = false;
 
   }
-
 
   ngOnInit() {
     this.setMenu()
@@ -99,5 +95,4 @@ export class BeerDetailComponent implements OnInit {
   OnEditSuggest() {
     alert(Constants.NOT_IMPLEMENTED)
   }
-
 }

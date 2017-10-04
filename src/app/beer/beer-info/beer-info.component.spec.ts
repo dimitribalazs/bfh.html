@@ -1,21 +1,15 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-
-// Import all AngularModules needed
 import { FormsModule } from '@angular/forms';
-
 import { RouterTestingModule } from '@angular/router/testing';
-
-// Provide ALL Services, and their dependencies
-import {BeerService} from '../beerService'
+import { BeerService } from '../beerService'
 import { BusinessService } from '../../shared/services/business.service';
-import {BeerDatabaseService} from '../../shared/services/beer.service';
-import {BreweryDatabaseService} from '../../shared/services/brewery.service';
-import {BarDatabaseService} from '../../shared/services/bar.service';
-import {UserDatabaseService} from '../../shared/services/user.service';
-import {GeoService} from '../../shared/services/geo.service';
-import {MenuService} from '../../shared/services/menu.service';
-
+import { BeerDatabaseService } from '../../shared/services/beer.service';
+import { BreweryDatabaseService } from '../../shared/services/brewery.service';
+import { BarDatabaseService } from '../../shared/services/bar.service';
+import { UserDatabaseService } from '../../shared/services/user.service';
+import { GeoService } from '../../shared/services/geo.service';
+import { MenuService } from '../../shared/services/menu.service';
 import { BeerInfoComponent } from './beer-info.component';
 
 describe('BeerInfoComponent', () => {
@@ -23,14 +17,14 @@ describe('BeerInfoComponent', () => {
   let fixture: ComponentFixture<BeerInfoComponent>;
   let name: any;
   let volumePercent: any;
-  let brewType : any;
+  let brewType: any;
   let taste: any;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ FormsModule, RouterTestingModule ],
-      declarations: [ BeerInfoComponent ],
-      providers: [ BeerService, MenuService,
+      imports: [FormsModule, RouterTestingModule],
+      declarations: [BeerInfoComponent],
+      providers: [BeerService, MenuService,
         BusinessService,
         BeerDatabaseService,
         BreweryDatabaseService,
@@ -38,7 +32,7 @@ describe('BeerInfoComponent', () => {
         UserDatabaseService,
         GeoService]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -48,7 +42,6 @@ describe('BeerInfoComponent', () => {
     volumePercent = fixture.debugElement.query(By.css('p:nth-of-type(1)')).nativeElement;
     brewType = fixture.debugElement.query(By.css('p:nth-of-type(2)'));
     taste = fixture.debugElement.query(By.css('p:nth-of-type(3)'));
-    // fixture.detectChanges();
   });
 
   it('should be created', () => {

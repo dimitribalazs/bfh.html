@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {BeerService} from '../beerService'
-import {Router} from '@angular/router';
-import {BehaviorSubject} from 'rxjs/Rx';
-import {Subject} from 'rxjs/Subject';
-import {MenuService, MenuState} from '../../shared/services/menu.service';
-import {BeerBarModel} from '../../shared/domainModel/viewModels';
+import { BeerService } from '../beerService'
+import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs/Rx';
+import { Subject } from 'rxjs/Subject';
+import { MenuService, MenuState } from '../../shared/services/menu.service';
+import { BeerBarModel } from '../../shared/domainModel/viewModels';
 
 @Component({
   selector: 'app-available-bars',
@@ -12,12 +12,11 @@ import {BeerBarModel} from '../../shared/domainModel/viewModels';
   styleUrls: ['./available-bars.component.css']
 })
 export class AvailableBeersComponent implements OnInit {
-
   filter: number
 
   constructor(public beerService: BeerService,
-              private menuService: MenuService,
-              private router: Router) {
+    private menuService: MenuService,
+    private router: Router) {
 
     this.filter = 1
   }
@@ -41,7 +40,6 @@ export class AvailableBeersComponent implements OnInit {
   removeBeer(id: string) {
     this.beerService.removeBar(id)
   }
-
 }
 
 

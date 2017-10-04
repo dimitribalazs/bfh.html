@@ -1,9 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
-
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
-// import {BeerBarModel} from '../../shared/domainModel/viewModels';
-// Provide ALL Services, and their dependencies
 import { BarService } from '../barService';
 import { BreweryService } from '../../brewery/breweryService';
 import { BusinessService } from '../../shared/services/business.service';

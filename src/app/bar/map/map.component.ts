@@ -33,7 +33,14 @@ export class MapComponent implements OnInit, AfterContentInit {
 
   ngAfterContentInit() {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((pos) => this.showRoute(pos))
+      navigator.geolocation.getCurrentPosition((pos) => {
+       this.showRoute(pos)
+      }, function(data) {
+          throw new Error("Timeout while getting current position");
+      }, {
+        enableHighAccuracy: true,
+        timeout : 5000
+      });
     } else {
       this.showBarPosition();
     }

@@ -1,8 +1,8 @@
-import { Injectable, OnInit } from '@angular/core';
-import { GeoData } from '../dto/geoData';
-import { isNullOrUndefined } from "util";
-import { BehaviorSubject } from "rxjs/BehaviorSubject";
-import { Subject } from 'rxjs/Subject';
+import {Injectable} from '@angular/core';
+import {GeoData} from '../dto/geoData';
+import {isNullOrUndefined} from "util";
+import {BehaviorSubject} from "rxjs/BehaviorSubject";
+import {Subject} from 'rxjs/Subject';
 
 @Injectable()
 export class GeoService {

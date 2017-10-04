@@ -1,6 +1,6 @@
-import { NgServiceWorker } from '@angular/service-worker';
-import { Http } from '@angular/http';
-import { Injectable } from '@angular/core';
+import {NgServiceWorker} from '@angular/service-worker';
+import {Http} from '@angular/http';
+import {Injectable} from '@angular/core';
 
 import 'rxjs/add/operator/switchMap';
 

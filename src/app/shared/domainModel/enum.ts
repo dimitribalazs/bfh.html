@@ -1,7 +1,7 @@
 enum Filter {
-  all, 
-  beer, 
-  bar, 
-  brewery, 
+  all,
+  beer,
+  bar,
+  brewery,
   user
 }

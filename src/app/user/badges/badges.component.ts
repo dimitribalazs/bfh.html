@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { UserService } from '../userService';
+import {Component} from '@angular/core';
+import {UserService} from '../userService';
 
 @Component({
   selector: 'app-badges',
@@ -7,5 +7,6 @@ import { UserService } from '../userService';
   styleUrls: ['./badges.component.css']
 })
 export class BadgesComponent {
-  constructor(public userService: UserService) { }
+  constructor(public userService: UserService) {
+  }
 }

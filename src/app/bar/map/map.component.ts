@@ -1,9 +1,7 @@
-import { Component, OnInit, AfterContentInit } from '@angular/core';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { BarService } from '../barService';
-import { Bar } from '../../shared/dto/bar';
-import { GeoData } from '../../shared/dto/geoData';
-import { isNullOrUndefined } from 'util';
+import {AfterContentInit, Component, OnInit} from '@angular/core';
+import {BarService} from '../barService';
+import {GeoData} from '../../shared/dto/geoData';
+import {isNullOrUndefined} from 'util';
 import {} from '@types/googlemaps';
 
 declare var google: any;
@@ -43,7 +41,7 @@ export class MapComponent implements OnInit, AfterContentInit {
     const directionsService = new google.maps.DirectionsService;
     const directionsDisplay = new google.maps.DirectionsRenderer;
 
-    const currentLocation = { lat: position.coords.latitude, lng: position.coords.longitude };
+    const currentLocation = {lat: position.coords.latitude, lng: position.coords.longitude};
 
     this.map = new google.maps.Map(document.getElementById('map'), {
       zoom: 15,
@@ -57,7 +55,7 @@ export class MapComponent implements OnInit, AfterContentInit {
     directionsDisplay.setMap(this.map);
 
     if (this.allDataFetched) {
-      let targetDestination = { lat: this.targetDestination.latitude, lng: this.targetDestination.longitude };
+      let targetDestination = {lat: this.targetDestination.latitude, lng: this.targetDestination.longitude};
 
       directionsService.route({
         origin: currentLocation,
@@ -80,7 +78,7 @@ export class MapComponent implements OnInit, AfterContentInit {
     let location;
 
     if (this.allDataFetched) {
-      location = { lat: this.targetDestination.latitude, lng: this.targetDestination.longitude };
+      location = {lat: this.targetDestination.latitude, lng: this.targetDestination.longitude};
     } else {
       // location => Try Adress ?
       // console.log('No Bar Geodata');

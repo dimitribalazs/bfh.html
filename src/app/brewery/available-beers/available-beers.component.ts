@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component} from '@angular/core';
 import {BreweryService} from '../breweryService';
 import {Router} from '@angular/router';
 import {BeerBarModel} from "../../shared/domainModel/viewModels";
@@ -28,6 +28,7 @@ export class AvailableBeersComponent {
   addBeer(data: BeerBarModel) {
     this.breweryService.addBeer(data)
   }
+
   removeBeer(id: string) {
     this.breweryService.removeBeer(id)
   }

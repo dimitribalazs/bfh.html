@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { User } from '../../shared/dto/user';
-import { Observable } from 'rxjs/Observable';
-import { UserService } from '../userService';
-import { Router, ActivatedRoute } from '@angular/router';
-import { BusinessService } from '../../shared/services/business.service';
+import {Component, OnInit} from '@angular/core';
+import {User} from '../../shared/dto/user';
+import {UserService} from '../userService';
+import {ActivatedRoute, Router} from '@angular/router';
+import {BusinessService} from '../../shared/services/business.service';
 
 const USER_CURRENT_NO_FRIENDS = 'You have no friends!';
 const USER_CURRENT_GET_OUT = 'We suggest, you get out and have a few beers.';
@@ -21,9 +20,9 @@ export class FriendsComponent implements OnInit {
   txtGetOut = USER_FOREIGN_GET_OUT;
 
   constructor(public userService: UserService,
-    private router: Router,
-    private route: ActivatedRoute,
-    private businessService: BusinessService) {
+              private router: Router,
+              private route: ActivatedRoute,
+              private businessService: BusinessService) {
   }
 
   ngOnInit() {

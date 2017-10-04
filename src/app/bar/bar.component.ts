@@ -1,10 +1,9 @@
 import 'rxjs/add/operator/switchMap';
-import { Component, OnInit } from '@angular/core';
-import { Bar } from '../shared/dto/bar';
-import { RatingModel } from '../shared/components/rating/ratingModel';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { MenuService } from '../shared/services/menu.service';
-import { BarService } from './barService';
+import {Component, OnInit} from '@angular/core';
+import {RatingModel} from '../shared/components/rating/ratingModel';
+import {ActivatedRoute, Router} from '@angular/router';
+import {MenuService} from '../shared/services/menu.service';
+import {BarService} from './barService';
 
 @Component({
   selector: 'app-bar',
@@ -12,15 +11,13 @@ import { BarService } from './barService';
   styleUrls: ['./bar.component.css'],
 })
 export class BarComponent implements OnInit {
-
   id: string;
   activeNavigation: number;
 
-
   constructor(public barService: BarService,
-    private route: ActivatedRoute,
-    private router: Router,
-    private menuService: MenuService) {
+              private route: ActivatedRoute,
+              private router: Router,
+              private menuService: MenuService) {
   }
 
   ngOnInit() {

@@ -1,11 +1,10 @@
-import { TestBed, inject, async } from '@angular/core/testing';
-import { BaseRequestOptions, Http, RequestMethod, ResponseOptions, Response } from '@angular/http';
-import { BusinessService } from './business.service';
-import { BeerDatabaseService } from '../services/beer.service';
-import { BreweryDatabaseService } from '../services/brewery.service'
-import { BarDatabaseService } from '../services/bar.service';
-import { UserDatabaseService } from '../services/user.service';
-import { GeoService } from '../services/geo.service';
+import {inject, TestBed} from '@angular/core/testing';
+import {BusinessService} from './business.service';
+import {BeerDatabaseService} from '../services/beer.service';
+import {BreweryDatabaseService} from '../services/brewery.service'
+import {BarDatabaseService} from '../services/bar.service';
+import {UserDatabaseService} from '../services/user.service';
+import {GeoService} from '../services/geo.service';
 
 describe('BusinessService', () => {
   beforeEach(() => {

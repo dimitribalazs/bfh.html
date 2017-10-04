@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { MenuService } from './shared/services/menu.service';
-import { ActivatedRoute, ParamMap, Router, RouterState } from '@angular/router';
-import { BusinessService } from './shared/services/business.service';
-import { NgServiceWorker } from '@angular/service-worker';
+import {Component} from '@angular/core';
+import {MenuService} from './shared/services/menu.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {BusinessService} from './shared/services/business.service';
+import {NgServiceWorker} from '@angular/service-worker';
 
 @Component({
   selector: 'app-root',
@@ -14,10 +14,10 @@ export class AppComponent {
   menu: MenuService;
 
   constructor(private menuService: MenuService,
-    private route: ActivatedRoute,
-    private router: Router,
-    businessService: BusinessService,
-    private sw: NgServiceWorker) {
+              private route: ActivatedRoute,
+              private router: Router,
+              businessService: BusinessService,
+              private sw: NgServiceWorker) {
     this.menu = menuService;
 
     // ServiceWorker log

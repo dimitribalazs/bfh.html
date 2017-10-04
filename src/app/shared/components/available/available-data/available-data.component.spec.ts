@@ -1,5 +1,5 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { AvailableDataComponent } from './available-data.component';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {AvailableDataComponent} from './available-data.component';
 
 describe('AvailableDataComponent', () => {
   let component: AvailableDataComponent;

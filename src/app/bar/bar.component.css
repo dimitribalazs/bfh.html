@@ -2,13 +2,15 @@
   width: 170px;
   float: left;
 }
+
 .Rating {
   margin-left: 15%;
 }
+
 input {
-  background-color:transparent;
+  background-color: transparent;
   border: 0px solid;
-  height:30px;
-  width:260px;
+  height: 30px;
+  width: 260px;
 }
 

@@ -1,12 +1,13 @@
-import { Injectable } from '@angular/core';
-import { BusinessService } from '../shared/services/business.service';
-import { BeerBarModel, BreweryModel } from '../shared/domainModel/viewModels';
+import {Injectable} from '@angular/core';
+import {BusinessService} from '../shared/services/business.service';
+import {BeerBarModel, BreweryModel} from '../shared/domainModel/viewModels';
 
 @Injectable()
 export class BreweryService {
   viewModel: BreweryModel = new BreweryModel();
 
-  constructor(private businessService: BusinessService) { }
+  constructor(private businessService: BusinessService) {
+  }
 
   public getMenuState(): any {
     return {
@@ -25,6 +26,7 @@ export class BreweryService {
   addBeer(data: BeerBarModel) {
     this.businessService.addBreweryToBeer(data.beerId, this.viewModel.id);
   }
+
   removeBeer(id: string) {
     this.businessService.removeBreweryFromBeer(id)
   }

@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { BreweryService } from '../breweryService';
+import {Component} from '@angular/core';
+import {BreweryService} from '../breweryService';
 
 @Component({
   selector: 'app-brewery-info',
@@ -7,5 +7,6 @@ import { BreweryService } from '../breweryService';
   styleUrls: ['./brewery-info.component.css']
 })
 export class BreweryInfoComponent {
-  constructor(public breweryService: BreweryService) { }
+  constructor(public breweryService: BreweryService) {
+  }
 }

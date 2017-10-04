@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { UserService } from '../userService';
+import {Component} from '@angular/core';
+import {UserService} from '../userService';
 
 @Component({
   selector: 'app-detail',
@@ -7,5 +7,6 @@ import { UserService } from '../userService';
   styleUrls: ['./detail.component.css']
 })
 export class DetailComponent {
-  constructor(public userService: UserService) { }
+  constructor(public userService: UserService) {
+  }
 }

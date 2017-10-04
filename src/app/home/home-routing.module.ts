@@ -1,10 +1,10 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './home.component';
-import { AuthGuard } from "../shared/_guards/AuthGuard";
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {HomeComponent} from './home.component';
+import {AuthGuard} from "../shared/_guards/AuthGuard";
 
 const homeRoutes: Routes = [
-  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+  {path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
 ];
 
 @NgModule({
@@ -15,4 +15,5 @@ const homeRoutes: Routes = [
     RouterModule
   ]
 })
-export class HomeRoutingModule { }
+export class HomeRoutingModule {
+}

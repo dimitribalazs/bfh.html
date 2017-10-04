@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { BarService } from '../barService';
-import { Bar, OpeningHours } from '../../shared/dto/bar';
+import {Component} from '@angular/core';
+import {BarService} from '../barService';
 
 @Component({
   selector: 'app-opening-hours',
@@ -8,5 +7,6 @@ import { Bar, OpeningHours } from '../../shared/dto/bar';
   styleUrls: ['./opening-hours.component.css']
 })
 export class OpeningHoursComponent {
-  constructor(public barService: BarService) { }
+  constructor(public barService: BarService) {
+  }
 }

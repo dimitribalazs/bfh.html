@@ -1,7 +1,5 @@
-import { TestBed, inject, async } from '@angular/core/testing';
-import { BaseRequestOptions, Http, RequestMethod, ResponseOptions, Response } from '@angular/http';
-import { BeerDatabaseService } from './beer.service';
-import { Beer } from '../dto/beer';
+import {inject, TestBed} from '@angular/core/testing';
+import {BeerDatabaseService} from './beer.service';
 
 describe('BreweryDatabaseService ', () => {
   beforeEach(() => {

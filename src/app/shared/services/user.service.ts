@@ -125,14 +125,15 @@ export class UserDatabaseService extends DatabaseService{
 
 
   /**
-   * Get favorites beers from an user
+   * Get favorites beers from an user 
+   * (leieder keine Zeit mehr gehabt um, diese Funktion aufzuräumen)
    * @param {string} userId
-   * @returns {Observable<Beer[]>}
+   * @returns {Observable<any>}
    */
   getFavoriteBeersOfUser(userId: string): Observable<any> {
     if(isNullOrUndefined(userId)) throw new Error("userId must be defined");
 
-    let drank = Observable.fromEvent(this.userBeerDrankPath.orderByChild("user").equalTo(1), FirebaseEvent.value, (snapshot) => {
+    let drank = Observable.fromEvent(this.userBeerDrankPath.orderByChild("user").equalTo(userId), FirebaseEvent.value, (snapshot) => {
         let returnData = [];
         let dbData = snapshot.val() || [];
         Object.keys(dbData).map((value) => {
@@ -175,6 +176,7 @@ export class UserDatabaseService extends DatabaseService{
             })
           });
 
+          //sort desceneding, most drunk beer at the top
          let sameAmount = [];
          sorted.sort(function(a, b) {
            if (a.count > b.count) {
@@ -205,6 +207,7 @@ export class UserDatabaseService extends DatabaseService{
            });
          });
 
+         //sort by ratings
          newSorted.map(sortData => {
            sortData.sort(function(a, b) {
              if (a.rating > b.rating) {

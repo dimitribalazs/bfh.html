@@ -1,8 +1,8 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Beer} from '../../shared/dto/beer';
-import {Observable} from 'rxjs/Observable';
-import {Router} from '@angular/router';
-import {isUndefined} from 'util';
+import { Component, Input, OnInit } from '@angular/core';
+import { Beer } from '../../shared/dto/beer';
+import { Observable } from 'rxjs/Observable';
+import { Router } from '@angular/router';
+import { isUndefined } from 'util';
 
 const SINGLE_IMAGE_WIDTH = 60;
 const SINGLE_SPAN_WIDTH = 64;
@@ -12,10 +12,7 @@ const SINGLE_SPAN_WIDTH = 64;
   templateUrl: './beer-top10.component.html',
   styleUrls: ['./beer-top10.component.css']
 })
-
-
 export class BeerTop10Component implements OnInit {
-
   @Input() title: String;
   @Input() beers: Observable<Beer>;
 
@@ -43,9 +40,8 @@ export class BeerTop10Component implements OnInit {
 
           beerCount++;
         }
-
+        //this is used to calculate the horizontal scroller width on the main page.
         this.width = (beerCount * SINGLE_SPAN_WIDTH) + 'px';
-        // btw, this is used to calculate the horizontal scroller width on the main page.
       }
     );
   }

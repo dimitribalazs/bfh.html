@@ -1,8 +1,8 @@
-import {GeoData} from './geoData';
-import {Beer} from './beer';
-import {BarBeer} from './barBeer';
-import {IGeoData} from './IGeoData';
-import {Time} from "../domainModel/viewModels";
+import { GeoData } from './geoData';
+import { Beer } from './beer';
+import { BarBeer } from './barBeer';
+import { IGeoData } from './IGeoData';
+import { Time } from "../domainModel/viewModels";
 
 export class Bar implements IGeoData {
   id: string;
@@ -13,8 +13,8 @@ export class Bar implements IGeoData {
   rating: number;
   size: number;
   isSmokingAllowed: boolean;
-  openingHours: Array<OpenTime>; //todo change
-  snacks: string; //todo change
+  openingHours: Array<OpenTime>;
+  snacks: string;
   location: GeoData;
   description: String;
   image: string;
@@ -29,18 +29,6 @@ export class OpeningHours {
   friday: Array<Time>;
   saturday: Array<Time>;
   sunday: Array<Time>;
-
-
-  // constructor() {
-  //   this.monday = '';
-  //   this.tuesday = '';
-  //   this.wednesday = '';
-  //   this.thursday = '';
-  //   this.friday = '';
-  //   this.saturday = '';
-  //   this.sunday = '';
-  // }
-
 }
 
 export class OpenTime {

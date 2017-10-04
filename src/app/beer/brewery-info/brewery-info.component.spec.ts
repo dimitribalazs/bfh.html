@@ -1,18 +1,14 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-// Import all AngularModules needed
 import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
-
-import {BeerService} from '../beerService'
+import { BeerService } from '../beerService'
 import { BusinessService } from '../../shared/services/business.service';
-import {BeerDatabaseService} from '../../shared/services/beer.service';
-import {BreweryDatabaseService} from '../../shared/services/brewery.service';
-import {BarDatabaseService} from '../../shared/services/bar.service';
-import {UserDatabaseService} from '../../shared/services/user.service';
-import {GeoService} from '../../shared/services/geo.service';
-import {MenuService} from '../../shared/services/menu.service';
-
+import { BeerDatabaseService } from '../../shared/services/beer.service';
+import { BreweryDatabaseService } from '../../shared/services/brewery.service';
+import { BarDatabaseService } from '../../shared/services/bar.service';
+import { UserDatabaseService } from '../../shared/services/user.service';
+import { GeoService } from '../../shared/services/geo.service';
+import { MenuService } from '../../shared/services/menu.service';
 import { BreweryInfoComponent } from './brewery-info.component';
 
 describe('BreweryInfo in BeerComponent', () => {
@@ -21,9 +17,9 @@ describe('BreweryInfo in BeerComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ FormsModule, RouterTestingModule ],
-      declarations: [ BreweryInfoComponent ],
-      providers: [ BeerService, MenuService,
+      imports: [FormsModule, RouterTestingModule],
+      declarations: [BreweryInfoComponent],
+      providers: [BeerService, MenuService,
         BusinessService,
         BeerDatabaseService,
         BreweryDatabaseService,
@@ -31,7 +27,7 @@ describe('BreweryInfo in BeerComponent', () => {
         UserDatabaseService,
         GeoService]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

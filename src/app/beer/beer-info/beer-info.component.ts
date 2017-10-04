@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {Beer} from '../../shared/dto/beer';
-import {Brewery} from '../../shared/dto/brewery';
-import {BeerService} from '../beerService'
-import {MenuService} from '../../shared/services/menu.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import { Beer } from '../../shared/dto/beer';
+import { Brewery } from '../../shared/dto/brewery';
+import { BeerService } from '../beerService'
+import { MenuService } from '../../shared/services/menu.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-beer-info',
@@ -11,7 +11,6 @@ import {ActivatedRoute, Router} from '@angular/router';
   styleUrls: ['./beer-info.component.css']
 })
 export class BeerInfoComponent implements OnInit {
-
   beer: Beer;
   model: Beer = new Beer;
   taste: String = '';
@@ -21,9 +20,9 @@ export class BeerInfoComponent implements OnInit {
   private showMap = false;
 
   constructor(public beerService: BeerService,
-              private menuService: MenuService,
-              private router: Router,
-              private route: ActivatedRoute) {
+    private menuService: MenuService,
+    private router: Router,
+    private route: ActivatedRoute) {
     this.menuService.setNewState(this.beerService.getMenuState());
   }
 

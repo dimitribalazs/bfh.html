@@ -1,8 +1,6 @@
 export class RatingModel {
   private _oldRating: number;
   private _newRating: number;
-  constructor() {
-  }
 
   get oldRating(): number {
     return this._oldRating;

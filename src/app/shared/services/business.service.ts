@@ -1,35 +1,35 @@
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
-import {BehaviorSubject} from 'rxjs/Rx';
-import {Subject} from 'rxjs/Subject';
-import {Subscription} from 'rxjs/Subscription';
-import {Beer} from '../dto/beer';
-import {Brewery} from '../dto/brewery';
-import {User} from '../dto/user';
-import {GeoData} from '../dto/geoData';
-import {BarBeer} from '../dto/barBeer';
-import {Bar, OpenTime} from '../dto/bar';
-import {BeerDatabaseService} from '../services/beer.service';
-import {BreweryDatabaseService} from '../services/brewery.service'
-import {BarDatabaseService} from '../services/bar.service';
-import {UserDatabaseService} from '../services/user.service';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs/Rx';
+import { Subject } from 'rxjs/Subject';
+import { Subscription } from 'rxjs/Subscription';
+import { Beer } from '../dto/beer';
+import { Brewery } from '../dto/brewery';
+import { User } from '../dto/user';
+import { GeoData } from '../dto/geoData';
+import { BarBeer } from '../dto/barBeer';
+import { Bar, OpenTime } from '../dto/bar';
+import { BeerDatabaseService } from '../services/beer.service';
+import { BreweryDatabaseService } from '../services/brewery.service'
+import { BarDatabaseService } from '../services/bar.service';
+import { UserDatabaseService } from '../services/user.service';
 import {
   BarModel, BeerModel, BreweryModel, BeerBarModel, Time, DropDownEntry,
   UserModel, Badge, BeerTotalStatistics
 } from '../domainModel/viewModels';
-import {RatingModel} from '../components/rating/ratingModel';
-import {forEach} from '@angular/router/src/utils/collection';
-import {isNull, isNullOrUndefined} from 'util';
-import {UserBarRating} from '../dto/userBarRating';
-import {Rating, getRatingDefault} from '../dto/rating';
-import {UserBeerRating} from '../dto/userBeerRating';
-import {AroundYou} from '../domainModel/aroundYou';
-import {UserBeer} from '../dto/userBeer';
-import {UserBar} from '../dto/userBar';
-import {BeerStatistics} from '../dto/beerStatistics';
-import {BarStatistics} from '../dto/barStatistics';
-import {BadgeType} from '../domainModel/badgeType';
-import {GeoService} from  '../services/geo.service';
+import { RatingModel } from '../components/rating/ratingModel';
+import { forEach } from '@angular/router/src/utils/collection';
+import { isNull, isNullOrUndefined } from 'util';
+import { UserBarRating } from '../dto/userBarRating';
+import { Rating, getRatingDefault } from '../dto/rating';
+import { UserBeerRating } from '../dto/userBeerRating';
+import { AroundYou } from '../domainModel/aroundYou';
+import { UserBeer } from '../dto/userBeer';
+import { UserBar } from '../dto/userBar';
+import { BeerStatistics } from '../dto/beerStatistics';
+import { BarStatistics } from '../dto/barStatistics';
+import { BadgeType } from '../domainModel/badgeType';
+import { GeoService } from '../services/geo.service';
 
 export enum BarState {
   UNDEFINED = 'Hours',
@@ -41,7 +41,6 @@ export enum BarState {
 
 @Injectable()
 export class BusinessService {
-
   barState = BarState;
   currentUser: UserModel = new UserModel();
   debugMode: boolean;
@@ -60,14 +59,13 @@ export class BusinessService {
   public mostBeerSubject: Subject<Array<BeerModel>> = new BehaviorSubject<Array<BeerModel>>(new Array<BeerModel>());
   public popularBeerSubject: Subject<Array<BeerModel>> = new BehaviorSubject<Array<BeerModel>>(new Array<BeerModel>());
 
-
   public positionSubject: Subject<GeoData> = new BehaviorSubject<GeoData>(new GeoData())
 
   constructor(private beerService: BeerDatabaseService,
-              private breweryService: BreweryDatabaseService,
-              private barService: BarDatabaseService,
-              private userService: UserDatabaseService,
-              private geoService: GeoService) {
+    private breweryService: BreweryDatabaseService,
+    private barService: BarDatabaseService,
+    private userService: UserDatabaseService,
+    private geoService: GeoService) {
     this.debugMode = false;
     this.beerSubject.asObservable();
     this.barSubject.asObservable();
@@ -76,11 +74,9 @@ export class BusinessService {
     this.topBeer();
 
     this.geoService.getCurrentPosition().subscribe(data => {
-      // console.log("position", data)
     });
 
     setInterval(() => {
-      // console.log("positon gestzt");
       this.geoService.setCurrentPosition()
     }, 120000);
 
@@ -124,21 +120,21 @@ export class BusinessService {
       }
       // emit the loaded bar data
       this.beerSubject.next(beerModel)
-        // reload the available bars
-        this.beerService.getAllBarBeersByBeerId(beer.id).subscribe((barBeers: BarBeer[]) => {
-          // map dto to viewModel
-          const beersArr: Array<BeerBarModel> = new Array<BeerBarModel>()
-          if (barBeers) {
-            // beers.forEach((beer: Beer) => beersArr.push(this.mapBeerDtoToDomainModel(beer)))
-            Object.keys(barBeers).map((value: string) => {
-              const barBeer: BarBeer = barBeers[value] as BarBeer;
-              beersArr.push(this.mapBarBeerDtoToDomainModel(barBeer));
-            });
-          }
-          // emit the available beers
-          beerModel.bars.next(beersArr)
+      // reload the available bars
+      this.beerService.getAllBarBeersByBeerId(beer.id).subscribe((barBeers: BarBeer[]) => {
+        // map dto to viewModel
+        const beersArr: Array<BeerBarModel> = new Array<BeerBarModel>()
+        if (barBeers) {
+          // beers.forEach((beer: Beer) => beersArr.push(this.mapBeerDtoToDomainModel(beer)))
+          Object.keys(barBeers).map((value: string) => {
+            const barBeer: BarBeer = barBeers[value] as BarBeer;
+            beersArr.push(this.mapBarBeerDtoToDomainModel(barBeer));
+          });
+        }
+        // emit the available beers
+        beerModel.bars.next(beersArr)
 
-        })
+      })
     })
 
     return this.beerSubject;
@@ -209,7 +205,6 @@ export class BusinessService {
     barBeer.bar = barId;
     this.barService.removeBeerFromBar(barBeer);
   }
-
 
   /**
    * Add brewery to beer
@@ -300,6 +295,11 @@ export class BusinessService {
     return (this.currentUser.administrator || beer.owner === this.currentUser.id)
   }
 
+  /**
+   * Set the bar rating
+   * @param barId 
+   * @param userRating 
+   */
   setBarRating(barId: string, userRating: number) {
     const barRating: UserBarRating = {
       user: this.currentUser.id,
@@ -359,14 +359,17 @@ export class BusinessService {
    */
   setCurrentUser(userId: string) {
     this.userService.get(userId).subscribe((user: User) => {
-        // map dto to viewModel
-        const userModel: UserModel = this.mapUserDtoToDomainModel(user);
-        this.currentUser = userModel
+      // map dto to viewModel
+      const userModel: UserModel = this.mapUserDtoToDomainModel(user);
+      this.currentUser = userModel
       this.geoService.setCurrentPosition()
-      }
+    }
     )
   }
 
+  /**
+   * Update positon
+   */
   updatePosition() {
     this.geoService.setCurrentPosition()
   }
@@ -389,22 +392,22 @@ export class BusinessService {
       // emit the loaded bar data
       this.userSubject.next(userModel);
       // reload the favoriteBeers beers
-       this.userService.getFavoriteBeersOfUser(userModel.id).subscribe((favorites) => {
-         const beerArr: Array<BeerModel> = new Array<BeerModel>()
-         this.beerService.getAll().subscribe((beers: Beer[] ) => {
-           beers.map((beer: Beer) => {
-             favorites.map((favorite) => {
-               if (beer.id === favorite.beerId) {
+      this.userService.getFavoriteBeersOfUser(userModel.id).subscribe((favorites) => {
+        const beerArr: Array<BeerModel> = new Array<BeerModel>()
+        this.beerService.getAll().subscribe((beers: Beer[]) => {
+          beers.map((beer: Beer) => {
+            favorites.map((favorite) => {
+              if (beer.id === favorite.beerId) {
 
-                  beerArr.push(this.mapBeerDtoToDomainModel(beer));
-                 //favorite.forEach((beer: Beer) => beerArr.push(this.mapBeerDtoToDomainModel(beer)))
-                 // emit the available beers
-               }
-             })
-           })
-         })
+                beerArr.push(this.mapBeerDtoToDomainModel(beer));
+                //favorite.forEach((beer: Beer) => beerArr.push(this.mapBeerDtoToDomainModel(beer)))
+                // emit the available beers
+              }
+            })
+          })
+        })
         userModel.favoriteBeers.next(beerArr);
-       });
+      });
 
       this.beerService.getDrankBeersByGroupedByDateByUserId(userModel.id).subscribe((data: BeerStatistics) => {
         userModel.totalConsumption = data.totalDrankBeers;
@@ -535,21 +538,7 @@ export class BusinessService {
         this.aroundYouSubject.next(flatData);
       }).subscribe();
 
-
-    /*
-     (users: AroundYou[], bars: AroundYou[], breweries: AroundYou[]) => {
-     let flatData = [].concat(...users, ...bars, ...breweries);
-     this.aroundYouSubject.next(flatData);
-     */
-
-
     return this.aroundYouSubject;
-    // this.userService.getAroundYou(myLocation, userId).subscribe((data: IGeoData[]) =>  {
-    //   data.map((aroundYou) => {
-    //     //let typeName = aroundYou.getSourceTypeName();
-    //     //console.log("foo", typeName);
-    //   })
-    // })
   }
 
   /**
@@ -577,18 +566,17 @@ export class BusinessService {
     });
     const top10: Array<BeerModel> = new Array();
     this.userService.getFavoriteBeersOfUser(this.currentUser.id).subscribe((favorites) => {
-        favorites.map((favorite) => {
-          this.beerService.getAll().subscribe(beers => {
-            beers.map(beer => {
-              if (beer.id === favorite.beerId) {
-                top10.push(this.mapBeerDtoToDomainModel(beer))
-              }
-            })
+      favorites.map((favorite) => {
+        this.beerService.getAll().subscribe(beers => {
+          beers.map(beer => {
+            if (beer.id === favorite.beerId) {
+              top10.push(this.mapBeerDtoToDomainModel(beer))
+            }
           })
-        });
-        this.userTopBeersSubject.next(top10);
+        })
+      });
+      this.userTopBeersSubject.next(top10);
     });
-
   }
 
   /**
@@ -681,7 +669,6 @@ export class BusinessService {
         model.openingHours[day.day] = day.openHoure + ':' + day.openMin + ' - ' + day.closeHoure + ':' + day.closeMin
       })
 
-
       // open or closed?
       let isLargeScreen = false;
       if (window.innerWidth > 375) {
@@ -701,9 +688,8 @@ export class BusinessService {
           model.openNowText = isLargeScreen ? this.barState.OPEN_TEXT_LARGE : this.barState.OPEN_TEXT_SMALL;
         }
       }
-
-      console.log(window.innerWidth);
     }
+
     if (this.debugMode) {
       console.log('mapBeerDtoToDomainModel')
       console.log('dto:')
@@ -726,11 +712,13 @@ export class BusinessService {
     model.id = dto.id;
     model.firstname = dto.firstname;
     model.lastname = dto.lastname;
+
     if (isNullOrUndefined(dto.image) || dto.image.length === 0) {
       model.image = 'assets/users/Default.jpg';
     } else {
       model.image = dto.image;
     }
+
     model.administrator = dto.administrator;
     model.registrationDate = dto.registrationDate;
     model.totalConsumption = dto.totalConsumption;
@@ -739,6 +727,7 @@ export class BusinessService {
     model.tel = dto.tel;
     model.dateOfBirth = dto.dateOfBirth;
     model.location = isNullOrUndefined(dto.location) ? model.location = new GeoData() : model.location = dto.location;
+
     if (this.debugMode) {
       console.log('mapUserDtoToDomainModel')
       console.log('dto:')
@@ -746,6 +735,7 @@ export class BusinessService {
       console.log('viewModel:')
       console.log(model)
     }
+
     return model;
   }
 
@@ -769,6 +759,7 @@ export class BusinessService {
     dto.tel = model.tel;
     dto.dateOfBirth = model.dateOfBirth;
     dto.location = model.location;
+
     if (this.debugMode) {
       console.log('mapUserDomainModelToDto')
       console.log('dto:')
@@ -776,6 +767,7 @@ export class BusinessService {
       console.log('viewModel:')
       console.log(model)
     }
+
     return dto;
   }
 
@@ -804,6 +796,7 @@ export class BusinessService {
     }
     model.taste = dto.taste;
     model.location = isNullOrUndefined(dto.location) ? model.location = new GeoData() : model.location = dto.location;
+
     if (this.debugMode) {
       console.log('mapBeerDtoToDomainModel')
       console.log('dto:')
@@ -811,6 +804,7 @@ export class BusinessService {
       console.log('viewModel:')
       console.log(model)
     }
+
     return model;
   }
 
@@ -829,11 +823,11 @@ export class BusinessService {
     dto.brewType = model.brewType || new Array<DropDownEntry>();;
     console.log("brauerei", model.brewery);
     dto.brewery = model.brewery.id
-    // dto.ratings[] = model.ratings[];
     dto.image = model.image;
     dto.taste = model.taste || new Array<DropDownEntry>();;
     dto.location = model.location;
     dto.owner = model.owner;
+
     if (this.debugMode) {
       console.log('mapBeerDtoToDomainModel')
       console.log('dto:')
@@ -841,6 +835,7 @@ export class BusinessService {
       console.log('viewModel:')
       console.log(model)
     }
+
     return dto;
   }
 
@@ -863,6 +858,7 @@ export class BusinessService {
     model.geoLocation = dto.location;
     model.description = dto.description;
     model.image = dto.image;
+
     if (this.debugMode) {
       console.log('mapBeerDtoToDomainModel')
       console.log('dto:')
@@ -870,6 +866,7 @@ export class BusinessService {
       console.log('viewModel:')
       console.log(model)
     }
+
     return model;
   }
 
@@ -942,8 +939,7 @@ export class BusinessService {
    * @param {BeerStatistics} beerStat
    * @returns {BeerTotalStatistics[]}
    */
-  private getBeerConsumption(beerStat: BeerStatistics): BeerTotalStatistics[]
-  {
+  private getBeerConsumption(beerStat: BeerStatistics): BeerTotalStatistics[] {
     const stat: BeerTotalStatistics[] = [];
     Object.keys(beerStat.totalDrankBeersByBeer).forEach((value: string) => {
       let result: BeerTotalStatistics = {
@@ -954,5 +950,4 @@ export class BusinessService {
     })
     return stat;
   }
-
 }

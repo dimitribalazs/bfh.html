@@ -1,21 +1,14 @@
 import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-
-// Import all AngularModules needed
 import { FormsModule } from '@angular/forms';
-
 import { RouterTestingModule } from '@angular/router/testing';
-
-// Provide ALL Services, and their dependencies
 import { BarService } from '../barService';
 import { BusinessService } from '../../shared/services/business.service';
-import {BeerDatabaseService} from '../../shared/services/beer.service';
-import {BreweryDatabaseService} from '../../shared/services/brewery.service';
-import {BarDatabaseService} from '../../shared/services/bar.service';
-import {UserDatabaseService} from '../../shared/services/user.service';
-import {GeoService} from '../../shared/services/geo.service';
-
-// Import the Component
+import { BeerDatabaseService } from '../../shared/services/beer.service';
+import { BreweryDatabaseService } from '../../shared/services/brewery.service';
+import { BarDatabaseService } from '../../shared/services/bar.service';
+import { UserDatabaseService } from '../../shared/services/user.service';
+import { GeoService } from '../../shared/services/geo.service';
 import { BarInfoComponent } from './bar-info.component';
 
 describe('BarInfoComponent', () => {
@@ -26,9 +19,9 @@ describe('BarInfoComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ FormsModule, RouterTestingModule ],
-      declarations: [ BarInfoComponent ],
-      providers: [ BarService,
+      imports: [FormsModule, RouterTestingModule],
+      declarations: [BarInfoComponent],
+      providers: [BarService,
         BusinessService,
         BeerDatabaseService,
         BreweryDatabaseService,
@@ -36,7 +29,7 @@ describe('BarInfoComponent', () => {
         UserDatabaseService,
         GeoService]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -44,7 +37,6 @@ describe('BarInfoComponent', () => {
     component = fixture.componentInstance;
     name = fixture.debugElement.queryAll(By.css('p'))[0].nativeElement;
     address = fixture.debugElement.queryAll(By.css('p'))[1].nativeElement;
-    // fixture.detectChanges();
   });
 
   it('should be created', () => {
@@ -53,7 +45,6 @@ describe('BarInfoComponent', () => {
 
   it('no title in the DOM until manually call `detectChanges`', () => {
     expect(name.textContent).toEqual('');
-    // expect(address.textContent).toEqual('');
   });
 
   it('should show a name and address', () => {
@@ -62,6 +53,5 @@ describe('BarInfoComponent', () => {
     };
     fixture.detectChanges();
     expect(name.textContent).not.toContain('');
-    // expect(address.textContent).not.toContain('');
   });
 });

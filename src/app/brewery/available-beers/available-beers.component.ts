@@ -9,7 +9,7 @@ import {MenuService} from "../../shared/services/menu.service";
   templateUrl: './available-beers.component.html',
   styleUrls: ['./available-beers.component.css']
 })
-export class AvailableBeersComponent implements OnInit {
+export class AvailableBeersComponent {
   filter: number
   dataIsBeerModel: boolean = true;
   disableAddBeer: boolean = true;
@@ -20,8 +20,6 @@ export class AvailableBeersComponent implements OnInit {
     this.dataIsBeerModel = true;
     this.filter = 3
   }
-
-  ngOnInit() {}
 
   onShowBeer(id: string) {
     this.router.navigate(['beer', id]);

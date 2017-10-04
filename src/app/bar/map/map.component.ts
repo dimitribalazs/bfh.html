@@ -1,9 +1,9 @@
 import { Component, OnInit, AfterContentInit } from '@angular/core';
-import {ActivatedRoute, ParamMap, Router} from '@angular/router';
-import {BarService} from '../barService';
-import {Bar} from '../../shared/dto/bar';
-import {GeoData} from '../../shared/dto/geoData';
-import {isNullOrUndefined} from 'util';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { BarService } from '../barService';
+import { Bar } from '../../shared/dto/bar';
+import { GeoData } from '../../shared/dto/geoData';
+import { isNullOrUndefined } from 'util';
 import {} from '@types/googlemaps';
 
 declare var google: any;
@@ -24,18 +24,17 @@ export class MapComponent implements OnInit, AfterContentInit {
 
   ngOnInit() {
     this.barService.targetLocationSubject.subscribe((location) => {
-           if (!isNullOrUndefined(location.longitude)) {
-              this.targetDestination = location;
-              this.allDataFetched = true;
-       }
+      if (!isNullOrUndefined(location.longitude)) {
+        this.targetDestination = location;
+        this.allDataFetched = true;
+      }
     });
   }
 
   ngAfterContentInit() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((pos) => this.showRoute(pos))
-    }else {
-      // console.log('GeoLocation is disabled');
+    } else {
       this.showBarPosition();
     }
   }
@@ -44,8 +43,7 @@ export class MapComponent implements OnInit, AfterContentInit {
     const directionsService = new google.maps.DirectionsService;
     const directionsDisplay = new google.maps.DirectionsRenderer;
 
-    const currentLocation =  {lat: position.coords.latitude, lng: position.coords.longitude };
-    // console.log('Your current location ' + currentLocation.lat, currentLocation.lng);
+    const currentLocation = { lat: position.coords.latitude, lng: position.coords.longitude };
 
     this.map = new google.maps.Map(document.getElementById('map'), {
       zoom: 15,
@@ -66,14 +64,14 @@ export class MapComponent implements OnInit, AfterContentInit {
         destination: targetDestination,
         optimizeWaypoints: true,
         travelMode: 'TRANSIT'
-      }, function(response, status) {
+      }, function (response, status) {
         if (status === 'OK') {
           directionsDisplay.setDirections(response);
         } else {
           // console.log('Directions request failed due to ' + status);
         }
       });
-    }else {
+    } else {
       // console.log('Geolocation of bar is unknown');
     }
   }
@@ -82,8 +80,8 @@ export class MapComponent implements OnInit, AfterContentInit {
     let location;
 
     if (this.allDataFetched) {
-      location =  {lat: this.targetDestination.latitude, lng: this.targetDestination.longitude };
-    }else {
+      location = { lat: this.targetDestination.latitude, lng: this.targetDestination.longitude };
+    } else {
       // location => Try Adress ?
       // console.log('No Bar Geodata');
     }

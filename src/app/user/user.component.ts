@@ -1,12 +1,12 @@
 import { Component, OnInit, OnChanges } from '@angular/core';
-import {UserService} from './userService';
-import {User} from '../shared/dto/user';
-import {ActivatedRoute, ParamMap, Router} from '@angular/router';
-import {MenuService, MenuState} from '../shared/services/menu.service';
-import {Observable} from 'rxjs/Observable';
+import { UserService } from './userService';
+import { User } from '../shared/dto/user';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { MenuService, MenuState } from '../shared/services/menu.service';
+import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
-import {FriendsComponent} from "./friends/friends.component";
-import {BusinessService} from '../shared/services/business.service';
+import { FriendsComponent } from "./friends/friends.component";
+import { BusinessService } from '../shared/services/business.service';
 
 @Component({
   selector: 'app-user',
@@ -20,22 +20,14 @@ export class UserComponent implements OnInit {
   user: Observable<User>;
 
   constructor(public userService: UserService,
-              private route: ActivatedRoute,
-              private router: Router,
-              private menuService: MenuService,
-              private businessService: BusinessService) {
-    // this.menuService.setDefault();
-    // this.menuService.TitleText = 'User info';
-    // this.menuService.visibleHomeLink = true;
+    private route: ActivatedRoute,
+    private router: Router,
+    private menuService: MenuService,
+    private businessService: BusinessService) {
     this.activeNavigation = 0;
-
-    // this.user = userService.viewModelSubject;
-    // this.user.subscribe((user: User) => this.model = user)
-
   }
 
   ngOnInit() {
-
     this.route.params.subscribe(params => {
       this.id = params['id'];
       this.userService.loadUser(params['id']);
@@ -50,9 +42,9 @@ export class UserComponent implements OnInit {
 
     if (child === 'favourites') {
       this.activeNavigation = 1;
-    }else if (child === 'badges') {
+    } else if (child === 'badges') {
       this.activeNavigation = 2;
-    }else if (child === 'detail') {
+    } else if (child === 'detail') {
       this.activeNavigation = 3;
     }
   }

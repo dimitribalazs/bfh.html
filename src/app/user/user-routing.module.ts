@@ -5,11 +5,12 @@ import { FavouritesComponent } from './favourites/favourites.component';
 import { BadgesComponent } from './badges/badges.component';
 import { DetailComponent } from './detail/detail.component';
 import { UserComponent } from './user.component';
-import {AuthGuard} from '../shared/_guards/AuthGuard';
+import { AuthGuard } from '../shared/_guards/AuthGuard';
 
 const userRoutes: Routes = [
-  { path: 'user/:id',
-    component: UserComponent , canActivate: [AuthGuard],
+  {
+    path: 'user/:id',
+    component: UserComponent, canActivate: [AuthGuard],
     data: {
       type: 'info'
     },
@@ -24,7 +25,8 @@ const userRoutes: Routes = [
           { path: 'detail', component: DetailComponent, canActivate: [AuthGuard] },
         ]
       }
-    ]},
+    ]
+  },
 ];
 
 @NgModule({

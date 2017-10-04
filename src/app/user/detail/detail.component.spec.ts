@@ -1,14 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { UserService } from '../userService';
 import { BusinessService } from '../../shared/services/business.service';
-import {BeerDatabaseService} from '../../shared/services/beer.service';
-import {BreweryDatabaseService} from '../../shared/services/brewery.service';
-import {BarDatabaseService} from '../../shared/services/bar.service';
-import {UserDatabaseService} from '../../shared/services/user.service';
-import {GeoService} from '../../shared/services/geo.service';
-import {MenuService} from '../../shared/services/menu.service';
-
+import { BeerDatabaseService } from '../../shared/services/beer.service';
+import { BreweryDatabaseService } from '../../shared/services/brewery.service';
+import { BarDatabaseService } from '../../shared/services/bar.service';
+import { UserDatabaseService } from '../../shared/services/user.service';
+import { GeoService } from '../../shared/services/geo.service';
+import { MenuService } from '../../shared/services/menu.service';
 import { DetailComponent } from './detail.component';
 
 describe('DetailComponent', () => {
@@ -17,7 +15,7 @@ describe('DetailComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DetailComponent ],
+      declarations: [DetailComponent],
       providers: [UserService,
         BusinessService,
         BeerDatabaseService,
@@ -27,7 +25,7 @@ describe('DetailComponent', () => {
         GeoService,
         MenuService]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

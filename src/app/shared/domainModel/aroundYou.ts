@@ -1,4 +1,3 @@
-
 import {MultiNavigationModel} from './multiNavigationModel';
 
 export class AroundYou extends MultiNavigationModel {

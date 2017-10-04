@@ -1,27 +1,26 @@
 import { Component, OnInit } from '@angular/core';
-import {UserModel} from '../shared/domainModel/viewModels';
-import {BusinessService} from '../shared/services/business.service';
-import {MenuService} from '../shared/services/menu.service';
-import {BehaviorSubject} from 'rxjs/Rx';
-import {Subject} from 'rxjs/Subject';
-import {Observable} from 'rxjs/Observable';
-import {AuthenticationService} from "../shared/services/authentication.service";
-import {Router} from '@angular/router';
+import { UserModel } from '../shared/domainModel/viewModels';
+import { BusinessService } from '../shared/services/business.service';
+import { MenuService } from '../shared/services/menu.service';
+import { BehaviorSubject } from 'rxjs/Rx';
+import { Subject } from 'rxjs/Subject';
+import { Observable } from 'rxjs/Observable';
+import { AuthenticationService } from "../shared/services/authentication.service";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
 })
 export class LoginComponent implements OnInit {
-
   userModel: Observable<UserModel[]>;
   searchSubject: Subject<String> = new BehaviorSubject<String>('');
   filterSubject: Subject<number> = new BehaviorSubject<number>(4);
 
   constructor(private businessService: BusinessService,
-              private authentication: AuthenticationService,
-              private router: Router,
-              private menuService: MenuService) {
+    private authentication: AuthenticationService,
+    private router: Router,
+    private menuService: MenuService) {
     this.userModel = new Observable<UserModel[]>();
   }
 
@@ -37,9 +36,6 @@ export class LoginComponent implements OnInit {
     });
 
     this.userModel = this.businessService.getAllUser();
-    // this.businessService.getAllUser().subscribe((users: UserModel[]) => {
-    //   this.viewModel = users
-    // });
   }
 
   onSelect(user: UserModel) {
@@ -47,5 +43,4 @@ export class LoginComponent implements OnInit {
     this.businessService.setCurrentUser(user.id);
     this.router.navigate(['home']);
   }
-
 }

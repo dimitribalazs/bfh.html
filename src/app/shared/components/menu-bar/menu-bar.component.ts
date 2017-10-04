@@ -1,17 +1,16 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {MenuService, MenuState} from '../../services/menu.service';
-import {Router, RouterState} from '@angular/router';
-import {AuthenticationService} from '../../services/authentication.service';
-import {BusinessService} from '../../services/business.service';
-import {AuthGuard} from '../../_guards/AuthGuard';
-import {Constants} from '../../constants';
+import { Component, Input, OnInit } from '@angular/core';
+import { MenuService, MenuState } from '../../services/menu.service';
+import { Router, RouterState } from '@angular/router';
+import { AuthenticationService } from '../../services/authentication.service';
+import { BusinessService } from '../../services/business.service';
+import { AuthGuard } from '../../_guards/AuthGuard';
+import { Constants } from '../../constants';
 
 @Component({
   selector: 'app-menu-bar',
   templateUrl: './menu-bar.component.html',
   styleUrls: ['./menu-bar.component.css'],
 })
-
 /**
  * This is the main menu bar displayed on top of the application.
  * It subscribes to the [[MenuService]] in order to update itself upon state changes.
@@ -22,10 +21,10 @@ export class MenuBarComponent implements OnInit {
   toggleMenu = false;
 
   constructor(private menuService: MenuService,
-              private router: Router,
-              private authentication: AuthenticationService,
-              private businessService: BusinessService,
-              public authGuard: AuthGuard) {
+    private router: Router,
+    private authentication: AuthenticationService,
+    private businessService: BusinessService,
+    public authGuard: AuthGuard) {
     this.menuState = this.menuService.state;
   }
 

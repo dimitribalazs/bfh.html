@@ -11,13 +11,4 @@ describe('App-routing module', () => {
       ],
     }).compileComponents();
   }));
-
-//   it('allows access to dashboard', fakeAsync(inject([ Router, Location ], (router: Router, location: Location) => {
-//     const fixture = TestBed.createComponent(RootComponent);
-//     router.resetConfig(routes);
-//     router.navigate([ 'dashboard' ]);
-//     advance(fixture);
-//     expect(location.path()).toEqual('/dashboard');
-// })));
-
 });

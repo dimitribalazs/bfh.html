@@ -1,5 +1,5 @@
 export class SearchResult {
-  id: string ;
+  id: string;
   searchWord: string;
   searchDisplay: string;
 }

@@ -1,20 +1,18 @@
-import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import {RatingModel} from './ratingModel';
-import {forEach} from '@angular/router/src/utils/collection';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { RatingModel } from './ratingModel';
+import { forEach } from '@angular/router/src/utils/collection';
 
 @Component({
   selector: 'app-rating',
   templateUrl: './rating.component.html',
   styleUrls: ['./rating.component.css']
 })
-
 /**
  * Displays rating buttons on bars and beers.
  *
  * Changes are delegated to [[RatingModel]]
  */
 export class RatingComponent implements OnInit {
-
   @Input() ratingBad: number;
   @Input() ratingOk: number;
   @Input() ratingGreat: number;
@@ -32,7 +30,6 @@ export class RatingComponent implements OnInit {
 
   onChange(e) {
     this.ratingModel.newRating = e - 1;
-    // this.setButtonActiv(e)
     this.onRatingChange.emit(this.ratingModel);
     this.ratingModel.oldRating = this.ratingModel.newRating;
   }

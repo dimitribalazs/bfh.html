@@ -1,13 +1,13 @@
 import { Injectable, OnInit } from '@angular/core';
-import {BeerModel, DropDownEntry, BeerBarModel} from '../shared/domainModel/viewModels';
-import {BusinessService} from '../shared/services/business.service';
-import {RatingModel} from '../shared/components/rating/ratingModel';
-import {MenuService, MenuState} from '../shared/services/menu.service';
+import { BeerModel, DropDownEntry, BeerBarModel } from '../shared/domainModel/viewModels';
+import { BusinessService } from '../shared/services/business.service';
+import { RatingModel } from '../shared/components/rating/ratingModel';
+import { MenuService, MenuState } from '../shared/services/menu.service';
 import { Subject } from 'rxjs/Subject';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import {isNullOrUndefined} from 'util';
-import {Constants} from '../shared/constants';
-import {MultiNavigationModel} from '../shared/domainModel/multiNavigationModel';
+import { isNullOrUndefined } from 'util';
+import { Constants } from '../shared/constants';
+import { MultiNavigationModel } from '../shared/domainModel/multiNavigationModel';
 
 @Injectable()
 export class BeerService {
@@ -15,10 +15,10 @@ export class BeerService {
   breweryDropDownList: DropDownEntry[] = [];
   editForbidden: boolean
   public viewModel: BeerModel = new BeerModel();
-  availableBarModel:  Subject<Array<MultiNavigationModel>> = new BehaviorSubject<Array<MultiNavigationModel>>(new Array());
+  availableBarModel: Subject<Array<MultiNavigationModel>> = new BehaviorSubject<Array<MultiNavigationModel>>(new Array());
 
   constructor(private businessService: BusinessService,
-              private menuService: MenuService) {
+    private menuService: MenuService) {
   }
 
   loadBeer(id: string) {
@@ -41,9 +41,9 @@ export class BeerService {
   }
 
   submit() {
-      this.viewModel.id = this.businessService.createOrUpdateBeer(this.viewModel)
+    this.viewModel.id = this.businessService.createOrUpdateBeer(this.viewModel)
   }
-
+  
   createNewBeer(name: string) {
     this.viewModel = new BeerModel()
     this.viewModel.name = name;
@@ -53,11 +53,9 @@ export class BeerService {
     return this.breweryDropDownList;
   }
 
-
   public addBeerDrank() {
     this.businessService.addBeerDrank(this.viewModel.id, this.viewModel.name);
   }
-
 
   public getMenuState(): any {
     return {
@@ -74,8 +72,7 @@ export class BeerService {
    * @param rating
    */
   setUserRating(rating: RatingModel) {
-    // this.viewModel.userRating = rating.newRating;
-    this.businessService.setBeerRating(this.viewModel.id,  rating.newRating)
+    this.businessService.setBeerRating(this.viewModel.id, rating.newRating)
   }
 
   /**
@@ -93,5 +90,4 @@ export class BeerService {
   removeBar(id: string) {
     this.businessService.removeBeerFromBar(this.viewModel.id, id);
   }
-
 }

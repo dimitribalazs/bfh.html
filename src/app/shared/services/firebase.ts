@@ -9,8 +9,7 @@ const config = {
   messagingSenderId: "758400835541"
 };
 
-
-let database: firebase.database.Database ;
+let database: firebase.database.Database;
 
 /**
  * Get a reference to the Firebase database
@@ -51,3 +50,13 @@ export enum FirebaseRefs {
   SearchResults = "searchResults"
 }
 
+/**
+ * Events provided by firebase
+ */
+export enum FirebaseEvent {
+  value = "value",
+  child_changed = "child_changed",
+  child_added = "child_added",
+  child_removed = "child_removed",
+  child_moved = "child_moved"
+}

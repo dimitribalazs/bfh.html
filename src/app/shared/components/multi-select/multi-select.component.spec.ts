@@ -1,5 +1,4 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { TasteMultiSelectComponent } from './multi-select.component';
 
 describe('TasteMultiSelectComponent', () => {
@@ -8,9 +7,9 @@ describe('TasteMultiSelectComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TasteMultiSelectComponent ]
+      declarations: [TasteMultiSelectComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

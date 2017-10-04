@@ -4,7 +4,7 @@ import { BarService } from '../barService';
 import { Bar } from '../../shared/dto/bar';
 import { GeoData } from '../../shared/dto/geoData';
 import { isNullOrUndefined } from 'util';
-import '@types/googlemaps';
+import {} from '@types/googlemaps';
 
 declare var google: any;
 

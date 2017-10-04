@@ -5,7 +5,7 @@ import { BeerBarModel } from '../../shared/domainModel/viewModels';
 import { BarService } from '../../bar/barService';
 import { GeoData } from '../../shared/dto/geoData';
 import { isNullOrUndefined } from 'util';
-import '@types/googlemaps';
+import {} from '@types/googlemaps';
 
 declare var google: any;
 

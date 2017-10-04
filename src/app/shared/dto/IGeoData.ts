@@ -1,5 +1,5 @@
-import {GeoData} from './geoData';
+import { GeoData } from './geoData';
 
-export interface IGeoData  {
+export interface IGeoData {
   location: GeoData;
 }

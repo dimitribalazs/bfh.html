@@ -1,37 +1,32 @@
 <div>
-
-<ul class="nav nav-pills nav-justified">
-  <li role="presentation">
-    <a (click)="onClick(0)" [class.activeNavigation]="activefilter===0" [class.inactiveNavigation]="activefilter !== 0">
+  <ul class="nav nav-pills nav-justified">
+    <li role="presentation">
+      <a (click)="onClick(0)" [class.activeNavigation]="activefilter===0" [class.inactiveNavigation]="activefilter !== 0">
       All
     </a>
-  </li>
-  <li role="presentation">
-    <a (click)="onClick(1)" [class.activeNavigation]="activefilter===1" [class.inactiveNavigation]="activefilter !== 1">
+    </li>
+    <li role="presentation">
+      <a (click)="onClick(1)" [class.activeNavigation]="activefilter===1" [class.inactiveNavigation]="activefilter !== 1">
       Bar
     </a>
-  </li>
-  <li role="presentation">
-    <a (click)="onClick(2)" [class.activeNavigation]="activefilter===2" [class.inactiveNavigation]="activefilter !== 2">
+    </li>
+    <li role="presentation">
+      <a (click)="onClick(2)" [class.activeNavigation]="activefilter===2" [class.inactiveNavigation]="activefilter !== 2">
       Brewery
     </a>
-  </li>
-  <li role="presentation">
-    <a (click)="onClick(3)" [class.activeNavigation]="activefilter===3" [class.inactiveNavigation]="activefilter !== 3">
+    </li>
+    <li role="presentation">
+      <a (click)="onClick(3)" [class.activeNavigation]="activefilter===3" [class.inactiveNavigation]="activefilter !== 3">
       Beer
     </a>
-  </li>
-  <li role="presentation">
-    <a (click)="onClick(4)" [class.activeNavigation]="activefilter===4" [class.inactiveNavigation]="activefilter !== 4">
+    </li>
+    <li role="presentation">
+      <a (click)="onClick(4)" [class.activeNavigation]="activefilter===4" [class.inactiveNavigation]="activefilter !== 4">
       People
     </a>
-  </li>
-</ul>
+    </li>
+  </ul>
 </div>
 
-<app-search-result
-  [filter]="filterSubject"
-  [search]="searchSubject"
-  (onSearchResult)="onResult($event)"
-  (onAddBeer)="onAddBeer($event)">
+<app-search-result [filter]="filterSubject" [search]="searchSubject" (onSearchResult)="onResult($event)" (onAddBeer)="onAddBeer($event)">
 </app-search-result>

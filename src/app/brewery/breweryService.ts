@@ -1,16 +1,12 @@
-/**
- * Created by STRI on 22.08.2017.
- */
 import { Injectable } from '@angular/core';
-import {BusinessService} from '../shared/services/business.service';
-import {BeerBarModel, BreweryModel} from '../shared/domainModel/viewModels';
+import { BusinessService } from '../shared/services/business.service';
+import { BeerBarModel, BreweryModel } from '../shared/domainModel/viewModels';
 
 @Injectable()
 export class BreweryService {
-
   viewModel: BreweryModel = new BreweryModel();
 
-  constructor(private businessService: BusinessService) {}
+  constructor(private businessService: BusinessService) { }
 
   public getMenuState(): any {
     return {

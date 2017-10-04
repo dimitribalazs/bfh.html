@@ -1,22 +1,17 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
-
-// Provide ALL Services, and their dependencies
 import { BreweryService } from '../brewery/breweryService';
 import { BusinessService } from '../shared/services/business.service';
-import {MenuService} from '../shared/services/menu.service';
-import {BeerDatabaseService} from '../shared/services/beer.service';
-import {BreweryDatabaseService} from '../shared/services/brewery.service';
-import {BarDatabaseService} from '../shared/services/bar.service';
-import {UserDatabaseService} from '../shared/services/user.service';
-import {GeoService} from '../shared/services/geo.service';
-
+import { MenuService } from '../shared/services/menu.service';
+import { BeerDatabaseService } from '../shared/services/beer.service';
+import { BreweryDatabaseService } from '../shared/services/brewery.service';
+import { BarDatabaseService } from '../shared/services/bar.service';
+import { UserDatabaseService } from '../shared/services/user.service';
+import { GeoService } from '../shared/services/geo.service';
 import { RouterTestingModule } from '@angular/router/testing';
-
 import { AvailableDataComponent } from '../shared/components/available/available-data/available-data.component';
 import { SearchResultComponent } from '../shared/components/search-result/searchResult.component';
 import { LinkInformationComponent } from '../shared/components/available/link-information/link-information.component';
-
 import { SearchComponent } from './search.component';
 
 describe('SearchComponent', () => {
@@ -25,18 +20,18 @@ describe('SearchComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ FormsModule, RouterTestingModule ],
-      declarations: [ SearchComponent, AvailableDataComponent, SearchResultComponent, LinkInformationComponent ],
-      providers: [ MenuService,
+      imports: [FormsModule, RouterTestingModule],
+      declarations: [SearchComponent, AvailableDataComponent, SearchResultComponent, LinkInformationComponent],
+      providers: [MenuService,
         BusinessService,
         BeerDatabaseService,
         BreweryDatabaseService,
         BarDatabaseService,
         UserDatabaseService,
         GeoService,
-        BreweryService ]
+        BreweryService]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

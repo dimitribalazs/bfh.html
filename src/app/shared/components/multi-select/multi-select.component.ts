@@ -6,9 +6,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./multi-select.component.css']
 })
 export class TasteMultiSelectComponent implements OnInit {
-
-  //ausgelagert da es ein twoWay Binding hat und dies sonst nicht in einem Form eingebunten werden kann
-
+  //moved, because two way data binding cannot be used in forms
   @Input() selectedItems;
   @Input() dropdownList;
   @Input() ItemName: String;
@@ -39,5 +37,4 @@ export class TasteMultiSelectComponent implements OnInit {
   onDeSelectAll(items: any) {
     this.onSelectChange.emit(this.selectedItems);
   }
-
 }

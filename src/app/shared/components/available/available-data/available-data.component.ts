@@ -1,28 +1,25 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import {BehaviorSubject} from 'rxjs/Rx';
-import {Subject} from 'rxjs/Subject';
-import {MenuService, MenuState} from '../../../services/menu.service';
-import {ActivatedRoute, Router} from '@angular/router';
-import {MultiNavigationModel} from '../../../domainModel/multiNavigationModel';
-import {Observable} from 'rxjs/Observable';
-import {BeerBarModel} from '../../../domainModel/viewModels';
-import {BreweryService} from '../../../../brewery/breweryService';
-import {ServingStyle} from '../../../dto/barBeer';
-
+import { BehaviorSubject } from 'rxjs/Rx';
+import { Subject } from 'rxjs/Subject';
+import { MenuService, MenuState } from '../../../services/menu.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MultiNavigationModel } from '../../../domainModel/multiNavigationModel';
+import { Observable } from 'rxjs/Observable';
+import { BeerBarModel } from '../../../domainModel/viewModels';
+import { BreweryService } from '../../../../brewery/breweryService';
+import { ServingStyle } from '../../../dto/barBeer';
 
 @Component({
   selector: 'app-available-data',
   templateUrl: './available-data.component.html',
   styleUrls: ['./available-data.component.css']
 })
-
 /**
  * Displays which beer is available in a given bar and vice versa.
  * This class hold a series of callback methods that are called whenever an event data on this page changes.
  * It is also state aware in terms of on which page (beer, bar or brewery) this component is used.
  */
 export class AvailableDataComponent implements OnInit {
-
   @Input() items: Observable<any>;
   @Input() filter: number;
   @Input() dataIsBeerModel: boolean;
@@ -31,8 +28,7 @@ export class AvailableDataComponent implements OnInit {
   @Output() onAdd = new EventEmitter<BeerBarModel>()
   @Output() onRemove = new EventEmitter<string>()
   @Output() onCancel = new EventEmitter()
-  @Output() onCheers = new EventEmitter<{beerId: string, beerName: string}>()
-
+  @Output() onCheers = new EventEmitter<{ beerId: string, beerName: string }>()
 
   search: boolean;
   searchSubject: Subject<String> = new BehaviorSubject<string>('');
@@ -45,9 +41,9 @@ export class AvailableDataComponent implements OnInit {
   private id: string;
 
   constructor(private menuService: MenuService,
-              private router: Router,
-              private brewreyService: BreweryService,
-              private route: ActivatedRoute) {
+    private router: Router,
+    private brewreyService: BreweryService,
+    private route: ActivatedRoute) {
     this.search = false;
     this.linkInformation = false;
     this.menuState = menuService.state
@@ -96,7 +92,7 @@ export class AvailableDataComponent implements OnInit {
   }
 
   onCreateBeer(data: MultiNavigationModel) {
-    this.router.navigate(['beer/new', {name: data}]);
+    this.router.navigate(['beer/new', { name: data }]);
   }
 
   onResult(data: MultiNavigationModel) {
@@ -105,7 +101,7 @@ export class AvailableDataComponent implements OnInit {
     this.linkModel.beerName = data.name;
     if (this.dataIsBeerModel) {
       this.OnAddPrice(this.linkModel);
-    }else {
+    } else {
       this.linkInformation = true;
     }
   }
@@ -117,7 +113,6 @@ export class AvailableDataComponent implements OnInit {
     this.onAdd.emit(data);
   }
 
-
   onBarShow(id: string) {
     this.router.navigate(['bar', id]);
   }
@@ -126,17 +121,15 @@ export class AvailableDataComponent implements OnInit {
     this.router.navigate(['beer', id]);
   }
 
-
   cheers(beerId: string, beerName: string) {
     this.menuService.setNewState(this.menuState)
-    this.onCheers.emit({beerId: beerId, beerName: beerName});
+    this.onCheers.emit({ beerId: beerId, beerName: beerName });
   }
 
   onRemoveItem(id: string) {
     this.menuService.setNewState(this.menuState)
     this.onRemove.emit(id);
   }
-
 
   addCheers(beerIdAndName) {
     this.brewreyService.addBeerDrank(beerIdAndName);

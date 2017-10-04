@@ -1,5 +1,4 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { ImageUploaderComponent } from './image-uploader.component';
 
 describe('ImageUploaderComponent', () => {
@@ -8,9 +7,9 @@ describe('ImageUploaderComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ImageUploaderComponent ]
+      declarations: [ImageUploaderComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -1,12 +1,10 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
-import { UserService } from './userService';
-import { User } from '../shared/dto/user';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { MenuService, MenuState } from '../shared/services/menu.service';
-import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
-import { FriendsComponent } from "./friends/friends.component";
-import { BusinessService } from '../shared/services/business.service';
+import {Component, OnInit} from '@angular/core';
+import {UserService} from './userService';
+import {User} from '../shared/dto/user';
+import {ActivatedRoute, Router} from '@angular/router';
+import {MenuService} from '../shared/services/menu.service';
+import {Observable} from 'rxjs/Observable';
+import {BusinessService} from '../shared/services/business.service';
 
 @Component({
   selector: 'app-user',
@@ -20,10 +18,10 @@ export class UserComponent implements OnInit {
   user: Observable<User>;
 
   constructor(public userService: UserService,
-    private route: ActivatedRoute,
-    private router: Router,
-    private menuService: MenuService,
-    private businessService: BusinessService) {
+              private route: ActivatedRoute,
+              private router: Router,
+              private menuService: MenuService,
+              private businessService: BusinessService) {
     this.activeNavigation = 0;
   }
 

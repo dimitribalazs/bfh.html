@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { SearchComponent } from './search.component';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {SearchComponent} from './search.component';
 
 const searchRoutes: Routes = [
   {
@@ -17,4 +17,5 @@ const searchRoutes: Routes = [
     RouterModule
   ]
 })
-export class SearchRoutingModule { }
+export class SearchRoutingModule {
+}

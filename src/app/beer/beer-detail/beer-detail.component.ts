@@ -1,13 +1,13 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { DropDownEntry, DropDownlists } from '../../shared/domainModel/viewModels';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { BeerService } from '../beerService'
-import { MenuService, MenuState } from '../../shared/services/menu.service';
-import { isUndefined } from 'util';
-import { BehaviorSubject } from 'rxjs/Rx';
-import { Subject } from 'rxjs/Subject';
-import { Constants } from '../../shared/constants';
-import { MultiNavigationModel } from '../../shared/domainModel/multiNavigationModel';
+import {Component, OnInit} from '@angular/core';
+import {DropDownEntry, DropDownlists} from '../../shared/domainModel/viewModels';
+import {Router} from '@angular/router';
+import {BeerService} from '../beerService'
+import {MenuService} from '../../shared/services/menu.service';
+import {isUndefined} from 'util';
+import {BehaviorSubject} from 'rxjs/Rx';
+import {Subject} from 'rxjs/Subject';
+import {Constants} from '../../shared/constants';
+import {MultiNavigationModel} from '../../shared/domainModel/multiNavigationModel';
 
 @Component({
   selector: 'app-beer-detail',
@@ -27,10 +27,9 @@ export class BeerDetailComponent implements OnInit {
 
 
   constructor(public beerService: BeerService,
-    private menuService: MenuService,
-    private router: Router) {
+              private menuService: MenuService,
+              private router: Router) {
     this.searchBrewery = false;
-
   }
 
   ngOnInit() {
@@ -60,6 +59,7 @@ export class BeerDetailComponent implements OnInit {
       }
     });
   }
+
   onTasteSelectChange(item: any[]) {
     this.beerService.viewModel.taste = item;
   }

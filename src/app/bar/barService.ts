@@ -1,13 +1,13 @@
-import { Injectable } from '@angular/core';
-import { BusinessService } from '../shared/services/business.service';
-import { BarModel, BeerBarModel, BeerModel } from '../shared/domainModel/viewModels';
-import { RatingModel } from '../shared/components/rating/ratingModel';
-import { Subject } from 'rxjs/Subject';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { GeoData } from '../shared/dto/geoData';
-import { isNullOrUndefined } from 'util';
-import { Constants } from '../shared/constants';
-import { MultiNavigationModel } from '../shared/domainModel/multiNavigationModel';
+import {Injectable} from '@angular/core';
+import {BusinessService} from '../shared/services/business.service';
+import {BarModel, BeerBarModel} from '../shared/domainModel/viewModels';
+import {RatingModel} from '../shared/components/rating/ratingModel';
+import {Subject} from 'rxjs/Subject';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import {GeoData} from '../shared/dto/geoData';
+import {isNullOrUndefined} from 'util';
+import {Constants} from '../shared/constants';
+import {MultiNavigationModel} from '../shared/domainModel/multiNavigationModel';
 
 @Injectable()
 export class BarService {
@@ -15,7 +15,8 @@ export class BarService {
   availableBeerModel: Subject<Array<MultiNavigationModel>> = new BehaviorSubject<Array<MultiNavigationModel>>(new Array());
   public targetLocationSubject: Subject<GeoData> = new BehaviorSubject<GeoData>(new GeoData());
 
-  constructor(private businessService: BusinessService) { }
+  constructor(private businessService: BusinessService) {
+  }
 
   public getMenuState(): any {
     return {

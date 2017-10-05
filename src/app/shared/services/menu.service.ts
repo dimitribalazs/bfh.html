@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
+import {Injectable} from '@angular/core';
+import {Subject} from 'rxjs/Subject';
 
 /**
  * Holds current state of the main menu bar as well as callback functions
@@ -21,7 +21,7 @@ export class MenuService {
     onSubmit: () => {
     }
   };
-  state = { ...this.defaultState };
+  state = {...this.defaultState};
   state$: Subject<MenuState> = new Subject();
 
   /**
@@ -32,7 +32,7 @@ export class MenuService {
    */
   setNewState(state): void {
     // merge options
-    this.state = { ...this.defaultState, ...state };
+    this.state = {...this.defaultState, ...state};
     this.state$.next(this.state);
   }
 

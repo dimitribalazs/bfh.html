@@ -1,5 +1,5 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { LinkInformationComponent } from './link-information.component';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {LinkInformationComponent} from './link-information.component';
 
 describe('LinkInformationComponent', () => {
   let component: LinkInformationComponent;

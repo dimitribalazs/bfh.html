@@ -1,5 +1,5 @@
-import { Component } from "@angular/core";
-import { BusinessService } from "../../services/business.service";
+import {Component} from "@angular/core";
+import {BusinessService} from "../../services/business.service";
 
 @Component({
   selector: 'error',
@@ -12,6 +12,7 @@ import { BusinessService } from "../../services/business.service";
 export class ErrorComponent {
   error: string;
   stack: string;
+
   constructor(businessService: BusinessService) {
     //stringify help to display objects
     if (typeof businessService.appError == "object" && businessService.appError.message && businessService.appError.stack) {

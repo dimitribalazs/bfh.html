@@ -1,11 +1,9 @@
-import { Component, OnInit, AfterContentInit } from '@angular/core';
-import { BeerService } from '../beerService'
-import { Bar } from '../../shared/dto/bar';
-import { BeerBarModel } from '../../shared/domainModel/viewModels';
-import { BarService } from '../../bar/barService';
-import { GeoData } from '../../shared/dto/geoData';
-import { isNullOrUndefined } from 'util';
-import {} from '@types/googlemaps';
+import {AfterContentInit, Component, OnInit} from '@angular/core';
+import {BeerService} from '../beerService'
+import {BeerBarModel} from '../../shared/domainModel/viewModels';
+import {BarService} from '../../bar/barService';
+import {GeoData} from '../../shared/dto/geoData';
+import {isNullOrUndefined} from 'util';
 
 declare var google: any;
 
@@ -15,13 +13,13 @@ declare var google: any;
   styleUrls: ['./beer-map.component.css']
 })
 export class BeerMapComponent implements OnInit, AfterContentInit {
-  private map: google.maps.Map;
   targetDestinations: Array<GeoData>;
   beerBars: BeerBarModel[];
   barsAndGeoData: Array<[string, GeoData]>;
+  private map: google.maps.Map;
 
   constructor(private beerService: BeerService,
-    private barService: BarService) {
+              private barService: BarService) {
     this.targetDestinations = new Array<GeoData>();
     this.barsAndGeoData = new Array<[string, GeoData]>();
   }
@@ -30,7 +28,7 @@ export class BeerMapComponent implements OnInit, AfterContentInit {
     this.beerService.viewModel.bars.subscribe((beerBars) => {
       if (!isNullOrUndefined(beerBars)) {
         this.beerBars = beerBars;
-      };
+      }
 
       let locationsResultArray = new Array<GeoData>();
 
@@ -63,7 +61,7 @@ export class BeerMapComponent implements OnInit, AfterContentInit {
         throw new Error("Timeout while getting current position");
       }, {
         enableHighAccuracy: true,
-        timeout : 5000
+        timeout : 15000
       });
     } else {
       this.showPosition(null);
@@ -87,7 +85,7 @@ export class BeerMapComponent implements OnInit, AfterContentInit {
     const infowindow = new google.maps.InfoWindow();
 
     for (let markerData of this.barsAndGeoData) {
-      let markerPos = { lat: markerData[1].latitude, lng: markerData[1].longitude };
+      let markerPos = {lat: markerData[1].latitude, lng: markerData[1].longitude};
 
       let marker = new google.maps.Marker({
         position: markerPos,

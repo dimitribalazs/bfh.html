@@ -1,13 +1,13 @@
-import { Injectable, OnInit } from '@angular/core';
-import { GeoData } from '../dto/geoData';
-import { isNullOrUndefined } from "util";
-import { BehaviorSubject } from "rxjs/BehaviorSubject";
-import { Subject } from 'rxjs/Subject';
+import {Injectable} from '@angular/core';
+import {GeoData} from '../dto/geoData';
+import {isNullOrUndefined} from "util";
+import {BehaviorSubject} from "rxjs/BehaviorSubject";
+import {Subject} from 'rxjs/Subject';
 
 @Injectable()
 export class GeoService {
   private earthRadius: number = 6371;
-  private radius = 80;
+  private radius = 30;
 
   public positionSubject: Subject<GeoData> = new BehaviorSubject<GeoData>(new GeoData())
 

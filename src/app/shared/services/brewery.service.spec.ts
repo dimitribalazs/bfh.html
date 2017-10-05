@@ -1,12 +1,10 @@
-import { TestBed, inject, async } from '@angular/core/testing';
-import { BaseRequestOptions, Http, RequestMethod, ResponseOptions, Response } from '@angular/http';
-import { BreweryDatabaseService } from './brewery.service';
-import { Beer } from '../dto/beer';
+import {inject, TestBed} from '@angular/core/testing';
+import {BreweryDatabaseService} from './brewery.service';
 
 describe('BreweryDatabaseService ', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [ BreweryDatabaseService ]
+      providers: [BreweryDatabaseService]
     });
   });
 

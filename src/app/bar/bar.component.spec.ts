@@ -1,16 +1,16 @@
-import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
-import { FormsModule } from '@angular/forms';
-import { MenuService } from '../shared/services/menu.service';
-import { BarService } from './barService';
-import { BusinessService } from '../shared/services/business.service';
-import { BeerDatabaseService } from '../shared/services/beer.service';
-import { BreweryDatabaseService } from '../shared/services/brewery.service';
-import { BarDatabaseService } from '../shared/services/bar.service';
-import { UserDatabaseService } from '../shared/services/user.service';
-import { GeoService } from '../shared/services/geo.service';
-import { RouterTestingModule } from '@angular/router/testing';
-import { RatingComponent } from '../shared/components/rating/rating.component';
-import { BarComponent } from './bar.component';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {FormsModule} from '@angular/forms';
+import {MenuService} from '../shared/services/menu.service';
+import {BarService} from './barService';
+import {BusinessService} from '../shared/services/business.service';
+import {BeerDatabaseService} from '../shared/services/beer.service';
+import {BreweryDatabaseService} from '../shared/services/brewery.service';
+import {BarDatabaseService} from '../shared/services/bar.service';
+import {UserDatabaseService} from '../shared/services/user.service';
+import {GeoService} from '../shared/services/geo.service';
+import {RouterTestingModule} from '@angular/router/testing';
+import {RatingComponent} from '../shared/components/rating/rating.component';
+import {BarComponent} from './bar.component';
 
 describe('BarComponent', () => {
   let component: BarComponent;

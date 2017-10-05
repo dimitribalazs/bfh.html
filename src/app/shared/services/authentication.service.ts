@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { isNullOrUndefined } from "util";
+import {Injectable} from '@angular/core';
+import {isNullOrUndefined} from "util";
 
 @Injectable()
 export class AuthenticationService {

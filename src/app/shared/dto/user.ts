@@ -1,7 +1,6 @@
-import { GeoData } from './geoData';
-import { Beer } from './beer';
-import { IGeoData } from './IGeoData';
-import { BadgeType } from "../domainModel/badgeType";
+import {GeoData} from './geoData';
+import {IGeoData} from './IGeoData';
+import {BadgeType} from "../domainModel/badgeType";
 
 export class User implements IGeoData {
   id: string;

@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { Bar } from '../../shared/dto/bar';
-import { BarService } from '../barService';
-import { ActivatedRoute, Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {BarService} from '../barService';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-bar-info',
@@ -13,8 +12,8 @@ export class BarInfoComponent implements OnInit {
   id: string;
 
   constructor(public barService: BarService,
-    private router: Router,
-    private route: ActivatedRoute) {
+              private router: Router,
+              private route: ActivatedRoute) {
   }
 
   ngOnInit() {

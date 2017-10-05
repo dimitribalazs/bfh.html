@@ -1,27 +1,24 @@
-import { Component, OnInit } from '@angular/core';
-import { BarService } from '../barService';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { BeerBarModel } from '../../shared/domainModel/viewModels';
-import { MenuService } from '../../shared/services/menu.service';
+import {Component} from '@angular/core';
+import {BarService} from '../barService';
+import {Router} from '@angular/router';
+import {BeerBarModel} from '../../shared/domainModel/viewModels';
+import {MenuService} from '../../shared/services/menu.service';
 
 @Component({
   selector: 'app-available-beers',
   templateUrl: './available-beers.component.html',
   styleUrls: ['./available-beers.component.css']
 })
-export class AvailableBeersComponent implements OnInit {
+export class AvailableBeersComponent {
 
   filter: number
   service: BarService
 
   constructor(private barService: BarService,
-    private router: Router,
-    private menuService: MenuService) {
+              private router: Router,
+              private menuService: MenuService) {
     this.service = barService;
     this.filter = 3
-  }
-
-  ngOnInit() {
   }
 
   addCheers(beerId: string) {
@@ -38,6 +35,7 @@ export class AvailableBeersComponent implements OnInit {
       this.menuService.setNewState(this.barService.getMenuState());
     }, 2500);
   }
+
   onShowBeer(id: string) {
     this.router.navigate(['beer', id]);
   }
@@ -45,6 +43,7 @@ export class AvailableBeersComponent implements OnInit {
   addBeer(data: BeerBarModel) {
     this.barService.addBar(data)
   }
+
   removeBeer(id: string) {
     this.barService.removeBar(id)
   }

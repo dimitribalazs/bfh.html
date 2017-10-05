@@ -1,8 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Beer } from '../../shared/dto/beer';
-import { Observable } from 'rxjs/Observable';
-import { Router } from '@angular/router';
-import { isUndefined } from 'util';
+import {Component, Input, OnInit} from '@angular/core';
+import {Beer} from '../../shared/dto/beer';
+import {Observable} from 'rxjs/Observable';
+import {Router} from '@angular/router';
+import {isUndefined} from 'util';
 
 const SINGLE_IMAGE_WIDTH = 60;
 const SINGLE_SPAN_WIDTH = 64;

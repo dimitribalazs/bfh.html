@@ -7,7 +7,8 @@
         <span class={{data.icon}}></span>
         {{ data.name }}
         </span>
-        <button *ngIf="data.routerNavigate === '/user/'" class="btn btn-default btn-sm pull-right" (click)="onAddFriend()">
+        <button *ngIf="data.routerNavigate === '/user/'" class="btn btn-default btn-sm pull-right"
+                (click)="onAddFriend()">
           <i class="fa fa-user-plus" aria-hidden="true"></i>
         </button>
       </li>
@@ -21,14 +22,16 @@
       <h4>But cou can create a new one!</h4>
     </div>
     <div>
-      <button *ngIf="numberOfBeers === 0 && (filterNumber === 0 || filterNumber === 3 && ! addDisable)" (click)="onNewBeer()"
+      <button *ngIf="numberOfBeers === 0 && (filterNumber === 0 || filterNumber === 3 && ! addDisable)"
+              (click)="onNewBeer()"
               class="btn btn-default btn-sm ">
         <i class="fa fa-beer" aria-hidden="true"></i>
         Add a new Beer
       </button>
     </div>
     <div>
-      <button *ngIf="numberOfBrewerys === 0 && (filterNumber === 0 || filterNumber === 2) && ! addDisable" (click)="onNew()"
+      <button *ngIf="numberOfBrewerys === 0 && (filterNumber === 0 || filterNumber === 2) && ! addDisable"
+              (click)="onNew()"
               class="btn btn-default btn-sm">
         <i class="fa fa-industry" aria-hidden="true"></i>
         Add new Brewery

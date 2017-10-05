@@ -1,11 +1,11 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { FriendsComponent } from './friends/friends.component';
-import { FavouritesComponent } from './favourites/favourites.component';
-import { BadgesComponent } from './badges/badges.component';
-import { DetailComponent } from './detail/detail.component';
-import { UserComponent } from './user.component';
-import { AuthGuard } from '../shared/_guards/AuthGuard';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {FriendsComponent} from './friends/friends.component';
+import {FavouritesComponent} from './favourites/favourites.component';
+import {BadgesComponent} from './badges/badges.component';
+import {DetailComponent} from './detail/detail.component';
+import {UserComponent} from './user.component';
+import {AuthGuard} from '../shared/_guards/AuthGuard';
 
 const userRoutes: Routes = [
   {
@@ -18,11 +18,11 @@ const userRoutes: Routes = [
       {
         path: '',
         children: [
-          { path: '', component: FriendsComponent, canActivate: [AuthGuard] },
-          { path: 'friends', component: FriendsComponent, canActivate: [AuthGuard] },
-          { path: 'favourites', component: FavouritesComponent, canActivate: [AuthGuard] },
-          { path: 'badges', component: BadgesComponent, canActivate: [AuthGuard] },
-          { path: 'detail', component: DetailComponent, canActivate: [AuthGuard] },
+          {path: '', component: FriendsComponent, canActivate: [AuthGuard]},
+          {path: 'friends', component: FriendsComponent, canActivate: [AuthGuard]},
+          {path: 'favourites', component: FavouritesComponent, canActivate: [AuthGuard]},
+          {path: 'badges', component: BadgesComponent, canActivate: [AuthGuard]},
+          {path: 'detail', component: DetailComponent, canActivate: [AuthGuard]},
         ]
       }
     ]
@@ -37,4 +37,5 @@ const userRoutes: Routes = [
     RouterModule
   ]
 })
-export class UserRoutingModule { }
+export class UserRoutingModule {
+}

@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RatingComponent } from './rating.component';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {RatingComponent} from './rating.component';
 
 @NgModule({
   imports: [
@@ -9,4 +9,5 @@ import { RatingComponent } from './rating.component';
   declarations: [RatingComponent],
   exports: [RatingComponent]
 })
-export class RatingModule { }
+export class RatingModule {
+}

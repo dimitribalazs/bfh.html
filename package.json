@@ -13,7 +13,7 @@
     "watch": "ng serve -o -w",
     "static-serve": "cd dist && live-server --port=4200 --host=localhost --entry-file=/index.html",
     "push-server": "node pushTestServer/index.js",
-    "doc": "typedoc --name \"Duff'd\" --mode modules --module commonjs --exclude \"**/e2e/*.ts\" --out doc src"
+    "doc": "typedoc --name \"Duff'd\" --mode modules --module commonjs --exclude \"**/+(e2e|node_modules)/**/*.ts\" --excludeExternals --externalPattern **/node_modules/** --out ./doc ./src"
   },
   "private": true,
   "dependencies": {

@@ -1,14 +1,14 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormsModule } from '@angular/forms';
-import { By } from '@angular/platform-browser';
-import { BarService } from '../barService';
-import { BusinessService } from '../../shared/services/business.service';
-import { BeerDatabaseService } from '../../shared/services/beer.service';
-import { BreweryDatabaseService } from '../../shared/services/brewery.service';
-import { BarDatabaseService } from '../../shared/services/bar.service';
-import { UserDatabaseService } from '../../shared/services/user.service';
-import { GeoService } from '../../shared/services/geo.service';
-import { MapComponent } from './map.component';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {FormsModule} from '@angular/forms';
+import {By} from '@angular/platform-browser';
+import {BarService} from '../barService';
+import {BusinessService} from '../../shared/services/business.service';
+import {BeerDatabaseService} from '../../shared/services/beer.service';
+import {BreweryDatabaseService} from '../../shared/services/brewery.service';
+import {BarDatabaseService} from '../../shared/services/bar.service';
+import {UserDatabaseService} from '../../shared/services/user.service';
+import {GeoService} from '../../shared/services/geo.service';
+import {MapComponent} from './map.component';
 
 describe('MapComponent', () => {
   let component: MapComponent;

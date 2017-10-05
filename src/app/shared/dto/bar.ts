@@ -1,8 +1,6 @@
-import { GeoData } from './geoData';
-import { Beer } from './beer';
-import { BarBeer } from './barBeer';
-import { IGeoData } from './IGeoData';
-import { Time } from "../domainModel/viewModels";
+import {GeoData} from './geoData';
+import {IGeoData} from './IGeoData';
+import {Time} from "../domainModel/viewModels";
 
 export class Bar implements IGeoData {
   id: string;

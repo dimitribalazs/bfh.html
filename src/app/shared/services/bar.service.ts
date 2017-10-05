@@ -1,15 +1,15 @@
-import { Injectable, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs/Rx';
 import * as firebase from 'firebase';
-import { DatabaseService } from './database.service';
-import { FirebaseRefs, FirebaseEvent, getDatabase, getFirebaseRef } from './firebase';
-import { Bar } from '../dto/bar';
-import { BarBeer } from '../dto/barBeer';
-import { UserBarRating } from '../dto/userBarRating';
-import { UserBeer } from "../dto/userBeer";
-import { BarStatistics } from "../dto/barStatistics";
-import { UserBar } from "../dto/userBar";
-import { isNullOrUndefined } from "util";
+import {DatabaseService} from './database.service';
+import {FirebaseEvent, FirebaseRefs, getFirebaseRef} from './firebase';
+import {Bar} from '../dto/bar';
+import {BarBeer} from '../dto/barBeer';
+import {UserBarRating} from '../dto/userBarRating';
+import {UserBeer} from "../dto/userBeer";
+import {BarStatistics} from "../dto/barStatistics";
+import {UserBar} from "../dto/userBar";
+import {isNullOrUndefined} from "util";
 
 @Injectable()
 export class BarDatabaseService extends DatabaseService {

@@ -1,7 +1,8 @@
 <div class="duffd-row duffd-content">
   <div *ngIf="this.hasFavourites === true">
     <ul class="list-group">
-      <li *ngFor="let favorite of userService.viewModel.favoriteBeers| async" class="list-group-item" (click)="onSelect(favorite)">
+      <li *ngFor="let favorite of userService.viewModel.favoriteBeers| async" class="list-group-item"
+          (click)="onSelect(favorite)">
         {{favorite.name}}
       </li>
     </ul>

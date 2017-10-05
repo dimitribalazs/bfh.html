@@ -1,13 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Beer } from '../shared/dto/beer';
-import { Brewery } from '../shared/dto/brewery';
-import { BeerDatabaseService } from '../shared/services/beer.service';
-import { Observable } from 'rxjs/Observable';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { BeerService } from './beerService'
-import { MenuService } from '../shared/services/menu.service';
-import { RatingModel } from '../shared/components/rating/ratingModel';
-import { isUndefined } from "util";
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {BeerService} from './beerService'
+import {MenuService} from '../shared/services/menu.service';
+import {RatingModel} from '../shared/components/rating/ratingModel';
 
 @Component({
   selector: 'app-beer',
@@ -22,9 +17,9 @@ export class BeerComponent implements OnInit {
   activeNavigation: number;
 
   constructor(private beerService: BeerService,
-    private route: ActivatedRoute,
-    private router: Router,
-    private menuService: MenuService) {
+              private route: ActivatedRoute,
+              private router: Router,
+              private menuService: MenuService) {
     this.menuService.setNewState(this.beerService.getMenuState());
     this.activeNavigation = 0;
   }
@@ -62,7 +57,6 @@ export class BeerComponent implements OnInit {
       this.route.params.subscribe(params => {
         this.id = params['id'];
         this.beerService.loadBeer(this.id);
-
       });
     }
   }

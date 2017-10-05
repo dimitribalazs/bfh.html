@@ -1,18 +1,16 @@
-import { Injectable, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/observable/combineLatest';
 import * as firebase from 'firebase';
-import { DatabaseService } from './database.service';
-import { BarDatabaseService } from './bar.service';
-import { User } from '../dto/user';
-import { Beer } from '../dto/beer';
-import { FirebaseEvent, getFirebaseRef, FirebaseRefs } from './firebase';
-import { GeoService } from './geo.service';
-import { UserBeerRating } from "../dto/userBeerRating";
-import { BreweryDatabaseService } from "./brewery.service";
-import { isNullOrUndefined } from "util";
-import { SearchResult } from "../dto/searchResult";
-import { count } from "rxjs/operator/count";
+import {DatabaseService} from './database.service';
+import {BarDatabaseService} from './bar.service';
+import {User} from '../dto/user';
+import {FirebaseEvent, FirebaseRefs, getFirebaseRef} from './firebase';
+import {GeoService} from './geo.service';
+import {UserBeerRating} from "../dto/userBeerRating";
+import {BreweryDatabaseService} from "./brewery.service";
+import {isNullOrUndefined} from "util";
+import {SearchResult} from "../dto/searchResult";
 
 @Injectable()
 export class UserDatabaseService extends DatabaseService {
@@ -24,11 +22,9 @@ export class UserDatabaseService extends DatabaseService {
   private userBeerDrankPath: firebase.database.Reference;
   private searchResultsPath: firebase.database.Reference;
 
-  constructor(
-    private barService: BarDatabaseService,
-    private breweryService: BreweryDatabaseService,
-    private geoService: GeoService
-  ) {
+  constructor(private barService: BarDatabaseService,
+              private breweryService: BreweryDatabaseService,
+              private geoService: GeoService) {
     super();
     this.usersPath = getFirebaseRef(FirebaseRefs.Users);
     this.beersPath = getFirebaseRef(FirebaseRefs.Beers);
@@ -122,7 +118,7 @@ export class UserDatabaseService extends DatabaseService {
   };
 
   /**
-   * Get favorites beers from an user 
+   * Get favorites beers from an user
    * (leieder keine Zeit mehr gehabt um, diese Funktion aufzuräumen)
    * @param {string} userId
    * @returns {Observable<any>}

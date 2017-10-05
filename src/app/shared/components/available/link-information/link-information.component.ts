@@ -1,6 +1,5 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { BeerBarModel } from "../../../domainModel/viewModels";
-import { BarBeer } from "../../../dto/barBeer";
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {BeerBarModel} from "../../../domainModel/viewModels";
 
 @Component({
   selector: 'app-link-information',

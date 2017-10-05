@@ -3,7 +3,8 @@
       <i class="fa fa-cutlery fa-2x" aria-hidden="true"></i>
       Add bar
     </a>
-    <a class="btn btn-default btn-addstuff" (click)="onMapClick('map',3)"><i class="fa fa-map" aria-hidden="true"></i></a>
+    <a class="btn btn-default btn-addstuff" (click)="onMapClick('map',3)"><i class="fa fa-map"
+                                                                             aria-hidden="true"></i></a>
     </span>
 <span *ngIf="filter ==3 && !itemAddDisable">
   <a class="btn btn-default btn-sm pull-right btn-addstuff" (click)="onAddItem()">
@@ -17,11 +18,14 @@
     <li *ngFor="let item of items | async" class="list-group-item">
       <hr class="hr-gradient-slim">
       <span *ngIf="filter ==1">
-        <span  (click)="onBarShow(item.barId)">
+        <span (click)="onBarShow(item.barId)">
           {{item.barName}}, {{item.price}} CHF
-            <span *ngIf="item.servingStyle === servingStyle.BOTTLE">&nbsp;&nbsp;<img src="assets/icons/png/beer-bottle.png" class="icon-medium"></span>
-            <span *ngIf="item.servingStyle === servingStyle.GLASS">&nbsp;&nbsp;<img src="assets/icons/png/beer-glass.png" class="icon-medium"></span>
-            <span *ngIf="item.servingStyle === servingStyle.CAN">&nbsp;&nbsp;<img src="assets/icons/png/beer-can.png" class="icon-medium"></span>
+            <span *ngIf="item.servingStyle === servingStyle.BOTTLE">&nbsp;&nbsp;<img
+              src="assets/icons/png/beer-bottle.png" class="icon-medium"></span>
+            <span *ngIf="item.servingStyle === servingStyle.GLASS">&nbsp;&nbsp;<img
+              src="assets/icons/png/beer-glass.png" class="icon-medium"></span>
+            <span *ngIf="item.servingStyle === servingStyle.CAN">&nbsp;&nbsp;<img src="assets/icons/png/beer-can.png"
+                                                                                  class="icon-medium"></span>
         </span>
           <a (click)="onRemoveItem(item.barId)" class="btn btn-default btn-sm pull-right">
             <i class="fa fa-times fa-2x" aria-hidden="true"></i>
@@ -34,9 +38,12 @@
       <span *ngIf="filter ==3 && !dataIsBeerModel" style="overflow: hidden;">
           <span (click)="onBeerShow(item.beerId)">
             {{item.beerName}}, {{item.price}} CHF
-            <span *ngIf="item.servingStyle === servingStyle.BOTTLE">&nbsp;&nbsp;<img src="assets/icons/png/beer-bottle.png" class="icon-medium"></span>
-            <span *ngIf="item.servingStyle === servingStyle.GLASS">&nbsp;&nbsp;<img src="assets/icons/png/beer-glass.png" class="icon-medium"></span>
-            <span *ngIf="item.servingStyle === servingStyle.CAN">&nbsp;&nbsp;<img src="assets/icons/png/beer-can.png" class="icon-medium"></span>
+            <span *ngIf="item.servingStyle === servingStyle.BOTTLE">&nbsp;&nbsp;<img
+              src="assets/icons/png/beer-bottle.png" class="icon-medium"></span>
+            <span *ngIf="item.servingStyle === servingStyle.GLASS">&nbsp;&nbsp;<img
+              src="assets/icons/png/beer-glass.png" class="icon-medium"></span>
+            <span *ngIf="item.servingStyle === servingStyle.CAN">&nbsp;&nbsp;<img src="assets/icons/png/beer-can.png"
+                                                                                  class="icon-medium"></span>
           </span>
           <a (click)="onRemoveItem(item.beerId)" class="btn btn-default btn-sm pull-right">
             <i class="fa fa-times fa-2x" aria-hidden="true"></i>

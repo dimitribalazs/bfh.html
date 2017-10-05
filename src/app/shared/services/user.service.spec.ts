@@ -1,12 +1,8 @@
-import { TestBed, inject, async } from '@angular/core/testing';
-import { BaseRequestOptions, Http, RequestMethod, ResponseOptions, Response } from '@angular/http';
-import { UserDatabaseService } from './user.service';
-import { User } from '../dto/user';
-import { UserBeerRating } from '../dto/userBeerRating';
-import { UserBarRating } from '../dto/userBarRating';
-import { BarDatabaseService } from './bar.service';
-import { BreweryDatabaseService } from './brewery.service';
-import { GeoService } from './geo.service';
+import {async, inject, TestBed} from '@angular/core/testing';
+import {UserDatabaseService} from './user.service';
+import {BarDatabaseService} from './bar.service';
+import {BreweryDatabaseService} from './brewery.service';
+import {GeoService} from './geo.service';
 
 describe('UserDatabaseService ', () => {
   beforeEach(() => {

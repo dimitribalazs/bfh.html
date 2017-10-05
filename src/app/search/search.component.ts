@@ -1,9 +1,9 @@
-import { Component, OnChanges, OnInit } from '@angular/core';
-import { MenuService } from '../shared/services/menu.service';
-import { BehaviorSubject } from 'rxjs/Rx';
-import { Subject } from 'rxjs/Subject';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { MultiNavigationModel } from '../shared/domainModel/multiNavigationModel';
+import {Component, OnInit} from '@angular/core';
+import {MenuService} from '../shared/services/menu.service';
+import {BehaviorSubject} from 'rxjs/Rx';
+import {Subject} from 'rxjs/Subject';
+import {Router} from '@angular/router';
+import {MultiNavigationModel} from '../shared/domainModel/multiNavigationModel';
 
 @Component({
   selector: 'app-search',
@@ -11,15 +11,13 @@ import { MultiNavigationModel } from '../shared/domainModel/multiNavigationModel
   styleUrls: ['./search.component.css'],
 })
 export class SearchComponent implements OnInit {
-
   searchSubject: Subject<String> = new BehaviorSubject<String>('');
   filterSubject: Subject<number> = new BehaviorSubject<number>(0);
   activefilter: number
   activeSearchString: string
 
-  constructor(
-    private menuService: MenuService,
-    private router: Router) {
+  constructor(private menuService: MenuService,
+              private router: Router) {
     this.activeSearchString = ''
     this.activefilter = 0
   }
@@ -47,6 +45,6 @@ export class SearchComponent implements OnInit {
   }
 
   onAddBeer(data: MultiNavigationModel) {
-    this.router.navigate(['beer/new', { name: data }]);
+    this.router.navigate(['beer/new', {name: data}]);
   }
 }

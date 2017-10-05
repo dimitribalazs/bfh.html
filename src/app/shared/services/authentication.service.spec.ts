@@ -1,6 +1,5 @@
-import { TestBed, inject, async } from '@angular/core/testing';
-import { BaseRequestOptions, Http, RequestMethod, ResponseOptions, Response } from '@angular/http';
-import { AuthenticationService } from './authentication.service';
+import {inject, TestBed} from '@angular/core/testing';
+import {AuthenticationService} from './authentication.service';
 
 describe('AuthenticationService', () => {
   beforeEach(() => {

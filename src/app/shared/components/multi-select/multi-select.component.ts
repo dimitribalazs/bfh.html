@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-multi-select',
@@ -25,15 +25,19 @@ export class TasteMultiSelectComponent implements OnInit {
       classes: "myclass custom-class"
     };
   }
+
   onItemSelect(item: any) {
     this.onSelectChange.emit(this.selectedItems);
   }
+
   OnItemDeSelect(item: any) {
     this.onSelectChange.emit(this.selectedItems);
   }
+
   onSelectAll(items: any) {
     this.onSelectChange.emit(this.selectedItems);
   }
+
   onDeSelectAll(items: any) {
     this.onSelectChange.emit(this.selectedItems);
   }

@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { BeerService } from '../beerService'
-import { MenuService } from '../../shared/services/menu.service';
+import {Component} from '@angular/core';
+import {BeerService} from '../beerService'
+import {MenuService} from '../../shared/services/menu.service';
 
 @Component({
   selector: 'app-brewery-info',

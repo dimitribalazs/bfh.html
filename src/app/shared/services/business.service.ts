@@ -1,35 +1,40 @@
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { BehaviorSubject } from 'rxjs/Rx';
-import { Subject } from 'rxjs/Subject';
-import { Subscription } from 'rxjs/Subscription';
-import { Beer } from '../dto/beer';
-import { Brewery } from '../dto/brewery';
-import { User } from '../dto/user';
-import { GeoData } from '../dto/geoData';
-import { BarBeer } from '../dto/barBeer';
-import { Bar, OpenTime } from '../dto/bar';
-import { BeerDatabaseService } from '../services/beer.service';
-import { BreweryDatabaseService } from '../services/brewery.service'
-import { BarDatabaseService } from '../services/bar.service';
-import { UserDatabaseService } from '../services/user.service';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs/Observable';
+import {BehaviorSubject} from 'rxjs/Rx';
+import {Subject} from 'rxjs/Subject';
+import {Subscription} from 'rxjs/Subscription';
+import {Beer} from '../dto/beer';
+import {Brewery} from '../dto/brewery';
+import {User} from '../dto/user';
+import {GeoData} from '../dto/geoData';
+import {BarBeer} from '../dto/barBeer';
+import {Bar} from '../dto/bar';
+import {BeerDatabaseService} from '../services/beer.service';
+import {BreweryDatabaseService} from '../services/brewery.service'
+import {BarDatabaseService} from '../services/bar.service';
+import {UserDatabaseService} from '../services/user.service';
 import {
-  BarModel, BeerModel, BreweryModel, BeerBarModel, Time, DropDownEntry,
-  UserModel, Badge, BeerTotalStatistics
+  Badge,
+  BarModel,
+  BeerBarModel,
+  BeerModel,
+  BeerTotalStatistics,
+  BreweryModel,
+  DropDownEntry,
+  Time,
+  UserModel
 } from '../domainModel/viewModels';
-import { RatingModel } from '../components/rating/ratingModel';
-import { forEach } from '@angular/router/src/utils/collection';
-import { isNull, isNullOrUndefined } from 'util';
-import { UserBarRating } from '../dto/userBarRating';
-import { Rating, getRatingDefault } from '../dto/rating';
-import { UserBeerRating } from '../dto/userBeerRating';
-import { AroundYou } from '../domainModel/aroundYou';
-import { UserBeer } from '../dto/userBeer';
-import { UserBar } from '../dto/userBar';
-import { BeerStatistics } from '../dto/beerStatistics';
-import { BarStatistics } from '../dto/barStatistics';
-import { BadgeType } from '../domainModel/badgeType';
-import { GeoService } from '../services/geo.service';
+import {isNullOrUndefined} from 'util';
+import {UserBarRating} from '../dto/userBarRating';
+import {getRatingDefault, Rating} from '../dto/rating';
+import {UserBeerRating} from '../dto/userBeerRating';
+import {AroundYou} from '../domainModel/aroundYou';
+import {UserBeer} from '../dto/userBeer';
+import {UserBar} from '../dto/userBar';
+import {BeerStatistics} from '../dto/beerStatistics';
+import {BarStatistics} from '../dto/barStatistics';
+import {BadgeType} from '../domainModel/badgeType';
+import {GeoService} from '../services/geo.service';
 
 export enum BarState {
   UNDEFINED = 'Hours',
@@ -62,10 +67,10 @@ export class BusinessService {
   public positionSubject: Subject<GeoData> = new BehaviorSubject<GeoData>(new GeoData())
 
   constructor(private beerService: BeerDatabaseService,
-    private breweryService: BreweryDatabaseService,
-    private barService: BarDatabaseService,
-    private userService: UserDatabaseService,
-    private geoService: GeoService) {
+              private breweryService: BreweryDatabaseService,
+              private barService: BarDatabaseService,
+              private userService: UserDatabaseService,
+              private geoService: GeoService) {
     this.debugMode = false;
     this.beerSubject.asObservable();
     this.barSubject.asObservable();
@@ -297,8 +302,8 @@ export class BusinessService {
 
   /**
    * Set the bar rating
-   * @param barId 
-   * @param userRating 
+   * @param barId
+   * @param userRating
    */
   setBarRating(barId: string, userRating: number) {
     const barRating: UserBarRating = {
@@ -359,11 +364,11 @@ export class BusinessService {
    */
   setCurrentUser(userId: string) {
     this.userService.get(userId).subscribe((user: User) => {
-      // map dto to viewModel
-      const userModel: UserModel = this.mapUserDtoToDomainModel(user);
-      this.currentUser = userModel
-      this.geoService.setCurrentPosition()
-    }
+        // map dto to viewModel
+        const userModel: UserModel = this.mapUserDtoToDomainModel(user);
+        this.currentUser = userModel
+        this.geoService.setCurrentPosition()
+      }
     )
   }
 
@@ -820,11 +825,13 @@ export class BusinessService {
     dto.name = model.name;
     dto.description = model.description;
     dto.volume = model.volume;
-    dto.brewType = model.brewType || new Array<DropDownEntry>();;
+    dto.brewType = model.brewType || new Array<DropDownEntry>();
+    ;
     console.log("brauerei", model.brewery);
     dto.brewery = model.brewery.id
     dto.image = model.image;
-    dto.taste = model.taste || new Array<DropDownEntry>();;
+    dto.taste = model.taste || new Array<DropDownEntry>();
+    ;
     dto.location = model.location;
     dto.owner = model.owner;
 

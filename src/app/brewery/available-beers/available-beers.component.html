@@ -2,12 +2,12 @@
   Our fine brews:
 </span>
 
-  <app-available-data
-    [filter]="filter"
-    [items]="breweryService.viewModel.beers"
-    [dataIsBeerModel] = "dataIsBeerModel"
-    [itemAddDisable]="disableAddBeer"
-    (onAdd)="addBeer($event)"
-    (onRemove)="removeBeer($event)"
-    (onCheers)="addCheers($event)">
-  </app-available-data>
+<app-available-data
+  [filter]="filter"
+  [items]="breweryService.viewModel.beers"
+  [dataIsBeerModel]="dataIsBeerModel"
+  [itemAddDisable]="disableAddBeer"
+  (onAdd)="addBeer($event)"
+  (onRemove)="removeBeer($event)"
+  (onCheers)="addCheers($event)">
+</app-available-data>

@@ -1,4 +1,4 @@
-import { GeoData } from './geoData';
+import {GeoData} from './geoData';
 
 export interface IGeoData {
   location: GeoData;

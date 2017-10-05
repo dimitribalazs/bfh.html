@@ -1,5 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { MenuService } from '../shared/services/menu.service';
+import {Component, Input} from '@angular/core';
+import {MenuService} from '../shared/services/menu.service';
 
 @Component({
   selector: 'app-image-uploader',
@@ -9,5 +9,6 @@ import { MenuService } from '../shared/services/menu.service';
 export class ImageUploaderComponent {
   @Input() titleDetail: String;
 
-  constructor(private menuService: MenuService) { }
+  constructor(private menuService: MenuService) {
+  }
 }

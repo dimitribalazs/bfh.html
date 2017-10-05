@@ -1,7 +1,5 @@
-import { TestBed, inject, async } from '@angular/core/testing';
-import { BaseRequestOptions, Http, RequestMethod, ResponseOptions, Response } from '@angular/http';
-import { GeoService } from './geo.service';
-import { GeoData } from '../dto/geoData';
+import {async, inject, TestBed} from '@angular/core/testing';
+import {GeoService} from './geo.service';
 
 describe('GeoService ', () => {
   beforeEach(() => {

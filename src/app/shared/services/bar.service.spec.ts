@@ -1,8 +1,6 @@
-import { TestBed, inject, async } from '@angular/core/testing';
-import { BaseRequestOptions, Http, RequestMethod, ResponseOptions, Response } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
-import { BarDatabaseService } from './bar.service';
-import { Bar } from '../dto/bar';
+import {async, inject, TestBed} from '@angular/core/testing';
+import {BarDatabaseService} from './bar.service';
+import {Bar} from '../dto/bar';
 
 describe('BarDatabaseService ', () => {
   beforeEach(() => {

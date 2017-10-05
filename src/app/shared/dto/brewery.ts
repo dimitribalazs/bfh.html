@@ -1,6 +1,6 @@
-import { Beer } from './beer';
-import { GeoData } from './geoData';
-import { IGeoData } from "./IGeoData";
+import {Beer} from './beer';
+import {GeoData} from './geoData';
+import {IGeoData} from "./IGeoData";
 
 export class Brewery implements IGeoData {
   id: string;

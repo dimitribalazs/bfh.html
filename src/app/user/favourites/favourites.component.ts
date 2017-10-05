@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { Beer } from '../../shared/dto/beer';
-import { UserService } from '../userService';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { BusinessService } from '../../shared/services/business.service';
+import {Component, OnInit} from '@angular/core';
+import {Beer} from '../../shared/dto/beer';
+import {UserService} from '../userService';
+import {Router} from '@angular/router';
+import {BusinessService} from '../../shared/services/business.service';
 
 const USER_CURRENT_NO_FAVOURITES = 'You have no favourite beer!';
 const USER_FOREIGN_NO_FAVOURITES = 'This user has no favourite beers';
@@ -23,8 +22,8 @@ export class FavouritesComponent implements OnInit {
   private selectedId: string;
 
   constructor(public userService: UserService,
-    private router: Router,
-    private businessService: BusinessService) {
+              private router: Router,
+              private businessService: BusinessService) {
   }
 
   ngOnInit() {

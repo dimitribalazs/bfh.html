@@ -63,7 +63,7 @@ export class BeerMapComponent implements OnInit, AfterContentInit {
         throw new Error("Timeout while getting current position");
       }, {
         enableHighAccuracy: true,
-        timeout : 5000
+        timeout : 15000
       });
     } else {
       this.showPosition(null);

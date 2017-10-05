@@ -39,7 +39,7 @@ export class MapComponent implements OnInit, AfterContentInit {
           throw new Error("Timeout while getting current position");
       }, {
         enableHighAccuracy: true,
-        timeout : 5000
+        timeout : 15000
       });
     } else {
       this.showBarPosition();

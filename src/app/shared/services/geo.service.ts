@@ -7,7 +7,7 @@ import {Subject} from 'rxjs/Subject';
 @Injectable()
 export class GeoService {
   private earthRadius: number = 6371;
-  private radius = 80;
+  private radius = 30;
 
   public positionSubject: Subject<GeoData> = new BehaviorSubject<GeoData>(new GeoData())
 
